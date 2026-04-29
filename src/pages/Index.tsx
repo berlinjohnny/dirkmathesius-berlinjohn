@@ -10,6 +10,7 @@ const categories = [
     label: "Sport",
     altBase: "Sportfotografie Berlin – Dirk Mathesius",
     cover: `${BASE}/sport/wp01.jpg`,
+    coverPosition: "center 75%",
     images: Array.from({ length: 28 }, (_, i) => `${BASE}/sport/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -17,6 +18,7 @@ const categories = [
     label: "People",
     altBase: "Portraitfotografie Berlin – Dirk Mathesius",
     cover: `${BASE}/folks/wp01.jpg`,
+    coverPosition: "35% 25%",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/folks/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -24,6 +26,7 @@ const categories = [
     label: "Music",
     altBase: "Musikfotografie Berlin – Dirk Mathesius",
     cover: `${BASE}/music/wp01.jpg`,
+    coverPosition: "65% center",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/music/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -31,6 +34,7 @@ const categories = [
     label: "Reportage",
     altBase: "Reportagefotografie Berlin – Dirk Mathesius",
     cover: `${BASE}/reportage/wp01.jpg`,
+    coverPosition: "center 15%",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/reportage/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -38,6 +42,7 @@ const categories = [
     label: "Landscape",
     altBase: "Landschaftsfotografie – Dirk Mathesius",
     cover: `${BASE}/landscape/wp01.jpg`,
+    coverPosition: "30% 75%",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/landscape/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -45,6 +50,7 @@ const categories = [
     label: "Stills",
     altBase: "Produktfotografie Stills Berlin – Dirk Mathesius",
     cover: `${BASE}/stills/wp01.jpg`,
+    coverPosition: "center 55%",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/stills/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
   {
@@ -52,6 +58,7 @@ const categories = [
     label: "Publication",
     altBase: "Editorial Fotografie Berlin – Stern, Men's Health – Dirk Mathesius",
     cover: `${BASE}/publication/wp01.jpg`,
+    coverPosition: "30% 10%",
     images: Array.from({ length: 20 }, (_, i) => `${BASE}/publication/wp${String(i + 1).padStart(2, "0")}.jpg`),
   },
 ];
@@ -262,21 +269,13 @@ export default function Index() {
       {/* Portfolio Grid */}
       <section id="portfolio" className={`p-1 md:p-2 ${altBg}`}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
-          <button onClick={() => setActiveGallery(categories[0])}
-            aria-label="Sport Portfolio öffnen"
-            className="img-hover relative col-span-2 row-span-2 cursor-pointer group" style={{ minHeight: 400 }}>
-            <img src={categories[0].cover} alt={categories[0].altBase} className="w-full h-full object-cover" style={{ minHeight: 400 }} />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
-            <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-white/90">Sport</span>
-            </div>
-          </button>
-          {categories.slice(1).map((cat) => (
+          {categories.map((cat) => (
             <button key={cat.id} onClick={() => setActiveGallery(cat)}
               aria-label={`${cat.label} Portfolio öffnen`}
-              className="img-hover relative cursor-pointer group" style={{ aspectRatio: "4/3" }}>
+              className="img-hover relative cursor-pointer group overflow-hidden" style={{ aspectRatio: "1/1" }}>
               <img src={cat.cover} alt={cat.altBase} className="w-full h-full object-cover"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = `${BASE}/sport/wp0${categories.indexOf(cat) + 2}.jpg`; }} />
+                style={{ objectPosition: cat.coverPosition }}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-500" />
               <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="text-[10px] tracking-[0.4em] uppercase text-white/90">{cat.label}</span>
