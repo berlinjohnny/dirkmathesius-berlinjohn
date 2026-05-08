@@ -15,7 +15,11 @@ const coverPosition: Record<string, string> = {
 };
 
 const categories = portfolio;
-const HERO = categories.find((c) => c.id === "sport")?.images[0] ?? categories[0].images[0];
+const HERO_FILENAME = "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp";
+const HERO =
+  categories.find((c) => c.id === "sport")?.images.find((i) => i.src.endsWith(HERO_FILENAME))
+  ?? categories.find((c) => c.id === "sport")?.images[0]
+  ?? categories[0].images[0];
 
 const clients = ["BMW Motorrad", "Red Bull", "adidas", "Stern", "Men's Health", "Amazon", "Heineken", "T-Mobile"];
 
