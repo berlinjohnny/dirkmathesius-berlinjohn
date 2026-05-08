@@ -1,81 +1,36 @@
 import { useState, useEffect } from "react";
 import { X, Mail, Phone, ChevronDown, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 
-const BASE = "https://www.dirkmathesius.de";
+// Per-category cover framing (CSS object-position) — tweak after viewing covers in browser.
+const coverPosition: Record<string, string> = {
+  sport: "center 35%",
+  folks: "center 30%",
+  music: "center center",
+  reportage: "center 30%",
+  landscape: "center center",
+  stills: "center 50%",
+  publication: "center 25%",
+};
 
-const categories = [
-  {
-    id: "sport",
-    label: "Sport",
-    altBase: "Sportfotografie Berlin – Dirk Mathesius",
-    cover: `${BASE}/sport/wp01.jpg`,
-    coverPosition: "center 75%",
-    images: Array.from({ length: 28 }, (_, i) => `${BASE}/sport/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "folks",
-    label: "People",
-    altBase: "Portraitfotografie Berlin – Dirk Mathesius",
-    cover: `${BASE}/folks/wp01.jpg`,
-    coverPosition: "35% 25%",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/folks/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "music",
-    label: "Music",
-    altBase: "Musikfotografie Berlin – Dirk Mathesius",
-    cover: `${BASE}/music/wp01.jpg`,
-    coverPosition: "65% center",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/music/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "reportage",
-    label: "Reportage",
-    altBase: "Reportagefotografie Berlin – Dirk Mathesius",
-    cover: `${BASE}/reportage/wp01.jpg`,
-    coverPosition: "center 15%",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/reportage/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "landscape",
-    label: "Landscape",
-    altBase: "Landschaftsfotografie – Dirk Mathesius",
-    cover: `${BASE}/landscape/wp01.jpg`,
-    coverPosition: "30% 75%",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/landscape/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "stills",
-    label: "Stills",
-    altBase: "Produktfotografie Stills Berlin – Dirk Mathesius",
-    cover: `${BASE}/stills/wp01.jpg`,
-    coverPosition: "center 55%",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/stills/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-  {
-    id: "publication",
-    label: "Publication",
-    altBase: "Editorial Fotografie Berlin – Stern, Men's Health – Dirk Mathesius",
-    cover: `${BASE}/publication/wp01.jpg`,
-    coverPosition: "30% 10%",
-    images: Array.from({ length: 20 }, (_, i) => `${BASE}/publication/wp${String(i + 1).padStart(2, "0")}.jpg`),
-  },
-];
+const categories = portfolio;
+const HERO = categories.find((c) => c.id === "sport")?.images[0] ?? categories[0].images[0];
 
 const clients = ["BMW Motorrad", "Red Bull", "adidas", "Stern", "Men's Health", "Amazon", "Heineken", "T-Mobile"];
 
-type Cat = typeof categories[0];
+type Cat = PortfolioCategory;
 
-function Lightbox({ cat, images, index: startIndex, onClose }: { cat: Cat; images: string[]; index: number; onClose: () => void }) {
+function Lightbox({ cat, images, index: startIndex, onClose }: { cat: Cat; images: PortfolioImage[]; index: number; onClose: () => void }) {
   const [idx, setIdx] = useState(startIndex);
+  const current = images[idx];
   return (
     <div className="fixed inset-0 z-50 bg-black/96 flex items-center justify-center" onClick={onClose}>
       <button className="absolute top-4 right-4 text-white/60 hover:text-white p-2" aria-label="Schließen" onClick={onClose}><X size={24} /></button>
       <button className="absolute left-2 md:left-6 text-white/40 hover:text-white text-4xl px-4 py-8 z-10"
         aria-label="Vorheriges Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.max(0, idx - 1)); }}>‹</button>
-      <img src={images[idx]} alt={`${cat.altBase} – Foto ${idx + 1}`} className="max-h-[85vh] max-w-[85vw] object-contain"
+      <img src={current.src} alt={current.alt} className="max-h-[85vh] max-w-[85vw] object-contain"
         onClick={(e) => e.stopPropagation()}
         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
       <button className="absolute right-2 md:right-6 text-white/40 hover:text-white text-4xl px-4 py-8 z-10"
@@ -103,10 +58,10 @@ function Gallery({ cat, onClose, dark }: { cat: Cat; onClose: () => void; dark: 
         </button>
       </div>
       <div className="p-3 md:p-5 columns-2 md:columns-3 lg:columns-4 gap-2 md:gap-3">
-        {cat.images.map((src, i) => (
-          <div key={i} className="img-hover mb-2 md:mb-3 cursor-pointer break-inside-avoid"
+        {cat.images.map((img, i) => (
+          <div key={img.src} className="img-hover mb-2 md:mb-3 cursor-pointer break-inside-avoid"
             onClick={() => setLightbox(i)}>
-            <img src={src} alt={`${cat.altBase} – Foto ${i + 1}`} className="w-full block" loading="lazy"
+            <img src={img.src} alt={img.alt} className="w-full block" loading="lazy" decoding="async"
               onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
           </div>
         ))}
@@ -247,8 +202,8 @@ export default function Index() {
 
       {/* Hero — full-bleed photo, white text always */}
       <section className="relative h-screen flex items-end pb-16 overflow-hidden">
-        <img src={`${BASE}/sport/wp01.jpg`}
-          alt="Dirk Mathesius – Sportfotograf Berlin – Professionelle Sportfotografie für BMW Motorrad, Red Bull und adidas"
+        <img src={HERO.src}
+          alt={`${HERO.alt} – Sportfotograf Berlin (BMW Motorrad, Red Bull, adidas)`}
           fetchpriority="high"
           className="absolute inset-0 w-full h-full object-cover" />
         <div className={`absolute inset-0 ${dark ? "bg-gradient-to-t from-black/80 via-black/15 to-black/50" : "bg-gradient-to-t from-black/70 via-black/10 to-black/40"}`} />
@@ -273,8 +228,8 @@ export default function Index() {
             <button key={cat.id} onClick={() => setActiveGallery(cat)}
               aria-label={`${cat.label} Portfolio öffnen`}
               className="img-hover relative cursor-pointer group overflow-hidden" style={{ aspectRatio: "1/1" }}>
-              <img src={cat.cover} alt={cat.altBase} className="w-full h-full object-cover"
-                style={{ objectPosition: cat.coverPosition }}
+              <img src={cat.cover} alt={cat.coverAlt} className="w-full h-full object-cover" loading="lazy"
+                style={{ objectPosition: coverPosition[cat.id] ?? "center center" }}
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-500" />
               <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

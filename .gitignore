@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dirk's source upload — canonical copy lives in public/portfolio/
+DirkMathesius.de_Texte/
