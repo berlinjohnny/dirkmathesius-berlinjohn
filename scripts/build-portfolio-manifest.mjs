@@ -70,15 +70,42 @@ const total = categories.reduce((n, c) => n + c.images.length, 0);
 console.log(`✅ portfolio.ts — ${categories.length} Kategorien, ${total} Bilder`);
 for (const c of categories) console.log(`   ${c.id}: ${c.images.length}`);
 
-// --- sitemap.xml (Google Image Sitemap)
+// --- sitemap.xml (Google Image Sitemap, SEO-optimized for the live multi-page site)
 const SITE = "https://dirkmathesius.berlinjohn.de";
+const HOME_HERO = "https://www.dirkmathesius.de/images/windowpic.jpg"; // Live hero (Bäume / Flagge)
 const today = new Date().toISOString().slice(0, 10);
 const xmlEscape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 const enc = (s) => s.split("/").map(encodeURIComponent).join("/");
-const allImages = categories.flatMap((c) => c.images);
-const homeImages = allImages.map((img) =>
-  `    <image:image>\n      <image:loc>${SITE}${enc(img.src)}</image:loc>\n      <image:title>${xmlEscape(img.alt)}</image:title>\n    </image:image>`
-).join("\n");
+
+const captionByCat = {
+  sport:       "© Dirk Mathesius – Sportfotografie Berlin",
+  folks:       "© Dirk Mathesius – Portrait & People Photography Berlin",
+  music:       "© Dirk Mathesius – Musikfotografie & Konzertfotografie Berlin",
+  reportage:   "© Dirk Mathesius – Reportagefotografie Berlin",
+  landscape:   "© Dirk Mathesius – Landschaftsfotografie",
+  stills:      "© Dirk Mathesius – Stills & Produktfotografie Berlin",
+  publication: "© Dirk Mathesius – Editorial Photography Berlin (Stern, Men's Health)",
+};
+
+const imageBlock = (img, catId) =>
+  `    <image:image>
+      <image:loc>${SITE}${enc(img.src)}</image:loc>
+      <image:title>${xmlEscape(img.alt)}</image:title>
+      <image:caption>${xmlEscape(captionByCat[catId] ?? "© Dirk Mathesius")}</image:caption>
+    </image:image>`;
+
+const categoryUrl = (c) => {
+  const blocks = c.images.map((img) => imageBlock(img, c.id)).join("\n");
+  const priority = c.id === "sport" || c.id === "folks" || c.id === "music" || c.id === "publication" ? "0.9" : "0.8";
+  return `  <url>
+    <loc>${SITE}/${c.id}.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${priority}</priority>
+${blocks}
+  </url>`;
+};
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -87,10 +114,27 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-${homeImages}
+    <image:image>
+      <image:loc>${HOME_HERO}</image:loc>
+      <image:title>Dirk Mathesius Fotograf Berlin – Hasselblad 501c CFVii50v</image:title>
+      <image:caption>© Dirk Mathesius, John Förster, AcroBerlin – Hasselblad 501c CFVii50v</image:caption>
+    </image:image>
+  </url>
+${categories.map(categoryUrl).join("\n")}
+  <url>
+    <loc>${SITE}/info.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>${SITE}/impressum</loc>
+    <loc>${SITE}/impressum.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>${SITE}/datenschutzerklaerung.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
@@ -98,4 +142,5 @@ ${homeImages}
 </urlset>
 `;
 writeFileSync(join(root, "public", "sitemap.xml"), sitemap);
-console.log(`✅ sitemap.xml — ${allImages.length} image entries`);
+const totalImg = categories.reduce((n, c) => n + c.images.length, 0);
+console.log(`✅ sitemap.xml — ${categories.length} category pages × image entries = ${totalImg} <image:image> blocks + 1 hero`);
