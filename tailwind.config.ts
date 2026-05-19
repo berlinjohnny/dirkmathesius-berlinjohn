@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Oswald", "sans-serif"],
-        body: ["Mulish", "sans-serif"],
+        heading: ["Cormorant Garamond", "Georgia", "serif"],
+        body: ["Cormorant Garamond", "Georgia", "serif"],
+        sans: ["Mulish", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
