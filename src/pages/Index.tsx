@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { X, Mail, Phone, ChevronDown, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
+import { Helmet } from "react-helmet-async";
+import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
 
 // Per-category cover framing (CSS object-position) — tweak after viewing covers in browser.
 const coverPosition: Record<string, string> = {
@@ -152,6 +154,9 @@ export default function Index() {
 
   return (
     <div className={`min-h-screen ${pageBg} ${headingC} transition-colors duration-300`}>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
+      </Helmet>
 
       {/* Nav */}
       <nav className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 py-5 transition-all duration-400 ${
