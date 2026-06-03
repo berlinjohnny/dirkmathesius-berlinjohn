@@ -36,9 +36,15 @@ function Lightbox({ cat, images, index: startIndex, onClose }: { cat: Cat; image
       <button className="absolute left-2 md:left-6 text-white/40 hover:text-white text-4xl px-4 py-8 z-10"
         aria-label="Vorheriges Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.max(0, idx - 1)); }}>‹</button>
-      <img src={current.src} alt={current.alt} className="max-h-[85vh] max-w-[85vw] object-contain"
-        onClick={(e) => e.stopPropagation()}
-        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+      <figure className="flex flex-col items-center gap-3 max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+        <img src={current.src} alt={current.alt} className="max-h-[78vh] max-w-[90vw] object-contain"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+        {current.caption && (
+          <figcaption className="max-w-3xl px-4 text-center text-sm leading-relaxed text-white/70">
+            {current.caption}
+          </figcaption>
+        )}
+      </figure>
       <button className="absolute right-2 md:right-6 text-white/40 hover:text-white text-4xl px-4 py-8 z-10"
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
