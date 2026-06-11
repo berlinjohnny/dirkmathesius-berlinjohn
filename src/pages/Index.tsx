@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { X, Mail, Phone, ChevronDown, Sun, Moon } from "lucide-react";
-import { Link } from "react-router-dom";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
@@ -308,9 +307,12 @@ export default function Index() {
       <footer className={`px-6 py-8 border-t ${borderC} ${sectionBg} flex flex-col md:flex-row items-center justify-between gap-3`}>
         <span className={`text-xs ${mutedC} tracking-widest`}>© 2026 DIRK MATHESIUS</span>
         <div className="flex items-center gap-6">
-          <Link to="/impressum" className={`text-xs ${mutedC} ${hoverC} transition-colors tracking-widest`}>
+          <a href="/impressum.html" className={`text-xs ${mutedC} ${hoverC} transition-colors tracking-widest`}>
             IMPRESSUM
-          </Link>
+          </a>
+          <a href="/datenschutzerklaerung.html" className={`text-xs ${mutedC} ${hoverC} transition-colors tracking-widest`}>
+            DATENSCHUTZ
+          </a>
           <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener noreferrer"
             className={`text-xs ${mutedC} ${hoverC} transition-colors tracking-widest`}>
             DIRKMATHESIUS.DE
