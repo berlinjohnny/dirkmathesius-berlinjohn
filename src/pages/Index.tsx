@@ -48,7 +48,7 @@ function Lightbox({ cat, images, index: startIndex, onClose }: { cat: Cat; image
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
       <div className="absolute bottom-4 left-0 right-0 px-6 flex flex-col items-center gap-1 text-center" onClick={(e) => e.stopPropagation()}>
-        {current.title && <p className="text-white/75 text-sm max-w-xl">{current.title}</p>}
+        {current.title && <p className="text-white/75 text-sm max-w-xl"><span className="opacity-70">© Dirk Mathesius</span> · {current.title}</p>}
         <span className="text-white/30 text-xs tracking-widest">{idx + 1} / {images.length}</span>
       </div>
     </div>
@@ -79,7 +79,7 @@ function Gallery({ cat, onClose, dark }: { cat: Cat; onClose: () => void; dark: 
               onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
             {img.title && (
               <figcaption className={`text-[11px] leading-snug mt-1.5 mb-1 ${dark ? "text-white/45" : "text-black/50"}`}>
-                {img.title}
+                <span className="opacity-70">© Dirk Mathesius</span> · {img.title}
               </figcaption>
             )}
           </div>
