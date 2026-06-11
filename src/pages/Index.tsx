@@ -4,8 +4,6 @@ import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/po
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
 
-const ORANGE = "#FF6600";
-
 // Per-category cover framing (CSS object-position).
 const coverPosition: Record<string, string> = {
   sport: "center 35%",
@@ -38,16 +36,12 @@ const clients = [
 
 const COPY = "© Dirk Mathesius";
 
-/* Marken-USP: das orange Kreuz als gestochener Vektor */
-function CrossLogo({ size = 40, className = "" }: { size?: number; className?: string }) {
+/* Original-Logo (oranges Kreuz mit schwarzem Rahmen + www.dirk-mathesius.de) – Marken-USP */
+function Logo({ size = 40, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" className={className} role="img" aria-label="Dirk Mathesius Logo">
-      <rect width="64" height="64" rx="3" fill={ORANGE} />
-      <g stroke="#111111" strokeWidth="13" strokeLinecap="square">
-        <line x1="15" y1="15" x2="49" y2="49" />
-        <line x1="49" y1="15" x2="15" y2="49" />
-      </g>
-    </svg>
+    <img src="/images/dm-logo.jpg" alt="Dirk Mathesius Logo – www.dirk-mathesius.de"
+      width={size} height={size} style={{ width: size, height: size }}
+      className={`object-contain ${className}`} loading="eager" decoding="async" />
   );
 }
 
@@ -94,7 +88,7 @@ function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void
     <div className="fixed inset-0 z-40 bg-white overflow-y-auto" role="dialog" aria-label={`${cat.altBase} Portfolio`}>
       <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-black/10 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <CrossLogo size={22} />
+          <Logo size={26} />
           <h2 className="text-[13px] tracking-[0.3em] uppercase text-black/80">{cat.label}</h2>
         </div>
         <button onClick={onClose} className="text-black/40 hover:text-[#FF6600] flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors">
@@ -168,7 +162,7 @@ export default function Index() {
 
       {/* Schlanke Sticky-Markenleiste beim Scrollen */}
       <div className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-center gap-3 bg-white/90 backdrop-blur border-b border-black/10 transition-all duration-300 ${scrolled ? "py-2.5 opacity-100" : "opacity-0 -translate-y-full"}`}>
-        <CrossLogo size={20} />
+        <Logo size={24} />
         <span className="text-[12px] tracking-[0.35em] uppercase text-black/80">Dirk Mathesius</span>
       </div>
 
@@ -176,7 +170,7 @@ export default function Index() {
         {/* Brand-Lockup — der optische USP */}
         <header className="text-center">
           <a href="#top" aria-label="Startseite" className="inline-block">
-            <CrossLogo size={52} className="mx-auto" />
+            <Logo size={96} className="mx-auto" />
           </a>
           <h1 className="mt-4 text-[26px] md:text-[34px] tracking-[0.32em] uppercase font-medium leading-none">
             Dirk&nbsp;Mathesius
@@ -210,23 +204,28 @@ export default function Index() {
           </figcaption>
         </figure>
 
-        {/* Bereiche */}
-        <section className="mt-14 md:mt-20">
-          <p className="text-center text-[10px] tracking-[0.45em] uppercase text-black/40 mb-6">Portfolio</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+        {/* Trust-Badge — dezente Kundenreferenzen */}
+        <section className="mt-12 md:mt-16 text-center">
+          <p className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-black/35 mb-3">Vertraut von</p>
+          <p className="text-[11px] md:text-[12px] leading-relaxed text-black/45 max-w-3xl mx-auto">
+            {clients.join("  ·  ")}
+          </p>
+        </section>
+
+        {/* Portfolio — kleine, horizontale Thumbnails zu den Bereichen */}
+        <section className="mt-9 md:mt-12">
+          <p className="text-center text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-black/30 mb-4">Portfolio</p>
+          <div className="flex flex-wrap items-start justify-center gap-3 md:gap-4">
             {navCategories.map((cat) => (
               <button key={cat.id} onClick={() => setActiveGallery(cat)}
-                aria-label={`${cat.label} ansehen`}
-                className="img-hover relative cursor-pointer group overflow-hidden" style={{ aspectRatio: "1/1" }}>
-                <img src={cat.cover} alt={cat.coverAlt} className="w-full h-full object-cover" loading="lazy"
-                  style={{ objectPosition: coverPosition[cat.id] ?? "center center" }}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
-                <span className="absolute bottom-3 left-3 text-[10px] tracking-[0.3em] uppercase text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {cat.label}
+                aria-label={`${cat.label} ansehen`} className="group">
+                <span className="img-hover block overflow-hidden w-[84px] h-[60px] md:w-[116px] md:h-[78px]">
+                  <img src={cat.cover} alt={cat.coverAlt} className="w-full h-full object-cover" loading="lazy"
+                    style={{ objectPosition: coverPosition[cat.id] ?? "center center" }}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
                 </span>
-                <span className="absolute bottom-3 right-3 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <CrossLogo size={16} />
+                <span className="block mt-1.5 text-[9px] tracking-[0.25em] uppercase text-black/45 group-hover:text-[#FF6600] transition-colors">
+                  {cat.label}
                 </span>
               </button>
             ))}
@@ -252,21 +251,14 @@ export default function Index() {
             <a href="mailto:mail@dirkmathesius.de" className="text-[#FF6600] hover:underline">mail@dirkmathesius.de</a>
           </p>
 
-          <div className="mt-10 max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-[0.45em] uppercase text-black/40 mb-4">Ausgewählte Kunden</p>
-            <p className="text-[12px] leading-relaxed text-black/45">
-              {clients.join("  ·  ")}
-            </p>
-          </div>
-
-          <div className="mt-12">
+          <div className="mt-10">
             <ContactForm />
           </div>
         </section>
 
         {/* Footer */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-black/10 text-center">
-          <CrossLogo size={26} className="mx-auto" />
+          <Logo size={52} className="mx-auto" />
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-black/45">
             <a href="/impressum.html" className="hover:text-[#FF6600] transition-colors">Impressum</a>
             <a href="/datenschutzerklaerung.html" className="hover:text-[#FF6600] transition-colors">Datenschutz</a>
