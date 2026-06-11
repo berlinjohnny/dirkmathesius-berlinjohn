@@ -45,6 +45,82 @@ function Logo({ size = 40, className = "" }: { size?: number; className?: string
   );
 }
 
+/* === Hero-Bildwechsler: Timeline der Sportmodel-Fotos von John Förster ===
+   PLATZHALTER-JAHRE — bitte mit echten Veröffentlichungsjahren ersetzen. */
+const TIMELINE_DEF: { file: string; year: number }[] = [
+  { file: "John-Foerster-freerunner-Sprung-adidas.webp", year: 2008 },
+  { file: "John-Foerster-freerunner-Salto-Treppe-adidas.webp", year: 2009 },
+  { file: "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp", year: 2010 },
+  { file: "John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp", year: 2011 },
+  { file: "John-Foerster-Akrobat-Zaun-Supermann.webp", year: 2012 },
+  { file: "John-Foerster-Akrobat-Handstand-schwangere-Auster.webp", year: 2013 },
+  { file: "John-und-Jim-Förster-Kreuz-Sprung.webp", year: 2014 },
+  { file: "John-und-Jim-Förster-holy-Salto-Phaeno.webp", year: 2015 },
+  { file: "John-und-Jim-Förster-Fuss-high-five-Phaeno.webp", year: 2016 },
+];
+
+type HeroSlide = PortfolioImage & { year: number; cat: PortfolioCategory };
+const _allImgs = categories.flatMap((c) => c.images.map((img) => ({ img, cat: c })));
+const HERO_SLIDES: HeroSlide[] = TIMELINE_DEF
+  .map((t) => {
+    const f = _allImgs.find((x) => x.img.src.endsWith(t.file));
+    return f ? { ...f.img, year: t.year, cat: f.cat } : null;
+  })
+  .filter((s): s is HeroSlide => Boolean(s));
+
+function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
+  const start = Math.max(0, HERO_SLIDES.findIndex((s) => s.src.endsWith(HERO_FILENAME)));
+  const [i, setI] = useState(start);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || HERO_SLIDES.length < 2) return;
+    const t = setInterval(() => setI((p) => (p + 1) % HERO_SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  if (HERO_SLIDES.length === 0) return null;
+  const s = HERO_SLIDES[i];
+
+  return (
+    <section className="mt-10 md:mt-12" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <figure className="relative img-hover cursor-pointer overflow-hidden" onClick={() => onOpen(s.cat)}>
+        <img key={s.src} src={s.src}
+          alt={`${s.alt} – John Förster, Sportmodel, Sportfotografie Berlin`}
+          fetchPriority="high"
+          className="w-full block hero-fade" />
+        {/* edle Jahresangabe */}
+        <div className="absolute left-4 bottom-4 md:left-7 md:bottom-7 text-white pointer-events-none"
+          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}>
+          <span className="block text-[9px] md:text-[10px] tracking-[0.45em] uppercase text-white/70 mb-1">Sportmodel</span>
+          <span className="block text-4xl md:text-6xl font-light tracking-wider leading-none tabular-nums">{s.year}</span>
+        </div>
+      </figure>
+      <figcaption className="mt-3 text-center text-[11px] tracking-wide text-black/45">
+        <span className="text-black/30">{COPY}</span>{s.title ? <> · {s.title}</> : null}
+      </figcaption>
+
+      {/* Zeitskala — klickbare Jahresangaben */}
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 md:gap-x-6 gap-y-1">
+        {HERO_SLIDES.map((sl, idx) => (
+          <button key={sl.src} onClick={() => setI(idx)} aria-label={`Foto ${sl.year}`}
+            className={`relative pb-1 text-[11px] md:text-[12px] tracking-[0.12em] tabular-nums transition-colors ${
+              idx === i ? "text-[#FF6600]" : "text-black/35 hover:text-black/70"
+            }`}>
+            {sl.year}
+            {idx === i && <span className="absolute left-0 right-0 -bottom-px h-px bg-[#FF6600]" />}
+          </button>
+        ))}
+      </div>
+
+      {/* Authentizitäts-USP */}
+      <p className="mt-5 text-center text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-black/40">
+        Freie Fotokunst-Serie · 100&nbsp;% real, ohne Bildbearbeitung · seit 2008
+      </p>
+    </section>
+  );
+}
+
 function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioImage[]; index: number; onClose: () => void }) {
   const [idx, setIdx] = useState(startIndex);
   const current = images[idx];
@@ -60,21 +136,27 @@ function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioIma
   }, [images.length, onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-white/98 flex items-center justify-center" onClick={onClose}>
-      <button className="absolute top-5 right-5 text-black/50 hover:text-[#FF6600] p-2" aria-label="Schließen" onClick={onClose}><X size={22} /></button>
-      <button className="absolute left-2 md:left-8 text-black/25 hover:text-[#FF6600] text-5xl px-4 py-8 z-10 font-light"
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden lb-fade" onClick={onClose}>
+      {/* Hintergrund: dasselbe Bild, stark verschwommen */}
+      <img src={current.src} alt="" aria-hidden
+        className="absolute inset-0 w-full h-full object-cover scale-125 blur-2xl" />
+      {/* 90% Scrim — voller Fokus auf das geklickte Bild */}
+      <div className="absolute inset-0 bg-black/90" />
+
+      <button className="absolute top-5 right-5 z-20 text-white/70 hover:text-[#FF6600] p-2" aria-label="Schließen" onClick={onClose}><X size={24} /></button>
+      <button className="absolute left-2 md:left-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Vorheriges Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.max(0, idx - 1)); }}>‹</button>
-      <figure className="flex flex-col items-center gap-4 max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
-        <img src={current.src} alt={current.alt} className="max-h-[80vh] max-w-[92vw] object-contain shadow-sm"
+      <figure className="relative z-10 flex flex-col items-center gap-4 max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
+        <img src={current.src} alt={current.alt} className="max-h-[84vh] max-w-[92vw] object-contain shadow-2xl shadow-black/60"
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-        <figcaption className="max-w-2xl px-4 text-center text-[11px] leading-relaxed tracking-wide text-black/55">
-          <span className="text-black/35">{COPY}</span>
+        <figcaption className="max-w-2xl px-4 text-center text-[11px] leading-relaxed tracking-wide text-white/65">
+          <span className="text-white/40">{COPY}</span>
           {current.title ? <> · {current.title}</> : null}
-          <span className="block mt-1 text-black/30">{idx + 1} / {images.length}</span>
+          <span className="block mt-1 text-white/30">{idx + 1} / {images.length}</span>
         </figcaption>
       </figure>
-      <button className="absolute right-2 md:right-8 text-black/25 hover:text-[#FF6600] text-5xl px-4 py-8 z-10 font-light"
+      <button className="absolute right-2 md:right-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
     </div>
@@ -220,19 +302,8 @@ export default function Index() {
           <a href="#info" className={navLink}>info</a>
         </nav>
 
-        {/* Hero — großes, editoriales Foto (vollständig, nicht beschnitten) */}
-        <figure className="mt-10 md:mt-12 img-hover cursor-pointer" onClick={() => {
-          const sport = categories.find((c) => c.id === "sport");
-          if (sport) setActiveGallery(sport);
-        }}>
-          <img src={HERO.src}
-            alt={`${HERO.alt} – Sportfotograf Berlin (BMW Motorrad, Red Bull, adidas)`}
-            fetchPriority="high"
-            className="w-full block" />
-          <figcaption className="mt-3 text-center text-[11px] tracking-wide text-black/45">
-            <span className="text-black/30">{COPY}</span>{HERO.title ? <> · {HERO.title}</> : null}
-          </figcaption>
-        </figure>
+        {/* Hero — Bildwechsler/Timeline der Sportmodel-Fotos */}
+        <HeroTimeline onOpen={(c) => setActiveGallery(c)} />
 
         {/* Trust-Badge — dezente Kundenreferenzen */}
         <section className="mt-12 md:mt-16 text-center">

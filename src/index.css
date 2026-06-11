@@ -36,6 +36,9 @@
   .font-display { font-family: Arial, Helvetica, sans-serif; }
   .font-body { font-family: Arial, Helvetica, sans-serif; }
 
+  .hero-fade { animation: heroFade 0.7s ease-out; }
+  .lb-fade { animation: lbFade 0.28s ease-out; }
+
   .img-hover {
     @apply overflow-hidden;
   }
@@ -45,4 +48,14 @@
   .img-hover:hover img {
     @apply scale-105;
   }
+}
+
+@keyframes heroFade {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+
+@keyframes lbFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
