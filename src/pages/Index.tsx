@@ -36,6 +36,50 @@ const clients = [
 
 const COPY = "© Dirk Mathesius";
 
+/* Behind the Scenes — wie die Bilder entstehen (SEO-Alt-Texte) */
+const BTS: PortfolioImage[] = [
+  {
+    src: "/images/bts/bts-foerster-human-flag-behala-hafen-berlin.jpg",
+    alt: "Freie Fotokunst, 100% real ohne Bildbearbeitung: Dirk Mathesius in schwebender Hocke und John Förster als Human-Flag am BEHALA-Schild, Berliner Westhafen – Sport- und Konzeptfotografie",
+    title: "Human-Flag am BEHALA-Hafen · Freie Arbeit",
+  },
+  {
+    src: "/images/bts/bts-hasselblad-tethered-baustelle-berlin.jpg",
+    alt: "Behind the Scenes: Hasselblad-Mittelformatkamera mit dirk-mathesius.de am Set – getethertes Industrie- und Baustellen-Shooting in Berlin",
+    title: "Hasselblad am Set · Industrie-Shooting",
+  },
+  {
+    src: "/images/bts/bts-dirk-mathesius-produktfotografie-labor.jpg",
+    alt: "Behind the Scenes: Dirk Mathesius bei der Produktfotografie an einem Matest Softmatic Prüfgerät im Labor",
+    title: "Produktfotografie im Labor",
+  },
+  {
+    src: "/images/bts/bts-dirk-mathesius-foerster-action-flow-berlin.jpg",
+    alt: "Behind the Scenes: Dirk Mathesius in Action mit den Förster-Brüdern – Freerunning- und Sportfotografie in Berlin („Best Flow for Action Photos“)",
+    title: "Action-Flow mit den Förster-Brüdern",
+  },
+  {
+    src: "/images/bts/bts-dirk-mathesius-balance-cube-berlin-spree.jpg",
+    alt: "Behind the Scenes: Dirk Mathesius in Balance-Pose am Cube Berlin an der Spree, Berlin Hauptbahnhof",
+    title: "Balance am Cube Berlin",
+  },
+  {
+    src: "/images/bts/bts-collaboration-foerster-edit-jim-john.jpg",
+    alt: "Behind the Scenes: Bildbearbeitung einer Förster-Akrobatik-Aufnahme – Kollaboration mit @jim_john.de und @berlinjohn.de",
+    title: "Edit-Collaboration · @jim_john.de",
+  },
+  {
+    src: "/images/bts/bts-foerster-brueder-rauch-action-collab.jpg",
+    alt: "Behind the Scenes: Action-Shooting mit den Förster-Brüdern und Dirk Mathesius – Rauch-/Pyro-Effekt und Sprung vor Berliner Wohnarchitektur (@jim_john.de, @dirk_mathesius)",
+    title: "Action-Shoot mit Rauch · Förster-Brüder",
+  },
+  {
+    src: "/images/bts/bts-dirk-mathesius-monitor-industrie-hafen.jpg",
+    alt: "Behind the Scenes: Live-Monitor mit dirk-mathesius.de bei einem Industrie- und Hafen-Shooting in Berlin",
+    title: "Industrie-Shooting · Live-Monitor",
+  },
+];
+
 /* Original-Logo (oranges Kreuz mit schwarzem Rahmen + www.dirk-mathesius.de) – Marken-USP */
 function Logo({ size = 40, className = "" }: { size?: number; className?: string }) {
   return (
@@ -253,6 +297,7 @@ function Showreel({ id, label = "Showreel" }: { id: string; label?: string }) {
 
 export default function Index() {
   const [activeGallery, setActiveGallery] = useState<PortfolioCategory | null>(null);
+  const [btsLb, setBtsLb] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -270,6 +315,8 @@ export default function Index() {
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
       </Helmet>
+
+      {btsLb !== null && <Lightbox images={BTS} index={btsLb} onClose={() => setBtsLb(null)} />}
 
       {/* Schlanke Sticky-Markenleiste beim Scrollen */}
       <div className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-center gap-3 bg-white/90 backdrop-blur border-b border-black/10 transition-all duration-300 ${scrolled ? "py-2.5 opacity-100" : "opacity-0 -translate-y-full"}`}>
@@ -356,6 +403,32 @@ export default function Index() {
                 Mehr Showreels auf Instagram →
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* Behind the Scenes */}
+        <section id="behind-the-scenes" className="mt-16 md:mt-24">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <span className="h-px w-8 bg-black/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Behind the Scenes</span>
+            <span className="h-px w-8 bg-black/20" />
+          </div>
+          <p className="text-center text-[12px] text-black/45 max-w-md mx-auto mb-7">
+            Wie die Bilder entstehen — on location, am Set und mit den Förster-Brüdern. 🎬
+          </p>
+          <div className="columns-2 md:columns-3 gap-3 md:gap-4">
+            {BTS.map((img, i) => (
+              <figure key={img.src} className="img-hover mb-3 md:mb-4 cursor-pointer break-inside-avoid"
+                onClick={() => setBtsLb(i)}>
+                <img src={img.src} alt={img.alt} title={img.title} className="w-full block" loading="lazy" decoding="async"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
+                {img.title && (
+                  <figcaption className="text-[10px] leading-snug mt-1.5 text-black/45 tracking-wide">
+                    {img.title}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
           </div>
         </section>
 
