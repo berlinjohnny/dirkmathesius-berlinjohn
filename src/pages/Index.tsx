@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, Play } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
@@ -140,6 +140,35 @@ function ContactForm() {
   );
 }
 
+/* Showreel — DSGVO-freundlich: YouTube lädt erst nach Klick (2-Klick, nocookie) */
+function Showreel({ id, label = "Showreel" }: { id: string; label?: string }) {
+  const [play, setPlay] = useState(false);
+  return (
+    <div className="relative mx-auto w-full max-w-[300px] aspect-[9/16] bg-black overflow-hidden">
+      {play ? (
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`}
+          title={`${label} – Dirk Mathesius`}
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <button onClick={() => setPlay(true)} aria-label={`${label} abspielen`}
+          className="group absolute inset-0 flex flex-col items-center justify-center bg-neutral-900 text-white">
+          <span className="w-16 h-16 rounded-full bg-[#FF6600] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <Play size={26} className="ml-0.5 fill-white" />
+          </span>
+          <span className="mt-4 text-[10px] tracking-[0.3em] uppercase text-white/75">{label} abspielen</span>
+          <span className="absolute bottom-3 left-0 right-0 text-center text-[9px] tracking-wide text-white/40">
+            lädt erst nach Klick · YouTube
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function Index() {
   const [activeGallery, setActiveGallery] = useState<PortfolioCategory | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -187,6 +216,7 @@ export default function Index() {
               {c.label.toLowerCase()}
             </button>
           ))}
+          <a href="#ueber-dirk" className={navLink}>über dirk</a>
           <a href="#info" className={navLink}>info</a>
         </nav>
 
@@ -229,6 +259,32 @@ export default function Index() {
                 </span>
               </button>
             ))}
+          </div>
+        </section>
+
+        {/* Über Dirk — Showreel + Instagram */}
+        <section id="ueber-dirk" className="mt-16 md:mt-24">
+          <div className="flex items-center justify-center gap-3 mb-7">
+            <span className="h-px w-8 bg-black/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Über Dirk</span>
+            <span className="h-px w-8 bg-black/20" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-3xl mx-auto">
+            <Showreel id="D5VtZJvNYGY" label="Showreel" />
+            <div className="text-center md:text-left">
+              <p className="text-[13px] leading-relaxed text-black/65">
+                Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial.
+                Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
+                (BMW Motorrad, Red Bull, adidas, Stern, Men&apos;s Health).
+              </p>
+              <p className="text-[12px] leading-relaxed text-black/50 mt-3">
+                Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
+              </p>
+              <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener noreferrer"
+                className="inline-block mt-5 text-[11px] tracking-[0.2em] uppercase text-[#FF6600] hover:underline">
+                Mehr Showreels auf Instagram →
+              </a>
+            </div>
           </div>
         </section>
 
