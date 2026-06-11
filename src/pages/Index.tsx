@@ -60,21 +60,27 @@ function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioIma
   }, [images.length, onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-white/98 flex items-center justify-center" onClick={onClose}>
-      <button className="absolute top-5 right-5 text-black/50 hover:text-[#FF6600] p-2" aria-label="Schließen" onClick={onClose}><X size={22} /></button>
-      <button className="absolute left-2 md:left-8 text-black/25 hover:text-[#FF6600] text-5xl px-4 py-8 z-10 font-light"
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden lb-fade" onClick={onClose}>
+      {/* Hintergrund: dasselbe Bild, stark verschwommen */}
+      <img src={current.src} alt="" aria-hidden
+        className="absolute inset-0 w-full h-full object-cover scale-125 blur-2xl" />
+      {/* 90% Scrim — voller Fokus auf das geklickte Bild */}
+      <div className="absolute inset-0 bg-black/90" />
+
+      <button className="absolute top-5 right-5 z-20 text-white/70 hover:text-[#FF6600] p-2" aria-label="Schließen" onClick={onClose}><X size={24} /></button>
+      <button className="absolute left-2 md:left-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Vorheriges Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.max(0, idx - 1)); }}>‹</button>
-      <figure className="flex flex-col items-center gap-4 max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
-        <img src={current.src} alt={current.alt} className="max-h-[80vh] max-w-[92vw] object-contain shadow-sm"
+      <figure className="relative z-10 flex flex-col items-center gap-4 max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
+        <img src={current.src} alt={current.alt} className="max-h-[84vh] max-w-[92vw] object-contain shadow-2xl shadow-black/60"
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-        <figcaption className="max-w-2xl px-4 text-center text-[11px] leading-relaxed tracking-wide text-black/55">
-          <span className="text-black/35">{COPY}</span>
+        <figcaption className="max-w-2xl px-4 text-center text-[11px] leading-relaxed tracking-wide text-white/65">
+          <span className="text-white/40">{COPY}</span>
           {current.title ? <> · {current.title}</> : null}
-          <span className="block mt-1 text-black/30">{idx + 1} / {images.length}</span>
+          <span className="block mt-1 text-white/30">{idx + 1} / {images.length}</span>
         </figcaption>
       </figure>
-      <button className="absolute right-2 md:right-8 text-black/25 hover:text-[#FF6600] text-5xl px-4 py-8 z-10 font-light"
+      <button className="absolute right-2 md:right-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
     </div>
