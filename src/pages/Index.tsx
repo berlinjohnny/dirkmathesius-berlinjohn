@@ -39,6 +39,11 @@ const COPY = "© Dirk Mathesius";
 /* Behind the Scenes — wie die Bilder entstehen (SEO-Alt-Texte) */
 const BTS: PortfolioImage[] = [
   {
+    src: "/images/bts/bts-foerster-human-flag-behala-hafen-berlin.jpg",
+    alt: "Freie Fotokunst, 100% real ohne Bildbearbeitung: Dirk Mathesius in schwebender Hocke und John Förster als Human-Flag am BEHALA-Schild, Berliner Westhafen – Sport- und Konzeptfotografie",
+    title: "Human-Flag am BEHALA-Hafen · Freie Arbeit",
+  },
+  {
     src: "/images/bts/bts-hasselblad-tethered-baustelle-berlin.jpg",
     alt: "Behind the Scenes: Hasselblad-Mittelformatkamera mit dirk-mathesius.de am Set – getethertes Industrie- und Baustellen-Shooting in Berlin",
     title: "Hasselblad am Set · Industrie-Shooting",
@@ -62,6 +67,16 @@ const BTS: PortfolioImage[] = [
     src: "/images/bts/bts-collaboration-foerster-edit-jim-john.jpg",
     alt: "Behind the Scenes: Bildbearbeitung einer Förster-Akrobatik-Aufnahme – Kollaboration mit @jim_john.de und @berlinjohn.de",
     title: "Edit-Collaboration · @jim_john.de",
+  },
+  {
+    src: "/images/bts/bts-foerster-brueder-rauch-action-collab.jpg",
+    alt: "Behind the Scenes: Action-Shooting mit den Förster-Brüdern und Dirk Mathesius – Rauch-/Pyro-Effekt und Sprung vor Berliner Wohnarchitektur (@jim_john.de, @dirk_mathesius)",
+    title: "Action-Shoot mit Rauch · Förster-Brüder",
+  },
+  {
+    src: "/images/bts/bts-dirk-mathesius-monitor-industrie-hafen.jpg",
+    alt: "Behind the Scenes: Live-Monitor mit dirk-mathesius.de bei einem Industrie- und Hafen-Shooting in Berlin",
+    title: "Industrie-Shooting · Live-Monitor",
   },
 ];
 
