@@ -48,7 +48,10 @@ function Lightbox({ cat, images, index: startIndex, onClose }: { cat: Cat; image
       <button className="absolute right-2 md:right-6 text-white/40 hover:text-white text-4xl px-4 py-8 z-10"
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
-      <div className="absolute bottom-4 text-white/30 text-xs tracking-widest">{idx + 1} / {images.length}</div>
+      <div className="absolute bottom-4 left-0 right-0 px-6 flex flex-col items-center gap-1 text-center" onClick={(e) => e.stopPropagation()}>
+        {current.title && <p className="text-white/75 text-sm max-w-xl">{current.title}</p>}
+        <span className="text-white/30 text-xs tracking-widest">{idx + 1} / {images.length}</span>
+      </div>
     </div>
   );
 }
@@ -73,8 +76,13 @@ function Gallery({ cat, onClose, dark }: { cat: Cat; onClose: () => void; dark: 
         {cat.images.map((img, i) => (
           <div key={img.src} className="img-hover mb-2 md:mb-3 cursor-pointer break-inside-avoid"
             onClick={() => setLightbox(i)}>
-            <img src={img.src} alt={img.alt} className="w-full block" loading="lazy" decoding="async"
+            <img src={img.src} alt={img.alt} title={img.title ?? img.alt} className="w-full block" loading="lazy" decoding="async"
               onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
+            {img.title && (
+              <figcaption className={`text-[11px] leading-snug mt-1.5 mb-1 ${dark ? "text-white/45" : "text-black/50"}`}>
+                {img.title}
+              </figcaption>
+            )}
           </div>
         ))}
       </div>
@@ -160,6 +168,8 @@ export default function Index() {
 
   return (
     <div className={`min-h-screen ${pageBg} ${headingC} transition-colors duration-300`}>
+      {/* Weißer Rahmen / Passepartout — Wiedererkennung dirkmathesius.de */}
+      <div aria-hidden className={`pointer-events-none fixed inset-0 z-[60] border-[8px] md:border-[16px] ${dark ? "border-[#0a0a0a]" : "border-white"}`} />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
       </Helmet>
@@ -230,6 +240,9 @@ export default function Index() {
           <p className="text-white/40 text-sm tracking-widest">
             Sport · People · Music · Reportage · Landscape · Stills
           </p>
+          <p className="text-white/35 text-[11px] tracking-[0.3em] uppercase mt-4">
+            Fotograf in Berlin · seit 1997 · 30+ Jahre Erfahrung
+          </p>
         </div>
         <a href="#portfolio" className="absolute bottom-8 right-8 text-white/25 hover:text-white/70 transition-colors">
           <ChevronDown size={22} />
@@ -271,7 +284,7 @@ export default function Index() {
       <section className={`px-6 md:px-12 py-14 border-t ${borderC} ${sectionBg}`}>
         <p className={`text-[10px] tracking-[0.5em] uppercase ${mutedC} mb-5`}>Über</p>
         <p className={`text-sm ${dark ? "text-white/45" : "text-black/45"} leading-relaxed max-w-lg`}>
-          Dirk Mathesius ist Fotograf in Berlin mit über 25 Jahren Erfahrung in Sportfotografie, Portraitfotografie, Musikfotografie und Editorial Photography. Kunden: BMW Motorrad, Red Bull, adidas, Stern, Men's Health, Amazon, Heineken, T-Mobile.
+          Dirk Mathesius ist Fotograf in Berlin und seit 1997 aktiv — über 30 Jahre Erfahrung in Sportfotografie, Portraitfotografie, Musikfotografie und Editorial Photography. Kunden: BMW Motorrad, Red Bull, adidas, Stern, Men's Health, Amazon, Heineken, T-Mobile.
         </p>
       </section>
 
