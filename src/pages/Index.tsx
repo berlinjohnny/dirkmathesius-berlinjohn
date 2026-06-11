@@ -51,12 +51,12 @@ const TIMELINE_DEF: { file: string; year: number }[] = [
   { file: "John-Foerster-freerunner-Sprung-adidas.webp", year: 2008 },
   { file: "John-Foerster-freerunner-Salto-Treppe-adidas.webp", year: 2009 },
   { file: "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp", year: 2010 },
-  { file: "John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp", year: 2012 },
-  { file: "John-Foerster-Akrobat-Zaun-Supermann.webp", year: 2014 },
-  { file: "John-Foerster-Akrobat-Handstand-schwangere-Auster.webp", year: 2016 },
-  { file: "John-und-Jim-Förster-Kreuz-Sprung.webp", year: 2018 },
-  { file: "John-und-Jim-Förster-holy-Salto-Phaeno.webp", year: 2020 },
-  { file: "John-und-Jim-Förster-Fuss-high-five-Phaeno.webp", year: 2022 },
+  { file: "John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp", year: 2011 },
+  { file: "John-Foerster-Akrobat-Zaun-Supermann.webp", year: 2012 },
+  { file: "John-Foerster-Akrobat-Handstand-schwangere-Auster.webp", year: 2013 },
+  { file: "John-und-Jim-Förster-Kreuz-Sprung.webp", year: 2014 },
+  { file: "John-und-Jim-Förster-holy-Salto-Phaeno.webp", year: 2015 },
+  { file: "John-und-Jim-Förster-Fuss-high-five-Phaeno.webp", year: 2016 },
 ];
 
 type HeroSlide = PortfolioImage & { year: number; cat: PortfolioCategory };
@@ -112,6 +112,11 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
           </button>
         ))}
       </div>
+
+      {/* Authentizitäts-USP */}
+      <p className="mt-5 text-center text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-black/40">
+        Freie Fotokunst-Serie · 100&nbsp;% real, ohne Bildbearbeitung · seit 2008
+      </p>
     </section>
   );
 }
