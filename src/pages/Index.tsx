@@ -404,6 +404,23 @@ export default function Index() {
               </a>
             </div>
           </div>
+
+          {/* Persönliche Empfehlung & Collaboration (Cross-Marketing) */}
+          <figure className="mt-10 md:mt-12 max-w-2xl mx-auto text-center border-t border-black/10 pt-8">
+            <blockquote className="text-[14px] md:text-[16px] leading-relaxed text-black/75 italic">
+              „Ich arbeite seit Jahren mit Dirk Mathesius — pure, echte Action, ohne Bildbearbeitung.
+              Mein klarer Tipp für Sport-, Action- &amp; Editorial-Shootings."
+            </blockquote>
+            <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-black/55">
+              John Förster · Sportmodel &amp; AcroBerlin ·{" "}
+              <a href="https://berlinjohn.de" target="_blank" rel="noopener noreferrer"
+                className="text-[#FF6600] hover:underline">berlinjohn.de</a>
+            </figcaption>
+            <a href="#info"
+              className="inline-block mt-6 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+              Shooting anfragen
+            </a>
+          </figure>
         </section>
 
         {/* Behind the Scenes */}
