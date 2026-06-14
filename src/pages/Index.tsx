@@ -36,6 +36,37 @@ const clients = [
 
 const COPY = "© Dirk Mathesius";
 
+/* Verkaufstrichter: Ergebnisse · Pakete · FAQ (Inhalte editierbar) */
+const CASES = [
+  { t: "Sport & Action", d: "Freie Fotokunst-Serie mit Sportmodel John Förster / AcroBerlin — pure, echte Bewegung, ohne Bildbearbeitung. Basis für Vernissagen, Awards & Editorial." },
+  { t: "Industrie & Produkt", d: "Mittelformat (Hasselblad), getethert on location — Baustelle, Hafen, Labor. Präzise, authentische Produkt- und Reportagebilder." },
+  { t: "People & Editorial", d: "Portraits & Editorial für Magazine und Marken: Stern, Men's Health, audible, BMW Motorrad, Red Bull, adidas." },
+];
+
+const BUNDLES = [
+  { t: "Action- & Editorial-Kombi", d: "Fotografie (Dirk Mathesius) + Sportmodel/Stunt (John Förster · AcroBerlin). Echtes Action-Material, ohne Bildbearbeitung.", p: "Preis auf Anfrage" },
+  { t: "Industrie & Produkt — on location", d: "Mittelformat-Shooting mobil bei dir vor Ort und im Studio. Tethered, präzise, zuverlässig.", p: "Preis auf Anfrage" },
+];
+
+const FAQS = [
+  { q: "Wie läuft ein Shooting mit Dirk Mathesius ab?", a: "Kurzes Briefing & Konzept, Terminabstimmung (mobil bei dir vor Ort oder im Studio), Shooting mit komplettem Profi-Equipment, kuratierte Bildauswahl und Lieferung der finalen Bilder." },
+  { q: "In welcher Region arbeitest du?", a: "Basis ist Berlin & Umland; deutschlandweit und international auf Anfrage." },
+  { q: "Wem gehören die Nutzungsrechte an den Bildern?", a: "Die Nutzungsrechte werden projektbezogen passend zum Einsatz vereinbart. Urheber bleibt © Dirk Mathesius." },
+  { q: "Wie schnell bekomme ich die Bilder?", a: "Eine erste Auswahl zeitnah nach dem Shooting; die finale Bearbeitung richtet sich nach Umfang und Absprache." },
+  { q: "Was kostet ein Shooting?", a: "Individuell nach Aufwand, Umfang und Nutzungsrechten — du bekommst ein transparentes Angebot auf Anfrage." },
+  { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — u. a. mit Sportmodel John Förster / AcroBerlin: echte Action, 100 % real, ohne Bildbearbeitung." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 /* Behind the Scenes — wie die Bilder entstehen (SEO-Alt-Texte) */
 const BTS: PortfolioImage[] = [
   {
@@ -314,6 +345,7 @@ export default function Index() {
     <div className="min-h-screen bg-white text-black">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       {btsLb !== null && <Lightbox images={BTS} index={btsLb} onClose={() => setBtsLb(null)} />}
@@ -413,7 +445,7 @@ export default function Index() {
             </blockquote>
             <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-black/55">
               John Förster · Sportmodel &amp; AcroBerlin ·{" "}
-              <a href="https://berlinjohn.de" target="_blank" rel="noopener noreferrer"
+              <a href="https://berlinjohn.de/?utm_source=dirkmathesius&utm_medium=referral&utm_campaign=netzwerk" target="_blank" rel="noopener noreferrer"
                 className="text-[#FF6600] hover:underline">berlinjohn.de</a>
             </figcaption>
             <a href="#info"
@@ -445,6 +477,64 @@ export default function Index() {
                   </figcaption>
                 )}
               </figure>
+            ))}
+          </div>
+        </section>
+
+        {/* Ergebnisse / Case Studies */}
+        <section id="ergebnisse" className="mt-16 md:mt-24">
+          <div className="flex items-center justify-center gap-3 mb-7">
+            <span className="h-px w-8 bg-black/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Ergebnisse</span>
+            <span className="h-px w-8 bg-black/20" />
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+            {CASES.map((c) => (
+              <div key={c.t} className="text-center md:text-left">
+                <h3 className="text-[13px] tracking-[0.15em] uppercase text-black/80 mb-2">{c.t}</h3>
+                <p className="text-[12px] leading-relaxed text-black/55">{c.d}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Pakete / Kombi-Angebote */}
+        <section id="pakete" className="mt-16 md:mt-24">
+          <div className="flex items-center justify-center gap-3 mb-7">
+            <span className="h-px w-8 bg-black/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Pakete</span>
+            <span className="h-px w-8 bg-black/20" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
+            {BUNDLES.map((b) => (
+              <div key={b.t} className="border border-black/10 p-6 text-center md:text-left flex flex-col">
+                <h3 className="text-[14px] tracking-[0.12em] uppercase text-black/85 mb-2">{b.t}</h3>
+                <p className="text-[12px] leading-relaxed text-black/55 flex-1">{b.d}</p>
+                <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-black/45">{b.p}</p>
+                <a href="#info" className="mt-3 inline-block self-center md:self-start px-7 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+                  Paket anfragen
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="mt-16 md:mt-24 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-7">
+            <span className="h-px w-8 bg-black/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">FAQ</span>
+            <span className="h-px w-8 bg-black/20" />
+          </div>
+          <div className="divide-y divide-black/10 border-y border-black/10">
+            {FAQS.map((f) => (
+              <details key={f.q} className="group py-4">
+                <summary className="cursor-pointer list-none flex items-start justify-between gap-4 text-[13px] text-black/80">
+                  <span>{f.q}</span>
+                  <span className="text-[#FF6600] shrink-0 transition-transform duration-300 group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-3 text-[12px] leading-relaxed text-black/55">{f.a}</p>
+              </details>
             ))}
           </div>
         </section>
