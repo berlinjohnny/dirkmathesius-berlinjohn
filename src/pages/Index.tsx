@@ -4,17 +4,6 @@ import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/po
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
 
-// Per-category cover framing (CSS object-position).
-const coverPosition: Record<string, string> = {
-  sport: "center 35%",
-  folks: "center 30%",
-  music: "center center",
-  reportage: "center 30%",
-  landscape: "center center",
-  stills: "center 50%",
-  publication: "center 25%",
-};
-
 const categories = portfolio;
 
 const HERO_FILENAME = "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp";
@@ -385,26 +374,6 @@ export default function Index() {
           <p className="text-[11px] md:text-[12px] leading-relaxed text-black/45 max-w-3xl mx-auto">
             {clients.join("  ·  ")}
           </p>
-        </section>
-
-        {/* Portfolio — kleine, horizontale Thumbnails zu den Bereichen */}
-        <section className="mt-9 md:mt-12">
-          <p className="text-center text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-black/30 mb-4">Portfolio</p>
-          <div className="flex flex-wrap items-start justify-center gap-3 md:gap-4">
-            {navCategories.map((cat) => (
-              <button key={cat.id} onClick={() => setActiveGallery(cat)}
-                aria-label={`${cat.label} ansehen`} className="group">
-                <span className="img-hover block overflow-hidden w-[84px] h-[60px] md:w-[116px] md:h-[78px]">
-                  <img src={cat.cover} alt={cat.coverAlt} className="w-full h-full object-cover" loading="lazy"
-                    style={{ objectPosition: coverPosition[cat.id] ?? "center center" }}
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-                </span>
-                <span className="block mt-1.5 text-[9px] tracking-[0.25em] uppercase text-black/45 group-hover:text-[#FF6600] transition-colors">
-                  {cat.label}
-                </span>
-              </button>
-            ))}
-          </div>
         </section>
 
         {/* Über Dirk — Showreel + Instagram */}
