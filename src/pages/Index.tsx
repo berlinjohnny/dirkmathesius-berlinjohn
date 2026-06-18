@@ -95,11 +95,6 @@ const BTS: PortfolioImage[] = [
     title: "Balance am Cube Berlin",
   },
   {
-    src: "/images/bts/bts-collaboration-foerster-edit-jim-john.jpg",
-    alt: "Behind the Scenes: Bildbearbeitung einer Förster-Akrobatik-Aufnahme – Kollaboration mit @jim_john.de und @berlinjohn.de",
-    title: "Edit-Collaboration · @jim_john.de",
-  },
-  {
     src: "/images/bts/bts-foerster-brueder-rauch-action-collab.jpg",
     alt: "Behind the Scenes: Action-Shooting mit den Förster-Brüdern und Dirk Mathesius – Rauch-/Pyro-Effekt und Sprung vor Berliner Wohnarchitektur (@jim_john.de, @dirk_mathesius)",
     title: "Action-Shoot mit Rauch · Förster-Brüder",
