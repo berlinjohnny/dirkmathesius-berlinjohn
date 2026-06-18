@@ -93,6 +93,11 @@ const BTS: PortfolioImage[] = [
     alt: "Behind the Scenes: Live-Monitor mit dirk-mathesius.de bei einem Industrie- und Hafen-Shooting in Berlin",
     title: "Industrie-Shooting · Live-Monitor",
   },
+  {
+    src: "/images/bts/bts-gerolsteiner-making-of-freerunner-john-foerster.jpg",
+    alt: "Behind the Scenes: Making-of eines Gerolsteiner-Commercials in Berlin – Freerunner John Förster im Salto, Lichtset und Crew im Loft-Studio (Fotografie Dirk Mathesius)",
+    title: "Making-of · Gerolsteiner-Commercial",
+  },
 ];
 
 /* Original-Logo (oranges Kreuz mit schwarzem Rahmen + www.dirk-mathesius.de) – Marken-USP */
