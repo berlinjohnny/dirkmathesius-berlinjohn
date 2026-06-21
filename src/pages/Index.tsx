@@ -535,6 +535,16 @@ export default function Index() {
         {/* Footer */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-black/10 text-center">
           <Logo size={52} className="mx-auto" />
+          {/* Galerien — echte statische Kategorie-Seiten (SEO-Landingpages). Plain <a>, kein SPA-Link. */}
+          <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-black/40">
+            <a href="/folks.html" className="hover:text-[#FF6600] transition-colors">People</a>
+            <a href="/sport.html" className="hover:text-[#FF6600] transition-colors">Sport</a>
+            <a href="/music.html" className="hover:text-[#FF6600] transition-colors">Music</a>
+            <a href="/publication.html" className="hover:text-[#FF6600] transition-colors">Publication</a>
+            <a href="/landscape.html" className="hover:text-[#FF6600] transition-colors">Landscape</a>
+            <a href="/reportage.html" className="hover:text-[#FF6600] transition-colors">Reportage</a>
+            <a href="/stills.html" className="hover:text-[#FF6600] transition-colors">Stills</a>
+          </nav>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-black/45">
             <a href="/impressum.html" className="hover:text-[#FF6600] transition-colors">Impressum</a>
             <a href="/datenschutzerklaerung.html" className="hover:text-[#FF6600] transition-colors">Datenschutz</a>

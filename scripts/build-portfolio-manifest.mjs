@@ -31,6 +31,90 @@ const captionByCat = {
   publication: "© Dirk Mathesius – Editorial Photography Berlin (Stern, Men's Health)",
 };
 
+// Per-category SEO copy for the static category pages — unique title/description/H1/intro
+// per page (no two pages share head text → no thin-content / duplicate risk).
+const seoByCat = {
+  sport: {
+    title:       "Sportfotografie Berlin – Dirk Mathesius",
+    h1:          "Sport",
+    description: "Sportfotografie aus Berlin von Dirk Mathesius: Athleten, Action und Editorial – u. a. für Runners World und SCC Berlin. Echtes Material, ehrlich fotografiert.",
+    intro:       "Sport in Bewegung, mit dem Mittelformat festgehalten – vom Generali-Halbmarathon vor dem Reichstag bis zu freien Arbeiten mit Akrobaten, Läufern und Skatern.",
+  },
+  folks: {
+    title:       "Portrait- & People-Fotografie Berlin – Dirk Mathesius",
+    h1:          "People",
+    description: "People- und Portraitfotografie aus Berlin von Dirk Mathesius: charaktervolle Menschen, ehrliche Momente und klares Licht – für Magazine, Agenturen und freie Arbeiten.",
+    intro:       "Menschen mit Charakter: Portrait- und People-Fotografie zwischen Auftragsarbeit und freier Beobachtung.",
+  },
+  music: {
+    title:       "Musik- & Konzertfotografie Berlin – Dirk Mathesius",
+    h1:          "Music",
+    description: "Musik- und Konzertfotografie aus Berlin von Dirk Mathesius: Künstler, Bühne und Backstage – Atmosphäre statt Hochglanz.",
+    intro:       "Musik in Bildern: Künstlerportraits, Bühne und Backstage – nah dran an der Energie des Moments.",
+  },
+  reportage: {
+    title:       "Reportagefotografie Berlin – Dirk Mathesius",
+    h1:          "Reportage",
+    description: "Reportage- und Dokumentarfotografie aus Berlin von Dirk Mathesius: Geschichten, Orte und Menschen – erzählt in ehrlichen Bildern.",
+    intro:       "Reportage: erzählende Fotografie, die Orte und Menschen so zeigt, wie sie wirklich sind.",
+  },
+  landscape: {
+    title:       "Landschaftsfotografie – Dirk Mathesius",
+    h1:          "Landscape",
+    description: "Landschaftsfotografie von Dirk Mathesius: Weite, Licht und Stille – Naturräume in ruhiger, präziser Bildsprache.",
+    intro:       "Landschaft: Weite, Licht und Atmosphäre – ruhige Bilder mit Tiefe.",
+  },
+  stills: {
+    title:       "Stills- & Produktfotografie Berlin – Dirk Mathesius",
+    h1:          "Stills",
+    description: "Stills- und Produktfotografie aus Berlin von Dirk Mathesius: präzise inszenierte Objekte, klares Licht – on location und im Studio.",
+    intro:       "Stills: Objekte präzise in Szene gesetzt – mit Gefühl für Material, Form und Licht.",
+  },
+  publication: {
+    title:       "Editorial- & Publikationsfotografie Berlin – Dirk Mathesius",
+    h1:          "Publication",
+    description: "Editorial-Fotografie aus Berlin von Dirk Mathesius – veröffentlicht u. a. in Stern und Men's Health. Magazinstrecken mit Haltung.",
+    intro:       "Editorial & Publikationen: Magazinstrecken und veröffentlichte Arbeiten – u. a. für Stern und Men's Health.",
+  },
+};
+
+// Nav order matches the original dirkmathesius.de layout (info.html). folks → "people".
+const navOrder = ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
+const navLabel = (id) => (id === "folks" ? "people" : id);
+
+// Hand-curated premium motifs ("Beste Motive", PR #15). These are .jpg without embedded
+// XMP, so they can't be auto-derived from the file scan — they're maintained here with their
+// hand-written alt/title/caption and PREPENDED (shown first → also become the category cover).
+// Single source of truth: feeds portfolio.ts, imageJsonLd.ts, sitemap.xml AND the static pages.
+const manualExtras = {
+  sport: [
+    {
+      src: "/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
+      alt: "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
+      title: "John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße",
+      caption: "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
+      creator: "Dirk Mathesius",
+      rights: "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+    },
+    {
+      src: "/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg",
+      alt: "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin, gestreckt im Flug – dynamische Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
+      title: "John Förster – Sprung über das Stelenfeld, Berliner Mauer Bernauer Straße",
+      caption: "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
+      creator: "Dirk Mathesius",
+      rights: "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+    },
+    {
+      src: "/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg",
+      alt: "John Förster akrobatisch an einer einzelnen Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
+      title: "John Förster – Stele an der Berliner Mauer, Bernauer Straße",
+      caption: "John Förster akrobatisch an einer Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
+      creator: "Dirk Mathesius",
+      rights: "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+    },
+  ],
+};
+
 // Fallback alt-text derived from the filename (legacy behaviour).
 const fileToAlt = (file) =>
   file.replace(/\.webp$/i, "")
@@ -134,13 +218,15 @@ const categories = order.map((id) => {
     return img;
   });
 
+  const allImages = [...(manualExtras[id] || []), ...images];
+
   return {
     id,
     label: meta.label,
     altBase: meta.altSuffix,
-    cover: images[0]?.src ?? "",
-    coverAlt: images[0]?.alt ?? meta.altSuffix,
-    images,
+    cover: allImages[0]?.src ?? "",
+    coverAlt: allImages[0]?.alt ?? meta.altSuffix,
+    images: allImages,
   };
 });
 
@@ -283,3 +369,168 @@ ${categories.map(categoryUrl).join("\n")}
 writeFileSync(join(root, "public", "sitemap.xml"), sitemap);
 const totalImg = categories.reduce((n, c) => n + c.images.length, 0);
 console.log(`✅ sitemap.xml — ${categories.length} category pages × image entries = ${totalImg} <image:image> blocks + 1 hero`);
+
+// --- Static category pages (real .html files → fix Soft-404, served directly by Apache) ---
+// Encoding-independent: every non-ASCII char becomes a numeric entity, so the page renders
+// correctly regardless of the charset the server declares.
+const E = (s) =>
+  Array.from(String(s ?? "")).map((ch) => {
+    if (ch === "&") return "&amp;";
+    if (ch === "<") return "&lt;";
+    if (ch === ">") return "&gt;";
+    if (ch === '"') return "&quot;";
+    if (ch === "'") return "&#39;";
+    const code = ch.codePointAt(0);
+    return code > 127 ? `&#x${code.toString(16)};` : ch;
+  }).join("");
+
+// JSON-LD safe to embed inside <script> (escape the angle bracket sequence).
+const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, "\\u003c");
+
+const utm = (cat) =>
+  `https://www.dirkmathesius.de/?utm_source=dirkmathesius&utm_medium=booking-booster&utm_campaign=portfolio-${cat}`;
+
+const categoryPage = (c) => {
+  const seo = seoByCat[c.id];
+  const pageUrl = `${SITE}/${c.id}.html`;
+  const cover = c.images[0] ? `${SITE}${enc(c.images[0].src)}` : `${SITE}/images/dm-logo.jpg`;
+
+  const nav = navOrder
+    .map((id) => {
+      const active = id === c.id ? ' style="color:#FF6600"' : "";
+      return `<a href="/${id}.html"${active}>${E(navLabel(id))}</a>`;
+    })
+    .join("\n        ") + `\n        <a href="/info.html">info</a>`;
+
+  const figures = c.images
+    .map((img) => {
+      const titleVisible = img.title || img.alt;
+      return `      <figure>
+        <img src="${enc(img.src)}" alt="${E(img.alt)}" loading="lazy" decoding="async" />
+        <figcaption>${E(titleVisible)}</figcaption>
+      </figure>`;
+    })
+    .join("\n");
+
+  const galleryLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "@id": `${pageUrl}#gallery`,
+    name: `Dirk Mathesius – ${seo.h1}`,
+    url: pageUrl,
+    description: seo.description,
+    author: CREATOR,
+    associatedMedia: c.images.map((img) => {
+      const node = {
+        "@type": "ImageObject",
+        contentUrl: `${SITE}${img.src}`,
+        name: img.title || img.alt,
+        description: img.alt,
+        creator: CREATOR,
+        copyrightHolder: CREATOR,
+      };
+      if (img.rights) node.copyrightNotice = img.rights;
+      return node;
+    }),
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Start", item: `${SITE}/` },
+      { "@type": "ListItem", position: 2, name: seo.h1, item: pageUrl },
+    ],
+  };
+
+  return `<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${E(seo.title)} | Portfolio</title>
+<meta name="description" content="${E(seo.description)}" />
+<link rel="canonical" href="${pageUrl}" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${E(seo.title)}" />
+<meta property="og:description" content="${E(seo.description)}" />
+<meta property="og:url" content="${pageUrl}" />
+<meta property="og:image" content="${cover}" />
+<meta property="og:site_name" content="Dirk Mathesius" />
+<meta name="twitter:card" content="summary_large_image" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style>
+  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
+  .brand{text-align:center;padding:24px 0 6px;}
+  .brand img{width:50px;height:50px;border:0;}
+  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl .c{color:#ccc;}
+  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
+  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
+  nav.cat a:hover{color:#FF6600;}
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
+       background:#111;color:#fff;padding:14px 18px;margin:18px 0;text-align:center;}
+  .cta p{margin:0;font-size:12px;line-height:1.5;color:#ddd;}
+  .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+              letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
+  .cta a.book:hover{background:#e25c00;}
+  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
+  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 22px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:28px;}
+  figure{margin:0;}
+  figure img{width:100%;height:auto;display:block;background:#f3f3f3;}
+  figcaption{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
+  footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+</style>
+<script type="application/ld+json">${jsonLd(galleryLd)}</script>
+<script type="application/ld+json">${jsonLd(breadcrumbLd)}</script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
+      <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
+    </div>
+    <nav class="cat">
+        ${nav}
+    </nav>
+
+    <div class="cta">
+      <p>Original-Website &amp; Buchung direkt bei Dirk Mathesius</p>
+      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+    </div>
+
+    <h1>${E(seo.h1)} — ${E(seo.title)}</h1>
+    <p class="intro">${E(seo.intro)}</p>
+
+    <section class="grid">
+${figures}
+    </section>
+
+    <div class="cta">
+      <p>Dieses Motiv oder ein eigenes Projekt anfragen?</p>
+      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+    </div>
+
+    <footer>
+      <a href="/">Start</a> ·
+      <a href="/info.html">Info</a> ·
+      <a href="/impressum.html">Impressum</a> ·
+      <a href="/datenschutzerklaerung.html">Datenschutz</a> ·
+      <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener">dirkmathesius.de</a>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+};
+
+for (const c of categories) {
+  writeFileSync(join(root, "public", `${c.id}.html`), categoryPage(c));
+}
+console.log(`✅ ${categories.length} statische Kategorie-Seiten — public/{${categories.map((c) => c.id).join(",")}}.html`);
