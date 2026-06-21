@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via `node scripts/build-portfolio-manifest.mjs`)
 // Alt-texts & captions are read from the embedded XMP/IPTC metadata of each .webp.
-// Updated: 2026-06-02
+// Updated: 2026-06-21
 
 export type PortfolioImage = {
   src: string;
@@ -25,8 +25,8 @@ export const portfolio: PortfolioCategory[] = [
     "id": "sport",
     "label": "Sport",
     "altBase": "Sportfotografie Berlin – Dirk Mathesius",
-    "cover": "/portfolio/sport/Franziska-Koch-Schiedsrichterin-Runners-World-Magazin.webp",
-    "coverAlt": "in einem Umkleideraum für Sportler sitzt die Fussball- Schiedsrichterin Franziska Koch auf einer Bank in Sport outfit und Schiedsrichterpfeife. Sie schaut sicher in die Kamera. Produziert für Runners World Magazin mit Hasselblad 501c CFV 16.",
+    "cover": "/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
+    "coverAlt": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
     "images": [
       {
         "src": "/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
