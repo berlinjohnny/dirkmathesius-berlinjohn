@@ -154,7 +154,7 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
       <figure className="relative img-hover cursor-pointer overflow-hidden" onClick={() => onOpen(s.cat)}>
         <img key={s.src} src={s.src}
           alt={`${s.alt} – John Förster, Sportmodel, Sportfotografie Berlin`}
-          fetchPriority="high"
+          loading="lazy" decoding="async"
           className="w-full block hero-fade" />
         {/* edle Jahresangabe */}
         <div className="absolute left-4 bottom-4 md:left-7 md:bottom-7 text-white pointer-events-none"
@@ -458,7 +458,20 @@ export default function Index() {
           <a href="#info" className={navLink}>info</a>
         </nav>
 
-        {/* Hero — Bildwechsler/Timeline der Sportmodel-Fotos */}
+        {/* Startfoto (Wunsch Dirk Mathesius) — Human-Flag mit Friedenstaube, sein Live-Hero */}
+        <figure className="mt-10 md:mt-12 img-hover cursor-pointer overflow-hidden"
+          onClick={() => { const c = categories.find((x) => x.id === "sport"); if (c) setActiveGallery(c); }}>
+          <img
+            src="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
+            alt="Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung"
+            width={1617} height={1212} fetchPriority="high" decoding="async"
+            className="w-full block" />
+          <figcaption className="mt-3 text-center text-[11px] tracking-wide text-black/45">
+            <span className="text-black/30">{COPY}</span> · Human-Flag &amp; Friedenstaube · John Förster
+          </figcaption>
+        </figure>
+
+        {/* Sportmodel-Serie — Bildwechsler/Timeline */}
         <HeroTimeline onOpen={(c) => setActiveGallery(c)} />
 
         {/* Trust-Badge — dezente Kundenreferenzen */}
