@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { X, Play } from "lucide-react";
+import { X, Play, MessageCircle } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
+import { WEB3FORMS_KEY, EMAIL, PHONE_DISPLAY, PHONE_TEL, whatsappUrl, GA4_ID } from "@/lib/site";
+import { trackAnfrageSubmit, trackWhatsappClick, trackAnrufClick, trackCtaClick } from "@/lib/analytics";
+import { openCookieSettings } from "@/components/CookieConsent";
 
 const categories = portfolio;
 
@@ -261,27 +264,93 @@ function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void
 }
 
 function ContactForm() {
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.location.href = `mailto:mail@dirkmathesius.de?subject=Projektanfrage von ${encodeURIComponent(form.name)}&body=${encodeURIComponent(form.message + "\n\nVon: " + form.email)}`;
-    setSent(true);
-  };
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
   const inputClass = "bg-transparent border-b border-black/20 focus:border-[#FF6600] outline-none py-2.5 text-black text-[13px] placeholder:text-black/35 transition-colors";
 
-  if (sent) return <p className="text-[12px] text-black/50">Danke — E-Mail-Programm geöffnet.</p>;
+  // Fallback ohne Web3Forms-Key: klassisches mailto (funktioniert überall).
+  const submitMailto = () => {
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Projektanfrage von " + form.name)}&body=${encodeURIComponent(form.message + "\n\nTelefon: " + form.phone + "\nVon: " + form.email)}`;
+    trackAnfrageSubmit("mailto");
+    setStatus("ok");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!WEB3FORMS_KEY) return submitMailto();
+
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Neue Shooting-Anfrage von ${form.name} · dirkmathesius.de`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          telefon: form.phone,
+          message: form.message,
+          botcheck: (document.getElementById("dm-botcheck") as HTMLInputElement)?.checked,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        trackAnfrageSubmit("web3forms");
+        setStatus("ok");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  if (status === "ok")
+    return (
+      <p className="text-[13px] text-black/70 leading-relaxed max-w-sm mx-auto">
+        Danke für deine Anfrage! 🙌 Dirk meldet sich zeitnah bei dir.
+        <br />
+        <span className="text-black/45 text-[12px]">
+          Schneller geht’s per{" "}
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
+            onClick={() => trackWhatsappClick("nach-formular")}
+            className="text-[#FF6600] hover:underline">WhatsApp</a>{" "}
+          oder{" "}
+          <a href={`tel:${PHONE_TEL}`} onClick={() => trackAnrufClick("nach-formular")}
+            className="text-[#FF6600] hover:underline">Anruf</a>.
+        </span>
+      </p>
+    );
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto text-left">
+      {/* Honeypot gegen Spam — für Menschen unsichtbar */}
+      <input type="checkbox" id="dm-botcheck" name="botcheck" tabIndex={-1} autoComplete="off"
+        className="hidden" aria-hidden="true" />
       <input required placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass} />
       <input required type="email" placeholder="E-Mail" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} />
+      <input type="tel" placeholder="Telefon (optional)" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputClass} />
       <textarea required placeholder="Projekt / Nachricht" rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`${inputClass} resize-none`} />
-      <button type="submit" className="self-center mt-1 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
-        Anfrage senden
+      <button type="submit" disabled={status === "sending"}
+        className="self-center mt-1 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] disabled:opacity-60 text-[11px] tracking-[0.2em] uppercase transition-colors">
+        {status === "sending" ? "senden…" : "Anfrage senden"}
       </button>
+      {status === "error" && (
+        <p className="text-[12px] text-center text-red-600/80">
+          Senden fehlgeschlagen. Bitte per{" "}
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="underline">WhatsApp</a>{" "}
+          oder{" "}
+          <a href={`mailto:${EMAIL}`} className="underline">E-Mail</a>.
+        </p>
+      )}
+      <p className="text-[10px] text-center text-black/35 leading-relaxed">
+        Mit dem Absenden werden deine Angaben zur Bearbeitung der Anfrage verarbeitet
+        (Versand via Web3Forms). Details:{" "}
+        <a href="/datenschutzerklaerung.html" className="underline hover:text-[#FF6600]">Datenschutz</a>.
+      </p>
     </form>
   );
 }
@@ -311,6 +380,25 @@ function Showreel({ id, label = "Showreel" }: { id: string; label?: string }) {
           </span>
         </button>
       )}
+    </div>
+  );
+}
+
+/* Sticky Booking-Leiste — nur mobil. Anfrage-Anker + WhatsApp in EINER Leiste. */
+function StickyCta() {
+  return (
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex border-t border-black/10 bg-white/95 backdrop-blur"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+      <a href="#info" onClick={() => trackCtaClick("sticky-anfrage")}
+        className="flex-1 text-center py-3.5 text-[11px] tracking-[0.2em] uppercase text-white bg-[#FF6600] active:bg-[#e25c00]">
+        Shooting anfragen
+      </a>
+      <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
+        onClick={() => trackWhatsappClick("sticky")}
+        aria-label="WhatsApp"
+        className="flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] tracking-[0.12em] uppercase text-white bg-[#25D366] active:bg-[#1eb955]">
+        <MessageCircle size={16} /> WhatsApp
+      </a>
     </div>
   );
 }
@@ -345,7 +433,7 @@ export default function Index() {
         <span className="text-[12px] tracking-[0.35em] uppercase text-black/80">Dirk Mathesius</span>
       </div>
 
-      <div id="top" className="max-w-[1100px] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-12">
+      <div id="top" className="max-w-[1100px] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-24 md:pb-12">
         {/* Brand-Lockup — der optische USP */}
         <header className="text-center">
           <a href="#top" aria-label="Startseite" className="inline-block">
@@ -394,7 +482,7 @@ export default function Index() {
               <p className="text-[13px] leading-relaxed text-black/65">
                 Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial.
                 Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
-                (BMW Motorrad, Red Bull, adidas, Stern, Men&apos;s Health).
+                (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&apos;s Health).
               </p>
               <p className="text-[12px] leading-relaxed text-black/50 mt-3">
                 Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
@@ -417,7 +505,7 @@ export default function Index() {
               <a href="https://berlinjohn.de/?utm_source=dirkmathesius&utm_medium=referral&utm_campaign=netzwerk" target="_blank" rel="noopener noreferrer"
                 className="text-[#FF6600] hover:underline">berlinjohn.de</a>
             </figcaption>
-            <a href="#info"
+            <a href="#info" onClick={() => trackCtaClick("empfehlung-foerster")}
               className="inline-block mt-6 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
               Shooting anfragen
             </a>
@@ -480,7 +568,7 @@ export default function Index() {
                 <h3 className="text-[14px] tracking-[0.12em] uppercase text-black/85 mb-2">{b.t}</h3>
                 <p className="text-[12px] leading-relaxed text-black/55 flex-1">{b.d}</p>
                 <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-black/45">{b.p}</p>
-                <a href="#info" className="mt-3 inline-block self-center md:self-start px-7 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+                <a href="#info" onClick={() => trackCtaClick(`paket-${b.t}`)} className="mt-3 inline-block self-center md:self-start px-7 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
                   Paket anfragen
                 </a>
               </div>
@@ -521,13 +609,21 @@ export default function Index() {
           </p>
           <p className="text-[12px] leading-relaxed text-black/55 mt-4">
             Bahrendorfer Straße 22 · 12555 Berlin · Mobil{" "}
-            <a href="tel:+491755915670" className="text-[#FF6600] hover:underline">+49 175 5915670</a>
+            <a href={`tel:${PHONE_TEL}`} onClick={() => trackAnrufClick("kontakt")} className="text-[#FF6600] hover:underline">{PHONE_DISPLAY}</a>
           </p>
           <p className="text-[12px] mt-1">
-            <a href="mailto:mail@dirkmathesius.de" className="text-[#FF6600] hover:underline">mail@dirkmathesius.de</a>
+            <a href={`mailto:${EMAIL}`} onClick={() => trackCtaClick("email-kontakt")} className="text-[#FF6600] hover:underline">{EMAIL}</a>
           </p>
 
-          <div className="mt-10">
+          {/* WhatsApp — schnellster Buchungskanal */}
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
+            onClick={() => trackWhatsappClick("kontakt")}
+            className="inline-flex items-center gap-2 mt-6 px-7 py-3 bg-[#25D366] text-white hover:bg-[#1eb955] text-[12px] tracking-[0.12em] uppercase transition-colors">
+            <MessageCircle size={16} /> Direkt per WhatsApp anfragen
+          </a>
+          <p className="mt-3 text-[11px] text-black/40">oder das Formular nutzen:</p>
+
+          <div className="mt-6">
             <ContactForm />
           </div>
         </section>
@@ -549,10 +645,20 @@ export default function Index() {
             <a href="/impressum.html" className="hover:text-[#FF6600] transition-colors">Impressum</a>
             <a href="/datenschutzerklaerung.html" className="hover:text-[#FF6600] transition-colors">Datenschutz</a>
             <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6600] transition-colors">dirkmathesius.de</a>
+            {GA4_ID && (
+              <button onClick={openCookieSettings} className="uppercase hover:text-[#FF6600] transition-colors">Cookie-Einstellungen</button>
+            )}
           </div>
+          {/* Foto-Schutzhinweis (Wunsch Dirk Mathesius) */}
+          <p className="mt-5 max-w-xl mx-auto text-[10px] leading-relaxed text-black/35">
+            Die auf dieser Website veröffentlichten Fotos sind rechtlich geschützt. Eine Verwendung,
+            Vervielfältigung oder Weitergabe ist nur mit vorheriger Zustimmung zulässig.
+          </p>
           <p className="mt-3 text-[10px] tracking-wide text-black/30">© {new Date().getFullYear()} Dirk Mathesius · Berlin</p>
         </footer>
       </div>
+
+      <StickyCta />
     </div>
   );
 }

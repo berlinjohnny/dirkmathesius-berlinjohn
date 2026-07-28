@@ -3,7 +3,7 @@
 // schema.org ImageGallery built from the embedded XMP/IPTC metadata of each photo.
 // Render via react-helmet-async:
 //   <Helmet><script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script></Helmet>
-// Updated: 2026-06-21
+// Updated: 2026-07-26
 
 export const imageGalleryJsonLd = {
   "@context": "https://schema.org",

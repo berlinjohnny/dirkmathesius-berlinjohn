@@ -7,7 +7,27 @@ const portfolioDir = join(root, "public", "portfolio");
 const outFile = join(root, "src", "lib", "portfolio.ts");
 const jsonLdFile = join(root, "src", "lib", "imageJsonLd.ts");
 
-const SITE = "https://dirkmathesius.berlinjohn.de";
+// EINE Wahrheit für die Domain. Cutover = VITE_SITE_URL in .env setzen + Generator neu laufen.
+// Der Generator läuft separat von Vite, liest die .env aber selbst (kein dotenv nötig),
+// damit .env die einzige Stelle bleibt — identisch zu src/lib/site.ts (VITE_SITE_URL).
+function readEnv(key) {
+  if (process.env[key]) return process.env[key];
+  try {
+    const txt = readFileSync(join(root, ".env"), "utf8");
+    const m = txt.match(new RegExp(`^\\s*${key}\\s*=\\s*(.+?)\\s*$`, "m"));
+    return m ? m[1].replace(/^['"]|['"]$/g, "") : undefined;
+  } catch {
+    return undefined;
+  }
+}
+const SITE = (readEnv("SITE_URL") || readEnv("VITE_SITE_URL") || "https://dirkmathesius.berlinjohn.de").replace(/\/$/, "");
+
+// Buchungsziel der Kategorie-CTAs:
+//  - Pre-Cutover (SITE = Testbed): Buchungen gehen an Dirks Live-Server → Performance-Messung.
+//  - Post-Cutover (SITE = offizielle Domain): CTA würde auf sich selbst zeigen → stattdessen
+//    On-Page-Buchungsanker. Steuerbar via BOOK_URL; Default leitet das automatisch ab.
+const OFFICIAL = "https://www.dirkmathesius.de";
+const isOfficialHost = /(^|\.)dirkmathesius\.de$/.test(new URL(SITE).hostname);
 
 const categoryMeta = {
   sport:       { label: "Sport",       altSuffix: "Sportfotografie Berlin – Dirk Mathesius" },
@@ -370,6 +390,27 @@ writeFileSync(join(root, "public", "sitemap.xml"), sitemap);
 const totalImg = categories.reduce((n, c) => n + c.images.length, 0);
 console.log(`✅ sitemap.xml — ${categories.length} category pages × image entries = ${totalImg} <image:image> blocks + 1 hero`);
 
+// --- robots.txt (in den Generator gefaltet → bleibt beim Cutover NICHT auf der Subdomain hängen)
+const robots = `User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+Sitemap: ${SITE}/sitemap.xml
+`;
+writeFileSync(join(root, "public", "robots.txt"), robots);
+console.log("✅ robots.txt — Sitemap → " + SITE + "/sitemap.xml");
+
 // --- Static category pages (real .html files → fix Soft-404, served directly by Apache) ---
 // Encoding-independent: every non-ASCII char becomes a numeric entity, so the page renders
 // correctly regardless of the charset the server declares.
@@ -388,7 +429,15 @@ const E = (s) =>
 const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, "\\u003c");
 
 const utm = (cat) =>
-  `https://www.dirkmathesius.de/?utm_source=dirkmathesius&utm_medium=booking-booster&utm_campaign=portfolio-${cat}`;
+  isOfficialHost
+    // Post-Cutover: diese Seite IST die offizielle Domain → On-Page-Buchungsanker.
+    ? `/#info`
+    // Pre-Cutover: Buchung an Dirks Live-Server weiterleiten (Performance-Messung).
+    : `${OFFICIAL}/?utm_source=dirkmathesius&utm_medium=booking-booster&utm_campaign=portfolio-${cat}`;
+
+// CTA-Beschriftung/Target abhängig vom Host (self-link nach Cutover vermeiden).
+const bookLabel = isOfficialHost ? "Shooting anfragen →" : "Buchen auf dirkmathesius.de →";
+const bookAttrs = isOfficialHost ? "" : ' target="_blank" rel="noopener"';
 
 const categoryPage = (c) => {
   const seo = seoByCat[c.id];
@@ -502,7 +551,7 @@ const categoryPage = (c) => {
 
     <div class="cta">
       <p>Original-Website &amp; Buchung direkt bei Dirk Mathesius</p>
-      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+      <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
     </div>
 
     <h1>${E(seo.h1)} — ${E(seo.title)}</h1>
@@ -514,7 +563,7 @@ ${figures}
 
     <div class="cta">
       <p>Dieses Motiv oder ein eigenes Projekt anfragen?</p>
-      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+      <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
     </div>
 
     <footer>

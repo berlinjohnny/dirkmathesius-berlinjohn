@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/sport.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -175,7 +175,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/folks.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -321,7 +321,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/music.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -467,7 +467,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/reportage.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -613,7 +613,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/landscape.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -719,7 +719,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/stills.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -830,7 +830,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/publication.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -976,19 +976,19 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/info.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/impressum.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/datenschutzerklaerung.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
