@@ -40,8 +40,9 @@
     <meta name="twitter:image" content="%VITE_SITE_URL%/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
     <meta name="twitter:image:alt" content="Dirk Mathesius – Startfoto: Human-Flag mit Friedenstaube, Berlin" />
 
-    <!-- Performance: preload hero (Startfoto) -->
-    <link rel="preload" as="image" href="%VITE_SITE_URL%/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" fetchpriority="high" />
+    <!-- Performance: preload hero (Startfoto). Root-relativ → host-unabhängig,
+         passt exakt zum <img>-Request (kein Doppel-Download). -->
+    <link rel="preload" as="image" href="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" fetchpriority="high" />
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
