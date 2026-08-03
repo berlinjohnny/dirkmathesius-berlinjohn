@@ -3,7 +3,7 @@ import { X, Play, MessageCircle } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
-import { WEB3FORMS_KEY, EMAIL, PHONE_DISPLAY, PHONE_TEL, whatsappUrl, GA4_ID } from "@/lib/site";
+import { WEB3FORMS_KEY, EMAIL, PHONE_DISPLAY, PHONE_TEL, whatsappUrl, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
 import { trackAnfrageSubmit, trackWhatsappClick, trackAnrufClick, trackCtaClick } from "@/lib/analytics";
 import { openCookieSettings } from "@/components/CookieConsent";
 
@@ -30,13 +30,13 @@ const COPY = "© Dirk Mathesius";
 
 /* Verkaufstrichter: Ergebnisse · Pakete · FAQ (Inhalte editierbar) */
 const CASES = [
-  { t: "Sport & Action", d: "Freie Fotokunst-Serie mit Sportmodel John Förster / AcroBerlin — pure, echte Bewegung, ohne Bildbearbeitung. Basis für Vernissagen, Awards & Editorial." },
+  { t: "Sport & Action", d: "Dynamische Sport- und Action-Fotografie — pure, echte Bewegung, ohne Bildbearbeitung. Basis für Vernissagen, Awards & Editorial." },
   { t: "Industrie & Produkt", d: "Mittelformat (Hasselblad), getethert on location — Baustelle, Hafen, Labor. Präzise, authentische Produkt- und Reportagebilder." },
   { t: "People & Editorial", d: "Portraits & Editorial für Magazine und Marken: Stern, Men's Health, audible, BMW Motorrad, Red Bull, adidas." },
 ];
 
 const BUNDLES = [
-  { t: "Action- & Editorial-Kombi", d: "Fotografie (Dirk Mathesius) + Sportmodel/Stunt (John Förster · AcroBerlin). Echtes Action-Material, ohne Bildbearbeitung.", p: "Preis auf Anfrage" },
+  { t: "Action- & Editorial-Kombi", d: "Dynamische Action- und Editorial-Fotografie mit professionellen Sportmodels & Stunts. Echtes Material, ohne Bildbearbeitung.", p: "Preis auf Anfrage" },
   { t: "Industrie & Produkt — on location", d: "Mittelformat-Shooting mobil bei dir vor Ort und im Studio. Tethered, präzise, zuverlässig.", p: "Preis auf Anfrage" },
 ];
 
@@ -46,7 +46,7 @@ const FAQS = [
   { q: "Wem gehören die Nutzungsrechte an den Bildern?", a: "Die Nutzungsrechte werden projektbezogen passend zum Einsatz vereinbart. Urheber bleibt © Dirk Mathesius." },
   { q: "Wie schnell bekomme ich die Bilder?", a: "Eine erste Auswahl zeitnah nach dem Shooting; die finale Bearbeitung richtet sich nach Umfang und Absprache." },
   { q: "Was kostet ein Shooting?", a: "Individuell nach Aufwand, Umfang und Nutzungsrechten — du bekommst ein transparentes Angebot auf Anfrage." },
-  { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — u. a. mit Sportmodel John Förster / AcroBerlin: echte Action, 100 % real, ohne Bildbearbeitung." },
+  { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — dynamische Action- und Sportshootings mit professionellen Sportmodels: echte Action, 100 % real, ohne Bildbearbeitung." },
 ];
 
 const faqJsonLd = {
@@ -403,9 +403,69 @@ function StickyCta() {
   );
 }
 
+/* ── Kollaborations-Blöcke (John × Dirk) — eine Quelle für Fanpage + /kollaborationen ─
+   Auf Dirks offizieller Startseite werden sie NICHT gerendert (nur dezent verlinkt). */
+
+/* Behind the Scenes — wie die Bilder entstehen (eigener Lightbox-State) */
+function CollabBTS() {
+  const [lb, setLb] = useState<number | null>(null);
+  return (
+    <>
+      {lb !== null && <Lightbox images={BTS} index={lb} onClose={() => setLb(null)} />}
+      <section id="behind-the-scenes" className="mt-16 md:mt-24">
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <span className="h-px w-8 bg-black/20" />
+          <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Behind the Scenes</span>
+          <span className="h-px w-8 bg-black/20" />
+        </div>
+        <p className="text-center text-[12px] text-black/45 max-w-md mx-auto mb-7">
+          Wie die Bilder entstehen — on location, am Set und mit den Förster-Brüdern. 🎬
+        </p>
+        <div className="columns-2 md:columns-3 gap-3 md:gap-4">
+          {BTS.map((img, i) => (
+            <figure key={img.src} className="img-hover mb-3 md:mb-4 cursor-pointer break-inside-avoid"
+              onClick={() => setLb(i)}>
+              <img src={img.src} alt={img.alt} title={img.title} className="w-full block" loading="lazy" decoding="async"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
+              {img.title && (
+                <figcaption className="text-[10px] leading-snug mt-1.5 text-black/45 tracking-wide">
+                  {img.title}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+/* Persönliche Empfehlung von John Förster — nur auf der Fanpage (John feiert die
+   Kollaboration); Buchungs-CTA führt auf Dirks offizielle Seite. */
+function CollabEndorsement() {
+  return (
+    <figure className="mt-16 md:mt-24 max-w-2xl mx-auto text-center border-t border-black/10 pt-8">
+      <blockquote className="text-[14px] md:text-[16px] leading-relaxed text-black/75 italic">
+        „Ich arbeite seit Jahren mit Dirk Mathesius — pure, echte Action, ohne Bildbearbeitung.
+        Mein klarer Tipp für Sport-, Action- &amp; Editorial-Shootings."
+      </blockquote>
+      <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-black/55">
+        John Förster · Sportmodel &amp; AcroBerlin ·{" "}
+        <a href="https://berlinjohn.de/?utm_source=dirkmathesius&utm_medium=referral&utm_campaign=netzwerk" target="_blank" rel="noopener noreferrer"
+          className="text-[#FF6600] hover:underline">berlinjohn.de</a>
+      </figcaption>
+      <a href={`${OFFICIAL_URL}/?utm_source=fanpage&utm_medium=referral&utm_campaign=empfehlung`}
+        target="_blank" rel="noopener noreferrer"
+        onClick={() => trackCtaClick("fanpage-dirk-buchen")}
+        className="inline-block mt-6 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+        Dirk Mathesius buchen →
+      </a>
+    </figure>
+  );
+}
+
 export default function Index() {
   const [activeGallery, setActiveGallery] = useState<PortfolioCategory | null>(null);
-  const [btsLb, setBtsLb] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -421,11 +481,13 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white text-black">
       <Helmet>
+        {/* Canonical wird hier zentral gesetzt (aus index.html entfernt, um Doppel-
+            Canonical zu vermeiden). Fanpage → official, damit das Ranking bei Dirk
+            gebündelt wird; offizielle Seite → eigene URL. */}
+        <link rel="canonical" href={(IS_OFFICIAL ? SITE_URL : OFFICIAL_URL) + "/"} />
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        {IS_OFFICIAL && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
       </Helmet>
-
-      {btsLb !== null && <Lightbox images={BTS} index={btsLb} onClose={() => setBtsLb(null)} />}
 
       {/* Schlanke Sticky-Markenleiste beim Scrollen */}
       <div className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-center gap-3 bg-white/90 backdrop-blur border-b border-black/10 transition-all duration-300 ${scrolled ? "py-2.5 opacity-100" : "opacity-0 -translate-y-full"}`}>
@@ -471,8 +533,9 @@ export default function Index() {
           </figcaption>
         </figure>
 
-        {/* Sportmodel-Serie — Bildwechsler/Timeline */}
-        <HeroTimeline onOpen={(c) => setActiveGallery(c)} />
+        {/* Sportmodel-Serie — Bildwechsler/Timeline. Nur Fanpage; offizielle Seite
+            zeigt sie dezent auf /kollaborationen.html. */}
+        {IS_FANPAGE && <HeroTimeline onOpen={(c) => setActiveGallery(c)} />}
 
         {/* Trust-Badge — dezente Kundenreferenzen */}
         <section className="mt-12 md:mt-16 text-center">
@@ -497,9 +560,16 @@ export default function Index() {
                 Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
                 (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&apos;s Health).
               </p>
-              <p className="text-[12px] leading-relaxed text-black/50 mt-3">
-                Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
-              </p>
+              {IS_OFFICIAL ? (
+                <p className="text-[12px] leading-relaxed text-black/50 mt-3">
+                  Ausgewählte Kollaborationen &amp; Behind-the-Scenes-Arbeiten:{" "}
+                  <a href="/kollaborationen.html" className="text-[#FF6600] hover:underline">Kollaborationen →</a>
+                </p>
+              ) : (
+                <p className="text-[12px] leading-relaxed text-black/50 mt-3">
+                  Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
+                </p>
+              )}
               <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener noreferrer"
                 className="inline-block mt-5 text-[11px] tracking-[0.2em] uppercase text-[#FF6600] hover:underline">
                 Mehr Showreels auf Instagram →
@@ -507,50 +577,16 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Persönliche Empfehlung & Collaboration (Cross-Marketing) */}
-          <figure className="mt-10 md:mt-12 max-w-2xl mx-auto text-center border-t border-black/10 pt-8">
-            <blockquote className="text-[14px] md:text-[16px] leading-relaxed text-black/75 italic">
-              „Ich arbeite seit Jahren mit Dirk Mathesius — pure, echte Action, ohne Bildbearbeitung.
-              Mein klarer Tipp für Sport-, Action- &amp; Editorial-Shootings."
-            </blockquote>
-            <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-black/55">
-              John Förster · Sportmodel &amp; AcroBerlin ·{" "}
-              <a href="https://berlinjohn.de/?utm_source=dirkmathesius&utm_medium=referral&utm_campaign=netzwerk" target="_blank" rel="noopener noreferrer"
-                className="text-[#FF6600] hover:underline">berlinjohn.de</a>
-            </figcaption>
-            <a href="#info" onClick={() => trackCtaClick("empfehlung-foerster")}
-              className="inline-block mt-6 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
-              Shooting anfragen
-            </a>
-          </figure>
+          {/* Empfehlung von John Förster — nur auf der Fanpage */}
+          {IS_FANPAGE && <CollabEndorsement />}
         </section>
 
-        {/* Behind the Scenes */}
-        <section id="behind-the-scenes" className="mt-16 md:mt-24">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Behind the Scenes</span>
-            <span className="h-px w-8 bg-black/20" />
-          </div>
-          <p className="text-center text-[12px] text-black/45 max-w-md mx-auto mb-7">
-            Wie die Bilder entstehen — on location, am Set und mit den Förster-Brüdern. 🎬
-          </p>
-          <div className="columns-2 md:columns-3 gap-3 md:gap-4">
-            {BTS.map((img, i) => (
-              <figure key={img.src} className="img-hover mb-3 md:mb-4 cursor-pointer break-inside-avoid"
-                onClick={() => setBtsLb(i)}>
-                <img src={img.src} alt={img.alt} title={img.title} className="w-full block" loading="lazy" decoding="async"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
-                {img.title && (
-                  <figcaption className="text-[10px] leading-snug mt-1.5 text-black/45 tracking-wide">
-                    {img.title}
-                  </figcaption>
-                )}
-              </figure>
-            ))}
-          </div>
-        </section>
+        {/* Behind the Scenes — nur Fanpage (offizielle Seite: /kollaborationen.html) */}
+        {IS_FANPAGE && <CollabBTS />}
 
+        {/* Business-Trichter (Ergebnisse · Pakete · FAQ · Kontakt) — nur auf Dirks
+            offizieller Seite. Auf der Fanpage führen Buchungen zu dirkmathesius.de. */}
+        {IS_OFFICIAL && (<>
         {/* Ergebnisse / Case Studies */}
         <section id="ergebnisse" className="mt-16 md:mt-24">
           <div className="flex items-center justify-center gap-3 mb-7">
@@ -640,6 +676,23 @@ export default function Index() {
             <ContactForm />
           </div>
         </section>
+        </>)}
+
+        {/* Fanpage — klarer Weg zur Buchung auf Dirks offizieller Seite */}
+        {IS_FANPAGE && (
+          <section id="info" className="mt-16 md:mt-24 text-center">
+            <p className="text-[13px] leading-relaxed text-black/65 max-w-xl mx-auto">
+              Diese Seite zeigt die Kollaboration mit Sportmodel John Förster.
+              Für Buchungen & Anfragen geht es direkt zu Dirk Mathesius:
+            </p>
+            <a href={`${OFFICIAL_URL}/?utm_source=fanpage&utm_medium=referral&utm_campaign=buchung`}
+              target="_blank" rel="noopener noreferrer"
+              onClick={() => trackCtaClick("fanpage-zur-offiziellen-seite")}
+              className="inline-block mt-6 px-8 py-3 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+              Zu dirkmathesius.de →
+            </a>
+          </section>
+        )}
 
         {/* Footer */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-black/10 text-center">
@@ -671,7 +724,7 @@ export default function Index() {
         </footer>
       </div>
 
-      <StickyCta />
+      {IS_OFFICIAL && <StickyCta />}
     </div>
   );
 }

@@ -15,6 +15,21 @@ export const SITE_URL = (
 /** Offizielle Zieldomain — für sameAs/Verweise, unabhängig vom aktuellen Host. */
 export const OFFICIAL_URL = "https://www.dirkmathesius.de";
 
+// ── Seiten-Variante ─────────────────────────────────────────────────────────────
+// „official" = Dirks eigene Business-Seite (dirkmathesius.de): schlicht, ohne
+//   Fan-/Kollab-Content auf der Startseite (nur dezent auf /kollaborationen).
+// „fanpage"  = meine Subdomain: feiert die John×Dirk-Kollaboration, Buchungen
+//   führen auf dirkmathesius.de. canonical→official (Ranking bündelt bei Dirk).
+// Ableitung: dirkmathesius.de-Host → official, sonst fanpage. Override via
+// VITE_SITE_VARIANT (für lokale Vorschau, ohne live etwas umzustellen).
+const _hostIsOfficial = /(^|\.)dirkmathesius\.de$/.test(
+  (() => { try { return new URL(SITE_URL).hostname; } catch { return ""; } })()
+);
+const _variant = (import.meta.env.VITE_SITE_VARIANT || "").toLowerCase();
+export const IS_OFFICIAL =
+  _variant === "official" ? true : _variant === "fanpage" ? false : _hostIsOfficial;
+export const IS_FANPAGE = !IS_OFFICIAL;
+
 /** WhatsApp im wa.me-Format (nur Ziffern, Länderkennung ohne +). */
 export const WHATSAPP_NUMBER = "491755915670";
 export const PHONE_DISPLAY = "+49 175 5915670";
