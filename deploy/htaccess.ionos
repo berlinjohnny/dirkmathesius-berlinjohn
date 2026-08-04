@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# dirkmathesius.de — offizielle Seite auf IONOS (Apache). Produktions-.htaccess.
+# Wird von scripts/deploy-ionos.sh als dist/.htaccess eingesetzt (NICHT public/.htaccess,
+# das gehört dem berlinjohn.de-Testbed auf KAS).
+#
+# Bewusst OHNE "Options -MultiViews": auf manchen Apache-Setups (AllowOverride ohne
+# Options) → HTTP 500 für den ganzen vhost (bekannte Landmine). Der SPA-Fallback
+# unten reicht ohne MultiViews-Abschaltung.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Unsere SPA-index.html erzwingen (falls alte Seite index.php/index.htm hatte)
+DirectoryIndex index.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+RewriteEngine On
+
+# 1) HTTPS erzwingen
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2) Kanonischer Host: non-www → www (canonical der Seite = https://www.dirkmathesius.de)
+RewriteCond %{HTTP_HOST} ^dirkmathesius\.de$ [NC]
+RewriteRule ^ https://www.dirkmathesius.de%{REQUEST_URI} [L,R=301]
+
+# ── 3) 301-Weiterleitungen alter URLs ────────────────────────────────────────
+# Die neue Struktur spiegelt die Original-Seite (info.html, impressum.html,
+# sport.html …), daher i. d. R. wenige nötig. Am Termin bei Bedarf ergänzen,
+# z. B.:
+#   Redirect 301 /old-portfolio.html /sport.html
+#   Redirect 301 /kontakt.html /#info
+
+# ── 4) SPA-Fallback: existierende Dateien/Ordner direkt, sonst index.html ─────
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [QSA,L]
