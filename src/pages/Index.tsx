@@ -474,6 +474,19 @@ export default function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Canonical zentral & bulletproof (statt Helmet, das <link> hier nicht zuverlässig
+  // rendert): offizielle Seite → eigene URL, Fanpage → dirkmathesius.de (Ranking bündeln).
+  useEffect(() => {
+    const href = (IS_OFFICIAL ? SITE_URL : OFFICIAL_URL) + "/";
+    let el = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!el) {
+      el = document.createElement("link");
+      el.rel = "canonical";
+      document.head.appendChild(el);
+    }
+    el.href = href;
+  }, []);
+
   if (activeGallery) return <Gallery cat={activeGallery} onClose={() => setActiveGallery(null)} />;
 
   const navLink = "text-[11px] uppercase tracking-[0.2em] text-black/60 hover:text-[#FF6600] transition-colors py-1 border-b border-transparent hover:border-[#FF6600]";
@@ -481,10 +494,6 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white text-black">
       <Helmet>
-        {/* Canonical wird hier zentral gesetzt (aus index.html entfernt, um Doppel-
-            Canonical zu vermeiden). Fanpage → official, damit das Ranking bei Dirk
-            gebündelt wird; offizielle Seite → eigene URL. */}
-        <link rel="canonical" href={(IS_OFFICIAL ? SITE_URL : OFFICIAL_URL) + "/"} />
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
         {IS_OFFICIAL && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
       </Helmet>
