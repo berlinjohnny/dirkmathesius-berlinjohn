@@ -33,18 +33,18 @@ export default function CookieConsent() {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/98 backdrop-blur px-5 py-4 md:py-5 shadow-[0_-8px_30px_rgba(0,0,0,0.08)]"
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-foreground/10 bg-background/98 backdrop-blur px-5 py-4 md:py-5 shadow-[0_-8px_30px_rgba(0,0,0,0.08)]"
       style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
       role="dialog" aria-label="Cookie-Hinweis">
       <div className="max-w-3xl mx-auto flex flex-col md:flex-row md:items-center gap-4">
-        <p className="text-[12px] leading-relaxed text-black/60 flex-1">
+        <p className="text-[12px] leading-relaxed text-foreground/60 flex-1">
           Diese Seite nutzt Cookies für anonyme Statistik (Google Analytics), um das Angebot zu
           verbessern. Nur mit deiner Zustimmung.{" "}
           <a href="/datenschutzerklaerung.html" className="text-[#FF6600] hover:underline">Datenschutz</a>
         </p>
         <div className="flex flex-wrap gap-2 shrink-0">
           <button onClick={() => choose({ analytics: false, marketing: false })}
-            className="px-4 py-2.5 text-[11px] tracking-[0.14em] uppercase text-black/60 border border-black/15 hover:border-black/40 transition-colors">
+            className="px-4 py-2.5 text-[11px] tracking-[0.14em] uppercase text-foreground/60 border border-foreground/15 hover:border-foreground/40 transition-colors">
             Nur notwendige
           </button>
           <button onClick={() => choose({ analytics: true, marketing: false })}

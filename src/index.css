@@ -16,6 +16,23 @@
     /* Markenorange dirkmathesius.de = #FF6600 */
     --accent: 24 100% 50%;
     --accent-foreground: 0 0% 100%;
+    color-scheme: light;
+  }
+
+  /* Dark Mode — via .dark auf <html> (Toggle + prefers-color-scheme).
+     Nur die Flächen-/Text-Tokens flippen; Marken-Orange & fixe dunkle Elemente
+     (Lightbox, Showreel) bleiben unverändert. */
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 96%;
+    --border: 0 0% 26%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 62%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 0%;
+    color-scheme: dark;
   }
 
   body {

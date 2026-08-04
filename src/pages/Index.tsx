@@ -6,6 +6,7 @@ import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
 import { WEB3FORMS_KEY, EMAIL, PHONE_DISPLAY, PHONE_TEL, whatsappUrl, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
 import { trackAnfrageSubmit, trackWhatsappClick, trackAnrufClick, trackCtaClick } from "@/lib/analytics";
 import { openCookieSettings } from "@/components/CookieConsent";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const categories = portfolio;
 
@@ -163,8 +164,8 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
           <span className="block text-4xl md:text-6xl font-light tracking-wider leading-none tabular-nums">{s.year}</span>
         </div>
       </figure>
-      <figcaption className="mt-3 text-center text-[11px] tracking-wide text-black/45">
-        <span className="text-black/30">{COPY}</span>{s.title ? <> · {s.title}</> : null}
+      <figcaption className="mt-3 text-center text-[11px] tracking-wide text-foreground/45">
+        <span className="text-foreground/30">{COPY}</span>{s.title ? <> · {s.title}</> : null}
       </figcaption>
 
       {/* Zeitskala — klickbare Jahresangaben */}
@@ -172,7 +173,7 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
         {HERO_SLIDES.map((sl, idx) => (
           <button key={sl.src} onClick={() => setI(idx)} aria-label={`Foto ${sl.year}`}
             className={`relative pb-1 text-[11px] md:text-[12px] tracking-[0.12em] tabular-nums transition-colors ${
-              idx === i ? "text-[#FF6600]" : "text-black/35 hover:text-black/70"
+              idx === i ? "text-[#FF6600]" : "text-foreground/35 hover:text-foreground/70"
             }`}>
             {sl.year}
             {idx === i && <span className="absolute left-0 right-0 -bottom-px h-px bg-[#FF6600]" />}
@@ -181,7 +182,7 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
       </div>
 
       {/* Authentizitäts-USP */}
-      <p className="mt-5 text-center text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-black/40">
+      <p className="mt-5 text-center text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-foreground/40">
         Freie Fotokunst-Serie · 100&nbsp;% real, ohne Bildbearbeitung · seit 2008
       </p>
     </section>
@@ -234,13 +235,13 @@ function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   return (
-    <div className="fixed inset-0 z-40 bg-white overflow-y-auto" role="dialog" aria-label={`${cat.altBase} Portfolio`}>
-      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-black/10 px-6 py-4 flex items-center justify-between">
+    <div className="fixed inset-0 z-40 bg-background overflow-y-auto" role="dialog" aria-label={`${cat.altBase} Portfolio`}>
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-foreground/10 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={26} />
-          <h2 className="text-[13px] tracking-[0.3em] uppercase text-black/80">{cat.label}</h2>
+          <h2 className="text-[13px] tracking-[0.3em] uppercase text-foreground/80">{cat.label}</h2>
         </div>
-        <button onClick={onClose} className="text-black/40 hover:text-[#FF6600] flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors">
+        <button onClick={onClose} className="text-foreground/40 hover:text-[#FF6600] flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors">
           <X size={14} /> Zurück
         </button>
       </div>
@@ -251,8 +252,8 @@ function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void
             <img src={img.src} alt={img.alt} title={img.title ?? img.alt} className="w-full block" loading="lazy" decoding="async"
               onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
             {img.title && (
-              <figcaption className="text-[11px] leading-snug mt-2 mb-1 text-black/55 tracking-wide">
-                <span className="text-black/35">{COPY}</span> · {img.title}
+              <figcaption className="text-[11px] leading-snug mt-2 mb-1 text-foreground/55 tracking-wide">
+                <span className="text-foreground/35">{COPY}</span> · {img.title}
               </figcaption>
             )}
           </figure>
@@ -267,7 +268,7 @@ function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
-  const inputClass = "bg-transparent border-b border-black/20 focus:border-[#FF6600] outline-none py-2.5 text-black text-[13px] placeholder:text-black/35 transition-colors";
+  const inputClass = "bg-transparent border-b border-foreground/20 focus:border-[#FF6600] outline-none py-2.5 text-foreground text-[13px] placeholder:text-foreground/35 transition-colors";
 
   // Fallback ohne Web3Forms-Key: klassisches mailto (funktioniert überall).
   const submitMailto = () => {
@@ -310,10 +311,10 @@ function ContactForm() {
 
   if (status === "ok")
     return (
-      <p className="text-[13px] text-black/70 leading-relaxed max-w-sm mx-auto">
+      <p className="text-[13px] text-foreground/70 leading-relaxed max-w-sm mx-auto">
         Danke für deine Anfrage! 🙌 Dirk meldet sich zeitnah bei dir.
         <br />
-        <span className="text-black/45 text-[12px]">
+        <span className="text-foreground/45 text-[12px]">
           Schneller geht’s per{" "}
           <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
             onClick={() => trackWhatsappClick("nach-formular")}
@@ -346,7 +347,7 @@ function ContactForm() {
           <a href={`mailto:${EMAIL}`} className="underline">E-Mail</a>.
         </p>
       )}
-      <p className="text-[10px] text-center text-black/35 leading-relaxed">
+      <p className="text-[10px] text-center text-foreground/35 leading-relaxed">
         Mit dem Absenden werden deine Angaben zur Bearbeitung der Anfrage verarbeitet
         (Versand via Web3Forms). Details:{" "}
         <a href="/datenschutzerklaerung.html" className="underline hover:text-[#FF6600]">Datenschutz</a>.
@@ -387,7 +388,7 @@ function Showreel({ id, label = "Showreel" }: { id: string; label?: string }) {
 /* Sticky Booking-Leiste — nur mobil. Anfrage-Anker + WhatsApp in EINER Leiste. */
 function StickyCta() {
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex border-t border-black/10 bg-white/95 backdrop-blur"
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex border-t border-foreground/10 bg-background/95 backdrop-blur"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <a href="#info" onClick={() => trackCtaClick("sticky-anfrage")}
         className="flex-1 text-center py-3.5 text-[11px] tracking-[0.2em] uppercase text-white bg-[#FF6600] active:bg-[#e25c00]">
@@ -414,11 +415,11 @@ function CollabBTS() {
       {lb !== null && <Lightbox images={BTS} index={lb} onClose={() => setLb(null)} />}
       <section id="behind-the-scenes" className="mt-16 md:mt-24">
         <div className="flex items-center justify-center gap-3 mb-2">
-          <span className="h-px w-8 bg-black/20" />
-          <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Behind the Scenes</span>
-          <span className="h-px w-8 bg-black/20" />
+          <span className="h-px w-8 bg-foreground/20" />
+          <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Behind the Scenes</span>
+          <span className="h-px w-8 bg-foreground/20" />
         </div>
-        <p className="text-center text-[12px] text-black/45 max-w-md mx-auto mb-7">
+        <p className="text-center text-[12px] text-foreground/45 max-w-md mx-auto mb-7">
           Wie die Bilder entstehen — on location, am Set und mit den Förster-Brüdern. 🎬
         </p>
         <div className="columns-2 md:columns-3 gap-3 md:gap-4">
@@ -428,7 +429,7 @@ function CollabBTS() {
               <img src={img.src} alt={img.alt} title={img.title} className="w-full block" loading="lazy" decoding="async"
                 onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
               {img.title && (
-                <figcaption className="text-[10px] leading-snug mt-1.5 text-black/45 tracking-wide">
+                <figcaption className="text-[10px] leading-snug mt-1.5 text-foreground/45 tracking-wide">
                   {img.title}
                 </figcaption>
               )}
@@ -444,12 +445,12 @@ function CollabBTS() {
    Kollaboration); Buchungs-CTA führt auf Dirks offizielle Seite. */
 function CollabEndorsement() {
   return (
-    <figure className="mt-16 md:mt-24 max-w-2xl mx-auto text-center border-t border-black/10 pt-8">
-      <blockquote className="text-[14px] md:text-[16px] leading-relaxed text-black/75 italic">
+    <figure className="mt-16 md:mt-24 max-w-2xl mx-auto text-center border-t border-foreground/10 pt-8">
+      <blockquote className="text-[14px] md:text-[16px] leading-relaxed text-foreground/75 italic">
         „Ich arbeite seit Jahren mit Dirk Mathesius — pure, echte Action, ohne Bildbearbeitung.
         Mein klarer Tipp für Sport-, Action- &amp; Editorial-Shootings."
       </blockquote>
-      <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-black/55">
+      <figcaption className="mt-4 text-[11px] tracking-[0.15em] uppercase text-foreground/55">
         John Förster · Sportmodel &amp; AcroBerlin ·{" "}
         <a href="https://berlinjohn.de/?utm_source=dirkmathesius&utm_medium=referral&utm_campaign=netzwerk" target="_blank" rel="noopener noreferrer"
           className="text-[#FF6600] hover:underline">berlinjohn.de</a>
@@ -489,22 +490,25 @@ export default function Index() {
 
   if (activeGallery) return <Gallery cat={activeGallery} onClose={() => setActiveGallery(null)} />;
 
-  const navLink = "text-[11px] uppercase tracking-[0.2em] text-black/60 hover:text-[#FF6600] transition-colors py-1 border-b border-transparent hover:border-[#FF6600]";
+  const navLink = "text-[11px] uppercase tracking-[0.2em] text-foreground/60 hover:text-[#FF6600] transition-colors py-1 border-b border-transparent hover:border-[#FF6600]";
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-background text-foreground">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
         {IS_OFFICIAL && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
       </Helmet>
 
       {/* Schlanke Sticky-Markenleiste beim Scrollen */}
-      <div className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-center gap-3 bg-white/90 backdrop-blur border-b border-black/10 transition-all duration-300 ${scrolled ? "py-2.5 opacity-100" : "opacity-0 -translate-y-full"}`}>
+      <div className={`fixed top-0 left-0 right-0 z-30 flex items-center justify-center gap-3 bg-background/90 backdrop-blur border-b border-foreground/10 transition-all duration-300 ${scrolled ? "py-2.5 opacity-100" : "opacity-0 -translate-y-full"}`}>
         <Logo size={24} />
-        <span className="text-[12px] tracking-[0.35em] uppercase text-black/80">Dirk Mathesius</span>
+        <span className="text-[12px] tracking-[0.35em] uppercase text-foreground/80">Dirk Mathesius</span>
       </div>
 
-      <div id="top" className="max-w-[1100px] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-24 md:pb-12">
+      <div id="top" className="relative max-w-[1100px] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-24 md:pb-12">
+        {/* Dark/Light-Umschalter — obere rechte Ecke */}
+        <ThemeToggle className="absolute top-4 right-4 md:top-6 md:right-6 z-20" />
+
         {/* Brand-Lockup — der optische USP */}
         <header className="text-center">
           <a href="#top" aria-label="Startseite" className="inline-block">
@@ -513,13 +517,13 @@ export default function Index() {
           <h1 className="mt-4 text-[26px] md:text-[34px] tracking-[0.32em] uppercase font-medium leading-none">
             Dirk&nbsp;Mathesius
           </h1>
-          <p className="mt-3 text-[10px] md:text-[11px] tracking-[0.45em] uppercase text-black/45">
+          <p className="mt-3 text-[10px] md:text-[11px] tracking-[0.45em] uppercase text-foreground/45">
             Fotografie · Berlin · seit 1997
           </p>
         </header>
 
         {/* Navigation */}
-        <nav className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 border-y border-black/10 py-4">
+        <nav className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 border-y border-foreground/10 py-4">
           {navCategories.map((c) => (
             <button key={c.id} onClick={() => setActiveGallery(c)} className={navLink}>
               {c.label.toLowerCase()}
@@ -537,8 +541,8 @@ export default function Index() {
             alt="Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung"
             width={1617} height={1212} fetchPriority="high" decoding="async"
             className="w-full block" />
-          <figcaption className="mt-3 text-center text-[11px] tracking-wide text-black/45">
-            <span className="text-black/30">{COPY}</span> · Human-Flag &amp; Friedenstaube · John Förster
+          <figcaption className="mt-3 text-center text-[11px] tracking-wide text-foreground/45">
+            <span className="text-foreground/30">{COPY}</span> · Human-Flag &amp; Friedenstaube · John Förster
           </figcaption>
         </figure>
 
@@ -548,8 +552,8 @@ export default function Index() {
 
         {/* Trust-Badge — dezente Kundenreferenzen */}
         <section className="mt-12 md:mt-16 text-center">
-          <p className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-black/35 mb-3">Vertraut von</p>
-          <p className="text-[11px] md:text-[12px] leading-relaxed text-black/45 max-w-3xl mx-auto">
+          <p className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-foreground/35 mb-3">Vertraut von</p>
+          <p className="text-[11px] md:text-[12px] leading-relaxed text-foreground/45 max-w-3xl mx-auto">
             {clients.join("  ·  ")}
           </p>
         </section>
@@ -557,25 +561,25 @@ export default function Index() {
         {/* Über Dirk — Showreel + Instagram */}
         <section id="ueber-dirk" className="mt-16 md:mt-24">
           <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Über Dirk</span>
-            <span className="h-px w-8 bg-black/20" />
+            <span className="h-px w-8 bg-foreground/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Über Dirk</span>
+            <span className="h-px w-8 bg-foreground/20" />
           </div>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-3xl mx-auto">
             <Showreel id="D5VtZJvNYGY" label="Showreel" />
             <div className="text-center md:text-left">
-              <p className="text-[13px] leading-relaxed text-black/65">
+              <p className="text-[13px] leading-relaxed text-foreground/65">
                 Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial.
                 Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
                 (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&apos;s Health).
               </p>
               {IS_OFFICIAL ? (
-                <p className="text-[12px] leading-relaxed text-black/50 mt-3">
+                <p className="text-[12px] leading-relaxed text-foreground/50 mt-3">
                   Ausgewählte Kollaborationen &amp; Behind-the-Scenes-Arbeiten:{" "}
                   <a href="/kollaborationen.html" className="text-[#FF6600] hover:underline">Kollaborationen →</a>
                 </p>
               ) : (
-                <p className="text-[12px] leading-relaxed text-black/50 mt-3">
+                <p className="text-[12px] leading-relaxed text-foreground/50 mt-3">
                   Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
                 </p>
               )}
@@ -599,15 +603,15 @@ export default function Index() {
         {/* Ergebnisse / Case Studies */}
         <section id="ergebnisse" className="mt-16 md:mt-24">
           <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Ergebnisse</span>
-            <span className="h-px w-8 bg-black/20" />
+            <span className="h-px w-8 bg-foreground/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Ergebnisse</span>
+            <span className="h-px w-8 bg-foreground/20" />
           </div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {CASES.map((c) => (
               <div key={c.t} className="text-center md:text-left">
-                <h3 className="text-[13px] tracking-[0.15em] uppercase text-black/80 mb-2">{c.t}</h3>
-                <p className="text-[12px] leading-relaxed text-black/55">{c.d}</p>
+                <h3 className="text-[13px] tracking-[0.15em] uppercase text-foreground/80 mb-2">{c.t}</h3>
+                <p className="text-[12px] leading-relaxed text-foreground/55">{c.d}</p>
               </div>
             ))}
           </div>
@@ -616,16 +620,16 @@ export default function Index() {
         {/* Pakete / Kombi-Angebote */}
         <section id="pakete" className="mt-16 md:mt-24">
           <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Pakete</span>
-            <span className="h-px w-8 bg-black/20" />
+            <span className="h-px w-8 bg-foreground/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Pakete</span>
+            <span className="h-px w-8 bg-foreground/20" />
           </div>
           <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
             {BUNDLES.map((b) => (
-              <div key={b.t} className="border border-black/10 p-6 text-center md:text-left flex flex-col">
-                <h3 className="text-[14px] tracking-[0.12em] uppercase text-black/85 mb-2">{b.t}</h3>
-                <p className="text-[12px] leading-relaxed text-black/55 flex-1">{b.d}</p>
-                <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-black/45">{b.p}</p>
+              <div key={b.t} className="border border-foreground/10 p-6 text-center md:text-left flex flex-col">
+                <h3 className="text-[14px] tracking-[0.12em] uppercase text-foreground/85 mb-2">{b.t}</h3>
+                <p className="text-[12px] leading-relaxed text-foreground/55 flex-1">{b.d}</p>
+                <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-foreground/45">{b.p}</p>
                 <a href="#info" onClick={() => trackCtaClick(`paket-${b.t}`)} className="mt-3 inline-block self-center md:self-start px-7 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
                   Paket anfragen
                 </a>
@@ -637,18 +641,18 @@ export default function Index() {
         {/* FAQ */}
         <section id="faq" className="mt-16 md:mt-24 max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">FAQ</span>
-            <span className="h-px w-8 bg-black/20" />
+            <span className="h-px w-8 bg-foreground/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">FAQ</span>
+            <span className="h-px w-8 bg-foreground/20" />
           </div>
-          <div className="divide-y divide-black/10 border-y border-black/10">
+          <div className="divide-y divide-foreground/10 border-y border-foreground/10">
             {FAQS.map((f) => (
               <details key={f.q} className="group py-4">
-                <summary className="cursor-pointer list-none flex items-start justify-between gap-4 text-[13px] text-black/80">
+                <summary className="cursor-pointer list-none flex items-start justify-between gap-4 text-[13px] text-foreground/80">
                   <span>{f.q}</span>
                   <span className="text-[#FF6600] shrink-0 transition-transform duration-300 group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-3 text-[12px] leading-relaxed text-black/55">{f.a}</p>
+                <p className="mt-3 text-[12px] leading-relaxed text-foreground/55">{f.a}</p>
               </details>
             ))}
           </div>
@@ -657,15 +661,15 @@ export default function Index() {
         {/* Info / Kontakt */}
         <section id="info" className="mt-16 md:mt-24 text-center">
           <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="h-px w-8 bg-black/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-black/45">Kontakt</span>
-            <span className="h-px w-8 bg-black/20" />
+            <span className="h-px w-8 bg-foreground/20" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Kontakt</span>
+            <span className="h-px w-8 bg-foreground/20" />
           </div>
-          <p className="text-[13px] leading-relaxed text-black/65 max-w-xl mx-auto">
+          <p className="text-[13px] leading-relaxed text-foreground/65 max-w-xl mx-auto">
             Dirk Mathesius — Fotograf in Berlin, aktiv seit 1997, über 30 Jahre Erfahrung.
             Sport · People · Music · Publication · Landscape · Reportage · Stills.
           </p>
-          <p className="text-[12px] leading-relaxed text-black/55 mt-4">
+          <p className="text-[12px] leading-relaxed text-foreground/55 mt-4">
             Bahrendorfer Straße 22 · 12555 Berlin · Mobil{" "}
             <a href={`tel:${PHONE_TEL}`} onClick={() => trackAnrufClick("kontakt")} className="text-[#FF6600] hover:underline">{PHONE_DISPLAY}</a>
           </p>
@@ -679,7 +683,7 @@ export default function Index() {
             className="inline-flex items-center gap-2 mt-6 px-7 py-3 bg-[#25D366] text-white hover:bg-[#1eb955] text-[12px] tracking-[0.12em] uppercase transition-colors">
             <MessageCircle size={16} /> Direkt per WhatsApp anfragen
           </a>
-          <p className="mt-3 text-[11px] text-black/40">oder das Formular nutzen:</p>
+          <p className="mt-3 text-[11px] text-foreground/40">oder das Formular nutzen:</p>
 
           <div className="mt-6">
             <ContactForm />
@@ -690,7 +694,7 @@ export default function Index() {
         {/* Fanpage — klarer Weg zur Buchung auf Dirks offizieller Seite */}
         {IS_FANPAGE && (
           <section id="info" className="mt-16 md:mt-24 text-center">
-            <p className="text-[13px] leading-relaxed text-black/65 max-w-xl mx-auto">
+            <p className="text-[13px] leading-relaxed text-foreground/65 max-w-xl mx-auto">
               Diese Seite zeigt die Kollaboration mit Sportmodel John Förster.
               Für Buchungen & Anfragen geht es direkt zu Dirk Mathesius:
             </p>
@@ -704,10 +708,10 @@ export default function Index() {
         )}
 
         {/* Footer */}
-        <footer className="mt-16 md:mt-24 pt-7 border-t border-black/10 text-center">
+        <footer className="mt-16 md:mt-24 pt-7 border-t border-foreground/10 text-center">
           <Logo size={52} className="mx-auto" />
           {/* Galerien — echte statische Kategorie-Seiten (SEO-Landingpages). Plain <a>, kein SPA-Link. */}
-          <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-black/40">
+          <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-foreground/40">
             <a href="/folks.html" className="hover:text-[#FF6600] transition-colors">People</a>
             <a href="/sport.html" className="hover:text-[#FF6600] transition-colors">Sport</a>
             <a href="/music.html" className="hover:text-[#FF6600] transition-colors">Music</a>
@@ -716,7 +720,7 @@ export default function Index() {
             <a href="/reportage.html" className="hover:text-[#FF6600] transition-colors">Reportage</a>
             <a href="/stills.html" className="hover:text-[#FF6600] transition-colors">Stills</a>
           </nav>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-black/45">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-foreground/45">
             <a href="/impressum.html" className="hover:text-[#FF6600] transition-colors">Impressum</a>
             <a href="/datenschutzerklaerung.html" className="hover:text-[#FF6600] transition-colors">Datenschutz</a>
             <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6600] transition-colors">dirkmathesius.de</a>
@@ -725,11 +729,11 @@ export default function Index() {
             )}
           </div>
           {/* Foto-Schutzhinweis (Wunsch Dirk Mathesius) */}
-          <p className="mt-5 max-w-xl mx-auto text-[10px] leading-relaxed text-black/35">
+          <p className="mt-5 max-w-xl mx-auto text-[10px] leading-relaxed text-foreground/35">
             Die auf dieser Website veröffentlichten Fotos sind rechtlich geschützt. Eine Verwendung,
             Vervielfältigung oder Weitergabe ist nur mit vorheriger Zustimmung zulässig.
           </p>
-          <p className="mt-3 text-[10px] tracking-wide text-black/30">© {new Date().getFullYear()} Dirk Mathesius · Berlin</p>
+          <p className="mt-3 text-[10px] tracking-wide text-foreground/30">© {new Date().getFullYear()} Dirk Mathesius · Berlin</p>
         </footer>
       </div>
 

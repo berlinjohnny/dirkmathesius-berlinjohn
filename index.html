@@ -8,6 +8,18 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#FF6600" />
 
+    <!-- Theme früh anwenden (kein Flash): gespeicherte Wahl oder System-Präferenz -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("dm-theme");
+          if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <title>Dirk Mathesius | Sportfotograf &amp; Portraitfotograf Berlin – BMW, Red Bull, adidas</title>
     <meta name="description" content="Dirk Mathesius – Berliner Fotograf, aktiv seit 1997 (30+ Jahre Erfahrung). Spezialist für Sportfotografie, Portraitfotografie, Musikfotografie &amp; Editorial. Kunden: BMW Motorrad, Red Bull, adidas, Stern, Men's Health, Amazon." />
     <meta name="keywords" content="Dirk Mathesius, Fotograf Berlin, Sportfotograf Berlin, Portraitfotograf Berlin, Musikfotograf Berlin, Editorial Fotograf, Reportagefotograf, BMW Fotograf, Red Bull Fotograf, adidas Fotograf, People Photography Berlin, Commercial Photography Berlin" />
