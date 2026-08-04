@@ -7,7 +7,27 @@ const portfolioDir = join(root, "public", "portfolio");
 const outFile = join(root, "src", "lib", "portfolio.ts");
 const jsonLdFile = join(root, "src", "lib", "imageJsonLd.ts");
 
-const SITE = "https://dirkmathesius.berlinjohn.de";
+// EINE Wahrheit für die Domain. Cutover = VITE_SITE_URL in .env setzen + Generator neu laufen.
+// Der Generator läuft separat von Vite, liest die .env aber selbst (kein dotenv nötig),
+// damit .env die einzige Stelle bleibt — identisch zu src/lib/site.ts (VITE_SITE_URL).
+function readEnv(key) {
+  if (process.env[key]) return process.env[key];
+  try {
+    const txt = readFileSync(join(root, ".env"), "utf8");
+    const m = txt.match(new RegExp(`^\\s*${key}\\s*=\\s*(.+?)\\s*$`, "m"));
+    return m ? m[1].replace(/^['"]|['"]$/g, "") : undefined;
+  } catch {
+    return undefined;
+  }
+}
+const SITE = (readEnv("SITE_URL") || readEnv("VITE_SITE_URL") || "https://dirkmathesius.berlinjohn.de").replace(/\/$/, "");
+
+// Buchungsziel der Kategorie-CTAs:
+//  - Pre-Cutover (SITE = Testbed): Buchungen gehen an Dirks Live-Server → Performance-Messung.
+//  - Post-Cutover (SITE = offizielle Domain): CTA würde auf sich selbst zeigen → stattdessen
+//    On-Page-Buchungsanker. Steuerbar via BOOK_URL; Default leitet das automatisch ab.
+const OFFICIAL = "https://www.dirkmathesius.de";
+const isOfficialHost = /(^|\.)dirkmathesius\.de$/.test(new URL(SITE).hostname);
 
 const categoryMeta = {
   sport:       { label: "Sport",       altSuffix: "Sportfotografie Berlin – Dirk Mathesius" },
@@ -347,6 +367,12 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
 ${categories.map(categoryUrl).join("\n")}
   <url>
+    <loc>${SITE}/kollaborationen.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>${SITE}/info.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
@@ -370,6 +396,27 @@ writeFileSync(join(root, "public", "sitemap.xml"), sitemap);
 const totalImg = categories.reduce((n, c) => n + c.images.length, 0);
 console.log(`✅ sitemap.xml — ${categories.length} category pages × image entries = ${totalImg} <image:image> blocks + 1 hero`);
 
+// --- robots.txt (in den Generator gefaltet → bleibt beim Cutover NICHT auf der Subdomain hängen)
+const robots = `User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+Sitemap: ${SITE}/sitemap.xml
+`;
+writeFileSync(join(root, "public", "robots.txt"), robots);
+console.log("✅ robots.txt — Sitemap → " + SITE + "/sitemap.xml");
+
 // --- Static category pages (real .html files → fix Soft-404, served directly by Apache) ---
 // Encoding-independent: every non-ASCII char becomes a numeric entity, so the page renders
 // correctly regardless of the charset the server declares.
@@ -388,7 +435,15 @@ const E = (s) =>
 const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, "\\u003c");
 
 const utm = (cat) =>
-  `https://www.dirkmathesius.de/?utm_source=dirkmathesius&utm_medium=booking-booster&utm_campaign=portfolio-${cat}`;
+  isOfficialHost
+    // Post-Cutover: diese Seite IST die offizielle Domain → On-Page-Buchungsanker.
+    ? `/#info`
+    // Pre-Cutover: Buchung an Dirks Live-Server weiterleiten (Performance-Messung).
+    : `${OFFICIAL}/?utm_source=dirkmathesius&utm_medium=booking-booster&utm_campaign=portfolio-${cat}`;
+
+// CTA-Beschriftung/Target abhängig vom Host (self-link nach Cutover vermeiden).
+const bookLabel = isOfficialHost ? "Shooting anfragen →" : "Buchen auf dirkmathesius.de →";
+const bookAttrs = isOfficialHost ? "" : ' target="_blank" rel="noopener"';
 
 const categoryPage = (c) => {
   const seo = seoByCat[c.id];
@@ -502,7 +557,7 @@ const categoryPage = (c) => {
 
     <div class="cta">
       <p>Original-Website &amp; Buchung direkt bei Dirk Mathesius</p>
-      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+      <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
     </div>
 
     <h1>${E(seo.h1)} — ${E(seo.title)}</h1>
@@ -514,7 +569,7 @@ ${figures}
 
     <div class="cta">
       <p>Dieses Motiv oder ein eigenes Projekt anfragen?</p>
-      <a class="book" href="${utm(c.id)}" target="_blank" rel="noopener">Buchen auf dirkmathesius.de →</a>
+      <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
     </div>
 
     <footer>
@@ -534,3 +589,149 @@ for (const c of categories) {
   writeFileSync(join(root, "public", `${c.id}.html`), categoryPage(c));
 }
 console.log(`✅ ${categories.length} statische Kategorie-Seiten — public/{${categories.map((c) => c.id).join(",")}}.html`);
+
+// --- Kollaborationen (John Förster × Dirk) — dezente statische Unterseite ---------
+// Business bleibt auf der Startseite; die Fan-/Kollab-Inhalte leben hier (offizielle
+// Seite) bzw. auf der Fanpage-Subdomain. Muss inhaltlich zu src/pages/Index.tsx passen.
+const COLLAB_TIMELINE = [
+  { file: "John-Foerster-freerunner-Sprung-adidas.webp", year: 2008 },
+  { file: "John-Foerster-freerunner-Salto-Treppe-adidas.webp", year: 2009 },
+  { file: "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp", year: 2010 },
+  { file: "John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp", year: 2011 },
+  { file: "John-Foerster-Akrobat-Zaun-Supermann.webp", year: 2012 },
+  { file: "John-Foerster-Akrobat-Handstand-schwangere-Auster.webp", year: 2013 },
+  { file: "John-und-Jim-Förster-Kreuz-Sprung.webp", year: 2014 },
+  { file: "John-und-Jim-Förster-holy-Salto-Phaeno.webp", year: 2015 },
+  { file: "John-und-Jim-Förster-Fuss-high-five-Phaeno.webp", year: 2016 },
+];
+const COLLAB_BTS = [
+  { src: "/images/bts/bts-foerster-human-flag-behala-hafen-berlin.jpg", alt: "Freie Fotokunst, 100% real ohne Bildbearbeitung: Dirk Mathesius in schwebender Hocke und John Förster als Human-Flag am BEHALA-Schild, Berliner Westhafen", title: "Human-Flag am BEHALA-Hafen · Freie Arbeit" },
+  { src: "/images/bts/bts-dirk-mathesius-foerster-action-flow-berlin.jpg", alt: "Behind the Scenes: Dirk Mathesius in Action mit den Förster-Brüdern – Freerunning- und Sportfotografie in Berlin", title: "Action-Flow mit den Förster-Brüdern" },
+  { src: "/images/bts/bts-foerster-brueder-rauch-action-collab.jpg", alt: "Behind the Scenes: Action-Shooting mit den Förster-Brüdern und Dirk Mathesius – Rauch-/Pyro-Effekt und Sprung vor Berliner Wohnarchitektur", title: "Action-Shoot mit Rauch · Förster-Brüder" },
+  { src: "/images/bts/bts-gerolsteiner-making-of-freerunner-john-foerster.jpg", alt: "Behind the Scenes: Making-of eines Gerolsteiner-Commercials in Berlin – Freerunner John Förster im Salto, Lichtset und Crew im Loft-Studio", title: "Making-of · Gerolsteiner-Commercial" },
+];
+
+const _collabAll = categories.flatMap((c) => c.images);
+const collabTimeline = COLLAB_TIMELINE
+  .map((t) => { const img = _collabAll.find((i) => i.src.endsWith(t.file)); return img ? { ...img, year: t.year } : null; })
+  .filter(Boolean);
+
+const kollabNav = navOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ") + `\n        <a href="/info.html">info</a>`;
+const kollabCanonical = `${OFFICIAL}/kollaborationen.html`;
+const kollabBook = isOfficialHost ? "/#info" : `${OFFICIAL}/?utm_source=kollaborationen&utm_medium=referral&utm_campaign=buchung`;
+const kollabBookAttrs = isOfficialHost ? "" : ' target="_blank" rel="noopener"';
+const kollabBookLabel = isOfficialHost ? "Shooting anfragen →" : "Zu dirkmathesius.de →";
+
+const timelineFigs = collabTimeline.map((img) =>
+  `      <figure>
+        <img src="${enc(img.src)}" alt="${E(img.alt)}" loading="lazy" decoding="async" />
+        <figcaption>${E(img.year + " · " + (img.title || img.alt))}</figcaption>
+      </figure>`).join("\n");
+const btsFigs = COLLAB_BTS.map((img) =>
+  `      <figure>
+        <img src="${enc(img.src)}" alt="${E(img.alt)}" loading="lazy" decoding="async" />
+        <figcaption>${E(img.title)}</figcaption>
+      </figure>`).join("\n");
+
+const kollabLd = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "@id": `${kollabCanonical}#gallery`,
+  name: "Kollaborationen – Dirk Mathesius × John Förster",
+  url: kollabCanonical,
+  description: "Sport- & Action-Fotografie: Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – Serie 2008–2016 und Behind the Scenes.",
+  author: CREATOR,
+};
+
+const kollabPage = `<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kollaborationen – Dirk Mathesius × John Förster | Sport & Action Berlin</title>
+<meta name="description" content="Sport- und Action-Fotografie von Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – freie Fotokunst-Serie 2008–2016 und Behind the Scenes. 100 % real, ohne Bildbearbeitung." />
+<link rel="canonical" href="${kollabCanonical}" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Kollaborationen – Dirk Mathesius × John Förster" />
+<meta property="og:description" content="Sport- & Action-Fotografie mit Sportmodel John Förster – freie Serie 2008–2016 & Behind the Scenes." />
+<meta property="og:url" content="${kollabCanonical}" />
+<meta name="twitter:card" content="summary_large_image" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style>
+  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
+  .brand{text-align:center;padding:24px 0 6px;}
+  .brand img{width:50px;height:50px;border:0;}
+  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl .c{color:#ccc;}
+  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
+  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
+  nav.cat a:hover{color:#FF6600;}
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
+       background:#111;color:#fff;padding:14px 18px;margin:18px 0;text-align:center;}
+  .cta p{margin:0;font-size:12px;line-height:1.5;color:#ddd;}
+  .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+              letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
+  .cta a.book:hover{background:#e25c00;}
+  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
+  h2{font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#333;margin:34px 0 4px;}
+  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 8px;}
+  blockquote{font-size:15px;font-style:italic;color:#444;max-width:680px;margin:22px auto;line-height:1.6;text-align:center;}
+  blockquote .who{display:block;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:10px 0 26px;}
+  figure{margin:0;}
+  figure img{width:100%;height:auto;display:block;background:#f3f3f3;}
+  figcaption{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
+  footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+</style>
+<script type="application/ld+json">${jsonLd(kollabLd)}</script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
+      <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
+    </div>
+    <nav class="cat">
+        ${kollabNav}
+    </nav>
+
+    <h1>Kollaborationen — Dirk Mathesius &amp; John Förster</h1>
+    <p class="intro">Freie Fotokunst-Serie mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern: echte Bewegung, 100&nbsp;% real, ohne Bildbearbeitung. Eine langjährige Zusammenarbeit in Sport-, Action- und Konzeptfotografie.</p>
+
+    <h2>Sportmodel-Serie · 2008–2016</h2>
+    <section class="grid">
+${timelineFigs}
+    </section>
+
+    <h2>Behind the Scenes</h2>
+    <section class="grid">
+${btsFigs}
+    </section>
+
+    <blockquote>„Ich arbeite seit Jahren mit Dirk Mathesius — pure, echte Action, ohne Bildbearbeitung. Mein klarer Tipp für Sport-, Action- &amp; Editorial-Shootings."
+      <span class="who">John Förster · Sportmodel &amp; AcroBerlin</span>
+    </blockquote>
+
+    <div class="cta">
+      <p>Sport-, Action- oder Editorial-Projekt mit Dirk Mathesius?</p>
+      <a class="book" href="${kollabBook}"${kollabBookAttrs}>${kollabBookLabel}</a>
+    </div>
+
+    <footer>
+      <a href="/">Start</a> ·
+      <a href="/info.html">Info</a> ·
+      <a href="/impressum.html">Impressum</a> ·
+      <a href="/datenschutzerklaerung.html">Datenschutz</a> ·
+      <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener">dirkmathesius.de</a>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+writeFileSync(join(root, "public", "kollaborationen.html"), kollabPage);
+console.log(`✅ kollaborationen.html — Timeline ${collabTimeline.length} + BTS ${COLLAB_BTS.length}, canonical → ${kollabCanonical}`);

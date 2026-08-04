@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SITE_URL } from "@/lib/site";
 
 export default function Impressum() {
   return (
@@ -34,7 +35,7 @@ export default function Impressum() {
       </section>
 
       <p className="text-white/20 text-xs mt-12 tracking-widest">
-        dirkmathesius.berlinjohn.de
+        {SITE_URL.replace(/^https?:\/\//, "")}
       </p>
     </div>
   );
