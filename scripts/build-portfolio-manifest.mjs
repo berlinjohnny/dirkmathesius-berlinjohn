@@ -334,18 +334,38 @@ for (const c of categories) console.log(`   ${c.id}: ${c.images.length}`);
 // --- imageJsonLd.ts (schema.org ImageGallery with per-image ImageObject) -------
 const CREATOR = { "@type": "Person", name: "Dirk Mathesius", url: "https://www.dirkmathesius.de" };
 
+/**
+ * EIN Bauplan für jedes ImageObject — von der React-Galerie (imageJsonLd.ts) und
+ * den statischen Kategorie-Seiten gemeinsam genutzt. Vorher stand die Struktur an
+ * zwei Stellen; genau so laufen Auszeichnungen auseinander.
+ *
+ * `license` + `acquireLicensePage` + `creditText` sind die Felder, die Googles
+ * Bild-Metadaten-Bericht als fehlend meldet. Mit ihnen kennzeichnet die Bildersuche
+ * die Fotos als "Lizenzierbar" und zeigt einen Weg zum Erwerb — für einen Fotografen,
+ * dessen Bilder das Produkt sind, ein direkter Anfragekanal.
+ *
+ * Beide Links zeigen bewusst immer auf die offizielle Domain: die Rechte liegen bei
+ * Dirk und erworben werden sie bei ihm, auch wenn gerade die Fanpage ausgeliefert wird.
+ */
+const imageNode = (img) => {
+  const node = {
+    "@type": "ImageObject",
+    contentUrl: `${SITE}${img.src}`,
+    name: img.title || img.alt,
+    description: img.alt,
+    creator: CREATOR,
+    copyrightHolder: CREATOR,
+    creditText: "Dirk Mathesius",
+    license: `${OFFICIAL}/ueber-dirk.html#nutzungsrechte`,
+    acquireLicensePage: `${OFFICIAL}/info.html#kontakt`,
+  };
+  if (img.rights) node.copyrightNotice = img.rights;
+  return node;
+};
+
 const associatedMedia = siteCategories.flatMap((c) =>
   c.images.map((img) => {
-    const node = {
-      "@type": "ImageObject",
-      contentUrl: `${SITE}${img.src}`,
-      name: img.title || img.alt,
-      description: img.alt,
-      creator: CREATOR,
-      copyrightHolder: CREATOR,
-    };
-    if (img.rights) node.copyrightNotice = img.rights;
-    return node;
+    return imageNode(img);
   })
 );
 
@@ -530,18 +550,7 @@ const categoryPage = (c) => {
     url: pageUrl,
     description: seo.description,
     author: CREATOR,
-    associatedMedia: c.images.map((img) => {
-      const node = {
-        "@type": "ImageObject",
-        contentUrl: `${SITE}${img.src}`,
-        name: img.title || img.alt,
-        description: img.alt,
-        creator: CREATOR,
-        copyrightHolder: CREATOR,
-      };
-      if (img.rights) node.copyrightNotice = img.rights;
-      return node;
-    }),
+    associatedMedia: c.images.map(imageNode),
   };
 
   const breadcrumbLd = {
@@ -1082,7 +1091,7 @@ const ueberBody = `
     <p class="lead">Wie die Bilder entstehen — Baustelle, Hafen, Labor, Studio und Straße.</p>
     <div class="bts">${ABOUT_BTS.map((b) => `<figure><img src="${b.src}" alt="${E(b.a)}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" /><figcaption>${E(b.t)}</figcaption></figure>`).join("")}</div>
 
-    <h2>Nutzungsrechte</h2>
+    <h2 id="nutzungsrechte">Nutzungsrechte</h2>
     <div class="rights">
       <p>Die Nutzungsrechte werden <b>projektbezogen und passend zum tatsächlichen Einsatz</b> vereinbart —
         von der einmaligen Magazinstrecke bis zur zeitlich und räumlich weiten Kampagnennutzung.

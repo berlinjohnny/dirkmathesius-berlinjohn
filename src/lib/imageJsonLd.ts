@@ -33,6 +33,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -50,6 +53,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -67,6 +73,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -84,6 +93,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -101,6 +113,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -118,6 +133,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -135,6 +153,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -152,6 +173,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -169,6 +193,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -186,6 +213,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -202,7 +232,10 @@ export const imageGalleryJsonLd = {
         "@type": "Person",
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
-      }
+      },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt"
     },
     {
       "@type": "ImageObject",
@@ -219,6 +252,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     },
     {
@@ -236,6 +272,9 @@ export const imageGalleryJsonLd = {
         "name": "Dirk Mathesius",
         "url": "https://www.dirkmathesius.de"
       },
+      "creditText": "Dirk Mathesius",
+      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
+      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
       "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
     }
   ]
