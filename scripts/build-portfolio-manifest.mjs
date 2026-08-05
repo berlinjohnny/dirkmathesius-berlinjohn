@@ -1180,9 +1180,24 @@ const formHtml = WEB3FORMS_KEY ? `
         f.addEventListener('submit', function (e) {
           e.preventDefault();
           s.textContent = 'senden…';
-          var data = Object.fromEntries(new FormData(f).entries());
-          data.subject = 'Neue Shooting-Anfrage von ' + (data.name || '') + ' · dirkmathesius.de';
-          data.from_name = data.name;
+          var r = Object.fromEntries(new FormData(f).entries());
+          /* Web3Forms rendert die JSON-Schluessel 1:1 als Beschriftungen in der
+             Mail. Deshalb hier saubere deutsche Labels statt der technischen
+             Feldnamen — ein gestaltetes HTML-Template gibt es nur im PRO-Tarif,
+             die Lesbarkeit entsteht also ueber Schluessel, Betreff und Reihenfolge.
+             replyto sorgt dafuer, dass "Antworten" direkt beim Kunden landet. */
+          var data = {
+            access_key: r.access_key,
+            botcheck: r.botcheck,
+            subject: 'Shooting-Anfrage: ' + (r.name || 'ohne Namen') + ' — dirkmathesius.de',
+            from_name: r.name || 'Anfrage über dirkmathesius.de',
+            replyto: r.email || '',
+            'Name': r.name || '—',
+            'E-Mail': r.email || '—',
+            'Telefon': r.telefon || '— (nicht angegeben)',
+            'Projekt / Nachricht': r.message || '—',
+            'Gesendet über': location.host + location.pathname
+          };
           fetch('https://api.web3forms.com/submit', {
             method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
             body: JSON.stringify(data)
