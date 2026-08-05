@@ -28,8 +28,12 @@ source "$ENV_FILE"
 
 restore() { git checkout -- public/ src/lib/imageJsonLd.ts src/lib/portfolio.ts 2>/dev/null || true; }
 
-echo "→ 1/4 Generator (SITE_URL = https://www.dirkmathesius.de)"
-SITE_URL=https://www.dirkmathesius.de node scripts/build-portfolio-manifest.mjs >/dev/null
+echo "→ 1/4 Generator (SITE_URL = https://www.dirkmathesius.de, Variante official)"
+# SITE_VARIANT MUSS hier explizit stehen. Der Generator liest sonst VITE_SITE_VARIANT
+# aus .env — und dort steht nach dem Fanpage-Cutover "fanpage". Ohne diese Zeile
+# wuerde Dirks offizielle Seite mit dem reduzierten Kollaborations-Satz gebaut
+# (13 statt 184 Bilder, 3 statt 7 Kategorien). Genau das darf nie passieren.
+SITE_URL=https://www.dirkmathesius.de SITE_VARIANT=official node scripts/build-portfolio-manifest.mjs >/dev/null
 
 echo "→ 2/4 Produktions-Build (mode ionos → www + official)"
 if ! npm run build:ionos 2>&1 | tail -6; then
