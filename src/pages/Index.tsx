@@ -497,6 +497,32 @@ export default function Index() {
           </section>
         )}
 
+        {/* Offizielle Seite — der Abschluss fragt nach dem Auftrag.
+            Bewusst hier: erst die Arbeiten, dann die Kundenliste als Beleg, dann die
+            Anfrage. Zurueckhaltend gehalten (Haarlinie, viel Luft, ein Akzent), damit
+            die Fotos die Seite tragen — aber am Desktop gab es vorher ueberhaupt
+            keinen Weg zur Buchung: StickyCta ist md:hidden, also nur mobil. */}
+        {IS_OFFICIAL && (
+          <section className="mt-20 md:mt-28 pt-12 border-t border-foreground/10 text-center">
+            <p className="text-[10px] tracking-[0.28em] uppercase text-foreground/40">Anfrage</p>
+            <p className="mt-5 text-[15px] md:text-[17px] leading-relaxed text-foreground/80 max-w-md mx-auto">
+              Sport, People oder Editorial — erzähl mir kurz von deinem Projekt.
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <a href="/info.html#kontakt"
+                onClick={() => trackCtaClick("startseite-anfrage")}
+                className="inline-block px-10 py-3.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
+                Shooting anfragen
+              </a>
+              <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
+                onClick={() => trackWhatsappClick("startseite")}
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] uppercase text-foreground/45 hover:text-[#FF6600] transition-colors">
+                <MessageCircle size={14} /> oder direkt per WhatsApp
+              </a>
+            </div>
+          </section>
+        )}
+
         {/* Footer — minimal (offizielle Seite) bzw. mit Galerie-Links (Fanpage) */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-foreground/10 text-center">
           <Logo size={52} className="mx-auto" />
