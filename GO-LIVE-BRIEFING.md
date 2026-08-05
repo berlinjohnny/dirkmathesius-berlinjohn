@@ -98,6 +98,10 @@ anschließend auf den Testbed-Stand zurück. Es bricht bei jedem Fehler ab.
 > ⚠️ **Nicht verwechseln:** `deploy-dm` deployt das **Testbed** auf
 > dirkmathesius.berlinjohn.de. Der offizielle Go-live ist **`scripts/deploy-ionos.sh`**.
 
+> ⚠️ **Vor dem Start `git status` prüfen.** Das Skript setzt am Ende `public/`,
+> `imageJsonLd.ts` und `portfolio.ts` per `git checkout` zurück — nicht committete
+> Änderungen in diesen Pfaden wären weg. Aktuell ist der Stand sauber (`309f5f7`).
+
 ### Danach sofort prüfen
 - `https://www.dirkmathesius.de/` lädt, Startbild da
 - `/info.html`, `/ueber-dirk.html`, `/kollaborationen.html`, `/impressum.html`
