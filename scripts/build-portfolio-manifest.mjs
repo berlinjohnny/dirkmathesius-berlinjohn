@@ -885,8 +885,6 @@ const SUB_CSS = `
   .cta p{margin:0;font-size:12px;color:#ddd;}
   a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
   a.book:hover{background:#e25c00;}
-  a.wa{background:#25D366;}
-  a.wa:hover{background:#1eb955;}
   form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
   form.dm input,form.dm textarea{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;}
   form.dm input:focus,form.dm textarea:focus{border-color:#FF6600;}
@@ -971,7 +969,6 @@ writeFileSync(join(root, "public", "ueber-dirk.html"), subPage({
 }));
 
 // --- info.html (Ergebnisse · Pakete · FAQ · Kontakt + Formular) ---
-const waText = encodeURIComponent("Hallo Dirk, ich interessiere mich für ein Shooting und hätte eine Anfrage:");
 const formHtml = WEB3FORMS_KEY ? `
     <form class="dm" id="dm-form">
       <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}" />
@@ -999,8 +996,8 @@ const formHtml = WEB3FORMS_KEY ? `
           }).then(function (r) { return r.json(); }).then(function (d) {
             if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
               s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.'; }
-            else { s.textContent = 'Senden fehlgeschlagen – bitte per WhatsApp oder E-Mail.'; }
-          }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per WhatsApp oder E-Mail.'; });
+            else { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; }
+          }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; });
         });
       })();
     </script>` : `
@@ -1013,7 +1010,10 @@ const infoLd = {
   name: "Dirk Mathesius Photography",
   description: "Professionelle Fotografie in Berlin: Sport, People, Music, Reportage & Editorial. Buchung & Anfrage.",
   url: `${SITE}/info.html`,
-  telephone: "+491755915670",
+  // telephone bewusst NICHT im JSON-LD: es stuende sonst im Klartext im HTML und
+  // machte die Verschleierung der Nummer auf der Seite wirkungslos. Das Feld ist
+  // bei LocalBusiness optional; massgeblich fuer lokale Treffer ist das Google-
+  // Unternehmensprofil, nicht dieses Markup. Wieder aufnehmen = eine Zeile.
   email: "mail@dirkmathesius.de",
   image: `${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp`,
   priceRange: "€€€",
@@ -1037,13 +1037,26 @@ const infoBody = `
     <div class="faq">${FAQS.map((f) => `<details><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("")}</div>
 
     <h2 id="kontakt">Kontakt &amp; Buchung</h2>
-    <p class="intro">Dirk Mathesius · Bahrendorfer Straße 22 · 12555 Berlin · Mobil <a href="tel:+491755915670">+49 175 5915670</a> · <a href="mailto:mail@dirkmathesius.de">mail@dirkmathesius.de</a></p>
-    <p><a class="book wa" href="https://wa.me/491755915670?text=${waText}" target="_blank" rel="noopener">Direkt per WhatsApp anfragen</a></p>
+    <p class="intro">Dirk Mathesius · Bahrendorfer Straße 22 · 12555 Berlin · Mobil <span id="dm-tel">…</span> · <a href="mailto:mail@dirkmathesius.de">mail@dirkmathesius.de</a></p>
+    <p><a class="book" id="dm-call" href="#kontakt">Direkt anrufen</a></p>
+    <script>
+      /* Nummer nicht im Klartext im HTML — sie wird erst im Browser zusammengesetzt.
+         Haelt die einfachen Harvester ab, die tel:-Links und Ziffernfolgen einsammeln.
+         Ohne JS bleibt der Kontaktweg ueber Formular und E-Mail vollstaendig nutzbar. */
+      (function () {
+        var n = atob("KzQ5MTc1NTkxNTY3MA==");
+        var pretty = "+" + n.slice(1, 3) + " " + n.slice(3, 6) + " " + n.slice(6);
+        var s = document.getElementById("dm-tel");
+        if (s) { var a = document.createElement("a"); a.href = "tel:" + n; a.textContent = pretty; s.replaceWith(a); }
+        var b = document.getElementById("dm-call");
+        if (b) { b.href = "tel:" + n; }
+      })();
+    </script>
 ${formHtml}`;
 writeFileSync(join(root, "public", "info.html"), subPage({
   canonical: `${SITE}/info.html`,
   title: "Info & Anfrage — Fotograf Berlin buchen | Dirk Mathesius",
-  desc: "Shooting mit Dirk Mathesius in Berlin anfragen: Sport, People, Editorial, Industrie. Pakete, FAQ & direkter Kontakt (WhatsApp, Formular). Bahrendorfer Straße 22, 12555 Berlin.",
+  desc: "Shooting mit Dirk Mathesius in Berlin anfragen: Sport, People, Editorial, Industrie. Pakete, FAQ & direkter Kontakt (Telefon, Formular). Bahrendorfer Straße 22, 12555 Berlin.",
   headLd: [infoLd, infoFaqLd],
   body: infoBody,
 }));

@@ -30,18 +30,27 @@ export const IS_OFFICIAL =
   _variant === "official" ? true : _variant === "fanpage" ? false : _hostIsOfficial;
 export const IS_FANPAGE = !IS_OFFICIAL;
 
-/** WhatsApp im wa.me-Format (nur Ziffern, Länderkennung ohne +). */
-export const WHATSAPP_NUMBER = "491755915670";
-export const PHONE_DISPLAY = "+49 175 5915670";
-export const PHONE_TEL = "+491755915670";
+// ── Telefon — bewusst NICHT im Klartext ──────────────────────────────────────
+// Die Nummer stand vorher im Klartext im Bundle und als tel:-Link sowie
+// als sichtbarer Text im ausgelieferten HTML. Genau danach greifen die einfachen
+// Harvester, die Nummern fuer Spam-Anrufe und SMS-Listen einsammeln.
+//
+// Jetzt liegt sie base64-kodiert im Code und wird erst im Browser zusammengesetzt.
+// Ehrlich zur Wirkung: das haelt regex-basierte Scraper ab, nicht jemanden, der
+// gezielt das Bundle liest. Vollstaendiger Schutz ginge nur ohne klickbare Nummer.
+const _tel = "KzQ5MTc1NTkxNTY3MA==";
+const _dec = (s: string) =>
+  typeof atob === "function" ? atob(s) : Buffer.from(s, "base64").toString();
+
+/** tel:-URL, erst zur Laufzeit zusammengesetzt. */
+export const phoneTel = () => `tel:${_dec(_tel)}`;
+/** Anzeigeform mit Leerzeichen, erst zur Laufzeit zusammengesetzt. */
+export const phoneDisplay = () => {
+  const t = _dec(_tel);
+  return `+${t.slice(1, 3)} ${t.slice(3, 6)} ${t.slice(6)}`;
+};
+
 export const EMAIL = "mail@dirkmathesius.de";
-
-/** Vorformulierte WhatsApp-Nachricht (URL-encodiert beim Aufruf). */
-export const WHATSAPP_TEXT =
-  "Hallo Dirk, ich interessiere mich für ein Shooting und hätte eine Anfrage:";
-
-export const whatsappUrl = () =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
 
 // ── Analytics (Google GA4 + Consent Mode v2 — wie die übrigen BerlinJohn-Seiten) ─
 /** GA4 Measurement-ID (G-XXXXXXX). Leer = Analytics + Cookie-Banner deaktiviert. */

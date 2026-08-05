@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { X, Play, MessageCircle } from "lucide-react";
+import { X, Play, Phone } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
-import { whatsappUrl, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
-import { trackWhatsappClick, trackCtaClick } from "@/lib/analytics";
+import { phoneTel, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
+import { trackAnrufClick, trackCtaClick } from "@/lib/analytics";
 import { openCookieSettings } from "@/components/CookieConsent";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -286,11 +286,11 @@ function StickyCta() {
         className="flex-1 text-center py-3.5 text-[11px] tracking-[0.2em] uppercase text-white bg-[#FF6600] active:bg-[#e25c00]">
         Shooting anfragen
       </a>
-      <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
-        onClick={() => trackWhatsappClick("sticky")}
-        aria-label="WhatsApp"
-        className="flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] tracking-[0.12em] uppercase text-white bg-[#25D366] active:bg-[#1eb955]">
-        <MessageCircle size={16} /> WhatsApp
+      <a href={phoneTel()}
+        onClick={() => trackAnrufClick("sticky")}
+        aria-label="Dirk Mathesius anrufen"
+        className="flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] tracking-[0.12em] uppercase text-white bg-foreground active:opacity-80">
+        <Phone size={16} /> Anrufen
       </a>
     </div>
   );
@@ -514,10 +514,12 @@ export default function Index() {
                 className="inline-block px-10 py-3.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
                 Shooting anfragen
               </a>
-              <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
-                onClick={() => trackWhatsappClick("startseite")}
+              {/* Nummer erst zur Laufzeit aus site.ts zusammengesetzt — steht nicht
+                  im Klartext im Bundle und nicht als tel:-Link im HTML. */}
+              <a href={phoneTel()}
+                onClick={() => trackAnrufClick("startseite")}
                 className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] uppercase text-foreground/45 hover:text-[#FF6600] transition-colors">
-                <MessageCircle size={14} /> oder direkt per WhatsApp
+                <Phone size={14} /> oder direkt anrufen
               </a>
             </div>
           </section>
