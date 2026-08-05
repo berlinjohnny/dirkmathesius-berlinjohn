@@ -327,7 +327,10 @@ writeFileSync(jsonLdFile, jsonLdBody);
 console.log(`✅ imageJsonLd.ts — ${associatedMedia.length} ImageObject-Einträge`);
 
 // --- sitemap.xml (Google Image Sitemap, SEO-optimized for the live multi-page site)
-const HOME_HERO = "https://www.dirkmathesius.de/images/windowpic.jpg"; // Live hero (Bäume / Flagge)
+// Startseiten-Hero — muss dem <img> in Index.tsx + og:image in index.html entsprechen.
+// (Frueher hart auf das alte windowpic.jpg + fremde Domain verdrahtet → Sitemap warb
+//  das falsche Startbild; jetzt host-relativ ueber SITE.)
+const HOME_HERO = `${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp`;
 const today = new Date().toISOString().slice(0, 10);
 const xmlEscape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 const enc = (s) => s.split("/").map(encodeURIComponent).join("/");
@@ -361,8 +364,8 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <priority>1.0</priority>
     <image:image>
       <image:loc>${HOME_HERO}</image:loc>
-      <image:title>Dirk Mathesius Fotograf Berlin – Hasselblad 501c CFVii50v</image:title>
-      <image:caption>© Dirk Mathesius, John Förster, AcroBerlin – Hasselblad 501c CFVii50v</image:caption>
+      <image:title>Dirk Mathesius Fotograf Berlin – Human Flag zwischen Pappeln, Friedenstaube</image:title>
+      <image:caption>© Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – 100 % real, ohne Bildbearbeitung</image:caption>
     </image:image>
   </url>
 ${categories.map(categoryUrl).join("\n")}

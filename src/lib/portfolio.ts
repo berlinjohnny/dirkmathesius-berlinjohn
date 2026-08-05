@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via `node scripts/build-portfolio-manifest.mjs`)
 // Alt-texts & captions are read from the embedded XMP/IPTC metadata of each .webp.
-// Updated: 2026-08-04
+// Updated: 2026-08-05
 
 export type PortfolioImage = {
   src: string;

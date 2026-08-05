@@ -25,8 +25,10 @@
     <meta name="keywords" content="Dirk Mathesius, Fotograf Berlin, Sportfotograf Berlin, Portraitfotograf Berlin, Musikfotograf Berlin, Editorial Fotograf, Reportagefotograf, BMW Fotograf, Red Bull Fotograf, adidas Fotograf, People Photography Berlin, Commercial Photography Berlin" />
     <meta name="author" content="Dirk Mathesius" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <!-- Canonical wird zur Laufzeit via react-helmet gesetzt (variantenabhängig:
-         offizielle Seite → eigene URL, Fanpage → dirkmathesius.de). -->
+    <!-- Canonical: statisch schon im HTML (gilt ohne JS, wichtig fuer die offizielle
+         Seite). Index.tsx korrigiert den Wert zur Laufzeit variantenabhaengig —
+         official → eigene URL (identisch zum Wert hier), Fanpage → dirkmathesius.de. -->
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
 
     <!-- Geo -->
     <meta name="geo.region" content="DE-BE" />
