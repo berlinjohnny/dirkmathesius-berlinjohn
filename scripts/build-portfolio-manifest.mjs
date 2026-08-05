@@ -367,16 +367,22 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
 ${categories.map(categoryUrl).join("\n")}
   <url>
-    <loc>${SITE}/kollaborationen.html</loc>
+    <loc>${SITE}/ueber-dirk.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>${SITE}/info.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${SITE}/kollaborationen.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>${SITE}/impressum.html</loc>
@@ -735,3 +741,230 @@ ${btsFigs}
 `;
 writeFileSync(join(root, "public", "kollaborationen.html"), kollabPage);
 console.log(`✅ kollaborationen.html — Timeline ${collabTimeline.length} + BTS ${COLLAB_BTS.length}, canonical → ${kollabCanonical}`);
+
+// ─── Statische Unterseiten: /ueber-dirk.html + /info.html ────────────────────────
+// Die offizielle Startseite ist minimal (Hero + Nav + Footer). Über Dirk und die
+// Business-Sektionen (Ergebnisse/Pakete/FAQ/Kontakt) leben hier — SEO/geo-optimal
+// (eigene Titel/Description/Canonical + LocalBusiness/geo-JSON-LD auf /info).
+const WEB3FORMS_KEY = readEnv("WEB3FORMS_KEY") || readEnv("VITE_WEB3FORMS_KEY") || "";
+const SHOWREEL_ID = "D5VtZJvNYGY";
+const CLIENTS = [
+  "BMW Motorrad", "audible", "Red Bull", "adidas", "Stern", "Men's Health", "Amazon",
+  "Heineken", "T-Mobile", "Converse", "Wella", "Jägermeister", "MTV Viacom", "Capital",
+  "MADAME", "BVG", "ALBA", "HELIOS Kliniken", "Eurovia Vinci", "Bayer Schering Pharma",
+];
+const CASES = [
+  { t: "Sport & Action", d: "Dynamische Sport- und Action-Fotografie — pure, echte Bewegung, ohne Bildbearbeitung. Basis für Vernissagen, Awards & Editorial." },
+  { t: "Industrie & Produkt", d: "Mittelformat (Hasselblad), getethert on location — Baustelle, Hafen, Labor. Präzise, authentische Produkt- und Reportagebilder." },
+  { t: "People & Editorial", d: "Portraits & Editorial für Magazine und Marken: Stern, Men's Health, audible, BMW Motorrad, Red Bull, adidas." },
+];
+const BUNDLES = [
+  { t: "Action- & Editorial-Kombi", d: "Dynamische Action- und Editorial-Fotografie mit professionellen Sportmodels & Stunts. Echtes Material, ohne Bildbearbeitung.", p: "Preis auf Anfrage" },
+  { t: "Industrie & Produkt — on location", d: "Mittelformat-Shooting mobil bei dir vor Ort und im Studio. Tethered, präzise, zuverlässig.", p: "Preis auf Anfrage" },
+];
+const FAQS = [
+  { q: "Wie läuft ein Shooting mit Dirk Mathesius ab?", a: "Kurzes Briefing & Konzept, Terminabstimmung (mobil bei dir vor Ort oder im Studio), Shooting mit komplettem Profi-Equipment, kuratierte Bildauswahl und Lieferung der finalen Bilder." },
+  { q: "In welcher Region arbeitest du?", a: "Basis ist Berlin & Umland; deutschlandweit und international auf Anfrage." },
+  { q: "Wem gehören die Nutzungsrechte an den Bildern?", a: "Die Nutzungsrechte werden projektbezogen passend zum Einsatz vereinbart. Urheber bleibt © Dirk Mathesius." },
+  { q: "Wie schnell bekomme ich die Bilder?", a: "Eine erste Auswahl zeitnah nach dem Shooting; die finale Bearbeitung richtet sich nach Umfang und Absprache." },
+  { q: "Was kostet ein Shooting?", a: "Individuell nach Aufwand, Umfang und Nutzungsrechten — du bekommst ein transparentes Angebot auf Anfrage." },
+  { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — dynamische Action- und Sportshootings mit professionellen Sportmodels: echte Action, 100 % real, ohne Bildbearbeitung." },
+];
+
+const subNav = navOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ")
+  + `\n        <a href="/ueber-dirk.html">über dirk</a>\n        <a href="/info.html">info</a>`;
+
+const SUB_CSS = `
+  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
+  .brand{text-align:center;padding:24px 0 6px;}
+  .brand img{width:50px;height:50px;border:0;}
+  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl .c{color:#ccc;}
+  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
+  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 14px;}
+  nav.cat a:hover{color:#FF6600;}
+  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
+  h2{font-size:14px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#333;margin:34px 0 10px;border-top:1px solid #eee;padding-top:22px;}
+  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.7;margin:0 0 12px;}
+  .clients{font-size:12px;color:#777;line-height:1.9;max-width:820px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+  .card{border:1px solid #eee;padding:18px;}
+  .card h3{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#222;}
+  .card p{margin:0;font-size:12px;color:#666;line-height:1.6;}
+  .card .price{margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#999;}
+  .faq details{border-bottom:1px solid #eee;padding:12px 0;}
+  .faq summary{cursor:pointer;font-size:13px;color:#333;list-style:none;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary:before{content:"+ ";color:#FF6600;}
+  .faq p{margin:10px 0 0;font-size:12px;color:#666;line-height:1.6;}
+  .showreel{margin:8px 0 4px;}
+  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;}
+  .showreel button:hover{background:#FF6600;}
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;background:#111;color:#fff;padding:14px 18px;margin:26px 0;text-align:center;}
+  .cta p{margin:0;font-size:12px;color:#ddd;}
+  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
+  a.book:hover{background:#e25c00;}
+  a.wa{background:#25D366;}
+  a.wa:hover{background:#1eb955;}
+  form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
+  form.dm input,form.dm textarea{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;}
+  form.dm input:focus,form.dm textarea:focus{border-color:#FF6600;}
+  form.dm .hp{position:absolute;left:-9999px;}
+  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+  form.dm button:hover{background:#e25c00;}
+  #dm-status{font-size:12px;color:#555;}
+  .legal{font-size:10px;color:#aaa;margin-top:8px;}
+  footer{border-top:1px solid #eee;margin-top:34px;padding:18px 0 44px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+`;
+
+function subPage({ canonical, title, desc, headLd = [], body }) {
+  return `<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${E(title)}</title>
+<meta name="description" content="${E(desc)}" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="${canonical}" />
+<meta name="geo.region" content="DE-BE" />
+<meta name="geo.placename" content="Berlin" />
+<meta name="geo.position" content="52.4547;13.5667" />
+<meta name="ICBM" content="52.4547, 13.5667" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${E(title)}" />
+<meta property="og:description" content="${E(desc)}" />
+<meta property="og:url" content="${canonical}" />
+<meta property="og:image" content="${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style>${SUB_CSS}</style>
+${headLd.map((o) => `<script type="application/ld+json">${jsonLd(o)}</script>`).join("\n")}
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
+      <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
+    </div>
+    <nav class="cat">
+        ${subNav}
+    </nav>
+${body}
+    <footer>
+      <a href="/">Start</a> ·
+      <a href="/ueber-dirk.html">Über Dirk</a> ·
+      <a href="/info.html">Info</a> ·
+      <a href="/impressum.html">Impressum</a> ·
+      <a href="/datenschutzerklaerung.html">Datenschutz</a>
+    </footer>
+  </div>
+</body>
+</html>
+`;
+}
+
+// --- ueber-dirk.html ---
+const ueberBody = `
+    <h1>Über Dirk Mathesius — Fotograf in Berlin seit 1997</h1>
+    <p class="intro">Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial. Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&#39;s Health) — über 30 Jahre Erfahrung.</p>
+    <div class="showreel"><button id="sr-btn" type="button">▶ Showreel abspielen · lädt erst nach Klick (YouTube)</button></div>
+    <script>
+      document.getElementById('sr-btn').addEventListener('click', function () {
+        this.parentNode.innerHTML = '<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/${SHOWREEL_ID}?autoplay=1&rel=0&playsinline=1" title="Showreel Dirk Mathesius" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="border:0;max-width:820px"></iframe>';
+      });
+    </script>
+    <h2>Vertraut von</h2>
+    <p class="clients">${E(CLIENTS.join("  ·  "))}</p>
+    <p class="intro">Ausgewählte Kollaborationen &amp; Behind-the-Scenes-Arbeiten: <a href="/kollaborationen.html">Kollaborationen →</a> · Mehr Showreels auf <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener">Instagram →</a></p>
+    <div class="cta"><p>Sport-, People- oder Editorial-Projekt mit Dirk Mathesius?</p><a class="book" href="/info.html#kontakt">Zur Anfrage →</a></div>`;
+writeFileSync(join(root, "public", "ueber-dirk.html"), subPage({
+  canonical: `${SITE}/ueber-dirk.html`,
+  title: "Über Dirk Mathesius — Fotograf Berlin seit 1997 | Sport, People, Editorial",
+  desc: "Dirk Mathesius: Berliner Fotograf seit 1997, über 30 Jahre Erfahrung. Sport, People, Music, Reportage & Editorial. Kunden: BMW Motorrad, Red Bull, adidas, audible, Stern, Men's Health.",
+  body: ueberBody,
+}));
+
+// --- info.html (Ergebnisse · Pakete · FAQ · Kontakt + Formular) ---
+const waText = encodeURIComponent("Hallo Dirk, ich interessiere mich für ein Shooting und hätte eine Anfrage:");
+const formHtml = WEB3FORMS_KEY ? `
+    <form class="dm" id="dm-form">
+      <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}" />
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <input name="name" placeholder="Name" required />
+      <input name="email" type="email" placeholder="E-Mail" required />
+      <input name="telefon" type="tel" placeholder="Telefon (optional)" />
+      <textarea name="message" rows="3" placeholder="Projekt / Nachricht" required></textarea>
+      <button type="submit">Anfrage senden</button>
+      <p id="dm-status"></p>
+      <p class="legal">Mit dem Absenden werden deine Angaben zur Bearbeitung der Anfrage verarbeitet (Versand via Web3Forms). Details: <a href="/datenschutzerklaerung.html">Datenschutz</a>.</p>
+    </form>
+    <script>
+      (function () {
+        var f = document.getElementById('dm-form'), s = document.getElementById('dm-status');
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          s.textContent = 'senden…';
+          var data = Object.fromEntries(new FormData(f).entries());
+          data.subject = 'Neue Shooting-Anfrage von ' + (data.name || '') + ' · dirkmathesius.de';
+          data.from_name = data.name;
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data)
+          }).then(function (r) { return r.json(); }).then(function (d) {
+            if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
+              s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.'; }
+            else { s.textContent = 'Senden fehlgeschlagen – bitte per WhatsApp oder E-Mail.'; }
+          }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per WhatsApp oder E-Mail.'; });
+        });
+      })();
+    </script>` : `
+    <p class="intro"><a class="book" href="mailto:mail@dirkmathesius.de?subject=Projektanfrage">Anfrage per E-Mail →</a></p>`;
+
+const infoLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE}/info.html#business`,
+  name: "Dirk Mathesius Photography",
+  description: "Professionelle Fotografie in Berlin: Sport, People, Music, Reportage & Editorial. Buchung & Anfrage.",
+  url: `${SITE}/info.html`,
+  telephone: "+491755915670",
+  email: "mail@dirkmathesius.de",
+  image: `${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp`,
+  priceRange: "€€€",
+  address: { "@type": "PostalAddress", streetAddress: "Bahrendorfer Straße 22", addressLocality: "Berlin", postalCode: "12555", addressCountry: "DE" },
+  geo: { "@type": "GeoCoordinates", latitude: 52.4547, longitude: 13.5667 },
+  areaServed: ["Berlin", "Brandenburg", "Deutschland"],
+};
+const infoFaqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
+
+const infoBody = `
+    <h1>Info &amp; Anfrage — Dirk Mathesius Fotografie Berlin</h1>
+    <p class="intro">Fotograf in Berlin, aktiv seit 1997, über 30 Jahre Erfahrung. Sport · People · Music · Publication · Landscape · Reportage · Stills. Mobil bei dir vor Ort und im Studio, deutschlandweit auf Anfrage.</p>
+
+    <h2>Ergebnisse</h2>
+    <div class="cards">${CASES.map((c) => `<div class="card"><h3>${E(c.t)}</h3><p>${E(c.d)}</p></div>`).join("")}</div>
+
+    <h2>Pakete</h2>
+    <div class="cards">${BUNDLES.map((b) => `<div class="card"><h3>${E(b.t)}</h3><p>${E(b.d)}</p><p class="price">${E(b.p)}</p></div>`).join("")}</div>
+
+    <h2>FAQ</h2>
+    <div class="faq">${FAQS.map((f) => `<details><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("")}</div>
+
+    <h2 id="kontakt">Kontakt &amp; Buchung</h2>
+    <p class="intro">Dirk Mathesius · Bahrendorfer Straße 22 · 12555 Berlin · Mobil <a href="tel:+491755915670">+49 175 5915670</a> · <a href="mailto:mail@dirkmathesius.de">mail@dirkmathesius.de</a></p>
+    <p><a class="book wa" href="https://wa.me/491755915670?text=${waText}" target="_blank" rel="noopener">Direkt per WhatsApp anfragen</a></p>
+${formHtml}`;
+writeFileSync(join(root, "public", "info.html"), subPage({
+  canonical: `${SITE}/info.html`,
+  title: "Info & Anfrage — Fotograf Berlin buchen | Dirk Mathesius",
+  desc: "Shooting mit Dirk Mathesius in Berlin anfragen: Sport, People, Editorial, Industrie. Pakete, FAQ & direkter Kontakt (WhatsApp, Formular). Bahrendorfer Straße 22, 12555 Berlin.",
+  headLd: [infoLd, infoFaqLd],
+  body: infoBody,
+}));
+console.log(`✅ ueber-dirk.html + info.html — statische Unterseiten (info: LocalBusiness+FAQ JSON-LD, Formular ${WEB3FORMS_KEY ? "Web3Forms" : "mailto-Fallback"})`);

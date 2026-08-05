@@ -3,8 +3,8 @@ import { X, Play, MessageCircle } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
 import { imageGalleryJsonLd } from "@/lib/imageJsonLd";
-import { WEB3FORMS_KEY, EMAIL, PHONE_DISPLAY, PHONE_TEL, whatsappUrl, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
-import { trackAnfrageSubmit, trackWhatsappClick, trackAnrufClick, trackCtaClick } from "@/lib/analytics";
+import { whatsappUrl, GA4_ID, IS_OFFICIAL, IS_FANPAGE, OFFICIAL_URL, SITE_URL } from "@/lib/site";
+import { trackWhatsappClick, trackCtaClick } from "@/lib/analytics";
 import { openCookieSettings } from "@/components/CookieConsent";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -29,36 +29,8 @@ const clients = [
 
 const COPY = "© Dirk Mathesius";
 
-/* Verkaufstrichter: Ergebnisse · Pakete · FAQ (Inhalte editierbar) */
-const CASES = [
-  { t: "Sport & Action", d: "Dynamische Sport- und Action-Fotografie — pure, echte Bewegung, ohne Bildbearbeitung. Basis für Vernissagen, Awards & Editorial." },
-  { t: "Industrie & Produkt", d: "Mittelformat (Hasselblad), getethert on location — Baustelle, Hafen, Labor. Präzise, authentische Produkt- und Reportagebilder." },
-  { t: "People & Editorial", d: "Portraits & Editorial für Magazine und Marken: Stern, Men's Health, audible, BMW Motorrad, Red Bull, adidas." },
-];
-
-const BUNDLES = [
-  { t: "Action- & Editorial-Kombi", d: "Dynamische Action- und Editorial-Fotografie mit professionellen Sportmodels & Stunts. Echtes Material, ohne Bildbearbeitung.", p: "Preis auf Anfrage" },
-  { t: "Industrie & Produkt — on location", d: "Mittelformat-Shooting mobil bei dir vor Ort und im Studio. Tethered, präzise, zuverlässig.", p: "Preis auf Anfrage" },
-];
-
-const FAQS = [
-  { q: "Wie läuft ein Shooting mit Dirk Mathesius ab?", a: "Kurzes Briefing & Konzept, Terminabstimmung (mobil bei dir vor Ort oder im Studio), Shooting mit komplettem Profi-Equipment, kuratierte Bildauswahl und Lieferung der finalen Bilder." },
-  { q: "In welcher Region arbeitest du?", a: "Basis ist Berlin & Umland; deutschlandweit und international auf Anfrage." },
-  { q: "Wem gehören die Nutzungsrechte an den Bildern?", a: "Die Nutzungsrechte werden projektbezogen passend zum Einsatz vereinbart. Urheber bleibt © Dirk Mathesius." },
-  { q: "Wie schnell bekomme ich die Bilder?", a: "Eine erste Auswahl zeitnah nach dem Shooting; die finale Bearbeitung richtet sich nach Umfang und Absprache." },
-  { q: "Was kostet ein Shooting?", a: "Individuell nach Aufwand, Umfang und Nutzungsrechten — du bekommst ein transparentes Angebot auf Anfrage." },
-  { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — dynamische Action- und Sportshootings mit professionellen Sportmodels: echte Action, 100 % real, ohne Bildbearbeitung." },
-];
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
+/* Ergebnisse · Pakete · FAQ · Kontakt leben jetzt auf der statischen /info.html
+   (SEO/geo-optimal). Die offizielle Startseite bleibt bewusst minimal. */
 
 /* Behind the Scenes — wie die Bilder entstehen (SEO-Alt-Texte) */
 const BTS: PortfolioImage[] = [
@@ -264,98 +236,6 @@ function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void
   );
 }
 
-function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-
-  const inputClass = "bg-transparent border-b border-foreground/20 focus:border-[#FF6600] outline-none py-2.5 text-foreground text-[13px] placeholder:text-foreground/35 transition-colors";
-
-  // Fallback ohne Web3Forms-Key: klassisches mailto (funktioniert überall).
-  const submitMailto = () => {
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Projektanfrage von " + form.name)}&body=${encodeURIComponent(form.message + "\n\nTelefon: " + form.phone + "\nVon: " + form.email)}`;
-    trackAnfrageSubmit("mailto");
-    setStatus("ok");
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!WEB3FORMS_KEY) return submitMailto();
-
-    setStatus("sending");
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `Neue Shooting-Anfrage von ${form.name} · dirkmathesius.de`,
-          from_name: form.name,
-          name: form.name,
-          email: form.email,
-          telefon: form.phone,
-          message: form.message,
-          botcheck: (document.getElementById("dm-botcheck") as HTMLInputElement)?.checked,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        trackAnfrageSubmit("web3forms");
-        setStatus("ok");
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  if (status === "ok")
-    return (
-      <p className="text-[13px] text-foreground/70 leading-relaxed max-w-sm mx-auto">
-        Danke für deine Anfrage! 🙌 Dirk meldet sich zeitnah bei dir.
-        <br />
-        <span className="text-foreground/45 text-[12px]">
-          Schneller geht’s per{" "}
-          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
-            onClick={() => trackWhatsappClick("nach-formular")}
-            className="text-[#FF6600] hover:underline">WhatsApp</a>{" "}
-          oder{" "}
-          <a href={`tel:${PHONE_TEL}`} onClick={() => trackAnrufClick("nach-formular")}
-            className="text-[#FF6600] hover:underline">Anruf</a>.
-        </span>
-      </p>
-    );
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto text-left">
-      {/* Honeypot gegen Spam — für Menschen unsichtbar */}
-      <input type="checkbox" id="dm-botcheck" name="botcheck" tabIndex={-1} autoComplete="off"
-        className="hidden" aria-hidden="true" />
-      <input required placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass} />
-      <input required type="email" placeholder="E-Mail" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} />
-      <input type="tel" placeholder="Telefon (optional)" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputClass} />
-      <textarea required placeholder="Projekt / Nachricht" rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`${inputClass} resize-none`} />
-      <button type="submit" disabled={status === "sending"}
-        className="self-center mt-1 px-8 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] disabled:opacity-60 text-[11px] tracking-[0.2em] uppercase transition-colors">
-        {status === "sending" ? "senden…" : "Anfrage senden"}
-      </button>
-      {status === "error" && (
-        <p className="text-[12px] text-center text-red-600/80">
-          Senden fehlgeschlagen. Bitte per{" "}
-          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="underline">WhatsApp</a>{" "}
-          oder{" "}
-          <a href={`mailto:${EMAIL}`} className="underline">E-Mail</a>.
-        </p>
-      )}
-      <p className="text-[10px] text-center text-foreground/35 leading-relaxed">
-        Mit dem Absenden werden deine Angaben zur Bearbeitung der Anfrage verarbeitet
-        (Versand via Web3Forms). Details:{" "}
-        <a href="/datenschutzerklaerung.html" className="underline hover:text-[#FF6600]">Datenschutz</a>.
-      </p>
-    </form>
-  );
-}
-
 /* Showreel — DSGVO-freundlich: YouTube lädt erst nach Klick (2-Klick, nocookie) */
 function Showreel({ id, label = "Showreel" }: { id: string; label?: string }) {
   const [play, setPlay] = useState(false);
@@ -390,7 +270,7 @@ function StickyCta() {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 flex border-t border-foreground/10 bg-background/95 backdrop-blur"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <a href="#info" onClick={() => trackCtaClick("sticky-anfrage")}
+      <a href="/info.html" onClick={() => trackCtaClick("sticky-anfrage")}
         className="flex-1 text-center py-3.5 text-[11px] tracking-[0.2em] uppercase text-white bg-[#FF6600] active:bg-[#e25c00]">
         Shooting anfragen
       </a>
@@ -496,7 +376,6 @@ export default function Index() {
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script>
-        {IS_OFFICIAL && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
       </Helmet>
 
       {/* Schlanke Sticky-Markenleiste beim Scrollen */}
@@ -529,8 +408,8 @@ export default function Index() {
               {c.label.toLowerCase()}
             </button>
           ))}
-          <a href="#ueber-dirk" className={navLink}>über dirk</a>
-          <a href="#info" className={navLink}>info</a>
+          <a href={IS_OFFICIAL ? "/ueber-dirk.html" : "#ueber-dirk"} className={navLink}>über dirk</a>
+          <a href={IS_OFFICIAL ? "/info.html" : "#info"} className={navLink}>info</a>
         </nav>
 
         {/* Startfoto (Wunsch Dirk Mathesius) — Human-Flag mit Friedenstaube, sein Live-Hero */}
@@ -558,138 +437,37 @@ export default function Index() {
           </p>
         </section>
 
-        {/* Über Dirk — Showreel + Instagram */}
-        <section id="ueber-dirk" className="mt-16 md:mt-24">
-          <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-foreground/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Über Dirk</span>
-            <span className="h-px w-8 bg-foreground/20" />
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-3xl mx-auto">
-            <Showreel id="D5VtZJvNYGY" label="Showreel" />
-            <div className="text-center md:text-left">
-              <p className="text-[13px] leading-relaxed text-foreground/65">
-                Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial.
-                Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
-                (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&apos;s Health).
-              </p>
-              {IS_OFFICIAL ? (
-                <p className="text-[12px] leading-relaxed text-foreground/50 mt-3">
-                  Ausgewählte Kollaborationen &amp; Behind-the-Scenes-Arbeiten:{" "}
-                  <a href="/kollaborationen.html" className="text-[#FF6600] hover:underline">Kollaborationen →</a>
+        {/* Über Dirk — nur Fanpage. Offizielle Seite: /ueber-dirk.html (minimal). */}
+        {IS_FANPAGE && (
+          <section id="ueber-dirk" className="mt-16 md:mt-24">
+            <div className="flex items-center justify-center gap-3 mb-7">
+              <span className="h-px w-8 bg-foreground/20" />
+              <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Über Dirk</span>
+              <span className="h-px w-8 bg-foreground/20" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-3xl mx-auto">
+              <Showreel id="D5VtZJvNYGY" label="Showreel" />
+              <div className="text-center md:text-left">
+                <p className="text-[13px] leading-relaxed text-foreground/65">
+                  Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial.
+                  Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen
+                  (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&apos;s Health).
                 </p>
-              ) : (
                 <p className="text-[12px] leading-relaxed text-foreground/50 mt-3">
                   Showreels &amp; Kollaborationen — u.&nbsp;a. mit Sportmodel John Förster (@berlinjohn.de).
                 </p>
-              )}
-              <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener noreferrer"
-                className="inline-block mt-5 text-[11px] tracking-[0.2em] uppercase text-[#FF6600] hover:underline">
-                Mehr Showreels auf Instagram →
-              </a>
+                <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener noreferrer"
+                  className="inline-block mt-5 text-[11px] tracking-[0.2em] uppercase text-[#FF6600] hover:underline">
+                  Mehr Showreels auf Instagram →
+                </a>
+              </div>
             </div>
-          </div>
-
-          {/* Empfehlung von John Förster — nur auf der Fanpage */}
-          {IS_FANPAGE && <CollabEndorsement />}
-        </section>
+            <CollabEndorsement />
+          </section>
+        )}
 
         {/* Behind the Scenes — nur Fanpage (offizielle Seite: /kollaborationen.html) */}
         {IS_FANPAGE && <CollabBTS />}
-
-        {/* Business-Trichter (Ergebnisse · Pakete · FAQ · Kontakt) — nur auf Dirks
-            offizieller Seite. Auf der Fanpage führen Buchungen zu dirkmathesius.de. */}
-        {IS_OFFICIAL && (<>
-        {/* Ergebnisse / Case Studies */}
-        <section id="ergebnisse" className="mt-16 md:mt-24">
-          <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-foreground/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Ergebnisse</span>
-            <span className="h-px w-8 bg-foreground/20" />
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
-            {CASES.map((c) => (
-              <div key={c.t} className="text-center md:text-left">
-                <h3 className="text-[13px] tracking-[0.15em] uppercase text-foreground/80 mb-2">{c.t}</h3>
-                <p className="text-[12px] leading-relaxed text-foreground/55">{c.d}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Pakete / Kombi-Angebote */}
-        <section id="pakete" className="mt-16 md:mt-24">
-          <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-foreground/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Pakete</span>
-            <span className="h-px w-8 bg-foreground/20" />
-          </div>
-          <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
-            {BUNDLES.map((b) => (
-              <div key={b.t} className="border border-foreground/10 p-6 text-center md:text-left flex flex-col">
-                <h3 className="text-[14px] tracking-[0.12em] uppercase text-foreground/85 mb-2">{b.t}</h3>
-                <p className="text-[12px] leading-relaxed text-foreground/55 flex-1">{b.d}</p>
-                <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-foreground/45">{b.p}</p>
-                <a href="#info" onClick={() => trackCtaClick(`paket-${b.t}`)} className="mt-3 inline-block self-center md:self-start px-7 py-2.5 bg-[#FF6600] text-white hover:bg-[#e25c00] text-[11px] tracking-[0.2em] uppercase transition-colors">
-                  Paket anfragen
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section id="faq" className="mt-16 md:mt-24 max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-8 bg-foreground/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">FAQ</span>
-            <span className="h-px w-8 bg-foreground/20" />
-          </div>
-          <div className="divide-y divide-foreground/10 border-y border-foreground/10">
-            {FAQS.map((f) => (
-              <details key={f.q} className="group py-4">
-                <summary className="cursor-pointer list-none flex items-start justify-between gap-4 text-[13px] text-foreground/80">
-                  <span>{f.q}</span>
-                  <span className="text-[#FF6600] shrink-0 transition-transform duration-300 group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-[12px] leading-relaxed text-foreground/55">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        {/* Info / Kontakt */}
-        <section id="info" className="mt-16 md:mt-24 text-center">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="h-px w-8 bg-foreground/20" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-foreground/45">Kontakt</span>
-            <span className="h-px w-8 bg-foreground/20" />
-          </div>
-          <p className="text-[13px] leading-relaxed text-foreground/65 max-w-xl mx-auto">
-            Dirk Mathesius — Fotograf in Berlin, aktiv seit 1997, über 30 Jahre Erfahrung.
-            Sport · People · Music · Publication · Landscape · Reportage · Stills.
-          </p>
-          <p className="text-[12px] leading-relaxed text-foreground/55 mt-4">
-            Bahrendorfer Straße 22 · 12555 Berlin · Mobil{" "}
-            <a href={`tel:${PHONE_TEL}`} onClick={() => trackAnrufClick("kontakt")} className="text-[#FF6600] hover:underline">{PHONE_DISPLAY}</a>
-          </p>
-          <p className="text-[12px] mt-1">
-            <a href={`mailto:${EMAIL}`} onClick={() => trackCtaClick("email-kontakt")} className="text-[#FF6600] hover:underline">{EMAIL}</a>
-          </p>
-
-          {/* WhatsApp — schnellster Buchungskanal */}
-          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
-            onClick={() => trackWhatsappClick("kontakt")}
-            className="inline-flex items-center gap-2 mt-6 px-7 py-3 bg-[#25D366] text-white hover:bg-[#1eb955] text-[12px] tracking-[0.12em] uppercase transition-colors">
-            <MessageCircle size={16} /> Direkt per WhatsApp anfragen
-          </a>
-          <p className="mt-3 text-[11px] text-foreground/40">oder das Formular nutzen:</p>
-
-          <div className="mt-6">
-            <ContactForm />
-          </div>
-        </section>
-        </>)}
 
         {/* Fanpage — klarer Weg zur Buchung auf Dirks offizieller Seite */}
         {IS_FANPAGE && (
@@ -707,23 +485,28 @@ export default function Index() {
           </section>
         )}
 
-        {/* Footer */}
+        {/* Footer — minimal (offizielle Seite) bzw. mit Galerie-Links (Fanpage) */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-foreground/10 text-center">
           <Logo size={52} className="mx-auto" />
-          {/* Galerien — echte statische Kategorie-Seiten (SEO-Landingpages). Plain <a>, kein SPA-Link. */}
-          <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-foreground/40">
-            <a href="/folks.html" className="hover:text-[#FF6600] transition-colors">People</a>
-            <a href="/sport.html" className="hover:text-[#FF6600] transition-colors">Sport</a>
-            <a href="/music.html" className="hover:text-[#FF6600] transition-colors">Music</a>
-            <a href="/publication.html" className="hover:text-[#FF6600] transition-colors">Publication</a>
-            <a href="/landscape.html" className="hover:text-[#FF6600] transition-colors">Landscape</a>
-            <a href="/reportage.html" className="hover:text-[#FF6600] transition-colors">Reportage</a>
-            <a href="/stills.html" className="hover:text-[#FF6600] transition-colors">Stills</a>
-          </nav>
+          {IS_FANPAGE && (
+            <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-foreground/40">
+              <a href="/folks.html" className="hover:text-[#FF6600] transition-colors">People</a>
+              <a href="/sport.html" className="hover:text-[#FF6600] transition-colors">Sport</a>
+              <a href="/music.html" className="hover:text-[#FF6600] transition-colors">Music</a>
+              <a href="/publication.html" className="hover:text-[#FF6600] transition-colors">Publication</a>
+              <a href="/landscape.html" className="hover:text-[#FF6600] transition-colors">Landscape</a>
+              <a href="/reportage.html" className="hover:text-[#FF6600] transition-colors">Reportage</a>
+              <a href="/stills.html" className="hover:text-[#FF6600] transition-colors">Stills</a>
+            </nav>
+          )}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-foreground/45">
+            <a href={IS_OFFICIAL ? "/ueber-dirk.html" : "#ueber-dirk"} className="hover:text-[#FF6600] transition-colors">Über Dirk</a>
+            <a href={IS_OFFICIAL ? "/info.html" : "#info"} className="hover:text-[#FF6600] transition-colors">Info</a>
             <a href="/impressum.html" className="hover:text-[#FF6600] transition-colors">Impressum</a>
             <a href="/datenschutzerklaerung.html" className="hover:text-[#FF6600] transition-colors">Datenschutz</a>
-            <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6600] transition-colors">dirkmathesius.de</a>
+            {IS_FANPAGE && (
+              <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6600] transition-colors">dirkmathesius.de</a>
+            )}
             {GA4_ID && (
               <button onClick={openCookieSettings} className="uppercase hover:text-[#FF6600] transition-colors">Cookie-Einstellungen</button>
             )}
