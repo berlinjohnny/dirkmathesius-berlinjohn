@@ -10,6 +10,8 @@ export type PortfolioImage = {
   caption?: string;
   creator?: string;
   rights?: string;
+  /** Gemeinsam mit John Förster entstanden — die Fanpage zeigt ausschliesslich diese. */
+  collab?: boolean;
 };
 export type PortfolioCategory = {
   id: string;
@@ -34,7 +36,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße",
         "caption": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg",
@@ -42,7 +45,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster – Sprung über das Stelenfeld, Berliner Mauer Bernauer Straße",
         "caption": "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg",
@@ -50,7 +54,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster – Stele an der Berliner Mauer, Bernauer Straße",
         "caption": "John Förster akrobatisch an einer Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/Franziska-Koch-Schiedsrichterin-Runners-World-Magazin.webp",
@@ -82,7 +87,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Akrobat, Freie Arbeit",
         "caption": "Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf den sehr hohen Eisen- Stelen der Gedenkstätte Berliner Mauer in der Bernauer Strasse. In aller frühe fotografiert, noch nebelig und menschenleer. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-Foerster-Akrobat-Handstand-schwangere-Auster.webp",
@@ -90,7 +96,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Akrobat, Schwangere Auster, Berlin, Freie Arbeit",
         "caption": "Der Akrobat und Freerunner John Förster posiert mit freiem Oberkörper einen freestyle- Handstand am Geländer vor der schwangeren Auster in Berlin bei bedecktem Himmel. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp",
@@ -98,7 +105,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Akrobat, Freie Arbeit",
         "caption": "Der Akrobat und Freerunner John Förster springt an eine Steinmauer in eine Pfütze. Dabei handelt es sich um einen analogen Trick. Im Hintergrund die Spree und der Reichstag im Gegenlicht mit freiem Himmel. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-Foerster-Akrobat-Zaun-Supermann.webp",
@@ -106,7 +114,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Akrobat, Freie Arbeit",
         "caption": "Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf einem hohen und massiven Stahlzaun mit Spitzen. Freier Oberkörper. Im Hintergrund ein modernes Gebäude mit Steinfassade. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-Fuss-high-five-Phaeno.webp",
@@ -114,7 +123,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
         "caption": "Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-Kreuz-Sprung.webp",
@@ -122,7 +132,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John & Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16",
         "caption": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-holy-Salto-Phaeno.webp",
@@ -130,7 +141,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
         "caption": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/sport/Joyce-Huebner-Runners-World-Magazin.webp",
@@ -472,7 +484,8 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/folks/Tina-Foerster-Portrait-kopfueber.webp",
         "alt": "Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius",
-        "creator": "Dirk Mathesius"
+        "creator": "Dirk Mathesius",
+        "collab": true
       },
       {
         "src": "/portfolio/folks/Tom-Wlaschiha-für-audible-MARVELS-Wastelanders.webp",
@@ -1452,7 +1465,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer",
         "caption": "Der Akrobat und freerunner John Förtsre springt vor einer formatfüllenden Beton-Treppe einen Salto in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/publication/John-Foerster-freerunner-Sprung-adidas.webp",
@@ -1460,7 +1474,8 @@ export const portfolio: PortfolioCategory[] = [
         "title": "John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer",
         "caption": "Der Akrobat und freerunner John Förtsre springt einen coolen stunt in einerm weissen Betongang am Velodrom Berlin in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.",
         "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
+        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
+        "collab": true
       },
       {
         "src": "/portfolio/publication/Joko-und-KLaas-Pringles-PR-Kampagne.webp",

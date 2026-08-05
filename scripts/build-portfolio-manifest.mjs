@@ -102,6 +102,33 @@ const seoByCat = {
 const navOrder = ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
 const navLabel = (id) => (id === "folks" ? "people" : id);
 
+// ── Kollaborationen John × Dirk ───────────────────────────────────────────────
+// Die Fanpage (dirkmathesius.berlinjohn.de) zeigt AUSSCHLIESSLICH Bilder, die
+// gemeinsam mit John Förster entstanden sind. Dirks übriges Portfolio bleibt
+// exklusiv seiner offiziellen Seite vorbehalten — das ist der ganze Sinn der
+// Trennung: die Fanpage feiert die Zusammenarbeit, Buchungen gehen zu Dirk.
+//
+// Die Erkennung läuft über Dateiname + Bildtexte. Wo das danebenliegt, sind die
+// beiden Mengen darunter die Handbremse — sie schlagen die Automatik.
+const COLLAB_RE = /john|förster|foerster|acroberlin/i;
+/** Trotz Namenstreffer KEINE John-Kollaboration (Dateiname, ohne Pfad). */
+const COLLAB_EXCLUDE = new Set([]);
+/** Zusätzlich als Kollaboration werten, obwohl kein Treffer (Dateiname, ohne Pfad). */
+const COLLAB_INCLUDE = new Set([]);
+
+const isCollab = (img) => {
+  const file = decodeURIComponent(img.src.split("/").pop() || "");
+  if (COLLAB_EXCLUDE.has(file)) return false;
+  if (COLLAB_INCLUDE.has(file)) return true;
+  return [img.src, img.alt, img.title, img.caption]
+    .some((s) => COLLAB_RE.test(s || ""));
+};
+
+// Seiten-Variante — wie in src/lib/site.ts. "fanpage" reduziert Sitemap, JSON-LD
+// und die statischen Kategorie-Seiten auf die Kollaborationen.
+const VARIANT = (readEnv("SITE_VARIANT") || readEnv("VITE_SITE_VARIANT") || "").toLowerCase();
+const IS_FANPAGE = VARIANT === "fanpage";
+
 // Hand-curated premium motifs ("Beste Motive", PR #15). These are .jpg without embedded
 // XMP, so they can't be auto-derived from the file scan — they're maintained here with their
 // hand-written alt/title/caption and PREPENDED (shown first → also become the category cover).
@@ -238,7 +265,8 @@ const categories = order.map((id) => {
     return img;
   });
 
-  const allImages = [...(manualExtras[id] || []), ...images];
+  const allImages = [...(manualExtras[id] || []), ...images]
+    .map((img) => (isCollab(img) ? { ...img, collab: true } : img));
 
   return {
     id,
@@ -249,6 +277,22 @@ const categories = order.map((id) => {
     images: allImages,
   };
 });
+
+// Was DIESE Seite zeigt. portfolio.ts bleibt immer vollständig (die React-Galerie
+// filtert zur Laufzeit über IS_FANPAGE) — hier geht es um die generierten
+// Artefakte: Sitemap, JSON-LD und die statischen Kategorie-Seiten. Auf der Fanpage
+// dürfen die nur enthalten, was dort auch tatsächlich zu sehen ist; Kategorien
+// ohne eine einzige Kollaboration verschwinden ganz.
+const siteCategories = IS_FANPAGE
+  ? categories
+      .map((c) => {
+        const imgs = c.images.filter(isCollab);
+        return { ...c, images: imgs, cover: imgs[0]?.src ?? "", coverAlt: imgs[0]?.alt ?? c.altBase };
+      })
+      .filter((c) => c.images.length > 0)
+  : categories;
+
+const siteNavOrder = navOrder.filter((id) => siteCategories.some((c) => c.id === id));
 
 const banner = `// AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via \`node scripts/build-portfolio-manifest.mjs\`)
@@ -263,6 +307,8 @@ const body = `export type PortfolioImage = {
   caption?: string;
   creator?: string;
   rights?: string;
+  /** Gemeinsam mit John Förster entstanden — die Fanpage zeigt ausschliesslich diese. */
+  collab?: boolean;
 };
 export type PortfolioCategory = {
   id: string;
@@ -288,7 +334,7 @@ for (const c of categories) console.log(`   ${c.id}: ${c.images.length}`);
 // --- imageJsonLd.ts (schema.org ImageGallery with per-image ImageObject) -------
 const CREATOR = { "@type": "Person", name: "Dirk Mathesius", url: "https://www.dirkmathesius.de" };
 
-const associatedMedia = categories.flatMap((c) =>
+const associatedMedia = siteCategories.flatMap((c) =>
   c.images.map((img) => {
     const node = {
       "@type": "ImageObject",
@@ -368,7 +414,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
       <image:caption>© Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – 100 % real, ohne Bildbearbeitung</image:caption>
     </image:image>
   </url>
-${categories.map(categoryUrl).join("\n")}
+${siteCategories.map(categoryUrl).join("\n")}
   <url>
     <loc>${SITE}/ueber-dirk.html</loc>
     <lastmod>${today}</lastmod>
@@ -402,7 +448,7 @@ ${categories.map(categoryUrl).join("\n")}
 </urlset>
 `;
 writeFileSync(join(root, "public", "sitemap.xml"), sitemap);
-const totalImg = categories.reduce((n, c) => n + c.images.length, 0);
+const totalImg = siteCategories.reduce((n, c) => n + c.images.length, 0);
 console.log(`✅ sitemap.xml — ${categories.length} category pages × image entries = ${totalImg} <image:image> blocks + 1 hero`);
 
 // --- robots.txt (in den Generator gefaltet → bleibt beim Cutover NICHT auf der Subdomain hängen)
@@ -459,7 +505,7 @@ const categoryPage = (c) => {
   const pageUrl = `${SITE}/${c.id}.html`;
   const cover = c.images[0] ? `${SITE}${enc(c.images[0].src)}` : `${SITE}/images/dm-logo.jpg`;
 
-  const nav = navOrder
+  const nav = siteNavOrder
     .map((id) => {
       const active = id === c.id ? ' style="color:#FF6600"' : "";
       return `<a href="/${id}.html"${active}>${E(navLabel(id))}</a>`;
@@ -594,10 +640,41 @@ ${figures}
 `;
 };
 
-for (const c of categories) {
+for (const c of siteCategories) {
   writeFileSync(join(root, "public", `${c.id}.html`), categoryPage(c));
 }
-console.log(`✅ ${categories.length} statische Kategorie-Seiten — public/{${categories.map((c) => c.id).join(",")}}.html`);
+console.log(`✅ ${siteCategories.length} statische Kategorie-Seiten — public/{${siteCategories.map((c) => c.id).join(",")}}.html`);
+
+// Auf der Fanpage fallen Dirks Solo-Kategorien weg. Die 301 in public/.htaccess
+// faengt sie ab, bevor Apache ueberhaupt eine Datei sucht — aber die alten Dateien
+// aus dem official-Lauf liegen weiter in public/ und wuerden mitdeployt. Fiele die
+// .htaccess je aus, stuende dort genau das live, was hier entfernt werden soll.
+// Deshalb werden sie durch einen harmlosen Zeiger auf Dirk ersetzt: noindex,
+// canonical zu ihm, ein Satz, ein Link. Doppelt gesichert statt einmal gehofft.
+if (IS_FANPAGE) {
+  const dropped = navOrder.filter((id) => !siteCategories.some((c) => c.id === id));
+  for (const id of dropped) {
+    const target = `${OFFICIAL}/${id}.html`;
+    const label = navLabel(id);
+    writeFileSync(join(root, "public", `${id}.html`), `<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${E(seoByCat[id].h1)} — jetzt auf dirkmathesius.de</title>
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="${target}" />
+<meta http-equiv="refresh" content="0; url=${target}" />
+</head>
+<body style="font-family:Arial,Helvetica,sans-serif;text-align:center;padding:3rem 1rem;">
+  <p>Dirks ${E(label)}-Arbeiten sind auf seiner eigenen Seite zu sehen.</p>
+  <p><a href="${target}" style="color:#FF6600;">Weiter zu dirkmathesius.de/${id}.html →</a></p>
+</body>
+</html>
+`);
+  }
+  console.log(`✅ ${dropped.length} Solo-Kategorien → Zeiger auf dirkmathesius.de (${dropped.join(", ")})`);
+}
 
 // --- Kollaborationen (John Förster × Dirk) — dezente statische Unterseite ---------
 // Business bleibt auf der Startseite; die Fan-/Kollab-Inhalte leben hier (offizielle
@@ -625,7 +702,7 @@ const collabTimeline = COLLAB_TIMELINE
   .map((t) => { const img = _collabAll.find((i) => i.src.endsWith(t.file)); return img ? { ...img, year: t.year } : null; })
   .filter(Boolean);
 
-const kollabNav = navOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ") + `\n        <a href="/info.html">info</a>`;
+const kollabNav = siteNavOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ") + `\n        <a href="/info.html">info</a>`;
 const kollabCanonical = `${OFFICIAL}/kollaborationen.html`;
 const kollabBook = isOfficialHost ? "/#info" : `${OFFICIAL}/?utm_source=kollaborationen&utm_medium=referral&utm_campaign=buchung`;
 const kollabBookAttrs = isOfficialHost ? "" : ' target="_blank" rel="noopener"';
@@ -774,7 +851,7 @@ const FAQS = [
   { q: "Bietet ihr auch Action-/Sportshootings mit Modellen an?", a: "Ja — dynamische Action- und Sportshootings mit professionellen Sportmodels: echte Action, 100 % real, ohne Bildbearbeitung." },
 ];
 
-const subNav = navOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ")
+const subNav = siteNavOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ")
   + `\n        <a href="/ueber-dirk.html">über dirk</a>\n        <a href="/info.html">info</a>`;
 
 const SUB_CSS = `

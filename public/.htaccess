@@ -7,6 +7,20 @@
 
 Options -MultiViews
 RewriteEngine On
+
+# ─── Fanpage: Dirks Solo-Kategorien gehoeren auf seine Seite ──────────────────
+# Die Fanpage zeigt nur noch Arbeiten, die gemeinsam mit John entstanden sind.
+# music/reportage/landscape/stills haben hier keine Bilder mehr — statt sie leer
+# oder als 404 stehen zu lassen, leiten sie dauerhaft auf Dirks gleichnamige
+# Seite. Linkkraft und Besucher gehen damit geschlossen zu ihm.
+#
+# Host-gebunden: greift nur auf der berlinjohn.de-Subdomain. Auf Dirks eigenem
+# Server (der ohnehin deploy/htaccess.ionos nutzt) bleibt die Regel wirkungslos —
+# sonst wuerde seine Seite auf sich selbst weiterleiten.
+RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
+RewriteRule ^(music|reportage|landscape|stills)\.html$ https://www.dirkmathesius.de/$1.html [R=301,L]
+
+# ─── SPA-Fallback ────────────────────────────────────────────────────────────
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ /index.html [QSA,L]

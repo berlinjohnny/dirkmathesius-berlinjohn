@@ -8,7 +8,19 @@ import { trackWhatsappClick, trackCtaClick } from "@/lib/analytics";
 import { openCookieSettings } from "@/components/CookieConsent";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const categories = portfolio;
+// Die Fanpage zeigt ausschliesslich Bilder, die gemeinsam mit John entstanden sind
+// (Flag `collab` kommt aus dem Generator). Dirks uebriges Portfolio ist exklusiv auf
+// seiner offiziellen Seite zu sehen — Kategorien ohne Kollaboration fallen hier weg.
+// Muss zur Filterung in scripts/build-portfolio-manifest.mjs passen, sonst wuerde die
+// Sitemap Bilder bewerben, die auf der Seite gar nicht auftauchen.
+const categories: PortfolioCategory[] = IS_FANPAGE
+  ? portfolio
+      .map((c) => {
+        const images = c.images.filter((img) => img.collab);
+        return { ...c, images, cover: images[0]?.src ?? "", coverAlt: images[0]?.alt ?? c.altBase };
+      })
+      .filter((c) => c.images.length > 0)
+  : portfolio;
 
 const HERO_FILENAME = "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp";
 const HERO =
