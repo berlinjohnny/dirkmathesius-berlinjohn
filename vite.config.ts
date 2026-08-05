@@ -4,6 +4,18 @@ import path from "path";
 
 const OFFICIAL_URL = "https://www.dirkmathesius.de";
 
+/** Ist dieser Build Dirks offizielle Seite (true) oder die Fanpage (false)? */
+const resolveIsOfficial = (mode: string) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const siteUrl = (env.VITE_SITE_URL || "https://dirkmathesius.berlinjohn.de").replace(/\/$/, "");
+  const variant = (env.VITE_SITE_VARIANT || "").toLowerCase();
+  const isOfficial =
+    variant === "official" ? true
+    : variant === "fanpage" ? false
+    : /(^|\.)dirkmathesius\.de$/.test(new URL(siteUrl).hostname);
+  return { isOfficial, siteUrl };
+};
+
 /**
  * Setzt __DM_CANONICAL_URL__ in index.html — abgeleitet, nicht doppelt gepflegt.
  * (Eigenes Token statt %VITE_…%: die Prozent-Syntax gehoert Vites eigener
@@ -20,13 +32,7 @@ const canonicalPlugin = (mode: string): Plugin => ({
   name: "dm-canonical-url",
   enforce: "pre",
   transformIndexHtml(html) {
-    const env = loadEnv(mode, process.cwd(), "");
-    const siteUrl = (env.VITE_SITE_URL || "https://dirkmathesius.berlinjohn.de").replace(/\/$/, "");
-    const variant = (env.VITE_SITE_VARIANT || "").toLowerCase();
-    const isOfficial =
-      variant === "official" ? true
-      : variant === "fanpage" ? false
-      : /(^|\.)dirkmathesius\.de$/.test(new URL(siteUrl).hostname);
+    const { isOfficial, siteUrl } = resolveIsOfficial(mode);
     return html.replaceAll("__DM_CANONICAL_URL__", isOfficial ? siteUrl : OFFICIAL_URL);
   },
 });
