@@ -898,7 +898,10 @@ const SUB_CSS = `
   footer a:hover{color:#FF6600;}
 `;
 
-function subPage({ canonical, title, desc, headLd = [], body }) {
+// `css` = seiten-eigene Regeln, die NUR diese eine Seite bekommt. SUB_CSS teilen
+// sich alle Unterseiten (7 Kategorien + kollaborationen + info) auf zwei Domains —
+// wer dort etwas aendert, gestaltet unbemerkt alle mit um.
+function subPage({ canonical, title, desc, headLd = [], body, css = "" }) {
   return `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -921,7 +924,7 @@ function subPage({ canonical, title, desc, headLd = [], body }) {
 <meta property="og:image" content="${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
-<style>${SUB_CSS}</style>
+<style>${SUB_CSS}${css}</style>
 ${headLd.map((o) => `<script type="application/ld+json">${jsonLd(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -947,24 +950,205 @@ ${body}
 `;
 }
 
-// --- ueber-dirk.html ---
+// --- ueber-dirk.html -------------------------------------------------------
+// B2B-Seite: sie muss die Fragen beantworten, die vor einer Buchung stehen —
+// wer, womit, wie laeuft es ab, wem gehoeren die Bilder. Pakete und Preise
+// bleiben bewusst auf /info.html (kein doppelter Inhalt, kein zweites FAQPage-
+// JSON-LD auf derselben Domain) und werden von hier nur verlinkt.
+
+/** Alle acht Behind-the-Scenes-Aufnahmen, mit echten Massen gegen Layout-Spruenge. */
+const ABOUT_BTS = [
+  { src: "/images/bts/bts-hasselblad-tethered-baustelle-berlin.jpg", w: 1200, h: 1600,
+    t: "Hasselblad am Set · Industrie", a: "Behind the Scenes: Hasselblad-Mittelformatkamera mit dirk-mathesius.de am Set – getethertes Industrie- und Baustellen-Shooting in Berlin" },
+  { src: "/images/bts/bts-dirk-mathesius-monitor-industrie-hafen.jpg", w: 1200, h: 1600,
+    t: "Live-Monitor · Hafen", a: "Behind the Scenes: Live-Monitor mit dirk-mathesius.de bei einem Industrie- und Hafen-Shooting in Berlin" },
+  { src: "/images/bts/bts-dirk-mathesius-produktfotografie-labor.jpg", w: 1600, h: 1575,
+    t: "Produktfotografie im Labor", a: "Behind the Scenes: Dirk Mathesius bei der Produktfotografie an einem Matest Softmatic Prüfgerät im Labor" },
+  { src: "/images/bts/bts-gerolsteiner-making-of-freerunner-john-foerster.jpg", w: 1417, h: 945,
+    t: "Making-of · Gerolsteiner-Commercial", a: "Behind the Scenes: Making-of eines Gerolsteiner-Commercials in Berlin – Freerunner im Salto, Lichtset und Crew im Loft-Studio" },
+  { src: "/images/bts/bts-foerster-human-flag-behala-hafen-berlin.jpg", w: 1600, h: 1067,
+    t: "Human-Flag am BEHALA-Hafen", a: "Freie Fotokunst, 100% real ohne Bildbearbeitung: Dirk Mathesius in schwebender Hocke und John Förster als Human-Flag am BEHALA-Schild, Berliner Westhafen" },
+  { src: "/images/bts/bts-dirk-mathesius-foerster-action-flow-berlin.jpg", w: 702, h: 1246,
+    t: "Action-Flow am Set", a: "Behind the Scenes: Dirk Mathesius in Action mit den Förster-Brüdern – Freerunning- und Sportfotografie in Berlin" },
+  { src: "/images/bts/bts-foerster-brueder-rauch-action-collab.jpg", w: 639, h: 1136,
+    t: "Action-Shoot mit Rauch", a: "Behind the Scenes: Action-Shooting mit Rauch-/Pyro-Effekt und Sprung vor Berliner Wohnarchitektur" },
+  { src: "/images/bts/bts-dirk-mathesius-balance-cube-berlin-spree.jpg", w: 1600, h: 1200,
+    t: "Balance am Cube Berlin", a: "Behind the Scenes: Dirk Mathesius in Balance-Pose am Cube Berlin an der Spree, Berlin Hauptbahnhof" },
+];
+
+/** Ablauf einer Produktion — die Frage jedes Auftraggebers vor der Buchung. */
+const ABOUT_STEPS = [
+  { n: "01", t: "Briefing", d: "Kurzes Gespräch über Ziel, Motive und Nutzung. Daraus entsteht ein konkretes Konzept statt einer Preisliste." },
+  { n: "02", t: "Planung", d: "Termin, Location und Team. Mobil bei Ihnen vor Ort — Baustelle, Hafen, Labor, Büro — oder im Studio." },
+  { n: "03", t: "Produktion", d: "Shooting mit komplettem Profi-Equipment. Getethert, Ergebnisse direkt am Monitor mitverfolgen und freigeben." },
+  { n: "04", t: "Lieferung", d: "Kuratierte Auswahl zeitnah nach dem Termin, finale Bilder nach Absprache — im benötigten Format." },
+];
+
+/** Technik-Belege, die im B2B-Vergleich tatsächlich zählen. */
+const ABOUT_TECH = [
+  { t: "Mittelformat", d: "Hasselblad 501c mit CFV-Digitalrückteil — Auflösung und Tonwerte für Print, Großformat und Kampagnen." },
+  { t: "Tethered on location", d: "Aufnahme direkt auf den Monitor. Bildauswahl und Freigabe passieren am Set, nicht Tage später." },
+  { t: "Mobil & Studio", d: "Komplettes Licht- und Kamera-Setup reist mit. Industrie, Sport und People auch unter rauen Bedingungen." },
+  { t: "Ohne Bildbearbeitung", d: "Action und Sport entstehen real vor der Kamera — kein Composing, keine nachträgliche Erfindung." },
+];
+
+/* Seiten-eigenes CSS — alles unter .ueber, damit die Geschwister-Seiten
+   (Kategorien, kollaborationen, info) unveraendert bleiben. */
+const UEBER_CSS = `
+  .ueber{max-width:1000px;}
+  .ueber .lead{font-size:clamp(15px,2.4vw,19px);line-height:1.65;color:#333;max-width:44em;margin:0 0 26px;}
+  .ueber .lead b{font-weight:600;color:#111;}
+  .ueber h1{font-size:clamp(24px,5vw,40px);line-height:1.12;letter-spacing:-.01em;font-weight:600;color:#111;margin:30px 0 16px;max-width:20em;}
+  .ueber h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:26px;margin:52px 0 20px;font-weight:600;}
+  .ueber .facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding:0;list-style:none;}
+  .ueber .facts li{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#555;border:1px solid #e4e4e4;border-radius:2px;padding:7px 12px;}
+  .ueber .facts li b{color:#FF6600;font-weight:600;}
+  .ueber .film{margin:0 0 8px;}
+  .ueber .film button{display:block;width:100%;position:relative;border:0;padding:0;cursor:pointer;background:#111;overflow:hidden;}
+  .ueber .film button img{display:block;width:100%;height:auto;opacity:.62;transition:opacity .25s,transform .5s;}
+  .ueber .film button:hover img{opacity:.8;transform:scale(1.02);}
+  .ueber .film .play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;pointer-events:none;}
+  .ueber .film .disc{width:64px;height:64px;border-radius:50%;background:#FF6600;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;padding-left:5px;}
+  .ueber .film .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.6);}
+  .ueber .cap{font-size:11px;color:#999;line-height:1.6;margin:0 0 8px;}
+  .ueber .logos{display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:0;list-style:none;}
+  .ueber .logos li{font-size:12px;color:#444;background:#f6f6f6;padding:8px 13px;letter-spacing:.02em;}
+  .ueber .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;background:#ececec;border:1px solid #ececec;}
+  .ueber .steps > div{background:#fff;padding:20px 18px;}
+  .ueber .steps .n{font-size:10px;letter-spacing:.2em;color:#FF6600;font-weight:600;}
+  .ueber .steps h3{margin:8px 0 7px;font-size:14px;font-weight:600;color:#111;letter-spacing:0;text-transform:none;}
+  .ueber .steps p{margin:0;font-size:12.5px;line-height:1.65;color:#666;}
+  .ueber .tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:22px 30px;}
+  .ueber .tech h3{margin:0 0 6px;font-size:13px;font-weight:600;color:#111;letter-spacing:0;text-transform:none;}
+  .ueber .tech h3:before{content:"—";color:#FF6600;margin-right:8px;}
+  .ueber .tech p{margin:0;font-size:12.5px;line-height:1.65;color:#666;}
+  .ueber .bts{columns:2;column-gap:10px;}
+  @media(min-width:700px){.ueber .bts{columns:3;column-gap:12px;}}
+  .ueber .bts figure{break-inside:avoid;margin:0 0 10px;position:relative;background:#f2f2f2;}
+  .ueber .bts img{display:block;width:100%;height:auto;}
+  .ueber .bts figcaption{position:absolute;left:0;right:0;bottom:0;padding:20px 10px 8px;font-size:10.5px;letter-spacing:.03em;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.72),transparent);}
+  .ueber .rights{border-left:2px solid #FF6600;padding:2px 0 2px 18px;max-width:44em;}
+  .ueber .rights p{margin:0 0 10px;font-size:13px;line-height:1.7;color:#555;}
+  .ueber .rights p:last-child{margin-bottom:0;}
+  .ueber .close{margin:56px 0 8px;padding:34px 24px;background:#111;text-align:center;}
+  .ueber .close p{margin:0 auto 20px;font-size:clamp(15px,2.2vw,19px);line-height:1.5;color:#fff;max-width:24em;}
+  .ueber .close .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;}
+  .ueber .close .alt{color:#bbb;text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #444;padding-bottom:2px;}
+  .ueber .close .alt:hover{color:#FF6600;border-color:#FF6600;}
+  .ueber .more{font-size:12.5px;color:#666;line-height:1.8;}
+  .ueber .more a{color:#FF6600;text-decoration:none;}
+  .ueber .more a:hover{text-decoration:underline;}
+`;
+
 const ueberBody = `
-    <h1>Über Dirk Mathesius — Fotograf in Berlin seit 1997</h1>
-    <p class="intro">Dirk Mathesius fotografiert seit 1997 in Berlin — Sport, People, Music, Reportage &amp; Editorial. Seine Arbeiten erscheinen in führenden Magazinen und Kampagnen (BMW Motorrad, Red Bull, adidas, audible, Stern, Men&#39;s Health) — über 30 Jahre Erfahrung.</p>
-    <div class="showreel"><button id="sr-btn" type="button">▶ Showreel abspielen · lädt erst nach Klick (YouTube)</button></div>
-    <script>
-      document.getElementById('sr-btn').addEventListener('click', function () {
-        this.parentNode.innerHTML = '<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/${SHOWREEL_ID}?autoplay=1&rel=0&playsinline=1" title="Showreel Dirk Mathesius" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="border:0;max-width:820px"></iframe>';
-      });
-    </script>
+  <div class="ueber">
+    <h1>Fotografie, die vor der Kamera passiert — seit 1997 in Berlin</h1>
+
+    <p class="lead">Dirk Mathesius fotografiert <b>Sport, People, Industrie, Reportage und Editorial</b> —
+      für Marken, Magazine und Unternehmen. Seine Bilder erscheinen in führenden Titeln und Kampagnen,
+      von BMW Motorrad und Red Bull über adidas und audible bis Stern und Men&#39;s Health.
+      Action entsteht dabei real vor der Linse, nicht nachträglich am Rechner.</p>
+
+    <ul class="facts">
+      <li>seit <b>1997</b></li>
+      <li><b>30+</b> Jahre Erfahrung</li>
+      <li>Berlin &amp; international</li>
+      <li>Hasselblad <b>Mittelformat</b></li>
+      <li>mobil vor Ort &amp; Studio</li>
+    </ul>
+
+    <h2>Bewegtbild</h2>
+    <div class="film">
+      <button id="sr-btn" type="button" aria-label="Film abspielen (lädt erst nach Klick von YouTube)">
+        <img src="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
+             alt="Standbild: Human-Flag zwischen Pappeln mit Friedenstaube – fotografiert von Dirk Mathesius"
+             width="1617" height="1212" loading="lazy" decoding="async" />
+        <span class="play"><span class="disc">▶</span><span class="lbl">Film abspielen</span></span>
+      </button>
+    </div>
+    <p class="cap">„Die FriedensFlagge“ · Human Flag, fotografiert von Dirk Mathesius ·
+      Video auf dem Kanal von John Förster (@berlinjohn.de). Lädt erst nach Klick — vorher werden keine Daten an YouTube gesendet.</p>
+
     <h2>Vertraut von</h2>
-    <p class="clients">${E(CLIENTS.join("  ·  "))}</p>
-    <p class="intro">Ausgewählte Kollaborationen &amp; Behind-the-Scenes-Arbeiten: <a href="/kollaborationen.html">Kollaborationen →</a> · Mehr Showreels auf <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener">Instagram →</a></p>
-    <div class="cta"><p>Sport-, People- oder Editorial-Projekt mit Dirk Mathesius?</p><a class="book" href="/info.html#kontakt">Zur Anfrage →</a></div>`;
+    <ul class="logos">${CLIENTS.map((c) => `<li>${E(c)}</li>`).join("")}</ul>
+
+    <h2>Wie eine Produktion abläuft</h2>
+    <div class="steps">${ABOUT_STEPS.map((s) => `<div><div class="n">${s.n}</div><h3>${E(s.t)}</h3><p>${E(s.d)}</p></div>`).join("")}</div>
+
+    <h2>Technik &amp; Arbeitsweise</h2>
+    <div class="tech">${ABOUT_TECH.map((t) => `<div><h3>${E(t.t)}</h3><p>${E(t.d)}</p></div>`).join("")}</div>
+
+    <h2>Behind the Scenes</h2>
+    <p class="lead">Wie die Bilder entstehen — Baustelle, Hafen, Labor, Studio und Straße.</p>
+    <div class="bts">${ABOUT_BTS.map((b) => `<figure><img src="${b.src}" alt="${E(b.a)}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" /><figcaption>${E(b.t)}</figcaption></figure>`).join("")}</div>
+
+    <h2>Nutzungsrechte</h2>
+    <div class="rights">
+      <p>Die Nutzungsrechte werden <b>projektbezogen und passend zum tatsächlichen Einsatz</b> vereinbart —
+        von der einmaligen Magazinstrecke bis zur zeitlich und räumlich weiten Kampagnennutzung.
+        Was Sie brauchen, steht vor dem Shooting im Angebot, nicht als Überraschung danach.</p>
+      <p>Urheber bleibt in jedem Fall © Dirk Mathesius. Umfang, Dauer und Gebiet halten wir schriftlich fest,
+        damit Ihre Marketing- und Rechtsabteilung eine belastbare Grundlage hat.</p>
+    </div>
+
+    <h2>Mehr sehen</h2>
+    <p class="more">
+      Pakete, Preisrahmen und häufige Fragen: <a href="/info.html">Info &amp; Anfrage →</a><br />
+      Ausgewählte Kollaborationen: <a href="/kollaborationen.html">Kollaborationen →</a><br />
+      Laufende Arbeiten und Showreels: <a href="https://www.instagram.com/dirk_mathesius/" target="_blank" rel="noopener">Instagram →</a>
+    </p>
+
+    <div class="close">
+      <p>Sport-, People-, Industrie- oder Editorial-Projekt? Erzählen Sie kurz, worum es geht.</p>
+      <div class="row">
+        <a class="book" href="${IS_FANPAGE ? `${OFFICIAL}/info.html#kontakt` : "/info.html#kontakt"}">Projekt anfragen →</a>
+        <a class="alt" id="ue-call" href="${IS_FANPAGE ? `${OFFICIAL}/info.html#kontakt` : "/info.html#kontakt"}">oder direkt anrufen</a>
+      </div>
+    </div>
+    <script>
+      /* Film erst auf Klick nachladen (kein YouTube-Kontakt vorher).
+         Telefonnummer erst im Browser zusammensetzen — sie steht nirgends
+         im Klartext im HTML, siehe gleiche Loesung auf /info.html. */
+      (function () {
+        var b = document.getElementById('sr-btn');
+        if (b) b.addEventListener('click', function () {
+          var f = document.createElement('iframe');
+          f.width = '100%'; f.height = '520'; f.title = 'Film — fotografiert von Dirk Mathesius';
+          f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+          f.allowFullscreen = true; f.style.border = '0'; f.style.display = 'block';
+          f.src = 'https://www.youtube-nocookie.com/embed/${SHOWREEL_ID}?autoplay=1&rel=0&playsinline=1';
+          this.parentNode.replaceChild(f, this);
+        });
+        var c = document.getElementById('ue-call');
+        if (c) c.href = 'tel:' + atob('KzQ5MTc1NTkxNTY3MA==');
+      })();
+    </script>
+  </div>`;
+// Person/Photographer — KEIN telephone-Feld: die Nummer wird auf der Seite bewusst
+// erst im Browser zusammengesetzt, im JSON-LD stuende sie wieder im Klartext.
+const ueberPersonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Person", "Photographer"],
+  "@id": `${SITE}/ueber-dirk.html#person`,
+  name: "Dirk Mathesius",
+  jobTitle: "Fotograf",
+  url: `${SITE}/ueber-dirk.html`,
+  email: "mail@dirkmathesius.de",
+  image: `${SITE}/images/bts/bts-hasselblad-tethered-baustelle-berlin.jpg`,
+  description:
+    "Berliner Fotograf seit 1997 für Sport, People, Industrie, Reportage und Editorial. Mittelformat (Hasselblad), getethert on location, mobil und im Studio. Über 30 Jahre Erfahrung.",
+  address: { "@type": "PostalAddress", streetAddress: "Bahrendorfer Straße 22", addressLocality: "Berlin", postalCode: "12555", addressCountry: "DE" },
+  areaServed: ["Berlin", "Brandenburg", "Deutschland"],
+  knowsAbout: ["Sportfotografie", "Industriefotografie", "Produktfotografie", "Portraitfotografie", "Reportagefotografie", "Editorial Photography", "Mittelformatfotografie"],
+  sameAs: [OFFICIAL, "https://www.instagram.com/dirk_mathesius/"],
+};
+
 writeFileSync(join(root, "public", "ueber-dirk.html"), subPage({
   canonical: `${SITE}/ueber-dirk.html`,
-  title: "Über Dirk Mathesius — Fotograf Berlin seit 1997 | Sport, People, Editorial",
-  desc: "Dirk Mathesius: Berliner Fotograf seit 1997, über 30 Jahre Erfahrung. Sport, People, Music, Reportage & Editorial. Kunden: BMW Motorrad, Red Bull, adidas, audible, Stern, Men's Health.",
+  title: "Über Dirk Mathesius — Fotograf Berlin seit 1997 | Sport, Industrie, Editorial",
+  desc: "Dirk Mathesius: Berliner Fotograf seit 1997, über 30 Jahre Erfahrung. Sport, People, Industrie, Reportage & Editorial. Hasselblad-Mittelformat, getethert on location. Kunden: BMW Motorrad, Red Bull, adidas, audible, Stern, Men's Health.",
+  headLd: [ueberPersonLd],
+  css: UEBER_CSS,
   body: ueberBody,
 }));
 
