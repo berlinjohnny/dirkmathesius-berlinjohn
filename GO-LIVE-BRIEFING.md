@@ -1,146 +1,87 @@
-# Go-live-Briefing — offizieller Relaunch www.dirkmathesius.de
-**Termin: Mittwoch, 05.08.2026, 16:00 Uhr mit Dirk**
-Stand: 05.08.2026, 14:15 Uhr · Branch `main` @ `aa558da` (gepusht)
+# Relaunch www.dirkmathesius.de — erledigt
+
+**Go-live am 05.08.2026. Beide Domains sind live.**
+Dieses Dokument war das Briefing für den Termin mit Dirk und ist jetzt das Protokoll.
 
 ---
 
-## 1. Kurzfassung
+## Ergebnis (gemessen am 06.08.2026)
 
-Die Seite ist **technisch startklar**. Build grün, Tests grün, Lint 0 Fehler,
-alle 15 Routen 200, JSON-LD valide, alle 185 Sitemap-Bilder auflösbar.
-Der SFTP-Zugang zu IONOS ist **getestet und funktioniert**, der Docroot ist bestätigt.
-Ein Backup der aktuellen Live-Seite liegt lokal.
+**www.dirkmathesius.de** — 13/13 Seiten 200 · Canonical `https://www.dirkmathesius.de/` ·
+non-www→www in zwei Sprüngen · Sitemap 13 URLs / 185 Bilder · 3/3 Security-Header ·
+Telefonnummer nirgends im Klartext.
 
-**Was noch fehlt, ist keine Technik, sondern Dirks Freigabe** (Abschnitt 4).
+**dirkmathesius.berlinjohn.de** (Fanpage) — 7/7 Kollaborations-Seiten 200 ·
+`music`/`reportage`/`landscape`/`stills` leiten per **301 auf Dirks Seite** ·
+Canonical zeigt auf Dirk · Sitemap 9 URLs / 14 Bilder.
 
----
-
-## 2. Was heute geprüft und behoben wurde
-
-### Geprüft (gemessen, nicht vermutet)
-| Prüfung | Ergebnis |
-|---|---|
-| Produktions-Build (`build:ionos`) | ✅ grün, 220 Dateien |
-| Tests / Lint | ✅ 1/1 · 0 Fehler (8 harmlose shadcn-Warnings) |
-| Alle Seiten lokal aufgerufen | ✅ 15/15 × HTTP 200 |
-| JSON-LD (Start, Info, Über, Kollaborationen) | ✅ alle valide |
-| Sitemap-Bilder | ✅ 185/185 auflösbar |
-| Sitemap-/Robots-Domain | ✅ ausschließlich `www.dirkmathesius.de` |
-| IONOS-SFTP-Login | ✅ funktioniert |
-| IONOS-Docroot | ✅ bestätigt: Root `/` **ist** der Docroot |
-| Alte Links → neue Seite | ✅ **1:1**, keine 301-Weiterleitungen nötig |
-
-### Behoben (zwei echte Fehler, beide gefunden beim Trockenlauf)
-1. **Canonical stand nicht im ausgelieferten HTML.** Er wurde bisher nur per
-   JavaScript zur Laufzeit gesetzt. Jetzt steht er statisch in `index.html`;
-   die Variantenlogik (Fanpage → dirkmathesius.de) funktioniert unverändert.
-2. **Die Sitemap bewarb das falsche Startbild.** Sie zeigte auf das *alte*
-   `windowpic.jpg` (mit fest verdrahteter Fremd-Domain), obwohl der Hero längst
-   das Human-Flag-Foto ist. Ein Bild in der Sitemap existierte im Build gar nicht.
-   Jetzt korrekt inkl. passendem Titel/Bildunterschrift.
+Die `.htaccess` auf IONOS — die einzige echte Unbekannte vor dem Go-live — läuft
+fehlerfrei. Kein 500er, der Rollback wurde nicht gebraucht.
 
 ---
 
-## 3. Was beim Deploy tatsächlich passiert
+## Was beim Deploy passiert ist
 
-Der Mirror ist **additiv (kein `--delete`)** — es wird nichts gelöscht.
+Der Mirror ist **additiv**. Überschrieben wurden nur die Dateien mit gleichem Namen
+(`index.html`, die Kategorie-Seiten, `style.css`, Teile von `images/`) — das war der
+Relaunch. Die alten Bildordner (`sport/`, `folks/`, `music/` …, ~100 MB) blieben
+unangetastet, alte von Google indexierte Bild-URLs brechen also nicht.
 
-**Wird überschrieben** (Dateien mit gleichem Namen — das ist der Relaunch):
-`index.html`, `info.html`, `impressum.html`, `datenschutzerklaerung.html`,
-`sport/folks/music/reportage/landscape/stills/publication.html`, `style.css`,
-`favicon.ico` sowie Teile von `images/`.
-
-**Bleibt unangetastet** (~100 MB Altbestand):
-die alten Bildordner `sport/`, `folks/`, `music/`, `reportage/`, `landscape/`,
-`stills/`, `publication/`, dazu `SpryAssets/`, `downloads/`, `icon.psd`.
-→ Alte, von Google indexierte Bild-URLs bleiben erreichbar. Kein SEO-Bruch.
-
-**Kommt neu dazu:** `ueber-dirk.html`, `kollaborationen.html`, `robots.txt`,
-`sitemap.xml`, `assets/`, `portfolio/`, `.htaccess`.
-
-### Backup
-Alles, was überschrieben wird, liegt gesichert unter:
-```
-~/dirkmathesius-live-backup-2026-08-05/        (5 MB, inkl. images/ + SpryAssets/)
-```
-Rückweg: dieselben Dateien einfach wieder hochspielen.
+**Backup der alten Seite:** `~/dirkmathesius-live-backup-2026-08-05/` (5 MB — alles,
+was überschrieben wurde, inkl. `images/` und `SpryAssets/`). Rückweg: wieder hochladen.
 
 ---
 
-## 4. Entscheidungen, die Dirk treffen muss
-
-1. **Go / No-Go** — und wann. Der Deploy dauert wenige Minuten.
-2. **Kontaktformular:** Anfragen laufen über Web3Forms. **An welche Adresse sollen
-   sie gehen?** Direkt nach dem Go-live einen echten Testeintrag absenden und
-   prüfen, ob er ankommt. (Fallback ist `mail@dirkmathesius.de` per mailto.)
-3. **Google Analytics** (`G-NHPNTGY90D`): Soll Dirk eigenen Zugriff bekommen?
-4. **Google Search Console:** Wer verifiziert `www.dirkmathesius.de` und reicht
-   `sitemap.xml` ein? Ohne das dauert die Neuindexierung deutlich länger.
-5. **Alte Inhalte:** Der 100-MB-Altbestand bleibt liegen. Soll später aufgeräumt
-   werden — oder bewusst als Archiv behalten?
-
-Kein Thema ist die **DNS**: `www.dirkmathesius.de` zeigt bereits auf genau diesen
-IONOS-Speicher. Es wird nur der Inhalt ersetzt, nichts umgezogen.
-
----
-
-## 5. Go-live-Ablauf
+## Deploy-Befehle
 
 ```bash
-cd ~/Jobs\&Projekte/COWORK/dirkmathesius
+# Dirks offizielle Seite
 ./scripts/deploy-ionos.sh
+
+# Fanpage (baut nur — Generator vorher separat laufen lassen, falls nötig)
+deploy-dm
 ```
 
-Das Skript macht in einem Rutsch: Generator auf `www` → Produktions-Build →
-Produktions-`.htaccess` → additiver SFTP-Mirror → setzt den Arbeitsstand
-anschließend auf den Testbed-Stand zurück. Es bricht bei jedem Fehler ab.
+> ⚠️ **`deploy-dm` ist NICHT der Go-live** — das deployt nur die Fanpage-Subdomain.
+> Der offizielle Weg ist `scripts/deploy-ionos.sh`.
 
-> ⚠️ **Nicht verwechseln:** `deploy-dm` deployt das **Testbed** auf
-> dirkmathesius.berlinjohn.de. Der offizielle Go-live ist **`scripts/deploy-ionos.sh`**.
-
-> ⚠️ **Vor dem Start `git status` prüfen.** Das Skript setzt am Ende `public/`,
+> ⚠️ **Vor dem Lauf `git status` prüfen.** `deploy-ionos.sh` setzt am Ende `public/`,
 > `imageJsonLd.ts` und `portfolio.ts` per `git checkout` zurück — nicht committete
-> Änderungen in diesen Pfaden wären weg. Aktuell ist der Stand sauber (`309f5f7`).
+> Änderungen dort wären weg.
 
-### Danach sofort prüfen
-- `https://www.dirkmathesius.de/` lädt, Startbild da
-- `/info.html`, `/ueber-dirk.html`, `/kollaborationen.html`, `/impressum.html`
-- `http://dirkmathesius.de` → leitet auf `https://www.dirkmathesius.de` um
-- Formular einmal echt abschicken
-- GA4-Echtzeitbericht zeigt den Besuch
+> 🔴 **`deploy-ionos.sh` übergibt `SITE_VARIANT=official` an den Generator.** Diese
+> Zeile darf nie verschwinden: `.env` steht auf `fanpage`, ohne den Override würde
+> Dirks Seite mit 13 statt 184 Bildern und 3 statt 7 Kategorien gebaut.
 
-### Wenn etwas klemmt
-Die einzige echte Unbekannte ist die neue `.htaccess` (bisher hatte der Server
-keine). Falls die Seite danach einen **500er** zeigt:
+---
+
+## Falls die Seite je einen 500er zeigt
+
+Wahrscheinlichste Ursache ist die `.htaccess`. Sie lässt sich gefahrlos entfernen —
+die Seite funktioniert auch ohne, weil alle Inhaltsseiten echte `.html`-Dateien sind.
+Es entfallen dann nur HTTPS-Zwang, die non-www→www-Umleitung und die Security-Header.
+
 ```bash
-# .htaccess löschen — Seite läuft sofort wieder
 source ~/.dirkmathesius-ionos-ftp.env
 LFTP_PASSWORD="$DM_IONOS_PASS" lftp -u "$DM_IONOS_USER" --env-password \
   "sftp://$DM_IONOS_HOST" -e "rm .htaccess; quit"
 ```
-Die Seite funktioniert auch **ohne** `.htaccess` vollständig — alle Inhaltsseiten
-sind echte `.html`-Dateien. Es entfallen dann nur HTTPS-Zwang, die
-non-www→www-Umleitung und die Security-Header.
-
-Kompletter Rückweg: Backup aus Abschnitt 3 wieder hochladen.
 
 ---
 
-## 6. Direkt nach dem Go-live (nicht vergessen)
+## Was seit dem Go-live dazukam
 
-**Die Fanpage muss umgestellt werden.** Solange beide Seiten „official" sind,
-konkurrieren sie bei Google um dieselben Begriffe.
+- Buchungs-CTA auf der Startseite (am Desktop gab es vorher **keinen** — der Sticky-Button ist `md:hidden`)
+- Fanpage auf reine Kollaborationen umgestellt, Solo-Kategorien leiten zu Dirk
+- WhatsApp raus, Anruf rein; Telefonnummer vor Harvestern geschützt
+- `/ueber-dirk.html` als vollwertige B2B-Seite (Ablauf, Technik, Nutzungsrechte, 8 BTS-Bilder, Film)
+- Bild-Lizenz-Metadaten → Fotos werden in der Google-Bildersuche als „lizenzierbar" gekennzeichnet
+- Search Console verifiziert, Sitemap „Erfolgreich", 11 Seiten zur Neu-Indexierung eingereicht
+- Kontaktformular end-to-end bewiesen, Anfrage-Mail lesbar gemacht
 
-In `.env`: `VITE_SITE_VARIANT=fanpage` → dann `deploy-dm`.
-Danach zeigt der Canonical von dirkmathesius.berlinjohn.de auf Dirks Seite und
-das Ranking bündelt sich dort, wo es hingehört.
+## Offen (nichts davon blockiert)
 
----
-
-## 7. Offen / ehrlich benannt
-
-- **`.htaccess` auf IONOS ist ungetestet** (der Server hatte bisher keine).
-  Bekannte Falle `Options -MultiViews` ist bewusst vermieden. Rückweg oben.
-- **Web3Forms-Zustellung ist ungetestet** — braucht einen echten Absendetest.
-- **Die Fanpage-Umstellung (Abschnitt 6) ist noch nicht gemacht** und wäre
-  ohne sie ein SEO-Eigentor.
+1. Dirk als Nutzer zu Search Console und GA4 hinzufügen — beides läuft auf Johns Konto
+2. Showreel-ID tauschen, falls Dirk ein eigenes Video hat (aktuell Johns, ehrlich beschriftet)
+3. Fanpage-Sitemap in der Search Console neu einreichen
+4. Web3Forms PRO, falls eine gestaltete Anfrage-Mail und ein Autoresponder gewünscht sind
