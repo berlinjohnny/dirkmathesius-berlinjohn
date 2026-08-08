@@ -14,8 +14,39 @@ body {
 }
 -->
 </style>
+<script>
+(function(){try{var t=localStorage.getItem("dm-theme");
+if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
+document.documentElement.classList.add("dark");}}catch(e){}})();
+</script>
+<style type="text/css">
+/* Dark-Mode auch auf den Rechtsseiten: sonst gibt es beim Klick aus einer dunklen
+   Seite heraus einen Weissblitz. Bewusst minimal - Layout und Inhalt bleiben. */
+.dmthemebtn{position:fixed;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;
+  line-height:1;cursor:pointer;padding:0;z-index:99;}
+.dmthemebtn:hover{color:#FF6600;border-color:#FF6600;}
+html.dark body{background:#131110;color:#e8e4df;}
+html.dark .dmthemebtn{border-color:rgba(255,255,255,.22);color:#b3aca4;}
+html.dark td,html.dark p,html.dark div,html.dark span{color:#c2bbb3;}
+html.dark .headline{color:#cfc9c2;}
+html.dark a{color:#d8d2cb;}
+html.dark a:hover{color:#FF6600;}
+html.dark .navi a{color:#d8d2cb;}
+html.dark .Stil13{color:#9a938b;}
+</style>
 </head>
 <body>
+<button type="button" id="dm-theme-btn" class="dmthemebtn" title="Hell/Dunkel umschalten" aria-label="Hell/Dunkel umschalten">&#9680;</button>
+<script>
+(function(){var b=document.getElementById("dm-theme-btn");if(!b)return;
+var d=function(){return document.documentElement.classList.contains("dark");};
+var sync=function(){b.innerHTML=d()?"\u2600":"\u263E";
+b.setAttribute("aria-label",d()?"Zu hellem Modus wechseln":"Zu dunklem Modus wechseln");};
+sync();b.addEventListener("click",function(){var n=!d();
+document.documentElement.classList.toggle("dark",n);
+try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
+</script>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><table width="934" border="0" align="center" cellpadding="0" cellspacing="0">

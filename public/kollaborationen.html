@@ -8,6 +8,11 @@
 <link rel="canonical" href="https://www.dirkmathesius.de/kollaborationen.html" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<script>
+(function(){try{var t=localStorage.getItem("dm-theme");
+if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
+document.documentElement.classList.add("dark");}}catch(e){}})();
+</script>
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Kollaborationen – Dirk Mathesius × John Förster" />
 <meta property="og:description" content="Sport- & Action-Fotografie mit Sportmodel John Förster – freie Serie 2008–2016 & Behind the Scenes." />
@@ -24,9 +29,11 @@
   nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
   nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
   nav.cat a:hover{color:#FF6600;}
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
-       background:#111;color:#fff;padding:14px 18px;margin:18px 0;text-align:center;}
-  .cta p{margin:0;font-size:12px;line-height:1.5;color:#ddd;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
   .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
   .cta a.book:hover{background:#e25c00;}
@@ -42,6 +49,49 @@
   footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
+
+  .themebtn{position:absolute;top:18px;right:16px;width:32px;height:32px;border-radius:50%;
+            border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;
+            line-height:1;cursor:pointer;padding:0;}
+  .themebtn:hover{color:#FF6600;border-color:#FF6600;}
+  .wrap{position:relative;}
+  html.dark body{background:#131110;color:#e8e4df;}
+  html.dark .themebtn{border-color:rgba(255,255,255,.22);color:#b3aca4;}
+  html.dark .brand .hl{color:#cfc9c2;}
+  html.dark .brand .hl .c{color:#5c5650;}
+  html.dark nav.cat{background:#1c1917;}
+  html.dark nav.cat a{color:#d8d2cb;}
+  html.dark nav.cat a:hover{color:#FF6600;}
+  html.dark h1{color:#f2eee9;}
+  html.dark h2{color:#b9b2aa;border-color:#2a2724;}
+  html.dark h3{color:#efeae4;}
+  html.dark p,html.dark .intro,html.dark .lead{color:#c2bbb3;}
+  html.dark .clients,html.dark .cap{color:#9a938b;}
+  html.dark a{color:#d8d2cb;}
+  html.dark .card{border-color:#2a2724;}
+  html.dark .card p,html.dark .card .price{color:#a9a29a;}
+  html.dark .faq details{border-color:#2a2724;}
+  html.dark .faq summary{color:#ddd7d0;}
+  html.dark .faq p{color:#a9a29a;}
+  html.dark .cta{border-color:#2a2724;}
+  html.dark .cta p{color:#a9a29a;}
+  html.dark footer{border-color:#2a2724;color:#8d867f;}
+  html.dark footer a{color:#8d867f;}
+  html.dark figcaption{color:#9a938b;}
+  html.dark form.dm input,html.dark form.dm textarea{color:#e8e4df;border-color:#3a3632;}
+  html.dark form.dm input::placeholder,html.dark form.dm textarea::placeholder{color:#7d766f;}
+  html.dark #dm-status{color:#b3aca4;}
+  html.dark .legal{color:#7d766f;}
+  /* Seiten-eigene Regeln von /ueber-dirk.html */
+  html.dark .ueber .facts li{border-color:#2f2b28;color:#b3aca4;}
+  html.dark .ueber .logos li{background:#1c1917;color:#c2bbb3;}
+  html.dark .ueber .steps{background:#2a2724;border-color:#2a2724;}
+  html.dark .ueber .steps > div{background:#171513;}
+  html.dark .ueber .steps p,html.dark .ueber .tech p{color:#a9a29a;}
+  html.dark .ueber .bts figure{background:#1c1917;}
+  html.dark .ueber .rights p{color:#b3aca4;}
+  html.dark .ueber .more{color:#a9a29a;}
+
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","@id":"https://www.dirkmathesius.de/kollaborationen.html#gallery","name":"Kollaborationen – Dirk Mathesius × John Förster","url":"https://www.dirkmathesius.de/kollaborationen.html","description":"Sport- & Action-Fotografie: Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – Serie 2008–2016 und Behind the Scenes.","author":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"}}</script>
 </head>
@@ -51,10 +101,18 @@
       <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
       <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
     </div>
+    <button id="dm-theme-btn" type="button" class="themebtn" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">◐</button>
+<script>
+(function(){var b=document.getElementById("dm-theme-btn");if(!b)return;
+var d=function(){return document.documentElement.classList.contains("dark");};
+var sync=function(){b.textContent=d()?"☀":"☾";
+b.setAttribute("aria-label",d()?"Zu hellem Modus wechseln":"Zu dunklem Modus wechseln");};
+sync();b.addEventListener("click",function(){var n=!d();
+document.documentElement.classList.toggle("dark",n);
+try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
+</script>
     <nav class="cat">
-        <a href="/folks.html">people</a>
-        <a href="/sport.html">sport</a>
-        <a href="/publication.html">publication</a>
+        <a href="/photography.html">photography</a>
         <a href="/info.html">info</a>
     </nav>
 

@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -37,6 +37,8 @@ const categoryMeta = {
   landscape:   { label: "Landscape",   altSuffix: "Landschaftsfotografie – Dirk Mathesius" },
   stills:      { label: "Stills",      altSuffix: "Produktfotografie Stills Berlin – Dirk Mathesius" },
   publication: { label: "Publication", altSuffix: "Editorial Photography Berlin – Stern, Men's Health – Dirk Mathesius" },
+  // Nur Fanpage: eine Uebersicht statt drei fast leerer Rubriken.
+  photography: { label: "Photography", altSuffix: "Fotografie von Dirk Mathesius – Kollaboration mit John Förster" },
 };
 
 const order = ["sport", "folks", "music", "reportage", "landscape", "stills", "publication"];
@@ -49,6 +51,7 @@ const captionByCat = {
   landscape:   "© Dirk Mathesius – Landschaftsfotografie",
   stills:      "© Dirk Mathesius – Stills & Produktfotografie Berlin",
   publication: "© Dirk Mathesius – Editorial Photography Berlin (Stern, Men's Health)",
+  photography: "© Dirk Mathesius – fotografiert mit John Förster, AcroBerlin",
 };
 
 // Per-category SEO copy for the static category pages — unique title/description/H1/intro
@@ -96,7 +99,89 @@ const seoByCat = {
     description: "Editorial-Fotografie aus Berlin von Dirk Mathesius – veröffentlicht u. a. in Stern und Men's Health. Magazinstrecken mit Haltung.",
     intro:       "Editorial & Publikationen: Magazinstrecken und veröffentlichte Arbeiten – u. a. für Stern und Men's Health.",
   },
+  // Nur Fanpage: die gesammelte Zusammenarbeit statt drei aufgeteilter Rubriken.
+  photography: {
+    title:       "Photography – Dirk Mathesius × John Förster",
+    h1:          "Photography",
+    description: "Fotografien von Dirk Mathesius aus der Zusammenarbeit mit Sportmodel John Förster: Human Flag, Freerunning und Akrobatik in Berlin – echte Action, ohne Bildbearbeitung.",
+    intro:       "Die gemeinsamen Arbeiten mit Dirk Mathesius – Akrobatik, Human Flag und Freerunning, alles real vor der Kamera entstanden. Buchungen laufen direkt über Dirk.",
+  },
 };
+
+// ── Dark/Light auf den statischen Unterseiten ────────────────────────────────
+// Die SPA hat den Umschalter laengst; die generierten Seiten waren licht-only.
+// Gleiche Mechanik wie in index.html/ThemeToggle.tsx: Klasse `dark` am <html>,
+// Wahl in localStorage["dm-theme"]. Dadurch traegt die Entscheidung ueber den
+// Wechsel zwischen SPA und statischen Seiten hinweg.
+//
+// Alles hier steht EINMAL und wird in alle drei Seiten-Vorlagen eingesetzt
+// (Kategorie-Seiten, kollaborationen, subPage) — die Vorlagen haben je ein
+// eigenes Stylesheet, und genau so laufen solche Dinge sonst auseinander.
+
+/** Inline-Skript fuer den <head>: setzt das Theme VOR dem ersten Paint (kein Flash). */
+const THEME_BOOT = `<script>
+(function(){try{var t=localStorage.getItem("dm-theme");
+if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
+document.documentElement.classList.add("dark");}}catch(e){}})();
+</script>`;
+
+/** Umschalt-Knopf fuer den Brand-Kopf, inkl. Klick-Logik und Symbolwechsel. */
+const THEME_BTN = `<button id="dm-theme-btn" type="button" class="themebtn" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">◐</button>
+<script>
+(function(){var b=document.getElementById("dm-theme-btn");if(!b)return;
+var d=function(){return document.documentElement.classList.contains("dark");};
+var sync=function(){b.textContent=d()?"☀":"☾";
+b.setAttribute("aria-label",d()?"Zu hellem Modus wechseln":"Zu dunklem Modus wechseln");};
+sync();b.addEventListener("click",function(){var n=!d();
+document.documentElement.classList.toggle("dark",n);
+try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
+</script>`;
+
+/** Dunkle Variante. `html.dark X` schlaegt die hellen Regeln ueber die Spezifitaet,
+ *  unabhaengig von der Reihenfolge im <style> — wichtig, weil UEBER_CSS nachfolgt. */
+const DARK_CSS = `
+  .themebtn{position:absolute;top:18px;right:16px;width:32px;height:32px;border-radius:50%;
+            border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;
+            line-height:1;cursor:pointer;padding:0;}
+  .themebtn:hover{color:#FF6600;border-color:#FF6600;}
+  .wrap{position:relative;}
+  html.dark body{background:#131110;color:#e8e4df;}
+  html.dark .themebtn{border-color:rgba(255,255,255,.22);color:#b3aca4;}
+  html.dark .brand .hl{color:#cfc9c2;}
+  html.dark .brand .hl .c{color:#5c5650;}
+  html.dark nav.cat{background:#1c1917;}
+  html.dark nav.cat a{color:#d8d2cb;}
+  html.dark nav.cat a:hover{color:#FF6600;}
+  html.dark h1{color:#f2eee9;}
+  html.dark h2{color:#b9b2aa;border-color:#2a2724;}
+  html.dark h3{color:#efeae4;}
+  html.dark p,html.dark .intro,html.dark .lead{color:#c2bbb3;}
+  html.dark .clients,html.dark .cap{color:#9a938b;}
+  html.dark a{color:#d8d2cb;}
+  html.dark .card{border-color:#2a2724;}
+  html.dark .card p,html.dark .card .price{color:#a9a29a;}
+  html.dark .faq details{border-color:#2a2724;}
+  html.dark .faq summary{color:#ddd7d0;}
+  html.dark .faq p{color:#a9a29a;}
+  html.dark .cta{border-color:#2a2724;}
+  html.dark .cta p{color:#a9a29a;}
+  html.dark footer{border-color:#2a2724;color:#8d867f;}
+  html.dark footer a{color:#8d867f;}
+  html.dark figcaption{color:#9a938b;}
+  html.dark form.dm input,html.dark form.dm textarea{color:#e8e4df;border-color:#3a3632;}
+  html.dark form.dm input::placeholder,html.dark form.dm textarea::placeholder{color:#7d766f;}
+  html.dark #dm-status{color:#b3aca4;}
+  html.dark .legal{color:#7d766f;}
+  /* Seiten-eigene Regeln von /ueber-dirk.html */
+  html.dark .ueber .facts li{border-color:#2f2b28;color:#b3aca4;}
+  html.dark .ueber .logos li{background:#1c1917;color:#c2bbb3;}
+  html.dark .ueber .steps{background:#2a2724;border-color:#2a2724;}
+  html.dark .ueber .steps > div{background:#171513;}
+  html.dark .ueber .steps p,html.dark .ueber .tech p{color:#a9a29a;}
+  html.dark .ueber .bts figure{background:#1c1917;}
+  html.dark .ueber .rights p{color:#b3aca4;}
+  html.dark .ueber .more{color:#a9a29a;}
+`;
 
 // Nav order matches the original dirkmathesius.de layout (info.html). folks → "people".
 const navOrder = ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
@@ -283,16 +368,24 @@ const categories = order.map((id) => {
 // Artefakte: Sitemap, JSON-LD und die statischen Kategorie-Seiten. Auf der Fanpage
 // dürfen die nur enthalten, was dort auch tatsächlich zu sehen ist; Kategorien
 // ohne eine einzige Kollaboration verschwinden ganz.
+// Auf der Fanpage fliesst alles in EINE Uebersicht: 13 Bilder auf drei Rubriken zu
+// verteilen ergibt keine Kategorie, sondern drei fast leere Seiten. „Photography"
+// zeigt die Zusammenarbeit am Stueck; Dirks Seite behaelt ihre sieben Kategorien.
+const PHOTO_ID = "photography";
+const collabImages = categories.flatMap((c) => c.images.filter(isCollab));
+
 const siteCategories = IS_FANPAGE
-  ? categories
-      .map((c) => {
-        const imgs = c.images.filter(isCollab);
-        return { ...c, images: imgs, cover: imgs[0]?.src ?? "", coverAlt: imgs[0]?.alt ?? c.altBase };
-      })
-      .filter((c) => c.images.length > 0)
+  ? [{
+      id: PHOTO_ID,
+      label: "Photography",
+      altBase: "Fotografie von Dirk Mathesius – Kollaborationen mit John Förster",
+      cover: collabImages[0]?.src ?? "",
+      coverAlt: collabImages[0]?.alt ?? "Fotografie von Dirk Mathesius",
+      images: collabImages,
+    }]
   : categories;
 
-const siteNavOrder = navOrder.filter((id) => siteCategories.some((c) => c.id === id));
+const siteNavOrder = IS_FANPAGE ? [PHOTO_ID] : navOrder;
 
 const banner = `// AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via \`node scripts/build-portfolio-manifest.mjs\`)
@@ -572,6 +665,7 @@ const categoryPage = (c) => {
 <link rel="canonical" href="${pageUrl}" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+${THEME_BOOT}
 <meta property="og:type" content="website" />
 <meta property="og:title" content="${E(seo.title)}" />
 <meta property="og:description" content="${E(seo.description)}" />
@@ -590,9 +684,11 @@ const categoryPage = (c) => {
   nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
   nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
   nav.cat a:hover{color:#FF6600;}
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
-       background:#111;color:#fff;padding:14px 18px;margin:18px 0;text-align:center;}
-  .cta p{margin:0;font-size:12px;line-height:1.5;color:#ddd;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
   .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
   .cta a.book:hover{background:#e25c00;}
@@ -605,6 +701,7 @@ const categoryPage = (c) => {
   footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
+${DARK_CSS}
 </style>
 <script type="application/ld+json">${jsonLd(galleryLd)}</script>
 <script type="application/ld+json">${jsonLd(breadcrumbLd)}</script>
@@ -615,14 +712,14 @@ const categoryPage = (c) => {
       <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
       <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
     </div>
+    ${THEME_BTN}
     <nav class="cat">
         ${nav}
     </nav>
 
-    <div class="cta">
-      <p>Original-Website &amp; Buchung direkt bei Dirk Mathesius</p>
-      <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
-    </div>
+    <!-- Bewusst KEIN CTA hier oben: er stand zwischen Navigation und dem ersten Foto,
+         also bevor der Besucher irgendetwas gesehen hat — und war wortgleich mit dem
+         unter der Galerie. Eine Kategorie-Seite fragt einmal, nach den Bildern. -->
 
     <h1>${E(seo.h1)} — ${E(seo.title)}</h1>
     <p class="intro">${E(seo.intro)}</p>
@@ -631,6 +728,9 @@ const categoryPage = (c) => {
 ${figures}
     </section>
 
+    <!-- Der einzige CTA der Seite, bewusst NACH den Bildern — und auf beiden Varianten.
+         Auf der offiziellen Domain zeigt er auf den Buchungsanker /#info, ist also kein
+         Self-Link; ihn dort wegzulassen liesse Dirks Kategorie-Seiten ohne Anfrageweg. -->
     <div class="cta">
       <p>Dieses Motiv oder ein eigenes Projekt anfragen?</p>
       <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
@@ -661,28 +761,49 @@ console.log(`✅ ${siteCategories.length} statische Kategorie-Seiten — public/
 // Deshalb werden sie durch einen harmlosen Zeiger auf Dirk ersetzt: noindex,
 // canonical zu ihm, ein Satz, ein Link. Doppelt gesichert statt einmal gehofft.
 if (IS_FANPAGE) {
+  // Zwei verschiedene Ziele, und die Unterscheidung ist wichtig:
+  //  - Rubriken MIT Kollaborationen (sport/folks/publication) sind auf der Fanpage in
+  //    /photography.html aufgegangen → intern dorthin zeigen, nicht zu Dirk.
+  //  - Rubriken OHNE (music/reportage/landscape/stills) gab es hier nie → zu Dirk.
   const dropped = navOrder.filter((id) => !siteCategories.some((c) => c.id === id));
+  let merged = 0, toDirk = 0;
   for (const id of dropped) {
-    const target = `${OFFICIAL}/${id}.html`;
+    const hadCollab = (categories.find((c) => c.id === id)?.images || []).some(isCollab);
+    const target = hadCollab ? `${SITE}/${PHOTO_ID}.html` : `${OFFICIAL}/${id}.html`;
     const label = navLabel(id);
+    hadCollab ? merged++ : toDirk++;
+    const title = hadCollab ? "Jetzt in der Übersicht Photography" : `${seoByCat[id].h1} — jetzt auf dirkmathesius.de`;
+    const text = hadCollab
+      ? `Diese Arbeiten sind in der gemeinsamen Übersicht <b>Photography</b> zusammengefasst.`
+      : `Dirks ${E(label)}-Arbeiten sind auf seiner eigenen Seite zu sehen.`;
+    const linkText = hadCollab ? "Weiter zu Photography →" : `Weiter zu dirkmathesius.de/${id}.html →`;
     writeFileSync(join(root, "public", `${id}.html`), `<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>${E(seoByCat[id].h1)} — jetzt auf dirkmathesius.de</title>
+<title>${E(title)}</title>
 <meta name="robots" content="noindex, follow" />
 <link rel="canonical" href="${target}" />
 <meta http-equiv="refresh" content="0; url=${target}" />
 </head>
 <body style="font-family:Arial,Helvetica,sans-serif;text-align:center;padding:3rem 1rem;">
-  <p>Dirks ${E(label)}-Arbeiten sind auf seiner eigenen Seite zu sehen.</p>
-  <p><a href="${target}" style="color:#FF6600;">Weiter zu dirkmathesius.de/${id}.html →</a></p>
+  <p>${text}</p>
+  <p><a href="${target}" style="color:#FF6600;">${E(linkText)}</a></p>
 </body>
 </html>
 `);
   }
-  console.log(`✅ ${dropped.length} Solo-Kategorien → Zeiger auf dirkmathesius.de (${dropped.join(", ")})`);
+  console.log(`✅ ${merged} Rubriken → /${PHOTO_ID}.html zusammengefasst, ${toDirk} Solo-Kategorien → dirkmathesius.de`);
+} else {
+  // photography.html ist ein reines Fanpage-Artefakt. Bleibt es aus einem frueheren
+  // Fanpage-Lauf liegen, wandert es in Dirks Build — mit Fanpage-Inhalt und einem
+  // Canonical, der auf die Subdomain zeigt. Also im official-Lauf entfernen.
+  const stray = join(root, "public", `${PHOTO_ID}.html`);
+  if (existsSync(stray)) {
+    rmSync(stray);
+    console.log(`✅ ${PHOTO_ID}.html entfernt (Fanpage-Artefakt, gehoert nicht in den official-Build)`);
+  }
 }
 
 // --- Kollaborationen (John Förster × Dirk) — dezente statische Unterseite ---------
@@ -748,6 +869,7 @@ const kollabPage = `<!DOCTYPE html>
 <link rel="canonical" href="${kollabCanonical}" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+${THEME_BOOT}
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Kollaborationen – Dirk Mathesius × John Förster" />
 <meta property="og:description" content="Sport- & Action-Fotografie mit Sportmodel John Förster – freie Serie 2008–2016 & Behind the Scenes." />
@@ -764,9 +886,11 @@ const kollabPage = `<!DOCTYPE html>
   nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
   nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
   nav.cat a:hover{color:#FF6600;}
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
-       background:#111;color:#fff;padding:14px 18px;margin:18px 0;text-align:center;}
-  .cta p{margin:0;font-size:12px;line-height:1.5;color:#ddd;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
   .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
   .cta a.book:hover{background:#e25c00;}
@@ -782,6 +906,7 @@ const kollabPage = `<!DOCTYPE html>
   footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
+${DARK_CSS}
 </style>
 <script type="application/ld+json">${jsonLd(kollabLd)}</script>
 </head>
@@ -791,6 +916,7 @@ const kollabPage = `<!DOCTYPE html>
       <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
       <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
     </div>
+    ${THEME_BTN}
     <nav class="cat">
         ${kollabNav}
     </nav>
@@ -890,8 +1016,11 @@ const SUB_CSS = `
   .showreel{margin:8px 0 4px;}
   .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;}
   .showreel button:hover{background:#FF6600;}
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;background:#111;color:#fff;padding:14px 18px;margin:26px 0;text-align:center;}
-  .cta p{margin:0;font-size:12px;color:#ddd;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken — auf einer Fotoseite sollen die
+     Bilder tragen, der orange Button ist der einzige Akzent. a.book bleibt unveraendert,
+     die Klasse nutzen auch ueber-dirk (auf dunklem Grund) und info.html. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;color:#666;}
   a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
   a.book:hover{background:#e25c00;}
   form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
@@ -905,7 +1034,7 @@ const SUB_CSS = `
   footer{border-top:1px solid #eee;margin-top:34px;padding:18px 0 44px;text-align:center;font-size:11px;color:#888;}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
-`;
+${DARK_CSS}`;
 
 // `css` = seiten-eigene Regeln, die NUR diese eine Seite bekommt. SUB_CSS teilen
 // sich alle Unterseiten (7 Kategorien + kollaborationen + info) auf zwei Domains —
@@ -926,6 +1055,7 @@ function subPage({ canonical, title, desc, headLd = [], body, css = "" }) {
 <meta name="ICBM" content="52.4547, 13.5667" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+${THEME_BOOT}
 <meta property="og:type" content="website" />
 <meta property="og:title" content="${E(title)}" />
 <meta property="og:description" content="${E(desc)}" />
@@ -942,6 +1072,7 @@ ${headLd.map((o) => `<script type="application/ld+json">${jsonLd(o)}</script>`).
       <a href="/" aria-label="Startseite"><img src="images/kreuz.jpg" alt="Dirk Mathesius – Fotograf Berlin" width="50" height="50" /></a>
       <div class="hl"><span class="c">&copy;</span> DIRK MATHESIUS FOTOS</div>
     </div>
+    ${THEME_BTN}
     <nav class="cat">
         ${subNav}
     </nav>

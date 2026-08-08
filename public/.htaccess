@@ -20,6 +20,14 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
 RewriteRule ^(music|reportage|landscape|stills)\.html$ https://www.dirkmathesius.de/$1.html [R=301,L]
 
+# ─── Fanpage: sport/people/publication sind in /photography.html aufgegangen ──
+# Diese drei enthielten die Kollaborationen. Die liegen jetzt gesammelt in einer
+# Uebersicht — 13 Bilder auf drei Rubriken zu verteilen ergab keine Kategorien,
+# sondern drei fast leere Seiten. Anders als oben bleibt die Weiterleitung INTERN:
+# der Inhalt ist hier, er wurde nur zusammengelegt.
+RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
+RewriteRule ^(sport|folks|publication)\.html$ /photography.html [R=301,L]
+
 # ─── SPA-Fallback ────────────────────────────────────────────────────────────
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

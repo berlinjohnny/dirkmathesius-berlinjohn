@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,10 +13,10 @@
     </image:image>
   </url>
   <url>
-    <loc>https://dirkmathesius.berlinjohn.de/sport.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://dirkmathesius.berlinjohn.de/photography.html</loc>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg</image:loc>
       <image:title>John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße</image:title>
@@ -67,23 +67,11 @@
       <image:title>John &amp; Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit</image:title>
       <image:caption>Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.</image:caption>
     </image:image>
-  </url>
-  <url>
-    <loc>https://dirkmathesius.berlinjohn.de/folks.html</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/folks/Tina-Foerster-Portrait-kopfueber.webp</image:loc>
       <image:title>Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius</image:title>
-      <image:caption>© Dirk Mathesius – Portrait &amp; People Photography Berlin</image:caption>
+      <image:caption>© Dirk Mathesius – fotografiert mit John Förster, AcroBerlin</image:caption>
     </image:image>
-  </url>
-  <url>
-    <loc>https://dirkmathesius.berlinjohn.de/publication.html</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/publication/John-Foerster-freerunner-Salto-Treppe-adidas.webp</image:loc>
       <image:title>John Förster, Athlet, adidas global lookbook/ Men&apos;s Training Spring Summer</image:title>
@@ -97,31 +85,31 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/ueber-dirk.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/info.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/kollaborationen.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/impressum.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/datenschutzerklaerung.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

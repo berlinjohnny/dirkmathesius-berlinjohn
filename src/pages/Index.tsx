@@ -9,26 +9,31 @@ import { openCookieSettings } from "@/components/CookieConsent";
 import ThemeToggle from "@/components/ThemeToggle";
 
 // Die Fanpage zeigt ausschliesslich Bilder, die gemeinsam mit John entstanden sind
-// (Flag `collab` kommt aus dem Generator). Dirks uebriges Portfolio ist exklusiv auf
-// seiner offiziellen Seite zu sehen — Kategorien ohne Kollaboration fallen hier weg.
-// Muss zur Filterung in scripts/build-portfolio-manifest.mjs passen, sonst wuerde die
-// Sitemap Bilder bewerben, die auf der Seite gar nicht auftauchen.
+// (Flag `collab` kommt aus dem Generator) — und fasst sie in EINE Uebersicht „Photography": 13 Bilder auf drei
+// Rubriken zu verteilen ergibt keine Kategorien, sondern drei fast leere Seiten.
+// Muss zur Zusammenfassung in scripts/build-portfolio-manifest.mjs passen, sonst
+// zeigen Galerie und Sitemap/statische Seiten Unterschiedliches.
+const collabImages = portfolio.flatMap((c) => c.images.filter((img) => img.collab));
 const categories: PortfolioCategory[] = IS_FANPAGE
-  ? portfolio
-      .map((c) => {
-        const images = c.images.filter((img) => img.collab);
-        return { ...c, images, cover: images[0]?.src ?? "", coverAlt: images[0]?.alt ?? c.altBase };
-      })
-      .filter((c) => c.images.length > 0)
+  ? [{
+      id: "photography",
+      label: "Photography",
+      altBase: "Fotografie von Dirk Mathesius – Kollaborationen mit John Förster",
+      cover: collabImages[0]?.src ?? "",
+      coverAlt: collabImages[0]?.alt ?? "Fotografie von Dirk Mathesius",
+      images: collabImages,
+    }]
   : portfolio;
 
 const HERO_FILENAME = "John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp";
+// Ueber alle Kategorien suchen: auf der Fanpage gibt es "sport" nicht mehr.
 const HERO =
-  categories.find((c) => c.id === "sport")?.images.find((i) => i.src.endsWith(HERO_FILENAME))
-  ?? categories.find((c) => c.id === "sport")?.images[0]
+  categories.flatMap((c) => c.images).find((i) => i.src.endsWith(HERO_FILENAME))
   ?? categories[0].images[0];
 
-const NAV_ORDER = ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
+const NAV_ORDER = IS_FANPAGE
+  ? ["photography"]
+  : ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
 const navCategories = NAV_ORDER
   .map((id) => categories.find((c) => c.id === id))
   .filter((c): c is PortfolioCategory => Boolean(c));
@@ -111,14 +116,30 @@ const TIMELINE_DEF: { file: string; year: number }[] = [
   { file: "John-und-Jim-Förster-Fuss-high-five-Phaeno.webp", year: 2016 },
 ];
 
+/* Die Friedenstaube liegt in public/images/, nicht im Portfolio-Manifest — deshalb
+   traegt sie ihr Bild direkt bei, statt ueber den Dateinamen gesucht zu werden. */
+const TIMELINE_EXTRA: { year: number; img: PortfolioImage }[] = [
+  {
+    year: 2025,
+    img: {
+      src: "/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp",
+      alt: "John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung",
+      title: "Human-Flag & Friedenstaube",
+    },
+  },
+];
+
 type HeroSlide = PortfolioImage & { year: number; cat: PortfolioCategory };
 const _allImgs = categories.flatMap((c) => c.images.map((img) => ({ img, cat: c })));
-const HERO_SLIDES: HeroSlide[] = TIMELINE_DEF
-  .map((t) => {
+const HERO_SLIDES: HeroSlide[] = [
+  ...TIMELINE_DEF.map((t) => {
     const f = _allImgs.find((x) => x.img.src.endsWith(t.file));
     return f ? { ...f.img, year: t.year, cat: f.cat } : null;
-  })
-  .filter((s): s is HeroSlide => Boolean(s));
+  }),
+  ...TIMELINE_EXTRA.map((t) => ({ ...t.img, year: t.year, cat: categories[0] })),
+]
+  .filter((s): s is HeroSlide => Boolean(s))
+  .sort((a, b) => a.year - b.year);
 
 function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
   const start = Math.max(0, HERO_SLIDES.findIndex((s) => s.src.endsWith(HERO_FILENAME)));
@@ -424,9 +445,13 @@ export default function Index() {
           <a href={IS_OFFICIAL ? "/info.html" : "#info"} className={navLink}>info</a>
         </nav>
 
-        {/* Startfoto (Wunsch Dirk Mathesius) — Human-Flag mit Friedenstaube, sein Live-Hero */}
+        {/* Startfoto (Wunsch Dirk Mathesius) — Human-Flag mit Friedenstaube, sein Live-Hero.
+            NUR auf der offiziellen Seite: auf der Fanpage stand direkt darunter die
+            Chronik mit dem naechsten grossen Bild — zwei Hero-Bloecke uebereinander.
+            Dort ist dasselbe Foto jetzt Teil der Chronik (Jahrgang 2025). */}
+        {IS_OFFICIAL && (
         <figure className="mt-10 md:mt-12 img-hover cursor-pointer overflow-hidden"
-          onClick={() => { const c = categories.find((x) => x.id === "sport"); if (c) setActiveGallery(c); }}>
+          onClick={() => { const c = categories.find((x) => x.id === "sport") ?? categories[0]; if (c) setActiveGallery(c); }}>
           <img
             src="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
             alt="Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung"
@@ -436,6 +461,7 @@ export default function Index() {
             <span className="text-foreground/30">{COPY}</span> · Human-Flag &amp; Friedenstaube · John Förster
           </figcaption>
         </figure>
+        )}
 
         {/* Sportmodel-Serie — Bildwechsler/Timeline. Nur Fanpage; offizielle Seite
             zeigt sie dezent auf /kollaborationen.html. */}
@@ -528,15 +554,11 @@ export default function Index() {
         {/* Footer — minimal (offizielle Seite) bzw. mit Galerie-Links (Fanpage) */}
         <footer className="mt-16 md:mt-24 pt-7 border-t border-foreground/10 text-center">
           <Logo size={52} className="mx-auto" />
+          {/* Eine Uebersicht statt sieben Rubriken — die alten Links zeigten auf
+              Seiten, die hier inzwischen weiterleiten. */}
           {IS_FANPAGE && (
             <nav className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] tracking-[0.2em] uppercase text-foreground/40">
-              <a href="/folks.html" className="hover:text-[#FF6600] transition-colors">People</a>
-              <a href="/sport.html" className="hover:text-[#FF6600] transition-colors">Sport</a>
-              <a href="/music.html" className="hover:text-[#FF6600] transition-colors">Music</a>
-              <a href="/publication.html" className="hover:text-[#FF6600] transition-colors">Publication</a>
-              <a href="/landscape.html" className="hover:text-[#FF6600] transition-colors">Landscape</a>
-              <a href="/reportage.html" className="hover:text-[#FF6600] transition-colors">Reportage</a>
-              <a href="/stills.html" className="hover:text-[#FF6600] transition-colors">Stills</a>
+              <a href="/photography.html" className="hover:text-[#FF6600] transition-colors">Photography</a>
             </nav>
           )}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] tracking-[0.15em] uppercase text-foreground/45">
