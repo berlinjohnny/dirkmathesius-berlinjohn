@@ -26,6 +26,23 @@ aber das dauert Wochen — mit einer neu eingereichten Sitemap sind es Tage.
 > ⚠️ Vor IONOS sitzt eine WAF. Fast jede Aktion in der Search Console scheitert im **ersten**
 > Anlauf und klappt im zweiten. Nicht am Setup zweifeln — einfach wiederholen.
 
+**Vorher eine Entscheidung — eine der 7 URLs hebt sich selbst auf:**
+
+`dirkmathesius.berlinjohn.de/kollaborationen.html` steht in der Fanpage-Sitemap, die Seite
+setzt ihr Canonical aber auf `www.dirkmathesius.de/kollaborationen.html`. Google liest das
+als „diese URL zählt nicht" und lässt sie fallen — die Sitemap bewirbt eine Seite, die sich
+selbst wegkürzt. (Das ist älter als der heutige Umbau, fällt jetzt nur auf.)
+
+Zwei saubere Wege, einer davon reicht:
+
+- **a) So gewollt** (alles zu Dirk bündeln) → die URL aus der Fanpage-Sitemap nehmen. Dann
+  ist die Weiterleitungs-Absicht eindeutig.
+- **b) Die Fanpage-Fassung soll ranken** → Canonical im Fanpage-Build auf die eigene Domain
+  zeigen lassen.
+
+Bis das entschieden ist, kann die Sitemap trotzdem eingereicht werden — die anderen 6 URLs
+sind sauber. Es geht nur um diese eine.
+
 ### 2. Dirk Zugang zu Search Console und GA4 geben · **John**
 
 Beides läuft aktuell ausschließlich auf Johns Konto (berlinjohnf@googlemail.com). Dirk kann
@@ -93,8 +110,9 @@ Die Folge wäre nicht kosmetisch: Dirks Seite bekäme statt ihrer sieben Kategor
 - Dark-Mode auf allen statischen Unterseiten, gekoppelt an die Wahl in der Hauptseite.
 - CTA optisch zurückgenommen: Haarlinie statt schwarzem Balken.
 
-Live geprüft: alle 14 Seiten auf `www.dirkmathesius.de` liefern 200, alle Weiterleitungen
-auf der Fanpage greifen, beide Sitemaps sind erreichbar.
+Live geprüft: alle 13 Sitemap-Seiten auf `www.dirkmathesius.de` liefern 200, jede der sieben
+Kategorie-Seiten trägt genau einen Anfrage-Button, alle Weiterleitungen auf der Fanpage
+greifen, und `/photography.html` ist indexierbar (Self-Canonical, kein `noindex`).
 
 ### Bewusst in Kauf genommen
 
