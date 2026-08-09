@@ -21,27 +21,16 @@ Google kennt die alten URLs noch. Die 301-Weiterleitungen führen es zwar von se
 aber das dauert Wochen — mit einer neu eingereichten Sitemap sind es Tage.
 
 **So geht's:** Search Console → Property `dirkmathesius.berlinjohn.de` → *Sitemaps* →
-`sitemap.xml` einreichen. Sie enthält jetzt 7 URLs.
+`sitemap.xml` einreichen. Sie enthält jetzt **6 URLs**.
 
 > ⚠️ Vor IONOS sitzt eine WAF. Fast jede Aktion in der Search Console scheitert im **ersten**
 > Anlauf und klappt im zweiten. Nicht am Setup zweifeln — einfach wiederholen.
 
-**Vorher eine Entscheidung — eine der 7 URLs hebt sich selbst auf:**
-
-`dirkmathesius.berlinjohn.de/kollaborationen.html` steht in der Fanpage-Sitemap, die Seite
-setzt ihr Canonical aber auf `www.dirkmathesius.de/kollaborationen.html`. Google liest das
-als „diese URL zählt nicht" und lässt sie fallen — die Sitemap bewirbt eine Seite, die sich
-selbst wegkürzt. (Das ist älter als der heutige Umbau, fällt jetzt nur auf.)
-
-Zwei saubere Wege, einer davon reicht:
-
-- **a) So gewollt** (alles zu Dirk bündeln) → die URL aus der Fanpage-Sitemap nehmen. Dann
-  ist die Weiterleitungs-Absicht eindeutig.
-- **b) Die Fanpage-Fassung soll ranken** → Canonical im Fanpage-Build auf die eigene Domain
-  zeigen lassen.
-
-Bis das entschieden ist, kann die Sitemap trotzdem eingereicht werden — die anderen 6 URLs
-sind sauber. Es geht nur um diese eine.
+✅ **Erledigt:** `kollaborationen.html` ist aus der Fanpage-Sitemap raus (Entscheidung John,
+2026-08-08 — alles zu Dirk bündeln). Die Seite canonicalisierte ohnehin zu
+`www.dirkmathesius.de`; eine Sitemap-URL, die anderswohin zeigt, hebt sich selbst auf und
+Google lässt sie fallen. Die Seite bleibt erreichbar und verlinkt, sie wird nur nicht mehr
+als eigener Indexierungs-Kandidat angemeldet. Dirks eigene Sitemap behält sie (13 URLs).
 
 ### 2. Dirk Zugang zu Search Console und GA4 geben · **John**
 
