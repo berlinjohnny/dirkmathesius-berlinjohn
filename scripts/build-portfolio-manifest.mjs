@@ -540,13 +540,13 @@ ${siteCategories.map(categoryUrl).join("\n")}
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
+${IS_FANPAGE ? "" : `  <url>
     <loc>${SITE}/kollaborationen.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
+`}  <url>
     <loc>${SITE}/impressum.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>yearly</changefreq>
@@ -833,6 +833,11 @@ const collabTimeline = COLLAB_TIMELINE
   .filter(Boolean);
 
 const kollabNav = siteNavOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ") + `\n        <a href="/info.html">info</a>`;
+// Das Canonical zeigt auf BEIDEN Domains zu Dirk — die Kollaborationen sollen seiner
+// Seite zugutekommen, nicht der Fanpage. Konsequenz daraus: die Fanpage darf ihre eigene
+// Fassung dann auch NICHT in die Sitemap schreiben (siehe IS_FANPAGE-Zweig oben). Eine
+// Sitemap-URL, die anderswohin canonicalisiert, hebt sich selbst auf — Google laesst sie
+// fallen und man wartet auf eine Indexierung, die nie kommt. Entscheidung John, 2026-08-08.
 const kollabCanonical = `${OFFICIAL}/kollaborationen.html`;
 const kollabBook = isOfficialHost ? "/#info" : `${OFFICIAL}/?utm_source=kollaborationen&utm_medium=referral&utm_campaign=buchung`;
 const kollabBookAttrs = isOfficialHost ? "" : ' target="_blank" rel="noopener"';
