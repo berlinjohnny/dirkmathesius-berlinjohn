@@ -28,7 +28,22 @@ RewriteRule ^(music|reportage|landscape|stills)\.html$ https://www.dirkmathesius
 RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
 RewriteRule ^(sport|folks|publication)\.html$ /photography.html [R=301,L]
 
-# ─── SPA-Fallback ────────────────────────────────────────────────────────────
+ErrorDocument 404 /404.html
+
+# >>> SOFT-404-RIEGEL: nur echte Client-Routen fallen auf die SPA, alles andere
+# auf einen echten 404 (siehe ErrorDocument oben). Ohne diese Verengung bejahte
+# der alte Catch-all JEDEN erfundenen Pfad mit index.html — fuer Google eine
+# Dublette der Startseite statt "gibt es nicht" (gemessen 2026-08-10).
+#
+# Die Positivliste ist ein Spiegel von src/App.tsx (<Route path=...>), nicht
+# unabhaengig gepflegt — src/test/soft404-allowlist.test.ts haelt beide synchron.
+# Echte Dateien/Ordner (robots.txt, sitemap.xml, Bilder, *.html-Rechtsseiten)
+# treffen !-f/!-d nie und bleiben von diesen Regeln unberuehrt.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /index.html [QSA,L]
+RewriteRule ^$ /index.html [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^impressum/?$ /index.html [QSA,L]
+# >>> SOFT-404-RIEGEL ENDE <<<

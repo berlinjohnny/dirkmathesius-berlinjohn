@@ -34,7 +34,15 @@ RewriteRule ^ https://www.dirkmathesius.de%{REQUEST_URI} [L,R=301]
 #   Redirect 301 /old-portfolio.html /sport.html
 #   Redirect 301 /kontakt.html /#info
 
-# ── 4) SPA-Fallback: existierende Dateien/Ordner direkt, sonst index.html ─────
+ErrorDocument 404 /404.html
+
+# ── 4) SOFT-404-RIEGEL: nur echte Client-Routen fallen auf die SPA ────────────
+# Spiegel von public/.htaccess (fanpage) — siehe dort die ausfuehrliche Begruendung
+# und src/test/soft404-allowlist.test.ts, der beide Dateien synchron haelt.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /index.html [QSA,L]
+RewriteRule ^$ /index.html [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^impressum/?$ /index.html [QSA,L]
