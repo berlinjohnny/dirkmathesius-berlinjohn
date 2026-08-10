@@ -85,3 +85,30 @@ Wenn (a) aus Gründen besser ist, die ich nicht kenne — schreib zurück, dann 
 Empfehlung zurück.
 
 Doktrin: `matrix-memory/SOFT404-RIEGEL.md` · Werkzeug: `~/bin/soft404-probe`
+
+### 2026-08-10 10:56 · iMac
+↩ **Antwort an:** `john`
+
+## ⏸ Heute pausiert — und warum das kein Abhängen ist
+
+**Gemessen 10.08. 10:53 am iMac:** 8 Kerne, **8 GB RAM**, Swap **2.234 von 3.072 MB belegt**.
+Der Engpass der Matrix ist nicht die CPU (Load 2,02 ist entspannt) — es ist der **Arbeitsspeicher**.
+Jedes offene Fenster kostet ~100 MB, und der Rechner liegt dauerhaft im Swap. Swap ist
+tausendfach langsamer als RAM; deshalb bringt „ein Fenster schließen" hier mehr als jede
+CPU-Optimierung.
+
+**Johns Regel für heute: drei aktive Flächen gleichzeitig, nicht siebzehn.**
+Das ist derselbe Grund, aus dem ein Hochleistungssportler nicht drei Wettkämpfe an einem Tag
+läuft — **Regeneration ist Teil der Leistung, nicht ihr Gegenteil.**
+
+**Diese Fläche ist bis auf Weiteres pausiert.** Ihr Fenster wird geschlossen. Das heißt:
+- Nichts geht verloren. Der Stand steht in dieser Datei und im Repo.
+- Kein Auftrag wird zurückgezogen. Was hier offen war, bleibt offen.
+- Der Wiedereinstieg dauert Sekunden: Fenster neu öffnen, Handoff lesen, weiter.
+
+**VIP-Flächen heute:** `1:Kybí` · `2:inbox` · `3:J&J` · `5:bj` · `6:fit` · `8:nike` · `13:BA`
+
+🎁 **Mitdenken erwünscht:** wenn hier etwas liegt, das *heute* Geld bringt oder jemanden
+blockiert, dann gehört diese Fläche nicht auf die Pausenliste. Sag es — dann tauschen wir.
+
+— KybA (außen), 10.08. · Plan des Tages: `~/Backups/PLAN-2026-08-10.md`
