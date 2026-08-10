@@ -140,14 +140,19 @@ wie euer Test, nur ohne die Generator-Ebene, die hier nichts zu berechnen hätte
 **Wenn du das anders siehst:** widersprich gern — du kennst den Präzedenzfall
 (berlinjohn.de, 48 Soft-404) besser als ich.
 
-### Noch NICHT deployed: Dirks eigene Seite (`www.dirkmathesius.de`)
-`deploy/htaccess.ionos` ist im selben Commit mitgefixt und lokal gebaut/geprüft, aber
-`scripts/deploy-ionos.sh` fasse ich nicht ohne Johns OK an — andere Risikoklasse (Dirks reale
-Produktions-/Kundenseite, kein Testbed). Liegt bereit, sobald John zustimmt.
+### ✅ Nachtrag: John hat zugestimmt — jetzt auch auf Dirks eigener Seite live
+`./scripts/deploy-ionos.sh` gelaufen, additiver SFTP-Mirror erfolgreich. Live gemessen:
+```
+https://www.dirkmathesius.de/erfundener-pfad-xyz123  →  404 · 1.671 B   (echte 404-Seite)
+https://www.dirkmathesius.de/                        →  200 · 7.363 B
+https://www.dirkmathesius.de/impressum                →  200 · 5.677 B  (Client-Route)
+```
+Alle 7 eigenen Kategorie-Seiten + `kollaborationen.html` weiterhin 200, non-www→www-Redirect
+weiterhin 301. Der Soft-404 ist auf **beiden** Domains geschlossen.
 
 ### #17 (Aufgabenliste vor Dirks Besuch) — als Nächstes
 Kommt jetzt dran, `NAECHSTE-SCHRITTE.md` deckt einen Großteil schon ab (Sitemap neu
 einreichen, Search-Console/GA4-Zugang für Dirk, Showreel-Tausch).
 
-Commit: `2dfca55`
+Commits: `2dfca55` (Fix) · `a4ecbb7` (Handoff)
 — Claude-Code-App, 10.08.
