@@ -156,3 +156,185 @@ einreichen, Search-Console/GA4-Zugang für Dirk, Showreel-Tausch).
 
 Commits: `2dfca55` (Fix) · `a4ecbb7` (Handoff)
 — Claude-Code-App, 10.08.
+
+### 2026-08-11 11:04 · iMac
+↩ **Antwort an:** `john`
+
+## 📸 KybA (außen) → diese Fläche + John — die Demo hält. Ich habe sie vorher kaputtzumachen versucht.
+
+**Führung: KybA.** Vor einem Kundentermin ist die teuerste Sekunde die, in der etwas nicht
+funktioniert, das man gerade angepriesen hat. Ich habe deshalb **jede Zusage aus
+`DIRK-BESUCH-CHECKLISTE.md` einzeln live nachgemessen** statt sie zu glauben. Ergebnis: sie
+hält — bis auf **eine** Lücke, und die ist zugleich das Beste, was ihr Dirk beim Termin anbieten
+könnt.
+
+---
+
+### 1 · ✅ Abnahme der Demo — alles, was ihr zeigen wollt, funktioniert
+
+```
+FANPAGE  dirkmathesius.berlinjohn.de
+  /                           200      /photography.html          200
+  /kollaborationen.html       200      /info.html                 200
+  /sport.html                 301 →  /photography.html                    ← Bündelung greift
+  /music.html                 301 →  www.dirkmathesius.de/music.html      ← Weitergabe greift
+  /erfundener-pfad-xyz123     404                                         ← Soft-404 zu
+  sitemap.xml                 6 URLs  → alle 6 live 200
+
+DIRKS DOMAIN  www.dirkmathesius.de
+  /  ·  /ueber-dirk.html  ·  /info.html      200
+  /erfundener-pfad-xyz123                    404                          ← Soft-404 zu
+  sitemap.xml                13 URLs → alle 13 live 200
+```
+
+**Booking-Booster-Kette, end-to-end nachgefahren:**
+```
+/photography.html  →  https://www.dirkmathesius.de/?utm_source=dirkmathesius
+                       &utm_medium=booking-booster&utm_campaign=portfolio-photography
+Ziel:              200, kein Redirect, Parameter erhalten
+```
+Der Link ist live und trägt die volle UTM-Signatur. Die GA4-Echtzeit-Vorführung aus Punkt 1
+eurer Termin-Liste kann also stattfinden — die Anfrage kommt als eigener Kanal an.
+
+**Bild-Lizenz-Metadaten — ich hatte hier einen Fehlalarm und nehme ihn zurück.** Auf
+`www.dirkmathesius.de/` fand ich zuerst **keine** `license`/`acquireLicensePage`-Auszeichnung
+und hielt die Zusage schon für zu groß. Falsch: die Startseite ist eine schlanke
+LocalBusiness-Hülle (7.363 B, ein einziges `<img>`), die Bilder liegen auf den Kategorieseiten —
+und **dort ist die Auszeichnung vollständig da**, auf allen sieben:
+```
+/sport /folks /music /reportage /landscape /stills /publication   → license + acquireLicensePage
+/sport.html einzeln geprüft: 31 × ImageObject in einer ImageGallery
+Fanpage /photography.html                                         → license + acquireLicensePage
+```
+**Die Zusage „Fotos erscheinen als lizenzierbar" stimmt** — für die 184 Fotos dort, wo sie
+liegen. Ich schreibe den Fehlalarm hin, damit ihn niemand nachbaut: *wer die Startseite prüft,
+prüft bei dieser Seite nicht die Bilder.*
+
+### 2 · 🔴 Die eine echte Lücke: bei KI-Suchen existiert Dirk nicht — auf beiden Domains
+
+```
+dirkmathesius.berlinjohn.de/llms.txt   404      robots.txt: 0 KI-Crawler-Regeln
+www.dirkmathesius.de/llms.txt          404      robots.txt: 0 KI-Crawler-Regeln
+```
+
+Beide `robots.txt` kennen Googlebot, Bingbot, Twitterbot und facebookexternalhit — und
+**keinen einzigen** von GPTBot · OAI-SearchBot · ChatGPT-User · ClaudeBot · Claude-Web ·
+PerplexityBot · Google-Extended · Applebot-Extended.
+
+**Was das praktisch heißt:** klassisches SEO ist hier vorbildlich gemacht, aber wer heute
+*„wer fotografiert Konzerte in Berlin"* oder *„Reportagefotograf Berlin"* nicht mehr googelt,
+sondern fragt, bekommt Dirk nicht zu sehen. Die Arbeit ist gemacht — sie ist nur für die
+vorige Suchmaschinen-Generation gemacht.
+
+**Ich wollte zuerst schreiben „einfach die Datei von mike-maverick kopieren" — das wäre hier
+falsch gewesen, und euer eigener Code sagt warum.** Bei mike liegt ein statischer `site/`-Spiegel;
+hier wird `robots.txt` **erzeugt**:
+
+```
+scripts/build-portfolio-manifest.mjs:567
+  // --- robots.txt (in den Generator gefaltet → bleibt beim Cutover NICHT auf der Subdomain hängen)
+  :568–585   const robots = `…  Sitemap: ${SITE}/sitemap.xml`
+  :585       writeFileSync(join(root, "public", "robots.txt"), robots)
+  :23        const SITE     = SITE_URL | VITE_SITE_URL | …berlinjohn.de
+  :214/215   const VARIANT / IS_FANPAGE = VARIANT === "fanpage"
+```
+
+Eine handgelegte `public/robots.txt` würde beim nächsten Generatorlauf **überschrieben** — und der
+Kommentar in Zeile 567 erklärt sogar, warum genau das damals absichtlich so gebaut wurde.
+
+**Der Auftrag lautet deshalb anders, als ich zuerst dachte:**
+1. Den KI-Crawler-Block **in die `robots`-Vorlage im Generator** (bei `:568`) aufnehmen — dann
+   bekommen ihn **beide** Varianten automatisch, mit je richtiger `Sitemap:`-Zeile.
+2. **`llms.txt` gibt es hier noch gar nicht** (0 Treffer in `scripts`, `src`, `public`) — also
+   direkt daneben mit erzeugen, **Inhalt an `IS_FANPAGE` verzweigt**: die Fanpage beschreibt die
+   13 Kollaborationen und verweist auf Dirks Domain, die offizielle Seite beschreibt die 184
+   Fotos in 7 Kategorien und den Anfrageweg. Zwei Texte, eine Quelle.
+3. Nichts von Hand nach `public/` legen. Nichts von Hand hochladen.
+
+Inhaltliche Vorlage (nicht Dateivorlage): `COWORK/mike-maverick/site/llms.txt`, Standard in
+`inbox-router/docs/SEO-GEO-GOLD.md`.
+
+⚠️ **Ein Riegel, den ich von mike mitbringe, weil er hier genauso gilt:** in `llms.txt` gehören
+Dirks Referenzen und Auftraggeber **als seine Angabe gekennzeichnet**, nicht als geprüfte
+Tatsache. Bei Mike steht dafür wörtlich *„(Mikes eigene Angabe, nicht extern geprüft)"*. Bei
+einer fremden Person ist das keine Förmlichkeit — es ist die Zeile, die die Fläche sauber hält.
+
+Deploy dann über die vorgesehenen Skripte (`./scripts/deploy-ionos.sh` für Dirks Seite,
+`deploy-dm` für die Fanpage — **niemals von Hand**, und nie zwei parallel, s.
+`NAECHSTE-SCHRITTE.md`).
+⛔ **Nicht vor dem Termin ohne Johns Wort deployen** — Deploy bleibt bei ihm, und eine
+Domain-Änderung am Tag eines Kundentermins will man nicht ungeplant.
+
+### 3 · 🎯 An John — warum das der beste Punkt der Tagesordnung ist
+
+Ihr habt für den Termin eine Liste, die zeigt, **was fertig ist**. Das ist gut, aber ein
+Kundentermin, der nur Erledigtes vorführt, endet mit „danke, schön". Punkt 2 gibt euch etwas,
+das **nach vorn** zeigt und das Dirk sofort versteht:
+
+> *„Deine Seite ist bei Google in Ordnung — technisch besser als die meisten. Was noch fehlt:
+> Wenn jemand nicht mehr googelt, sondern ChatGPT oder Perplexity fragt, taucht du nicht auf.
+> Das können wir nachziehen, ich hab's diese Woche bei einem anderen Klienten gemacht."*
+
+Das ist ehrlich (nichts erfunden, alles oben gemessen), es kostet John wenig, und es ist der
+natürliche Anlass, beim Termin über den **nächsten** Schritt zu reden statt nur über den letzten.
+
+**Und die Frage, die auf keiner Liste steht:** diese Fläche schiebt Linkkraft, Besucher und
+Anfragen **zu Dirk** — bewusst so gebaut, richtig so. Zurück fließt bisher nichts, und das ist
+auch nicht der Punkt. Aber Dirk arbeitet in Musik, Reportage, Publication und Sport; er kennt
+**Magazine, Labels, Agenturen und Veranstalter**. Das sind exakt die Orte, an denen zahlende
+Nachfrage nach **Jim & John** und nach Show-Acts schon versammelt ist.
+
+Ich schlage **keine** Gegenleistungs-Rechnung vor — das wäre die falsche Tonlage bei jemandem,
+für den man gerade gratis eine Fanpage gebaut hat. Ich schlage vor, beim Termin **eine einzige
+Frage** unterzubringen:
+
+> *„Wenn dir mal jemand über den Weg läuft, der für ein Event oder eine Feier noch Programm
+> sucht — denk an uns."*
+
+Mehr braucht es nicht. Ein Fotograf, der bei einem Firmenevent hinter der Kamera steht, sieht
+die Bühnenlücke, bevor der Veranstalter sie sieht.
+
+### 4 · ✅ Die zwei Punkte, die schon auf eurer Liste stehen — beide bestätigt
+
+- **Fanpage-Sitemap neu einreichen** (Struktur hat sich am 08.08. geändert): die Sitemap ist
+  gemessen sauber — 6 URLs, alle 200, keine Leiche aus der alten Kategorie-Struktur drin.
+  Die Neueinreichung ist also ein **Anstoß, keine Reparatur**. ⚠️ Eure eigene Notiz zur
+  IONOS-WAF (*„scheitert im ersten Anlauf, klappt im zweiten"*) — nicht am Setup zweifeln.
+- **Dirk Zugang zu Search Console und GA4 geben.** Das ist der wichtigere der beiden. Solange
+  beides nur auf Johns Konto liegt, kann Dirk beim Termin zwar zusehen, aber danach nichts
+  nachprüfen. *Ein Beleg, den nur einer lesen kann, ist ein Versprechen; einer, den beide lesen
+  können, ist eine Zusammenarbeit.* Genau dieselbe Bewegung wie `ref=mmbj` bei Mike.
+
+### 5 · 🧹 Kleinkram, den ich beim Messen gesehen habe
+
+Im Arbeitsbaum liegen **uncommittete Änderungen**: `package.json` (+`puppeteer-core` als
+devDependency) und `package-lock.json` (+284 Zeilen). Betrifft den ausgelieferten Stand nicht
+(devDependency), ist also harmlos — aber wer auch immer daran gearbeitet hat, sollte es vor dem
+Termin committen oder verwerfen, damit niemand versehentlich auf einem Halbstand deployt.
+Ich habe **nichts angefasst**.
+
+### 6 · 🎁 Widersprecht mir
+
+- **Mein Fehlalarm bei den Lizenz-Metadaten** ist oben korrigiert. Falls die Startseite doch
+  Bilder ausliefern soll, die ausgezeichnet gehören, ist das ein Fund — dann sagt es, ich habe
+  nur gesehen, dass dort ein einziges `<img>` steht.
+- **Ob GEO vor oder nach dem Termin gebaut wird**, ist Johns Entscheidung, nicht meine. Mein
+  Vorschlag wäre: **beim Termin ankündigen, danach bauen.** Dann hat Dirk etwas, worauf er sich
+  freut, und ihr habt keinen Deploy am Tag des Gesprächs.
+- **Ob Dirk überhaupt von GEO hören will.** Er hat einen Fotografentermin, keinen SEO-Termin.
+  Wenn ihr einschätzt, dass das eine Ebene zu technisch ist, lasst es weg — ihr kennt ihn, ich
+  habe nur seine Statuscodes gesehen.
+
+---
+
+⭐ **Meine Empfehlung, eine:** Vor dem Termin **nichts mehr bauen** — die Demo ist gemessen
+intakt, und ein Deploy am Tag eines Kundengesprächs ist ein Risiko ohne Gegenwert.
+Die zwei Zugänge (GSC + GA4) sind der Punkt mit der größten Wirkung pro Minute: sie machen aus
+„John hat was für mich gemacht" ein „ich kann selbst sehen, was es bringt". Wenn ihr beim Termin
+ohnehin am Rechner sitzt, ist das der natürliche Moment dafür — sonst gleich davor oder danach,
+Hauptsache es passiert. Und GEO als **nächsten** Schritt ankündigen, nicht als Nachtrag liefern.
+
+*(Ich kenne den Termin nicht — weder Datum noch Rahmen. Die Reihenfolge oben ist als Vorschlag
+gemeint, nicht als Ablaufplan; John weiß, wie das Gespräch läuft, ich nicht.)*
+
+— KybA (außen) 📸 · Führung dirkmathesius: **KybA** · alles oben live gemessen, nichts verändert
