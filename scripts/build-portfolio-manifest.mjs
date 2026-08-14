@@ -585,6 +585,39 @@ Sitemap: ${SITE}/sitemap.xml
 writeFileSync(join(root, "public", "robots.txt"), robots);
 console.log("✅ robots.txt — Sitemap → " + SITE + "/sitemap.xml");
 
+// --- llms.txt (GEO — Kontext für KI-Crawler/Assistenten, gleiche Variantenlogik wie oben) ---
+const llms = IS_FANPAGE
+  ? `# Dirk Mathesius × John Förster — Photography Collaboration
+
+> Fanpage von John Förster (BerlinJohn) mit den gemeinsamen Fotoarbeiten des Berliner
+> Fotografen Dirk Mathesius. Zeigt ausschließlich Bilder aus der Zusammenarbeit; Dirks
+> vollständiges Portfolio und Buchungen liegen auf seiner offiziellen Seite.
+
+- [Photography](${SITE}/photography.html): Kollaborationen John Förster × Dirk Mathesius
+  (Sport-, Konzept- und Porträtfotografie in Berlin, u. a. Berliner Mauer / Bernauer Straße).
+- [Über Dirk Mathesius](${SITE}/ueber-dirk.html): Kurzprofil, Showreel.
+- [Kontakt](${SITE}/info.html): Buchungsanfragen.
+- Buchungen für Dirk Mathesius laufen über die offizielle Seite: ${OFFICIAL}/
+`
+  : `# Dirk Mathesius — Fotograf Berlin
+
+> Offizielle Website von Dirk Mathesius, Fotograf in Berlin. Sport-, Porträt-, Musik-,
+> Reportage-, Landschafts-, Stills- und Editorial-Fotografie (u. a. Stern, Men's Health).
+> Buchungsanfragen für Shootings laufen über das Kontaktformular.
+
+- [Sport](${SITE}/sport.html): Sportfotografie Berlin.
+- [People](${SITE}/folks.html): Portraitfotografie Berlin.
+- [Music](${SITE}/music.html): Musik- & Konzertfotografie Berlin.
+- [Reportage](${SITE}/reportage.html): Reportagefotografie Berlin.
+- [Landscape](${SITE}/landscape.html): Landschaftsfotografie.
+- [Stills](${SITE}/stills.html): Produktfotografie / Stills Berlin.
+- [Publication](${SITE}/publication.html): Editorial Photography (Stern, Men's Health).
+- [Über Dirk Mathesius](${SITE}/ueber-dirk.html): Profil, Showreel.
+- [Kontakt](${SITE}/info.html): Buchungsanfragen für Shootings.
+`;
+writeFileSync(join(root, "public", "llms.txt"), llms);
+console.log("✅ llms.txt — Variante " + (IS_FANPAGE ? "fanpage" : "official"));
+
 // --- Static category pages (real .html files → fix Soft-404, served directly by Apache) ---
 // Encoding-independent: every non-ASCII char becomes a numeric entity, so the page renders
 // correctly regardless of the charset the server declares.

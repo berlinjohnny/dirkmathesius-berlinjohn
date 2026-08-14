@@ -25,22 +25,18 @@ funktionierenden Booking Booster sehen und wissen, woran seine Seite gemessen wi
 
 ---
 
-## 🔴 Vor dem Termin — Johns Aufgaben
+## ✅ Erledigt (14.08.)
 
-### 1. Fanpage-Sitemap in der Search Console neu einreichen
-Struktur hat sich am 08.08. geändert (7 Kategorie-URLs → 1 `/photography.html`), Google
-kennt noch die alten Pfade. Sitemap hat jetzt **6 URLs** (kollaborationen.html ist raus,
-kanonisiert ohnehin zu Dirks Domain).
-→ Search Console → Property `dirkmathesius.berlinjohn.de` → *Sitemaps* → `sitemap.xml`
-einreichen. ⚠️ IONOS-WAF lässt fast jede Aktion im ersten Anlauf scheitern — beim zweiten
-Versuch klappt es.
+### 1. Fanpage-Sitemap in der Search Console neu eingereicht
+Struktur hatte sich am 08.08. geändert (7 Kategorie-URLs → 1 `/photography.html`). Sitemap
+hat jetzt **6 URLs** (kollaborationen.html ist raus, kanonisiert ohnehin zu Dirks Domain).
+→ Search Console → Property `dirkmathesius.berlinjohn.de` → Sitemaps → `sitemap.xml`
+eingereicht, Bestätigung „Indexierung wurde beantragt" erhalten (14.08. 10:54, Johns
+Screenshot).
 
-### 2. Dirk Zugang zu Search Console und GA4 geben
-Beides läuft ausschließlich auf Johns Konto — Dirk kann seine eigenen Zahlen sonst nicht
-sehen, auch nicht beim Termin selbst live mitverfolgen.
-- Search Console → Property `https://www.dirkmathesius.de/` → *Einstellungen* →
-  *Nutzer und Berechtigungen* → Dirk hinzufügen
-- GA4 `G-NHPNTGY90D` → *Verwaltung* → *Zugriffsverwaltung* → Dirk hinzufügen
+### 2. Dirk Zugang zu Search Console und GA4 gegeben
+Search Console (`https://www.dirkmathesius.de/`) und GA4 (`G-NHPNTGY90D`) — John hat Dirk
+in beiden als Nutzer hinzugefügt (14.08., von John bestätigt).
 
 ---
 
