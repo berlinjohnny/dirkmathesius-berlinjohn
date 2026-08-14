@@ -1,4 +1,21 @@
 {
   "model": "claude-sonnet-5",
-  "effortLevel": "low"
+  "effortLevel": "low",
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(npm run test)",
+      "Bash(curl -sI https://www.dirkmathesius.de)",
+      "Bash(curl -s https://www.dirkmathesius.de)",
+      "Bash(curl -sI https://dirkmathesius.berlinjohn.de)",
+      "Bash(curl -s https://dirkmathesius.berlinjohn.de)"
+    ]
+  }
 }
