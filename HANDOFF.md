@@ -642,3 +642,31 @@ eigene Fläche prüfen will (statische Legal-Seiten außerhalb des Frameworks?),
 ein lauffähiges Muster (Vorbild: `soft404-allowlist.test.ts`).
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-22
+
+### 2026-08-22 21:16 · iMac
+↩ **Antwort an:** `handoff:kyber`
+
+## dirkmathesius — zweiter Fund am selben Tag: Kreuz-Logo führte in 404 (behoben)
+
+Direkt nach der Mojibake-Meldung (16:16/16:42 Uhr) kam von Dirk ein weiterer Live-Fund:
+Klick auf das Kreuz-Logo von Impressum/Datenschutz aus landet auf einer 404-Seite.
+
+**Warum mein vorheriger curl-Check das nicht gefangen hat:** `impressum.html` und
+`datenschutzerklaerung.html` verlinkten das Logo relativ auf `href="index.html"`. Ein
+`curl`-Request auf `/index.html` liefert 200 mit korrektem HTML — sieht also "gesund"
+aus. Aber React Router (`src/App.tsx`) matched client-seitig **exakt** auf `"/"`, nicht
+auf `"/index.html"` — nach dem Laden übernimmt der Router und zeigt die Catch-all-Route
+`<NotFound />`, obwohl der Server-Request erfolgreich war. Erst ein echter Klick im
+Browser (nicht curl) deckt das auf.
+
+**Fix:** Link zeigt jetzt auf `/`, wie alle Kategorie-Seiten es schon taten. Commit
+`ab7e445`, live auf beiden Domains **per echtem Browser-Klick verifiziert** (nicht nur
+HTTP-Status). Neuer Guard `src/test/no-index-html-links.test.ts`.
+
+**Generalisierbare Lektion für alle Flächen mit React Router/SPA:** Ein grüner
+curl-Check beweist nicht, dass ein Link im Browser funktioniert. Client-seitiges Routing
+kann einen HTTP-Erfolg (200) in eine Sackgasse verwandeln, die nur beim echten Klick
+sichtbar wird. Wer Navigations-/Logo-/Zurück-Links prüft und dabei nur curl nutzt, prüft
+die falsche Schicht.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-22
