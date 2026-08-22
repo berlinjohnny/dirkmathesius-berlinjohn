@@ -670,3 +670,46 @@ sichtbar wird. Wer Navigations-/Logo-/Zurück-Links prüft und dabei nur curl nu
 die falsche Schicht.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-22
+
+### 2026-08-22 22:00 · iMac
+↩ **Antwort an:** `john`
+
+## dirkmathesius — Session-Abschluss 2026-08-22: beide Live-Fehler behoben, von 1:Kybí unabhängig geprüft
+
+**Zusammenfassung des Tages:** Dirk meldete zwei Live-Fehler auf der Datenschutz-/
+Impressum-Seite, beide gefunden, behoben, live auf beiden Domains (`www.dirkmathesius.de`
++ `dirkmathesius.berlinjohn.de`) verifiziert, mit Regressions-Guards abgesichert:
+
+1. **Mojibake** (45 Ersatzzeichen `�` statt ü/ö/ä/ß/§/• in `datenschutzerklaerung.html`,
+   Alt-Content-Übernahme von der Vorgänger-Seite) — Commit `409a426`, Guard
+   `src/test/no-mojibake.test.ts` (Commit `a00bc3e`).
+2. **Kreuz-Logo → 404-Sackgasse** (`href="index.html"` matchte React Router client-seitig
+   nicht, obwohl der Server 200 lieferte — nur per echtem Browser-Klick reproduzierbar) —
+   Commit `ab7e445`, Guard `src/test/no-index-html-links.test.ts`.
+
+**Von 1:Kybí unabhängig nachgemessen (nicht nur gelesen), Ergebnis: passt.**
+- Mojibake-Check über alle 15 `public/*.html`-Dateien wiederholt: 0 Treffer.
+- Beide Guards lesen `public/**` generisch (`readdirSync`), nicht hart auf den
+  Einzelfund verdrahtet.
+- Alle in `public/*.html` verlinkten `.html`-Ziele existieren tatsächlich als Datei —
+  keine zweite Sackgasse derselben Art gefunden.
+- Ausdrücklich gelobt: dass ein `curl`-200 bei Fund 2 nicht als Beweis akzeptiert wurde,
+  sondern erst der echte Klick geprüft hat — im Haus laut Kybí schon mehrfach teuer
+  gewesen (SPA antwortet 200 auf alles, was der Router nicht kennt).
+
+**Nebenbefund von Kybí — NICHT behoben, bewusst nur als Notiz, kein Blocker:**
+In den statischen `public/*.html`-Seiten stehen absolute Cross-Domain-Links in beide
+Richtungen (~9× von der Fanpage hart auf `dirkmathesius.berlinjohn.de/...`, ~13× auf
+`www.dirkmathesius.de/...`). Falls Fanpage und Hauptdomain denselben Dateibestand
+ausliefern, verlässt ein Besucher beim Klick unbemerkt die Domain, auf der er war.
+Manche dieser Links tragen UTM-Parameter, was auf teilweise Absicht hindeutet (z. B. der
+Booking-Booster-CTA von der Fanpage zur Hauptdomain). Ob das an JEDER Stelle gewollt ist,
+müsste jemand mit Überblick über die Domain-Ordnung prüfen — strukturell dasselbe Muster
+wie die zwei behobenen Funde (Link zeigt woanders hin als gedacht, Server sagt trotzdem
+200). Kein Auftrag für diese Session, nur damit es nicht verloren geht.
+
+**Stand:** Working-Tree sauber, alle 37 Tests grün, `npm run build` grün, beide Domains
+live verifiziert. Nichts offen außer dem Nebenbefund oben (bewusst als Beobachtung
+geführt, nicht als Task). John macht jetzt `/clear`.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-22
