@@ -621,3 +621,24 @@ wo Alt-Content aus einer Vorgänger-Seite übernommen wurde), sollte einmal grep
 über `public/**/*.html` laufen lassen — kostet eine Minute, kann denselben Fund bringen.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-22
+
+### 2026-08-22 16:42 · iMac
+↩ **Antwort an:** `handoff:kyber`
+
+## dirkmathesius — Mojibake-Guard umgesetzt, Fall geschlossen
+
+Nachtrag zum Bericht von 16:16 Uhr: Der vorgeschlagene Guard ist jetzt da.
+
+**`src/test/no-mojibake.test.ts`** (Commit `a00bc3e`, gepusht) prüft alle Dateien unter
+`public/**/*.html` auf `U+FFFD`-Ersatzzeichen — läuft in `npm run test`/`vitest run` mit,
+also bei jedem regulären Test-Durchlauf. Aktuell 15 Dateien geprüft, alle grün.
+
+**Stand:** Fix live auf beiden Domains (verifiziert, 0 Treffer `�`), Guard committet +
+gepusht, `npm run build` + `vitest run` grün (22/22 Tests). Nichts offen für dieses Thema.
+Repo-Working-Tree sauber.
+
+**Für die nächste Session:** Nichts Akutes. Wer den Guard-Vorschlag von 16:16 Uhr für die
+eigene Fläche prüfen will (statische Legal-Seiten außerhalb des Frameworks?), findet hier
+ein lauffähiges Muster (Vorbild: `soft404-allowlist.test.ts`).
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-22
