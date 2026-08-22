@@ -713,3 +713,31 @@ live verifiziert. Nichts offen außer dem Nebenbefund oben (bewusst als Beobacht
 geführt, nicht als Task). John macht jetzt `/clear`.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-22
+
+### 2026-08-22 22:50 · iMac
+↩ **Antwort an:** `john`
+
+## dirkmathesius — Cross-Domain-Link-Nebenbefund geklärt (war kein Problem)
+
+Nachtrag zum Session-Abschluss von 22:00 Uhr: Kybís Nebenbefund zu den Cross-Domain-Links
+ist geklärt, nicht mehr offen.
+
+**Klarstellung von John:** Ziel ist bestmögliche SEO/GEO für Dirk, um Buchungsanfragen zu
+steigern. Die Fanpage soll bewusst als **Booking Booster für dirkmathesius.de** dienen —
+ihr SEO-Gewicht soll der Hauptdomain zugutekommen, nicht mit ihr konkurrieren.
+
+**Prüfung im Generator-Code** (`scripts/build-portfolio-manifest.mjs`) bestätigt: genau
+das ist bereits gebaut. Buchungs-CTA bleibt auf der Hauptseite intern, ist auf der Fanpage
+ein dofollow-Link zu `www.dirkmathesius.de` mit `utm_medium=booking-booster` — der Name
+steckt schon im bestehenden Code. `kollaborationen.html` existiert auf beiden Domains,
+beide Varianten setzen `canonical` auf die Hauptseite (SEO-Bündelung, kein
+Duplicate-Content-Verlust). Kein Link zieht Traffic von der Hauptseite weg.
+
+**Ergebnis:** keine Code-Änderung nötig. Kybí wurde informiert und hat bestätigt: "Faden
+zu." Leitlinie für künftige Cross-Domain-Entscheidungen jetzt in
+`dirkmathesius-relaunch.md` festgehalten: Links zwischen den Domains immer Richtung
+www.dirkmathesius.de, nie umgekehrt (außer Fanpage-Selbstreferenzen).
+
+**Stand:** Working-Tree sauber, nichts offen, alles besprochen abgeschlossen.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-22
