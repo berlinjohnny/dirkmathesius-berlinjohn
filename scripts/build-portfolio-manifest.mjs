@@ -125,6 +125,13 @@ if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
 document.documentElement.classList.add("dark");}}catch(e){}})();
 </script>`;
 
+/** Dieselbe Google-Fonts-Quelle wie index.html (nur der dort ebenfalls genutzte
+ *  Inter-Schnitt) — damit die Kategorie-Seiten dieselbe Schrift wie die SPA zeigen,
+ *  statt auf Arial zurueckzufallen. */
+const GOOGLE_FONT = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">`;
+
 /** Umschalt-Knopf fuer den Brand-Kopf, inkl. Klick-Logik und Symbolwechsel. */
 const THEME_BTN = `<button id="dm-theme-btn" type="button" class="themebtn" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">◐</button>
 <script>
@@ -653,7 +660,7 @@ const categoryPage = (c) => {
 
   const nav = siteNavOrder
     .map((id) => {
-      const active = id === c.id ? ' style="color:#FF6600"' : "";
+      const active = id === c.id ? ' style="color:#FF6600;opacity:1;border-color:#FF6600"' : "";
       return `<a href="/${id}.html"${active}>${E(navLabel(id))}</a>`;
     })
     .join("\n        ") + `\n        <a href="/info.html">info</a>`;
@@ -707,16 +714,18 @@ ${THEME_BOOT}
 <meta property="og:site_name" content="Dirk Mathesius" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+${GOOGLE_FONT}
 <style>
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+  body{background:#fff;margin:0;color:#000;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
+  .brand{text-align:center;padding:28px 0 8px;}
   .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;}
   .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
-  nav.cat a:hover{color:#FF6600;}
+  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
+  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
   /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
      Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
   .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
@@ -725,7 +734,7 @@ ${THEME_BOOT}
   .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
   .cta a.book:hover{background:#e25c00;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
+  h1{font-size:22px;font-weight:500;letter-spacing:.02em;margin:26px 0 6px;}
   .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 22px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:28px;}
   figure{margin:0;}
@@ -735,6 +744,21 @@ ${THEME_BOOT}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
 ${DARK_CSS}
+  /* Seiteneigene Dark-Werte NACH DARK_CSS: exakt die neutralgrauen Tokens der SPA
+     (--background/--foreground in src/index.css), statt DARK_CSS' warmem Braunton —
+     sonst wirkt der Dark-Modus hier anders als im React-Overlay auf der Startseite. */
+  html.dark body{background:#121212;color:#f5f5f5;}
+  html.dark .brand .hl{color:#f5f5f5;}
+  html.dark .brand .hl .c{color:#666;}
+  html.dark nav.cat{border-color:#424242;}
+  html.dark nav.cat a{color:#f5f5f5;}
+  html.dark h1{color:#f5f5f5;}
+  html.dark .intro{color:#9e9e9e;}
+  html.dark figcaption{color:#9e9e9e;}
+  html.dark .cta{border-color:#424242;}
+  html.dark .cta p{color:#9e9e9e;}
+  html.dark footer{border-color:#424242;color:#9e9e9e;}
+  html.dark footer a{color:#9e9e9e;}
 </style>
 <script type="application/ld+json">${jsonLd(galleryLd)}</script>
 <script type="application/ld+json">${jsonLd(breadcrumbLd)}</script>
