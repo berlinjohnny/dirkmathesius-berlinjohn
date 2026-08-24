@@ -141,7 +141,7 @@ const HERO_SLIDES: HeroSlide[] = [
   .filter((s): s is HeroSlide => Boolean(s))
   .sort((a, b) => a.year - b.year);
 
-function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
+function HeroTimeline() {
   const start = Math.max(0, HERO_SLIDES.findIndex((s) => s.src.endsWith(HERO_FILENAME)));
   const [i, setI] = useState(start);
   const [paused, setPaused] = useState(false);
@@ -157,7 +157,7 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
 
   return (
     <section className="mt-10 md:mt-12" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <figure className="relative img-hover cursor-pointer overflow-hidden" onClick={() => onOpen(s.cat)}>
+      <a href={`/${s.cat.id}.html`} className="relative img-hover block overflow-hidden">
         <img key={s.src} src={s.src}
           alt={`${s.alt} – John Förster, Sportmodel, Sportfotografie Berlin`}
           loading="lazy" decoding="async"
@@ -168,7 +168,7 @@ function HeroTimeline({ onOpen }: { onOpen: (c: PortfolioCategory) => void }) {
           <span className="block text-[9px] md:text-[10px] tracking-[0.45em] uppercase text-white/70 mb-1">Sportmodel</span>
           <span className="block text-4xl md:text-6xl font-light tracking-wider leading-none tabular-nums">{s.year}</span>
         </div>
-      </figure>
+      </a>
       <figcaption className="mt-3 text-center text-[11px] tracking-wide text-foreground/45">
         <span className="text-foreground/30">{COPY}</span>{s.title ? <> · {s.title}</> : null}
       </figcaption>
@@ -232,39 +232,6 @@ function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioIma
       <button className="absolute right-2 md:right-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Nächstes Bild"
         onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
-    </div>
-  );
-}
-
-function Gallery({ cat, onClose }: { cat: PortfolioCategory; onClose: () => void }) {
-  const [lightbox, setLightbox] = useState<number | null>(null);
-
-  return (
-    <div className="fixed inset-0 z-40 bg-background overflow-y-auto" role="dialog" aria-label={`${cat.altBase} Portfolio`}>
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-foreground/10 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Logo size={26} />
-          <h2 className="text-[13px] tracking-[0.3em] uppercase text-foreground/80">{cat.label}</h2>
-        </div>
-        <button onClick={onClose} className="text-foreground/40 hover:text-[#FF6600] flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase transition-colors">
-          <X size={14} /> Zurück
-        </button>
-      </div>
-      <div className="max-w-[1300px] mx-auto p-4 md:p-7 columns-2 md:columns-3 lg:columns-4 gap-3 md:gap-5">
-        {cat.images.map((img, i) => (
-          <figure key={img.src} className="img-hover mb-3 md:mb-5 cursor-pointer break-inside-avoid"
-            onClick={() => setLightbox(i)}>
-            <img src={img.src} alt={img.alt} title={img.title ?? img.alt} className="w-full block" loading="lazy" decoding="async"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }} />
-            {img.title && (
-              <figcaption className="text-[11px] leading-snug mt-2 mb-1 text-foreground/55 tracking-wide">
-                <span className="text-foreground/35">{COPY}</span> · {img.title}
-              </figcaption>
-            )}
-          </figure>
-        ))}
-      </div>
-      {lightbox !== null && <Lightbox images={cat.images} index={lightbox} onClose={() => setLightbox(null)} />}
     </div>
   );
 }
@@ -379,7 +346,6 @@ function CollabEndorsement() {
 }
 
 export default function Index() {
-  const [activeGallery, setActiveGallery] = useState<PortfolioCategory | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -400,8 +366,6 @@ export default function Index() {
     }
     el.href = href;
   }, []);
-
-  if (activeGallery) return <Gallery cat={activeGallery} onClose={() => setActiveGallery(null)} />;
 
   const navLink = "text-[11px] uppercase tracking-[0.2em] text-foreground/60 hover:text-[#FF6600] transition-colors py-1 border-b border-transparent hover:border-[#FF6600]";
 
@@ -437,9 +401,9 @@ export default function Index() {
         {/* Navigation */}
         <nav className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 border-y border-foreground/10 py-4">
           {navCategories.map((c) => (
-            <button key={c.id} onClick={() => setActiveGallery(c)} className={navLink}>
+            <a key={c.id} href={`/${c.id}.html`} className={navLink}>
               {c.label.toLowerCase()}
-            </button>
+            </a>
           ))}
           <a href={IS_OFFICIAL ? "/ueber-dirk.html" : "#ueber-dirk"} className={navLink}>über dirk</a>
           <a href={IS_OFFICIAL ? "/info.html" : "#info"} className={navLink}>info</a>
@@ -450,13 +414,14 @@ export default function Index() {
             Chronik mit dem naechsten grossen Bild — zwei Hero-Bloecke uebereinander.
             Dort ist dasselbe Foto jetzt Teil der Chronik (Jahrgang 2025). */}
         {IS_OFFICIAL && (
-        <figure className="mt-10 md:mt-12 img-hover cursor-pointer overflow-hidden"
-          onClick={() => { const c = categories.find((x) => x.id === "sport") ?? categories[0]; if (c) setActiveGallery(c); }}>
-          <img
-            src="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
-            alt="Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung"
-            width={1617} height={1212} fetchPriority="high" decoding="async"
-            className="w-full block" />
+        <figure className="mt-10 md:mt-12 img-hover overflow-hidden">
+          <a href={`/${(categories.find((x) => x.id === "sport") ?? categories[0]).id}.html`} className="block">
+            <img
+              src="/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
+              alt="Dirk Mathesius – Startfoto: Sportmodel John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung"
+              width={1617} height={1212} fetchPriority="high" decoding="async"
+              className="w-full block" />
+          </a>
           <figcaption className="mt-3 text-center text-[11px] tracking-wide text-foreground/45">
             <span className="text-foreground/30">{COPY}</span> · Human-Flag &amp; Friedenstaube · John Förster
           </figcaption>
@@ -465,7 +430,7 @@ export default function Index() {
 
         {/* Sportmodel-Serie — Bildwechsler/Timeline. Nur Fanpage; offizielle Seite
             zeigt sie dezent auf /kollaborationen.html. */}
-        {IS_FANPAGE && <HeroTimeline onOpen={(c) => setActiveGallery(c)} />}
+        {IS_FANPAGE && <HeroTimeline />}
 
         {/* Trust-Badge — dezente Kundenreferenzen */}
         <section className="mt-12 md:mt-16 text-center">
