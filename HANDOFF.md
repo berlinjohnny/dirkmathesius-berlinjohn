@@ -741,3 +741,56 @@ www.dirkmathesius.de, nie umgekehrt (außer Fanpage-Selbstreferenzen).
 **Stand:** Working-Tree sauber, nichts offen, alles besprochen abgeschlossen.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-22
+
+### 2026-08-24 16:17 · iMac
+↩ **Antwort an:** `john`
+
+## dirkmathesius — Dirks dritte Meldung behoben: Kategorie-Seiten sahen "anders aus"
+
+Dirk meldete per Mail: Klickt man von Impressum/Datenschutz aus über das Menü
+People/Sport/Music/Publication/Landscape/Reportage/Stills, öffnet sich "nicht die
+richtige Version" — sichtbar z. B. daran, dass "People" von der Startseite aus anders
+aussieht als "People" von der Datenschutz-Seite aus.
+
+**Erst-Check widerlegte die naheliegendste Hypothese** (Wiederholung des
+Kreuz-Logo-404-Musters vom 22.08.): Links lösen korrekt auf, kein Redirect, kein
+404. Bildinhalt 28/28 identisch zwischen Startseiten-Galerie und `folks.html`
+(per Bundle-Diff geprüft, nicht nur curl). Der tatsächliche Befund: zwei echte,
+unterschiedliche Darstellungen derselben Kategorie —
+1. Startseite: React-Overlay (Inter-Font, Tailwind-Look, `columns`-Masonry)
+2. Impressum/Datenschutz → `folks.html` etc.: eigenständige statische Seite
+   (Arial, Grau, `navbg.jpg`-Textur — aus der Zeit vor dem React-Relaunch)
+
+**Fix in zwei Commits, beide live auf beiden Domains:**
+- `b3f68f0` — `categoryPage()` in `scripts/build-portfolio-manifest.mjs`
+  bekommt Inter-Font (dieselbe Google-Fonts-Quelle wie `index.html`),
+  Marken-Schriftzug + Nav im SPA-Stil (Tracking/Uppercase), Haarlinien-Nav statt
+  Textur, und seiteneigene Dark-Mode-Overrides mit den echten SPA-Farbtokens
+  (`#121212`/`#f5f5f5` statt des bisherigen warmen Bratons `#131110`). Betrifft
+  nur die Kategorie-Seiten, nicht `SUB_CSS` (ueber-dirk/info/kollaborationen
+  unangetastet — kein Scope-Creep).
+- `fc08c4a` — Restlose Fassung: Die Startseiten-Buttons (People/Sport/…), das
+  Human-Flag-Startfoto und die Fanpage-Chronik verlinken jetzt direkt auf
+  `/{kategorie}.html` statt ein Gallery-Overlay per React-State zu öffnen. Nur
+  noch EIN Weg zu jeder Kategorie, technisch identisch von jedem Einstiegspunkt.
+  Die tote Gallery-Overlay-Komponente wurde entfernt (die eigenständige
+  Lightbox-Komponente bleibt — wird von Behind-the-Scenes weiter genutzt).
+
+**Verifiziert:** `tsc --noEmit`, 37 Tests, Build — alles grün. Danach per echtem
+Browser-Klick (nicht nur curl) auf beiden Live-Domains bestätigt: Klick auf
+"people" von `www.dirkmathesius.de/` landet jetzt auf `/folks.html`; von der
+Fanpage-Datenschutzseite aus landet er korrekt auf `/photography.html`
+(Redirect-Stub, wie vom Fanpage-Generator vorgesehen). Beide Domains additiv
+deployed (`deploy-ionos.sh` + `deploy-dm`), kein `--delete`, wipe-sicher.
+
+**Ein rein browser-seitiger Fund am Rande:** Auf Dirks Screenshot war oben ein
+Text-Badge zu sehen ("Claude hat die Fehlerbehebung … gestartet"). Beim eigenen
+Live-Test tauchte auf derselben Seite ein ähnliches kryptisches Badge oben
+rechts auf (`â¾`) — per DOM-Query bestätigt: **kein Element der Seite selbst**,
+sondern etwas, das der Browser/eine Erweiterung über die Seite legt. Kein
+Website-Bug, nichts geändert.
+
+**Stand:** Working-Tree sauber, beide Commits gepusht + live, alle Tests grün.
+Abschließende Mail an Dirk folgt direkt danach. Nichts offen.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-24
