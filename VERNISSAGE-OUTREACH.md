@@ -11,9 +11,19 @@ Sportfotografie **ohne Montage, ohne Bildbearbeitung** — echte Bewegung, echte
 Berliner Originale. Eine fast zwei Jahrzehnte lange Zusammenarbeit zwischen einem
 Fotografen und zwei Sportmodels (John & Jim Förster, AcroBerlin): Freerunning,
 Akrobatik, Human-Flags an Berliner Wahrzeichen (Reichstag, Berliner Mauer, BEHALA-
-Hafen). Die publizierbare Kernserie zeigt **2008–2016** (`kollaborationen.html`),
-dazu liegt ein größeres, noch unveröffentlichtes Archiv (171 Solo-Fotos) bereit,
-falls eine Ausstellung mehr Material braucht.
+Hafen). Die publizierbare Kernserie zeigt **2008–2016** (`kollaborationen.html`).
+
+⚠️ **Korrektur 2026-08-26 (vorherige Fassung war falsch):** Es gibt **kein**
+zusätzliches unveröffentlichtes Archiv als Materialreserve für diese Serie. Die
+„171 Solo-Fotos" auf dem Fanpage-Server sind Dirks eigenes, **bereits
+öffentliches** Kommerz-Portfolio (Red Bull Soundclash, Gerolsteiner, DJ-
+Portraits, Reportage) — live verifiziert in `www.dirkmathesius.de/sitemap.xml`
+(music/landscape/reportage/stills, alle indexierbar). Sie liegen nur zufällig
+auch unverlinkt auf dem Fanpage-Server (Nebenprodukt des gemeinsamen Builds),
+sind aber **thematisch fremd** (andere Kunden, kein John/Jim) und in keiner
+Weise „unveröffentlicht". Für mehr Material zur Vernissage kommt nur das
+unveröffentlichte AcroBerlin/Förster-Archiv (falls eines existiert) infrage —
+das müsste John separat benennen, es ist nicht Teil dieses Repos.
 
 **Der Aufhänger in einem Satz:** *„Fast 20 Jahre Sport- und Actionfotografie aus
 Berlin — kein Photoshop, keine Montage. Zwei Brüder, ein Fotograf, ein Jahrzehnt
@@ -32,10 +42,16 @@ Orientierung, nicht geprüfte Kontakte und nicht angeschrieben** — vor dem
 tatsächlichen Versand mit John/Dirk gegenchecken (Programm-Fokus, ob sie
 unaufgefordert einreichen lassen, aktuelle Ansprechpartner).
 
-✅ **Erreichbarkeits-Check der 171 unveröffentlichten Archiv-Fotos (2026-08-26,
-Anstoß kyber-f4):** live auf beiden Domains geprüft — Directory-Listing zu
-(403), kein Sitemap-Eintrag, keine Treffer in Websuche für einzelne
-Datei-URLs. Details: Memory `dirkmathesius-relaunch` Punkt 5. Kein
+✅ **Erreichbarkeits-Check der 171 Solo-Fotos (2026-08-26, Anstoß kyber-f4):**
+live auf beiden Domains geprüft — Directory-Listing zu (403), kein
+Sitemap-Eintrag auf der Fanpage, keine Treffer in Websuche für einzelne
+Datei-URLs. Per FTPS direkt am Server nachgesehen: Dateinamen sind
+beschreibende Mehrwort-Slugs (z. B. `CRACK-IGNAZ-SOUFIAN-LGOONY-Red-Bull-
+soundclash-Buehne-Hamburg.webp`), **weder durchnummeriert noch
+Kamera-Seriennummern** — praktisch nicht erratbar. **Aber wie oben korrigiert:
+das war ohnehin die falsche Sorge** — dieselben Dateien sind auf
+`www.dirkmathesius.de` reguläres, sitemap-gelistetes Portfolio, also
+absichtlich öffentlich. Details: Memory `dirkmathesius-relaunch` Punkt 5. Kein
 Google-Search-Console-Einblick aus dieser Session möglich — vor einer echten
 Vernissage-Ankündigung mit "unveröffentlicht" als Verkaufsargument lohnt ein
 Blick in die GSC-Indexabdeckung (nur John/Dirk-Zugriff).

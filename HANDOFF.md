@@ -889,4 +889,25 @@ ist der bekannte, gewollte "unverlinkt"-Zustand, kein neues Leck.
 bevor "unveröffentlicht" als Verkaufsargument in eine echte Ankündigung geht.
 Details: Memory `dirkmathesius-relaunch` Punkt 5. Antwort an kyber-f4 raus.
 
+**Nachtrag 4 — Kybí fragte nach: sind die Dateinamen erratbar? Antwort per
+FTPS statt Vermutung, dabei eine wichtigere Korrektur gefunden.** Direkt am
+KAS-Server nachgesehen (`lftp`/FTPS, read-only `ls`): Dateinamen in
+`portfolio/{music,stills,landscape,reportage}/` sind beschreibende
+Mehrwort-Slugs (z. B. `CRACK-IGNAZ-SOUFIAN-LGOONY-Red-Bull-soundclash-
+Buehne-Hamburg.webp`) — weder durchnummeriert noch Kamera-Seriennummern,
+praktisch nicht erratbar.
+
+**Wichtiger als die Ratbarkeit:** Diese 171 Fotos sind **gar kein
+unveröffentlichtes Archiv.** `www.dirkmathesius.de/sitemap.xml` listet
+music/landscape/reportage/stills ganz regulär — es ist Dirks öffentliches
+Kommerz-Portfolio (Red Bull, Gerolsteiner, DJ-Portraits), nur zufällig als
+Nebenprodukt des gemeinsamen Builds auch unverlinkt auf dem Fanpage-Server.
+Thematisch zudem fremd zur Vernissage-Serie (andere Kunden, kein John/Jim).
+**`VERNISSAGE-OUTREACH.md` und die Memory waren an dieser Stelle falsch**
+("unveröffentlichtes Archiv, falls mehr Material gebraucht wird") —
+korrigiert, bevor es in eine echte Pitch-Mail hätte wandern können. Kein
+Auth-Schutz nötig (kein Geheimnis zu schützen), Kybís Nike-`.htaccess`-
+Koordinationsangebot damit hinfällig für diese Fläche. Antwort an kyber-f4
+mit der Korrektur raus.
+
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
