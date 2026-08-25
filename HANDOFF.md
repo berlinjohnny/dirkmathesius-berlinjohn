@@ -846,4 +846,13 @@ hängt ab, was „Der nächste Euro" in diesem Masterplan überhaupt bedeutet.
 **Stand:** Nichts offen außer den beiden oben benannten Punkten (Prerender,
 DM-3-Klärung). Beide sind sauber übergeben, kein Zwischenzustand.
 
+**Nachtrag, noch selbe Sitzung — DM-3-Widerspruch von John aufgelöst:**
+John hat direkt geantwortet: *„ich arbeite als Fotoassistent und
+FotostuntModel für Dirk — das macht Spaß und wird gut bezahlt!"* Damit sind
+es zwei getrennte Dinge, kein Widerspruch: Die Fanpage bleibt bewusst gratis
+(HANDOFF.md, 2026-08-11). DM-3 in `MASTERPLAN.md` meint nicht eine
+Gegenleistungs-Rechnung für die Website, sondern Johns eigene, unabhängig
+bezahlte Assistenz-/Stuntmodel-Einsätze bei Dirk. Masterplan entsprechend
+korrigiert (Status `umstritten` → `offen`, Titel + Beweis präzisiert).
+
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26

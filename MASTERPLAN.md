@@ -9,7 +9,7 @@ kasse_geprueft: 2026-08-23
 kasse_beweis: "Repo-Messung 23.08.: 0 Treffer für stripe/paypal/checkout. dirkmathesius.de antwortet mit 301 (Weiterleitung — laut Doku immer Richtung www.dirkmathesius.de, nie umgekehrt). Kundenfläche: Umsatz per Rechnung, nicht über einen Zahlweg auf der Seite. git sauber, keine offenen Änderungen."
 
 stufe_aktuell: 1
-naechste_stufe_braucht: "Bei einer Kundenfläche: die nächste abgeschlossene und abgerechnete Leistung."
+naechste_stufe_braucht: "Der nächste bezahlte Fotoassistenz-/Stuntmodel-Einsatz Johns bei Dirk — nicht eine Rechnung für die Fanpage."
 umsatz_seit_stichtag_cent: 0
 
 meilensteine:
@@ -25,13 +25,11 @@ meilensteine:
     status: offen
     beweis: "Live geprüft: alle Domains leiten auf www.dirkmathesius.de, keine in die Gegenrichtung — der 301 ist gewollt und stimmt"
   - id: DM-3
-    titel: "Offene Leistung abrechnen"
+    titel: "Nächsten Fotoassistenz-/Stuntmodel-Einsatz Johns bei Dirk abrechnen"
     wer: John
     mensch: John
-    status: umstritten
-    beweis: "Rechnung geschrieben und Zahlungseingang gesehen"
-    umstritten_seit: 2026-08-26
-    umstritten_warum: "Widerspricht HANDOFF.md:287 (2026-08-11): 'Ich schlage keine Gegenleistungs-Rechnung vor — das wäre die falsche Tonlage bei jemandem, für den man gerade gratis eine Fanpage gebaut hat.' GO-LIVE-BRIEFING.md nennt kein Honorar. Ob Dirk zahlender Kunde ist oder die Beziehung auf Gratis-plus-Referral (Richtung Jim & John) läuft, kann nur John klären — davon hängt ab, was 'Der nächste Euro' hier bedeutet."
+    status: offen
+    beweis: "Rechnung geschrieben und Zahlungseingang gesehen — für einen Assistenz-/Stunt-Einsatz, nicht für die Fanpage"
 kosten_monat_eur: 0
 zuletzt_aktualisiert: 2026-08-26
 aktualisiert_von: terminal·claude (dirkmathesius)
@@ -58,12 +56,13 @@ auf `laeuft` und nicht eine Bauaufgabe.
 
 ## Der nächste Euro
 
-**DM-3 — umstritten, siehe Frontmatter `umstritten_warum`.** Ob hier eine
-Rechnung überhaupt der richtige nächste Schritt ist, steht offen: HANDOFF.md
-(2026-08-11) hält fest, dass die Fanpage bewusst gratis gebaut wurde und eine
-Gegenleistungs-Rechnung die falsche Tonlage wäre — Gegenwert sollte über
-Referrals Richtung Jim & John laufen, nicht über eine Rechnung an Dirk. Nur
-John kann klären, welche Lesart aktuell gilt.
+**DM-3 — geklärt 2026-08-26 (John).** Zwei getrennte Dinge, kein Widerspruch:
+die Fanpage wurde bewusst gratis gebaut (HANDOFF.md, 2026-08-11 — keine
+Gegenleistungs-Rechnung, richtige Tonlage bei einem Gratis-Gefallen).
+**Unabhängig davon arbeitet John bei Dirk regelmäßig als Fotoassistent und
+Stuntmodel — bezahlt, macht Spaß.** Der nächste Euro auf dieser Fläche ist
+also nicht eine Website-Rechnung, sondern die nächste abgerechnete
+Assistenz-/Stunt-Session.
 
 ## Betriebskosten
 
