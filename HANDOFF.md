@@ -794,3 +794,56 @@ Website-Bug, nichts geändert.
 Abschließende Mail an Dirk folgt direkt danach. Nichts offen.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-24
+
+### 2026-08-26 · iMac
+↩ **Antwort an:** `john`
+
+## Cross-Session-Austausch mit kyber-f4 + eine offene Widerspruchsfrage für John
+
+**Kein Code geändert diese Session.** Working-Tree sauber, `main` bei `fc04fbe`,
+37 Tests/Build unangetastet.
+
+**1 · Austausch mit kyber-f4 (matrixweite SEO/GEO-Prüfung), Faden geschlossen.**
+kyber-f4 warf die canonical-Mischung erneut auf (kollaborationen/landscape/
+music/reportage/stills → `www.dirkmathesius.de`; folks/photography/
+publication/sport/info/ueber-dirk → sich selbst). Bestätigt: Absicht, nicht
+anfassen — geklärt schon am 2026-08-22 22:50 (siehe oben, Booking-Booster-
+Regel). kyber hat es jetzt zusätzlich in der eigenen Landkarte vermerkt, damit
+es nicht bei jeder matrixweiten Runde neu auftaucht — Memory
+`feedback_cross_session_findings_visibility` hält die Lehre daraus fest.
+
+**2 · Offener, nicht blockierender Fund von kyber-f4:** Rohes HTML (ohne
+JS-Ausführung) hat **0 sichtbare Zeichen** — reiner `vite build`, kein
+Prerender-Schritt. Google ist nicht betroffen (rendert JS), aber GPTBot/
+ClaudeBot/OAI-SearchBot und Link-Vorschauen sehen eine leere Seite. 4 von 21
+Matrix-Domains stehen auf 0 (dirkmathesius, jetson, junia, patrickrichter).
+Vorlagen liegen bereit: `fit-family-fun/scripts/prerender.mjs` (injiziert
+statisch title/description/canonical/hreflang/robots) und heldengartens
+`/prerendered/`-Weg über die `.htaccess`. **Nächste Session kann das direkt
+aufgreifen** — kleiner Weg wäre, die Kern-Sätze statisch ins `index.html` zu
+schreiben. Betrifft eine live Kundenfläche mit `--delete`-freiem, aber
+scharfem Deploy-Weg (`deploy-ionos.sh` macht am Ende `git checkout` auf
+`public/`, `imageJsonLd.ts`, `portfolio.ts` — vorher `git status` prüfen).
+
+**3 · Widerspruch in MASTERPLAN.md, ungeklärt — braucht John, nicht mich.**
+`MASTERPLAN.md` (angelegt 2026-08-23 von 1:Kybí) führt DM-3 als „Offene
+Leistung abrechnen", Beweis „Rechnung geschrieben und Zahlungseingang
+gesehen". Das steht im Widerspruch zu diesem HANDOFF, Zeile 287
+(2026-08-11): *„Ich schlage **keine** Gegenleistungs-Rechnung vor — das wäre
+die falsche Tonlage bei jemandem, für den man gerade gratis eine Fanpage
+gebaut hat."* `GO-LIVE-BRIEFING.md` nennt an keiner Stelle ein Honorar oder
+einen Auftragsumfang — stützt die Gratis-Lesart. 1:Kybí hat den Masterplan
+zwölf Tage nach der HANDOFF-Zeile geschrieben und sie vermutlich nicht
+gelesen — dieselbe Klasse von Fehler wie Punkt 1 oben, nur diesmal
+innerhalb der eigenen Fläche statt matrixweit.
+
+**Ich habe DM-3 NICHT verändert oder neu interpretiert** — nur einen
+Disputed-Marker mit Verweis auf diese Zeile gesetzt. Ob Dirk zahlender Kunde
+ist oder die Beziehung auf Gratis-plus-Gegenleistung (Referrals Richtung
+Jim & John) läuft, ist eine Entscheidung, die nur John treffen kann — davon
+hängt ab, was „Der nächste Euro" in diesem Masterplan überhaupt bedeutet.
+
+**Stand:** Nichts offen außer den beiden oben benannten Punkten (Prerender,
+DM-3-Klärung). Beide sind sauber übergeben, kein Zwischenzustand.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-26

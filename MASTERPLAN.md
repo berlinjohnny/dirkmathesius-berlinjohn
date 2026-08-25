@@ -28,11 +28,13 @@ meilensteine:
     titel: "Offene Leistung abrechnen"
     wer: John
     mensch: John
-    status: offen
+    status: umstritten
     beweis: "Rechnung geschrieben und Zahlungseingang gesehen"
+    umstritten_seit: 2026-08-26
+    umstritten_warum: "Widerspricht HANDOFF.md:287 (2026-08-11): 'Ich schlage keine Gegenleistungs-Rechnung vor — das wäre die falsche Tonlage bei jemandem, für den man gerade gratis eine Fanpage gebaut hat.' GO-LIVE-BRIEFING.md nennt kein Honorar. Ob Dirk zahlender Kunde ist oder die Beziehung auf Gratis-plus-Referral (Richtung Jim & John) läuft, kann nur John klären — davon hängt ab, was 'Der nächste Euro' hier bedeutet."
 kosten_monat_eur: 0
-zuletzt_aktualisiert: 2026-08-23
-aktualisiert_von: terminal·claude (1:Kybí)
+zuletzt_aktualisiert: 2026-08-26
+aktualisiert_von: terminal·claude (dirkmathesius)
 ---
 
 # Masterplan · Dirk Mathesius
@@ -56,8 +58,12 @@ auf `laeuft` und nicht eine Bauaufgabe.
 
 ## Der nächste Euro
 
-**DM-3.** Bei einer Kundenfläche ist die Rechnung der Umsatz — nicht ein
-Knopf auf der Seite. Alles andere ist Vorleistung.
+**DM-3 — umstritten, siehe Frontmatter `umstritten_warum`.** Ob hier eine
+Rechnung überhaupt der richtige nächste Schritt ist, steht offen: HANDOFF.md
+(2026-08-11) hält fest, dass die Fanpage bewusst gratis gebaut wurde und eine
+Gegenleistungs-Rechnung die falsche Tonlage wäre — Gegenwert sollte über
+Referrals Richtung Jim & John laufen, nicht über eine Rechnung an Dirk. Nur
+John kann klären, welche Lesart aktuell gilt.
 
 ## Betriebskosten
 
