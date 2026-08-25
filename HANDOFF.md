@@ -867,4 +867,26 @@ Dirks Buchungen und für Jim & John. Als DM-4 (Status `idee`) in
 kyber-f4, 2026-08-26) — betrifft mehrere Flächen, gehört in die
 matrixweite Customer-Journey-Planung, kein Bauauftrag für dieses Repo.
 
+**Nachtrag 3 — Outreach-Vorlagen entworfen + Kybís Sicherheitsauflage geprüft
+(selbe Sitzung).** John wollte proaktive Bewerbungstexte an Galerien,
+Partnerunternehmen (Fitnessstudios) und Magazine/Publikationen — erstellt in
+`VERNISSAGE-OUTREACH.md` (Story-Aufhänger, Faktenbasis, drei zielgruppen-
+spezifische Pitch-Vorlagen, Tracking-Tabelle). Ausdrücklich **nur Entwürfe**,
+kein automatischer Versand; Galerie-/Magazin-Namen sind ungeprüfte
+Beispiel-Kategorien, keine echten Kontakte.
+
+1:Kybí antwortete darauf mit einer berechtigten Auflage: bevor die 171
+unveröffentlichten Solo-Archiv-Fotos als Vernissage-Zugpferd beworben werden,
+prüfen, ob "unverlinkt" wirklich "unerreichbar" bedeutet (Anlass: ein Fund bei
+John selbst, private Fotos blieben 19 Tage nach Ausbau live erreichbar).
+**Live geprüft, beide Domains:** `/portfolio/{music,stills,landscape,
+reportage}/` liefern **403** (Directory-Listing serverseitig zu), kein
+Sitemap-Eintrag, keine Treffer in Websuche für einzelne Datei-URLs. Einzelne
+Datei bleibt bei korrekt geratenem Dateinamen per Direct-URL abrufbar — das
+ist der bekannte, gewollte "unverlinkt"-Zustand, kein neues Leck.
+**Ungeprüft bleibt** die tatsächliche Google-Search-Console-Indexabdeckung
+(nur John/Dirk-Zugriff) — als Hinweis in `VERNISSAGE-OUTREACH.md` vermerkt,
+bevor "unveröffentlicht" als Verkaufsargument in eine echte Ankündigung geht.
+Details: Memory `dirkmathesius-relaunch` Punkt 5. Antwort an kyber-f4 raus.
+
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
