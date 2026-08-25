@@ -50,7 +50,7 @@ aktualisiert_von: terminal·claude (dirkmathesius)
 
 Sauber: git ohne offene Änderungen, Domain leitet mit 301 wie dokumentiert
 (immer Richtung `www.dirkmathesius.de`, nie umgekehrt). Letzter Eintrag vom
-22.08.
+26.08.
 
 **Kein Zahlweg — und das ist richtig so.** Bei einer Kundenfläche ist die
 Seite die Leistung; der Umsatz entsteht per Rechnung. `kein-webshop` ist
@@ -84,6 +84,14 @@ Noch reine Bauabsicht, kein Termin, kein Ort. Matrixweit an **1:Kybí**
 übergeben (2026-08-26) — betrifft mehrere Flächen (Jim & John Bookings,
 Fitnessstudio-Partnerschaften), gehört in die Customer-Journey-Planung,
 nicht allein in dieses Repo.
+
+⚠️ **Wichtigste Erkenntnis für die Planung (2026-08-26, geprüft nicht
+vermutet):** Es gibt **keine Materialreserve.** Die Serie 2008–2016 ist
+alles, was existiert — kein zusätzliches unveröffentlichtes Archiv (siehe
+`VERNISSAGE-OUTREACH.md`, Memory `dirkmathesius-relaunch` Punkt 5). Bestimmt
+Umfang/Hängung jeder Ausstellungsplanung; 1:Kybí legt John dies zusammen mit
+der Galerie-vs-Studio-Entscheidung vor. Outreach-Vorlagen (drei Zielgruppen,
+reine Entwürfe) liegen bereit in `VERNISSAGE-OUTREACH.md`.
 
 ## Betriebskosten
 

@@ -921,3 +921,27 @@ spiegelt additiv, entfernt wird nur per echtem FTP-Delete. Zugang liegt in
 Auftrag von John/Kybí) — falls gewünscht, ist es ein FTPS-`rm`, kein Rebuild.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
+
+### Session-Abschluss 2026-08-26 · iMac — bereit für /clear
+
+**Working-Tree sauber, alle Commits gepusht, nichts Halbfertiges.** Zusammenfassung
+des Tages für den nächsten Einstieg (per `handoff dirkmathesius` gelesen):
+
+1. **DM-3 geklärt:** Johns bezahlter Fotoassistenz-/Stuntmodel-Job bei Dirk ist der
+   "nächste Euro" auf dieser Fläche — nicht die (bewusst gratis gebaute) Fanpage.
+2. **DM-4 neu:** Vision einer Vernissage/Ausstellung der Kollaborations-Serie
+   (2008–2016, ohne Montage). Matrixweit mit **1:Kybí** abgestimmt (nicht nur
+   informiert — zwei Austausch-Runden, Faden jeweils sauber geschlossen).
+   `VERNISSAGE-OUTREACH.md` liegt mit Story, Fakten und drei Pitch-Vorlagen bereit.
+   **Zentrale Erkenntnis, live geprüft:** keine Materialreserve — 2008–2016 ist alles.
+3. **Ein Fehler in eigener Arbeit gefunden und korrigiert, bevor er nach außen ging:**
+   die vermeintlichen "171 unveröffentlichten Solo-Fotos" sind Dirks eigenes,
+   längst öffentliches Kommerz-Portfolio (sitemap-gelistet auf www.dirkmathesius.de).
+   Lehre dazu gesichert: Memory `feedback_verify_against_live_state_before_marketing_claims`.
+4. Kein Code geändert diese Session — nur Doku/Memory/Koordination.
+
+**Am Zug:** John — Galerie-vs-Studio-Entscheidung + ob der "100 % real"-Aufhänger
+so gewollt ist. 1:Kybí legt das laut eigener Aussage morgen vor. Sobald das steht,
+lassen sich die Outreach-Vorlagen mit echten Kontakten füllen.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-26
