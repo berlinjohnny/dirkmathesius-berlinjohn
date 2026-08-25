@@ -908,6 +908,16 @@ Thematisch zudem fremd zur Vernissage-Serie (andere Kunden, kein John/Jim).
 korrigiert, bevor es in eine echte Pitch-Mail hätte wandern können. Kein
 Auth-Schutz nötig (kein Geheimnis zu schützen), Kybís Nike-`.htaccess`-
 Koordinationsangebot damit hinfällig für diese Fläche. Antwort an kyber-f4
-mit der Korrektur raus.
+mit der Korrektur raus. **Kybís Fazit:** kein Leck, aber eine wichtigere
+Erkenntnis für die Vernissage-Planung — die Kollaborations-Serie hat **keine
+Materialreserve**, was da ist, ist alles (beeinflusst Umfang/Hängung, legt
+sie John morgen zusammen mit Galerie-vs-Studio vor).
+
+**Kein Auftrag, nur notiert:** Dirks Solo-Kommerzfotos liegen als
+Build-Nebenprodukt weiter unverlinkt auf dem Fanpage-Server (harmlos, 403,
+nicht in der Sitemap). Aufräumen würde ein `git rm` NICHT bewirken — KAS
+spiegelt additiv, entfernt wird nur per echtem FTP-Delete. Zugang liegt in
+`~/.dirkmathesius-ftp.env`. Bewusst nicht in dieser Sitzung gemacht (kein
+Auftrag von John/Kybí) — falls gewünscht, ist es ein FTPS-`rm`, kein Rebuild.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
