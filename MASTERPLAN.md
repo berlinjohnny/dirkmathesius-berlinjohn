@@ -30,6 +30,12 @@ meilensteine:
     mensch: John
     status: offen
     beweis: "Rechnung geschrieben und Zahlungseingang gesehen — für einen Assistenz-/Stunt-Einsatz, nicht für die Fanpage"
+  - id: DM-4
+    titel: "Vernissage/Ausstellung der Kollaborations-Serie bei Galerien und/oder Partnerunternehmen (z.B. Fitnessstudios) anbahnen"
+    wer: John
+    mensch: John
+    status: idee
+    beweis: "Mindestens eine interessierte Galerie/ein Partnerunternehmen hat zugesagt oder einen Termin vereinbart"
 kosten_monat_eur: 0
 zuletzt_aktualisiert: 2026-08-26
 aktualisiert_von: terminal·claude (dirkmathesius)
@@ -63,6 +69,21 @@ Gegenleistungs-Rechnung, richtige Tonlage bei einem Gratis-Gefallen).
 Stuntmodel — bezahlt, macht Spaß.** Der nächste Euro auf dieser Fläche ist
 also nicht eine Website-Rechnung, sondern die nächste abgerechnete
 Assistenz-/Stunt-Session.
+
+## Vision: Vernissage/Ausstellung der Kollaborations-Serie (DM-4, neu 2026-08-26)
+
+John: Die Fanpage trägt die Chronik von Jahrzehnten Fotokunst — die
+Kollaborations-Serie (2008–2016, John & Jim Förster mit Dirk Mathesius,
+`kollaborationen.html` + `photography.html`) ist echte Sportfotografie
+**ohne Montage/Bildbearbeitung**, "100 % real, echte Berliner Originale".
+Das trägt eine physische Vernissage/Ausstellung — bei interessierten
+Galerien und/oder Partnerunternehmen (z. B. Fitnessstudios), als
+Cross-Marketing-Hebel für Dirks Buchungen UND für Jim & John.
+
+Noch reine Bauabsicht, kein Termin, kein Ort. Matrixweit an **1:Kybí**
+übergeben (2026-08-26) — betrifft mehrere Flächen (Jim & John Bookings,
+Fitnessstudio-Partnerschaften), gehört in die Customer-Journey-Planung,
+nicht allein in dieses Repo.
 
 ## Betriebskosten
 

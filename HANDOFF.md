@@ -855,4 +855,16 @@ Gegenleistungs-Rechnung für die Website, sondern Johns eigene, unabhängig
 bezahlte Assistenz-/Stuntmodel-Einsätze bei Dirk. Masterplan entsprechend
 korrigiert (Status `umstritten` → `offen`, Titel + Beweis präzisiert).
 
+**Nachtrag 2 — neue Vision: Vernissage/Ausstellung der Kollaborations-Serie
+(DM-4).** John: Die Fanpage trägt die Chronik von Jahrzehnten Fotokunst;
+die Kollaborations-Serie (`kollaborationen.html`/`photography.html`,
+2008–2016, John & Jim Förster mit Dirk Mathesius) ist Sportfotografie
+**ohne Montage** — echte Berliner Originale. Soll eine physische
+Vernissage/Ausstellung tragen, bei interessierten Galerien und/oder
+Partnerunternehmen (z. B. Fitnessstudios) — als Cross-Marketing-Hebel für
+Dirks Buchungen und für Jim & John. Als DM-4 (Status `idee`) in
+`MASTERPLAN.md` aufgenommen. **1:Kybí wurde informiert** (SendMessage an
+kyber-f4, 2026-08-26) — betrifft mehrere Flächen, gehört in die
+matrixweite Customer-Journey-Planung, kein Bauauftrag für dieses Repo.
+
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
