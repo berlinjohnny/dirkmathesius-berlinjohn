@@ -945,3 +945,65 @@ so gewollt ist. 1:Kybí legt das laut eigener Aussage morgen vor. Sobald das ste
 lassen sich die Outreach-Vorlagen mit echten Kontakten füllen.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-26
+
+### 2026-08-26 22:35 · iMac
+↩ **Antwort an:** `john`
+
+## 🔴 Befund von 1:Kybí: 12 live ausgelieferte Seiten ohne Mess-Tag
+
+Matrixweiter Mess-Durchgang am 26.08.2026 (Johns Auftrag: „prüf noch mal
+nach, ob Tags/Analytics/Conversions matrixweit fertig sind").
+
+**Die Startseite misst** — `G-NHPNTGY90D`, allerdings **nur im JS-Bundle**
+(`assets/index-C4sZCIJy.js`), nicht im HTML. Ein Audit, das nur das
+ausgelieferte HTML prüft, hätte diese Fläche fälschlich als blind gemeldet.
+Sie ist es nicht. ✅
+
+⚠️ Gemessen wurde über `https://www.dirkmathesius.de/` — `dirkmathesius.de`
+ohne `www` antwortet mit **301** auf die www-Fassung.
+
+**Zwölf handgebaute Seiten daneben tragen kein Tag.** Alle einzeln per
+`curl` geholt, alle HTTP 200, kein `G-`, kein `gtag(`:
+
+`stills.html` (53 KB) · `sport.html` (53 KB) · `publication.html` (50 KB) ·
+`reportage.html` (47 KB) · `music.html` (47 KB) · `folks.html` (41 KB) ·
+`landscape.html` (34 KB) · `ueber-dirk.html` (23 KB) · `info.html` (18 KB) ·
+`datenschutzerklaerung.html` (19 KB) · `kollaborationen.html` (15 KB) ·
+`impressum.html` (6 KB)
+
+**Das sind die Galerie-Seiten** — also genau die Seiten, auf denen
+organischer Verkehr landet, wenn jemand nach Dirks Arbeiten sucht. Der
+Verkehr darauf ist heute unsichtbar.
+
+`public/photography.html` liegt zwar im Repo, ist live aber **404** — die
+Datei wird nicht ausgeliefert. Entweder gehört sie weg oder sie fehlt in
+der Auslieferung; das ist ein eigener kleiner Befund.
+
+**Ursache:** eine handgebaute `.html` in `public/` erbt aus `index.html`
+und aus dem Vite-Bundle **nichts**. Vite kopiert sie unberührt daneben.
+Kein Audit über `index.html` oder `src/` sieht diese Seiten je.
+
+### Vorlage liegt fertig auf berlinike
+
+8:nike hat dieselbe Klasse am 26.08. um 20:10 geschlossen und live
+gegengemessen: eine eigene `public/mess-tag.js`, in jede handgebaute Seite
+eingebunden — mit Consent-Prüfung gegen denselben Speicher-Schlüssel wie
+die SPA (per Import, nicht als wiederholte Zeichenkette), verzögertem Start
+und explizitem `page_path` aus `location.pathname`.
+
+Für die Galerie ist der explizite `page_path` der Kern: erst damit wird in
+GA4 sichtbar, **welche** Galerie gezogen hat — Stills, Sport, Reportage,
+Music. Ohne ihn ist es eine Zahl für alles.
+
+### Ohne Auftrag, nur als Hinweis
+
+Ob alle zwölf bleiben und wie sie zueinander stehen, ist eine
+Produktentscheidung (die Galerie-vs-Studio-Frage steht ja schon bei John).
+Ich habe nichts geändert.
+
+Voller Befund über alle 21 Flächen in meiner Memory
+(`project_ga4_conversions_matrixweit_befund_2026_08_26`).
+
+ⓘ Dieses Repo lag beim Schreiben **7 Commits vor `origin/main`** (reine
+Doku: HANDOFF, MASTERPLAN, VERNISSAGE-OUTREACH — kein Code). Sie gehen mit
+diesem Push mit raus; nachgesehen, bevor gepusht wurde.
