@@ -1491,12 +1491,37 @@ console.log(`✅ ueber-dirk.html + info.html — statische Unterseiten (info: Lo
 // über Suche + den dezenten Link auf /folks.html. Auf der Fanpage gibt es das nicht: sie
 // zeigt ausschliesslich die Kollaborationen mit John Förster, keine Solo-Angebote Dirks.
 if (!IS_FANPAGE) {
-  const NICHE = [
-    { id: "Hochzeit", t: "Hochzeit", d: "Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie." },
-    { id: "Verlobung & Paarshooting", t: "Verlobung &amp; Paarshooting", d: "Ein ruhiges Shooting zu zweit, bevor der große Tag kommt." },
-    { id: "Geburtstag & Jubiläum", t: "Geburtstag &amp; Jubiläum", d: "Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, nicht inszeniert." },
-    { id: "Private Feier", t: "Private Feiern &amp; Empfänge", d: "Gartenfeste, private Empfänge, besondere Anlässe im kleinen Kreis." },
+  // Drei Gruppen statt einer flachen Liste — sowohl fuer die Lesbarkeit bei zehn
+  // Anlaessen als auch als SEO-Signal: jede Gruppe ist ein eigenes Themen-Cluster
+  // (eigene <h2>, eigene <optgroup>), statt zehn beliebig sortierte Karten.
+  const NICHE_GROUPS = [
+    {
+      label: "Private Anlässe",
+      items: [
+        { id: "Hochzeit", t: "Hochzeit", d: "Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie." },
+        { id: "Verlobung & Paarshooting", t: "Verlobung &amp; Paarshooting", d: "Ein ruhiges Shooting zu zweit, bevor der große Tag kommt." },
+        { id: "Geburtstag & Jubiläum", t: "Geburtstag &amp; Jubiläum", d: "Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, nicht inszeniert." },
+        { id: "Private Feier", t: "Private Feiern &amp; Empfänge", d: "Gartenfeste, private Empfänge, besondere Anlässe im kleinen Kreis." },
+        { id: "Familie & Neugeborene", t: "Familie &amp; Neugeborene", d: "Die ersten gemeinsamen Fotos, Familienshootings zuhause oder draußen — echt statt gestellt." },
+      ],
+    },
+    {
+      label: "Business & Bewerbung",
+      items: [
+        { id: "Business-Portrait", t: "Business-Portrait", d: "Aussagekräftige Portraits für LinkedIn, Website und Pressemappe." },
+        { id: "Bewerbungsfoto", t: "Bewerbungsfoto", d: "Professionelles Bewerbungsfoto — meist kurzfristig möglich." },
+      ],
+    },
+    {
+      label: "Fashion & Kreativ",
+      items: [
+        { id: "Sport-Portrait privat", t: "Sport-Portrait", d: "Läufer, Kampfsport, Fitness — dein Sport im stärksten Moment festgehalten." },
+        { id: "Fashion-Editorial", t: "Fashion-Editorial", d: "Editorial-Shooting für Portfolio, Modelbook oder eine eigene Bildstrecke." },
+        { id: "Creative Content", t: "Creative Content", d: "Content-Shooting für Social Media, Portfolio oder ein eigenes kreatives Projekt." },
+      ],
+    },
   ];
+  const NICHE = NICHE_GROUPS.flatMap((g) => g.items);
 
   const EVENT_FAQS = [
     { q: "Wie weit im Voraus sollten wir buchen?", a: "Für Hochzeiten am besten 6–12 Monate im Voraus, besonders in der Saison von Mai bis September. Für kleinere Anlässe reichen oft wenige Wochen." },
@@ -1504,6 +1529,8 @@ if (!IS_FANPAGE) {
     { q: "Bearbeitet ihr die Bilder nachträglich?", a: "Farbe und Licht werden fein abgestimmt, das Motiv selbst bleibt echt — wie im gesamten Portfolio von Dirk Mathesius." },
     { q: "Kommt ihr auch außerhalb Berlins?", a: "Ja, deutschlandweit auf Anfrage." },
     { q: "Wie schnell bekommen wir ein Angebot?", a: "Meist innerhalb von 24 Stunden — bei sehr vielen Anfragen kann es vereinzelt etwas länger dauern." },
+    { q: "Bietet ihr auch Business-Portraits oder Bewerbungsfotos an?", a: "Ja — kurze, professionelle Sessions für LinkedIn, Website oder Bewerbung, oft innerhalb weniger Tage umsetzbar." },
+    { q: "Was ist ein Fashion-Editorial oder Content-Shooting?", a: "Ein freies, konzeptionelles Shooting für Portfolio, Modelbook oder eigene Social-Media-Inhalte — mit klarer Bildsprache statt Schnappschuss." },
   ];
 
   const EVENTS_CSS = `
@@ -1549,7 +1576,9 @@ if (!IS_FANPAGE) {
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <select name="anlass" id="dm-events-anlass" required>
         <option value="" disabled selected>Anlass wählen…</option>
-${NICHE.map((n) => `        <option value="${E(n.id)}">${n.t}</option>`).join("\n")}
+${NICHE_GROUPS.map((g) => `        <optgroup label="${E(g.label)}">
+${g.items.map((n) => `          <option value="${E(n.id)}">${n.t}</option>`).join("\n")}
+        </optgroup>`).join("\n")}
         <option value="Sonstiger Anlass">Sonstiger Anlass</option>
       </select>
       <input name="name" placeholder="Name" required />
@@ -1604,14 +1633,14 @@ ${NICHE.map((n) => `        <option value="${E(n.id)}">${n.t}</option>`).join("\
   const eventsServiceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Hochzeits- und Eventfotografie",
-    name: "Hochzeits- und Eventfotografie Berlin — Dirk Mathesius",
+    serviceType: "Hochzeits-, Business- und Fashionfotografie",
+    name: "Fotograf Berlin für Hochzeit, Business & Fashion — Dirk Mathesius",
     provider: { "@type": "Person", name: "Dirk Mathesius", url: `${SITE}/` },
     areaServed: ["Berlin", "Brandenburg", "Deutschland"],
     url: `${SITE}/hochzeitsfotograf-berlin.html`,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Private Anlässe",
+      name: "Private & individuelle Shootings",
       itemListElement: NICHE.map((n, i) => ({
         "@type": "Offer", position: i + 1,
         itemOffered: { "@type": "Service", name: n.id, description: n.d.replace(/&amp;/g, "&") },
@@ -1629,24 +1658,25 @@ ${NICHE.map((n) => `        <option value="${E(n.id)}">${n.t}</option>`).join("\
 
   const eventsBody = `
   <div class="events">
-    <h1>Hochzeitsfotograf Berlin — und private Feiern, jenseits vom Studio</h1>
+    <h1>Hochzeitsfotograf Berlin — und alles andere, was persönlich zählt</h1>
     <p class="lead">Neben Kampagnen für <b>BMW Motorrad, Red Bull und adidas</b> fotografiert Dirk Mathesius auch das,
-      was privat zählt: Hochzeiten, Verlobungen, runde Geburtstage und Feiern im kleinen Kreis.
-      Gleicher Blick, gleiche 30&nbsp;Jahre Erfahrung — nur ohne Art-Direction, dafür mit euren echten Momenten.</p>
+      was privat zählt: Hochzeiten, Familie und Feiern im kleinen Kreis, dazu Business-Portraits, Bewerbungsfotos
+      und freie Fashion- &amp; Content-Shootings. Gleicher Blick, gleiche 30&nbsp;Jahre Erfahrung — nur ohne
+      Art-Direction, dafür mit euren echten Momenten.</p>
 
     <p class="promise">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
       Individuelles Angebot meist innerhalb von 24 Stunden
     </p>
 
-    <h2>Anlässe</h2>
+${NICHE_GROUPS.map((g) => `    <h2>${E(g.label)}</h2>
     <div class="niche-list">
-${NICHE.map((n) => `      <a href="#angebot" data-anlass="${E(n.id)}">
+${g.items.map((n) => `      <a href="#angebot" data-anlass="${E(n.id)}">
         <span class="txt"><h3>${n.t}</h3><p>${n.d}</p></span>
         <span class="arrow">→</span>
       </a>`).join("\n")}
     </div>
-
+`).join("\n")}
     <h2>FAQ</h2>
     <div class="faq">${EVENT_FAQS.map((f) => `<details><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("")}</div>
 
@@ -1666,8 +1696,8 @@ ${eventsFormHtml}
 
   writeFileSync(join(root, "public", "hochzeitsfotograf-berlin.html"), subPage({
     canonical: `${SITE}/hochzeitsfotograf-berlin.html`,
-    title: "Hochzeitsfotograf Berlin & private Feiern | Dirk Mathesius",
-    desc: "Hochzeitsfotograf in Berlin für Trauung, Verlobung, Geburtstag & private Feiern — dokumentarisch, ohne gestellte Regie. Individuelles Angebot meist innerhalb von 24 Stunden.",
+    title: "Hochzeit, Business & Fashion Fotograf Berlin | Dirk Mathesius",
+    desc: "Fotograf in Berlin für Hochzeit, Familie & private Feiern, Business-Portraits, Bewerbungsfotos sowie Fashion- & Content-Shootings. Individuelles Angebot meist innerhalb von 24 Stunden.",
     headLd: [eventsServiceLd, eventsFaqLd, eventsBreadcrumbLd],
     css: EVENTS_CSS,
     body: eventsBody,
