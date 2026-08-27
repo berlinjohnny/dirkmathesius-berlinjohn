@@ -277,8 +277,8 @@ function StickyCta() {
       <a href={phoneTel()}
         onClick={() => trackAnrufClick("sticky")}
         aria-label="Dirk Mathesius anrufen"
-        className="flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] tracking-[0.12em] uppercase text-black bg-neutral-300 active:bg-neutral-400">
-        <Phone size={16} /> Anrufen
+        className="flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] uppercase text-orange-700 bg-neutral-300 shadow-[inset_0_0_0_1px_rgba(194,65,12,0.35)] transition-colors hover:bg-neutral-200 active:bg-neutral-400 active:text-orange-800">
+        <Phone size={16} className="animate-pulse" /> Anrufen
       </a>
     </div>
   );
