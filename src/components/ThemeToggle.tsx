@@ -28,7 +28,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       onClick={toggle}
       aria-label={dark ? "Zu hellem Modus wechseln" : "Zu dunklem Modus wechseln"}
       title={dark ? "Heller Modus" : "Dunkler Modus"}
-      className={`inline-flex items-center justify-center w-9 h-9 rounded-full border border-foreground/15 text-foreground/60 hover:text-[#FF6600] hover:border-[#FF6600] transition-colors ${className}`}
+      className={`inline-flex items-center justify-center w-9 h-9 rounded-full border border-foreground/30 bg-background/60 backdrop-blur-sm text-foreground/90 hover:text-[#FF6600] hover:border-[#FF6600] transition-colors ${className}`}
     >
       {dark ? <Sun size={16} /> : <Moon size={16} />}
     </button>
