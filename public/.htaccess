@@ -20,6 +20,15 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
 RewriteRule ^(music|reportage|landscape|stills)\.html$ https://www.dirkmathesius.de/$1.html [R=301,L]
 
+# ─── Fanpage: private B2C-Nebenpositionierung gehoert allein Dirk ─────────────
+# hochzeitsfotograf-berlin.html ist Dirks eigenes Solo-Angebot (Hochzeit/private
+# Feiern), hat mit der John-Kollaboration nichts zu tun. Existiert nur im
+# official-Build (siehe scripts/build-portfolio-manifest.mjs), landet aber auch
+# in dist/ der Fanpage, weil deploy-dm public/ unveraendert kopiert — deshalb
+# hier derselbe externe 301 wie bei den anderen Solo-Kategorien oben.
+RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
+RewriteRule ^hochzeitsfotograf-berlin\.html$ https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html [R=301,L]
+
 # ─── Fanpage: sport/people/publication sind in /photography.html aufgegangen ──
 # Diese drei enthielten die Kollaborationen. Die liegen jetzt gesammelt in einer
 # Uebersicht — 13 Bilder auf drei Rubriken zu verteilen ergab keine Kategorien,

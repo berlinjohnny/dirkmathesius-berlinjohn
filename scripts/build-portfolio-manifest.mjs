@@ -548,6 +548,12 @@ ${siteCategories.map(categoryUrl).join("\n")}
     <priority>0.8</priority>
   </url>
 ${IS_FANPAGE ? "" : `  <url>
+    <loc>${SITE}/hochzeitsfotograf-berlin.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+`}${IS_FANPAGE ? "" : `  <url>
     <loc>${SITE}/kollaborationen.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
@@ -619,6 +625,8 @@ const llms = IS_FANPAGE
 - [Landscape](${SITE}/landscape.html): Landschaftsfotografie.
 - [Stills](${SITE}/stills.html): Produktfotografie / Stills Berlin.
 - [Publication](${SITE}/publication.html): Editorial Photography (Stern, Men's Health).
+- [Hochzeit & private Feiern](${SITE}/hochzeitsfotograf-berlin.html): Hochzeitsfotograf Berlin, Verlobung,
+  Geburtstag & private Feiern — individuelles Angebot meist innerhalb von 24 Stunden.
 - [Über Dirk Mathesius](${SITE}/ueber-dirk.html): Profil, Showreel.
 - [Kontakt](${SITE}/info.html): Buchungsanfragen für Shootings.
 `;
@@ -734,6 +742,11 @@ ${GOOGLE_FONT}
   .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
               letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
   .cta a.book:hover{background:#e25c00;}
+  /* Dezenter Nebenlink People → private Nische — bewusst leiser als der Haupt-CTA. */
+  .events-link{text-align:center;margin:10px 0 0;}
+  .events-link a{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.08em;
+                 color:#999;text-decoration:none;}
+  .events-link a:hover{color:#FF6600;}
   h1{font-size:22px;font-weight:500;letter-spacing:.02em;margin:26px 0 6px;}
   .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 22px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:28px;}
@@ -757,6 +770,7 @@ ${DARK_CSS}
   html.dark figcaption{color:#9e9e9e;}
   html.dark .cta{border-color:#424242;}
   html.dark .cta p{color:#9e9e9e;}
+  html.dark .events-link a{color:#8a8a8a;}
   html.dark footer{border-color:#424242;color:#9e9e9e;}
   html.dark footer a{color:#9e9e9e;}
 </style>
@@ -792,7 +806,15 @@ ${figures}
       <p>Dieses Motiv oder ein eigenes Projekt anfragen?</p>
       <a class="book" href="${utm(c.id)}"${bookAttrs}>${bookLabel}</a>
     </div>
-
+${c.id === "folks" && !IS_FANPAGE ? `
+    <!-- Dezenter Nebenlink zur privaten Nische — bewusst NICHT in der Hauptnavigation,
+         nur hier auf der People-Seite, wo Portraitkundschaft ohnehin schon ist. -->
+    <p class="events-link">
+      <a href="/hochzeitsfotograf-berlin.html">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        Auch für Hochzeiten &amp; private Feiern
+      </a>
+    </p>` : ""}
     <footer>
       <a href="/">Start</a> ·
       <a href="/info.html">Info</a> ·
@@ -1462,3 +1484,193 @@ writeFileSync(join(root, "public", "info.html"), subPage({
   body: infoBody,
 }));
 console.log(`✅ ueber-dirk.html + info.html — statische Unterseiten (info: LocalBusiness+FAQ JSON-LD, Formular ${WEB3FORMS_KEY ? "Web3Forms" : "mailto-Fallback"})`);
+
+// --- hochzeitsfotograf-berlin.html (private Nebenpositionierung, NUR offizielle Domain) ---
+// Dirks eigene B2C-Nische neben dem B2B-Kerngeschaeft: Hochzeit, Verlobung, Geburtstag,
+// private Feiern. Bewusst NICHT in der Hauptnavigation (navOrder bleibt B2B) — erreichbar
+// über Suche + den dezenten Link auf /folks.html. Auf der Fanpage gibt es das nicht: sie
+// zeigt ausschliesslich die Kollaborationen mit John Förster, keine Solo-Angebote Dirks.
+if (!IS_FANPAGE) {
+  const NICHE = [
+    { id: "Hochzeit", t: "Hochzeit", d: "Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie." },
+    { id: "Verlobung & Paarshooting", t: "Verlobung &amp; Paarshooting", d: "Ein ruhiges Shooting zu zweit, bevor der große Tag kommt." },
+    { id: "Geburtstag & Jubiläum", t: "Geburtstag &amp; Jubiläum", d: "Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, nicht inszeniert." },
+    { id: "Private Feier", t: "Private Feiern &amp; Empfänge", d: "Gartenfeste, private Empfänge, besondere Anlässe im kleinen Kreis." },
+  ];
+
+  const EVENT_FAQS = [
+    { q: "Wie weit im Voraus sollten wir buchen?", a: "Für Hochzeiten am besten 6–12 Monate im Voraus, besonders in der Saison von Mai bis September. Für kleinere Anlässe reichen oft wenige Wochen." },
+    { q: "Wie viele Bilder bekommen wir?", a: "Eine kuratierte Auswahl der stärksten Momente, passend zu Dauer und Anlass — der Umfang steht vor dem Termin fest, keine Überraschung danach." },
+    { q: "Bearbeitet ihr die Bilder nachträglich?", a: "Farbe und Licht werden fein abgestimmt, das Motiv selbst bleibt echt — wie im gesamten Portfolio von Dirk Mathesius." },
+    { q: "Kommt ihr auch außerhalb Berlins?", a: "Ja, deutschlandweit auf Anfrage." },
+    { q: "Wie schnell bekommen wir ein Angebot?", a: "Meist innerhalb von 24 Stunden — bei sehr vielen Anfragen kann es vereinzelt etwas länger dauern." },
+  ];
+
+  const EVENTS_CSS = `
+  .events{max-width:900px;}
+  .events .lead{font-size:clamp(15px,2.4vw,19px);line-height:1.65;color:#333;max-width:42em;margin:0 0 22px;}
+  .events .lead b{font-weight:600;color:#111;}
+  .events h1{font-size:clamp(24px,5vw,38px);line-height:1.14;letter-spacing:-.01em;font-weight:600;color:#111;margin:30px 0 14px;max-width:19em;}
+  .events .promise{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.06em;
+                    color:#a5600a;background:#fff4e8;border:1px solid #ffd9ad;border-radius:3px;padding:8px 14px;margin:0 0 28px;}
+  .events .promise svg{flex:none;}
+  .events h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
+  .events .niche-list{display:flex;flex-direction:column;gap:1px;background:#ececec;border:1px solid #ececec;margin:0 0 4px;}
+  .events .niche-list a{display:flex;align-items:center;justify-content:space-between;gap:14px;
+                         background:#fff;padding:16px 18px;text-decoration:none;color:inherit;transition:background .15s;}
+  .events .niche-list a:hover{background:#fafafa;}
+  .events .niche-list .txt h3{margin:0 0 4px;font-size:14px;font-weight:600;color:#111;letter-spacing:0;}
+  .events .niche-list .txt p{margin:0;font-size:12.5px;line-height:1.55;color:#666;max-width:36em;}
+  .events .niche-list .arrow{flex:none;color:#FF6600;font-size:15px;}
+  .events select{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;
+                  outline:none;background:transparent;color:inherit;}
+  .events select:focus{border-color:#FF6600;}
+  .events .close{margin:56px 0 8px;padding:34px 24px;background:#111;text-align:center;}
+  .events .close p{margin:0 auto 20px;font-size:clamp(15px,2.2vw,19px);line-height:1.5;color:#fff;max-width:24em;}
+  .events .close .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;}
+  .events .close .alt{color:#bbb;text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #444;padding-bottom:2px;}
+  .events .close .alt:hover{color:#FF6600;border-color:#FF6600;}
+  html.dark .events .lead{color:#cfcfcf;}
+  html.dark .events .lead b{color:#f5f5f5;}
+  html.dark .events h1{color:#f5f5f5;}
+  html.dark .events .promise{color:#ffb35c;background:#3a2408;border-color:#5a3a12;}
+  html.dark .events h2{color:#9e9e9e;border-color:#424242;}
+  html.dark .events .niche-list{background:#333;border-color:#424242;}
+  html.dark .events .niche-list a{background:#1c1c1c;}
+  html.dark .events .niche-list a:hover{background:#242424;}
+  html.dark .events .niche-list .txt h3{color:#f5f5f5;}
+  html.dark .events .niche-list .txt p{color:#9e9e9e;}
+  html.dark .events select{color:#f5f5f5;border-color:#555;}
+`;
+
+  const eventsFormHtml = WEB3FORMS_KEY ? `
+    <form class="dm" id="dm-events-form">
+      <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}" />
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <select name="anlass" id="dm-events-anlass" required>
+        <option value="" disabled selected>Anlass wählen…</option>
+${NICHE.map((n) => `        <option value="${E(n.id)}">${n.t}</option>`).join("\n")}
+        <option value="Sonstiger Anlass">Sonstiger Anlass</option>
+      </select>
+      <input name="name" placeholder="Name" required />
+      <input name="email" type="email" placeholder="E-Mail" required />
+      <input name="telefon" type="tel" placeholder="Telefon (optional)" />
+      <input name="datum" placeholder="Wunschtermin (optional)" />
+      <textarea name="message" rows="3" placeholder="Kurz zum Anlass — Ort, ungefähre Gästezahl, was euch wichtig ist"></textarea>
+      <button type="submit">Angebot anfragen</button>
+      <p id="dm-events-status"></p>
+      <p class="legal">Mit dem Absenden werden deine Angaben zur Bearbeitung der Anfrage verarbeitet (Versand via Web3Forms). Details: <a href="/datenschutzerklaerung.html">Datenschutz</a>.</p>
+    </form>
+    <script>
+      (function () {
+        var f = document.getElementById('dm-events-form'), s = document.getElementById('dm-events-status');
+        document.querySelectorAll('.niche-list a[data-anlass]').forEach(function (a) {
+          a.addEventListener('click', function () {
+            var sel = document.getElementById('dm-events-anlass');
+            if (sel) { sel.value = a.getAttribute('data-anlass'); }
+          });
+        });
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          s.textContent = 'senden…';
+          var r = Object.fromEntries(new FormData(f).entries());
+          var data = {
+            access_key: r.access_key,
+            botcheck: r.botcheck,
+            subject: 'Private-Event-Anfrage (' + (r.anlass || 'Anlass offen') + '): ' + (r.name || 'ohne Namen') + ' — dirkmathesius.de',
+            from_name: r.name || 'Anfrage über dirkmathesius.de',
+            replyto: r.email || '',
+            'Anlass': r.anlass || '—',
+            'Name': r.name || '—',
+            'E-Mail': r.email || '—',
+            'Telefon': r.telefon || '— (nicht angegeben)',
+            'Wunschtermin': r.datum || '— (nicht angegeben)',
+            'Nachricht': r.message || '—',
+            'Gesendet über': location.host + location.pathname
+          };
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data)
+          }).then(function (r) { return r.json(); }).then(function (d) {
+            if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
+              s.innerHTML = 'Danke für deine Anfrage! Meist meldet sich Dirk innerhalb von 24 Stunden.'; }
+            else { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; }
+          }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; });
+        });
+      })();
+    </script>` : `
+    <p class="intro"><a class="book" href="mailto:mail@dirkmathesius.de?subject=Private-Event-Anfrage">Angebot per E-Mail anfragen →</a></p>`;
+
+  const eventsServiceLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Hochzeits- und Eventfotografie",
+    name: "Hochzeits- und Eventfotografie Berlin — Dirk Mathesius",
+    provider: { "@type": "Person", name: "Dirk Mathesius", url: `${SITE}/` },
+    areaServed: ["Berlin", "Brandenburg", "Deutschland"],
+    url: `${SITE}/hochzeitsfotograf-berlin.html`,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Private Anlässe",
+      itemListElement: NICHE.map((n, i) => ({
+        "@type": "Offer", position: i + 1,
+        itemOffered: { "@type": "Service", name: n.id, description: n.d.replace(/&amp;/g, "&") },
+      })),
+    },
+  };
+  const eventsFaqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: EVENT_FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
+  const eventsBreadcrumbLd = {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Start", item: `${SITE}/` },
+      { "@type": "ListItem", position: 2, name: "Hochzeit & private Feiern", item: `${SITE}/hochzeitsfotograf-berlin.html` },
+    ],
+  };
+
+  const eventsBody = `
+  <div class="events">
+    <h1>Hochzeitsfotograf Berlin — und private Feiern, jenseits vom Studio</h1>
+    <p class="lead">Neben Kampagnen für <b>BMW Motorrad, Red Bull und adidas</b> fotografiert Dirk Mathesius auch das,
+      was privat zählt: Hochzeiten, Verlobungen, runde Geburtstage und Feiern im kleinen Kreis.
+      Gleicher Blick, gleiche 30&nbsp;Jahre Erfahrung — nur ohne Art-Direction, dafür mit euren echten Momenten.</p>
+
+    <p class="promise">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Individuelles Angebot meist innerhalb von 24 Stunden
+    </p>
+
+    <h2>Anlässe</h2>
+    <div class="niche-list">
+${NICHE.map((n) => `      <a href="#angebot" data-anlass="${E(n.id)}">
+        <span class="txt"><h3>${n.t}</h3><p>${n.d}</p></span>
+        <span class="arrow">→</span>
+      </a>`).join("\n")}
+    </div>
+
+    <h2>FAQ</h2>
+    <div class="faq">${EVENT_FAQS.map((f) => `<details><summary>${E(f.q)}</summary><p>${E(f.a)}</p></details>`).join("")}</div>
+
+    <h2 id="angebot">Individuelles Angebot anfragen</h2>
+    <p class="intro">Kurz Anlass, Datum und Ort nennen — den Rest besprechen wir am Telefon oder per Mail.</p>
+${eventsFormHtml}
+
+    <div class="close">
+      <p>Lieber gleich sprechen? Ruf direkt an.</p>
+      <div class="row">
+        <a class="alt" id="ev-call" href="/info.html#kontakt">Direkt anrufen</a>
+      </div>
+    </div>
+
+    <p class="intro" style="margin-top:28px">Für Kampagnen, Editorial und Firmenkunden: <a href="/info.html">Info &amp; B2B-Anfrage →</a></p>
+  </div>`;
+
+  writeFileSync(join(root, "public", "hochzeitsfotograf-berlin.html"), subPage({
+    canonical: `${SITE}/hochzeitsfotograf-berlin.html`,
+    title: "Hochzeitsfotograf Berlin & private Feiern | Dirk Mathesius",
+    desc: "Hochzeitsfotograf in Berlin für Trauung, Verlobung, Geburtstag & private Feiern — dokumentarisch, ohne gestellte Regie. Individuelles Angebot meist innerhalb von 24 Stunden.",
+    headLd: [eventsServiceLd, eventsFaqLd, eventsBreadcrumbLd],
+    css: EVENTS_CSS,
+    body: eventsBody,
+  }));
+  console.log("✅ hochzeitsfotograf-berlin.html — private B2C-Nebenpositionierung (nur offizielle Domain)");
+}
