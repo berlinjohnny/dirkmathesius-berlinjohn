@@ -1007,3 +1007,48 @@ Voller Befund über alle 21 Flächen in meiner Memory
 ⓘ Dieses Repo lag beim Schreiben **7 Commits vor `origin/main`** (reine
 Doku: HANDOFF, MASTERPLAN, VERNISSAGE-OUTREACH — kein Code). Sie gehen mit
 diesem Push mit raus; nachgesehen, bevor gepusht wurde.
+
+### 2026-08-28 11:23 · iMac
+↩ **Antwort an:** `john`
+
+## ✅ Mobile-CTA-Fix + neue B2C-Nebenpositionierung — live auf beiden Domains
+
+**1. Anrufen-Button (Mobile Sticky-CTA) korrigiert.** War zuerst schwarz auf
+fast-weißem Grund im Dark Mode (unlesbar), dann schwarz auf grau — auf Johns
+Wunsch jetzt **kräftiges Dunkelorange (`orange-700`) auf Grau**, pulsierendes
+Icon, sofort als aktiver Call-CTA erkennbar. Dabei aufgefallen und mitbehoben:
+der vorige Fix hatte **`www.dirkmathesius.de` nie erreicht** — nur die
+KAS-Fanpage war deployt. Jetzt über `deploy-ionos.sh` + `deploy-dm` auf beiden
+Domains + über `dirkmathesius.de` (ohne www, per 301) verifiziert live.
+
+**2. Neue Seite `/hochzeitsfotograf-berlin.html`** — Dirks eigene B2C-Nebenpositionierung,
+auf Johns Auftrag gebaut und mit Dirks Wunsch abgeglichen (mehr Nischen,
+starke organische SEO). **Bewusst nicht in der Hauptnavigation** — erreichbar
+über Suche (Sitemap + llms.txt) und einen dezenten SVG-Link auf `/folks.html`.
+
+Zehn Anlässe in drei thematischen Gruppen (je ein eigenes SEO-Cluster):
+- **Private Anlässe:** Hochzeit · Verlobung & Paarshooting · Geburtstag & Jubiläum ·
+  Private Feiern & Empfänge · Familie & Neugeborene
+- **Business & Bewerbung:** Business-Portrait · Bewerbungsfoto
+- **Fashion & Kreativ:** Sport-Portrait (privat) · Fashion-Editorial · Creative Content
+
+Eigenes Web3Forms-Anfrageformular (Anlass wird beim Klick auf eine Karte
+vorbelegt), erweitertes FAQ, Service- + FAQPage-JSON-LD für alle zehn Angebote,
+ehrliches **„meist innerhalb von 24 Stunden“**-Versprechen (nicht „garantiert“ —
+passend zu Dirks eigener Formulierung). Fanpage bekommt einen sauberen externen
+301 auf die offizielle Domain, analog zu den bestehenden Solo-Kategorien.
+
+**Zur Ansicht für Dirk:** https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html
+
+Build/Lint/alle Tests (Soft-404, Mojibake, Link-Guards) grün, Klick→Formular-Vorbelegung
+per JS live verifiziert. Kein Code offen, Working Tree sauber, alles gepusht.
+
+**Ehrlich offen:** Für die neue Seite gibt es noch keine eigenen Traffic-Zahlen —
+sie ist heute erst live gegangen. Die aktualisierte Relaunch-Bilanz (Artifact,
+gleicher Link wie in Johns letzter Session) nennt das explizit, statt etwas zu
+erfinden.
+
+**Am Zug:** Dirk — kurz über die neue Seite/Positionierung schauen, bevor sie
+aktiv beworben wird (Social, Visitenkarte, Google-Unternehmensprofil).
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-28
