@@ -1052,3 +1052,55 @@ erfinden.
 aktiv beworben wird (Social, Visitenkarte, Google-Unternehmensprofil).
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-28
+
+### 2026-08-28 11:59 · iMac
+↩ **Antwort an:** `john`
+
+## ✅ Design vereinheitlicht + B2C-Landingpage auf "hochwertig" gehoben — live
+
+Direkter Folgeauftrag von John nach der neuen B2C-Nebenpositionierung
+(siehe vorheriger Eintrag): "Design vereinheitlichen" + neue Unterseiten mit
+"aktuellem Designupgrade" aufbessern + Landingpage mit Platzhalterfotos.
+
+**Befund:** Drei Style-Blöcke im Generator waren auseinandergedriftet —
+`categoryPage()` (Inter, Haarlinien-Nav), `SUB_CSS` (Arial, Nav mit
+Hintergrundbild `navbg.jpg`), `kollaborationen.html` (eigene dritte Kopie,
+ebenfalls Arial + Hintergrundbild). `subPage()` lud gar keine Google Font.
+
+**Fix:** Eine gemeinsame `BASE_PAGE_CSS`-Konstante (Brand-Kopf, Nav,
+h1/h2, CTA-Button, Footer) — alle drei Stellen binden sie jetzt ein und
+ergänzen nur noch Seiteneigenes. Betrifft **alle** Unterseiten auf beiden
+Domains: 7 Kategorie-Seiten, kollaborationen.html, info.html, ueber-dirk.html,
+hochzeitsfotograf-berlin.html. Live verifiziert: `font-family:'Inter'` statt
+Arial auf jeder geprüften Seite, keine `navbg.jpg`-Referenz mehr.
+
+**hochzeitsfotograf-berlin.html zusätzlich zur "hochwertigen Landingpage"
+ausgebaut:** Hero-Band (Verlauf + großes Marken-Kreuz-Motiv) + je
+Nischen-Gruppe eigene Farbverlaufs-Thumbnails mit Icon (Herz/Koffer/Kamera —
+Private Anlässe/Business & Bewerbung/Fashion & Kreativ).
+
+⚠️ **Bewusste Entscheidung, die Dirk/John kennen sollten:** Die Platzhalter
+sind **abstrakt** (Verlauf + Icon), **keine echten Fotos** aus Dirks
+bisherigen Kundenkampagnen (WELLA, audible, Red Bull …). Ein Client-Portrait
+aus einem anderen Kontext als "Hochzeitsbeispiel" umzudeuten wäre gegenüber
+echten Besuchern irreführend gewesen, auch nur vorübergehend — deshalb der
+abstrakte Weg statt geliehener Fotos. Jede Platzhalter-Stelle ist im
+Generator-Code kommentiert und strukturell auf ein einfaches Foto-Swap
+vorbereitet (`scripts/build-portfolio-manifest.mjs`, Suche nach
+„PLATZHALTER"), sobald Dirk eigene Beispielfotos je Anlass liefert.
+
+**Zur Ansicht:** https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html
+(und zum Vergleich z. B. /folks.html, /info.html — gleiche Basis jetzt überall)
+
+Build/Lint/alle Tests grün, beide Domains deployed und live geprüft
+(Inter-Font, Hero-Band, drei Thumbnail-Gruppen, Fanpage-Redirect). Working
+Tree sauber, alles gepusht. Aktualisierte Relaunch-Bilanz (Artifact, gleicher
+Link wie zuvor) nennt jetzt beide Nachträge kompakt.
+
+**Am Zug:** Dirk — Design + neue Positionierung ansehen; sobald eigene
+Beispielfotos für die zehn Anlässe da sind, ersetzen sie die Platzhalter
+1:1 (Stellen sind im Code markiert).
+
+Session-Ende (Johns Wunsch: gesichert + bereit für `/clear`).
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-08-28
