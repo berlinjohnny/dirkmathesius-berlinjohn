@@ -25,22 +25,40 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
 <meta property="og:image" content="https://dirkmathesius.berlinjohn.de/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+
+  body{background:#fff;margin:0;color:#181818;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
+  .brand{text-align:center;padding:28px 0 8px;}
   .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;color:#181818;}
   .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 14px;}
-  nav.cat a:hover{color:#FF6600;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
-  h2{font-size:14px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#333;margin:34px 0 10px;border-top:1px solid #eee;padding-top:22px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.7;margin:0 0 12px;}
+  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
+  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
+  h1{font-size:clamp(23px,4vw,32px);font-weight:600;letter-spacing:-.01em;line-height:1.18;margin:30px 0 10px;color:#181818;}
+  h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
+  .intro{font-size:14px;color:#555;max-width:760px;line-height:1.7;margin:0 0 20px;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
+  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+         letter-spacing:.18em;text-transform:uppercase;padding:12px 22px;white-space:nowrap;
+         display:inline-block;border-radius:2px;transition:background .15s;}
+  a.book:hover{background:#e25c00;}
+  footer{border-top:1px solid #eee;margin-top:34px;padding:20px 0 44px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+
   .clients{font-size:12px;color:#777;line-height:1.9;max-width:820px;}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-  .card{border:1px solid #eee;padding:18px;}
+  .card{border:1px solid #eee;padding:18px;border-radius:2px;}
   .card h3{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#222;}
   .card p{margin:0;font-size:12px;color:#666;line-height:1.6;}
   .card .price{margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#999;}
@@ -50,26 +68,19 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   .faq summary:before{content:"+ ";color:#FF6600;}
   .faq p{margin:10px 0 0;font-size:12px;color:#666;line-height:1.6;}
   .showreel{margin:8px 0 4px;}
-  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;}
+  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;border-radius:2px;}
   .showreel button:hover{background:#FF6600;}
-  /* Zurueckhaltend: Haarlinie statt schwarzem Balken — auf einer Fotoseite sollen die
-     Bilder tragen, der orange Button ist der einzige Akzent. a.book bleibt unveraendert,
-     die Klasse nutzen auch ueber-dirk (auf dunklem Grund) und info.html. */
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
-  .cta p{margin:0;font-size:12.5px;color:#666;}
-  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
-  a.book:hover{background:#e25c00;}
   form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
-  form.dm input,form.dm textarea{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;}
-  form.dm input:focus,form.dm textarea:focus{border-color:#FF6600;}
+  form.dm input,form.dm textarea,form.dm select{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;color:inherit;}
+  form.dm input:focus,form.dm textarea:focus,form.dm select:focus{border-color:#FF6600;}
   form.dm .hp{position:absolute;left:-9999px;}
-  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;}
   form.dm button:hover{background:#e25c00;}
   #dm-status{font-size:12px;color:#555;}
   .legal{font-size:10px;color:#aaa;margin-top:8px;}
-  footer{border-top:1px solid #eee;margin-top:34px;padding:18px 0 44px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
+  html.dark .clients{color:#9a938b;}
+  html.dark .showreel button{background:#2a2724;}
+  html.dark form.dm select{color:#e8e4df;border-color:#3a3632;}
 
   .themebtn{position:absolute;top:18px;right:16px;width:32px;height:32px;border-radius:50%;
             border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;

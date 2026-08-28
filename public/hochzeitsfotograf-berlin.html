@@ -25,22 +25,40 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
 <meta property="og:image" content="https://www.dirkmathesius.de/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+
+  body{background:#fff;margin:0;color:#181818;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
+  .brand{text-align:center;padding:28px 0 8px;}
   .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;color:#181818;}
   .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 14px;}
-  nav.cat a:hover{color:#FF6600;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
-  h2{font-size:14px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#333;margin:34px 0 10px;border-top:1px solid #eee;padding-top:22px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.7;margin:0 0 12px;}
+  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
+  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
+  h1{font-size:clamp(23px,4vw,32px);font-weight:600;letter-spacing:-.01em;line-height:1.18;margin:30px 0 10px;color:#181818;}
+  h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
+  .intro{font-size:14px;color:#555;max-width:760px;line-height:1.7;margin:0 0 20px;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
+  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+         letter-spacing:.18em;text-transform:uppercase;padding:12px 22px;white-space:nowrap;
+         display:inline-block;border-radius:2px;transition:background .15s;}
+  a.book:hover{background:#e25c00;}
+  footer{border-top:1px solid #eee;margin-top:34px;padding:20px 0 44px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+
   .clients{font-size:12px;color:#777;line-height:1.9;max-width:820px;}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-  .card{border:1px solid #eee;padding:18px;}
+  .card{border:1px solid #eee;padding:18px;border-radius:2px;}
   .card h3{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#222;}
   .card p{margin:0;font-size:12px;color:#666;line-height:1.6;}
   .card .price{margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#999;}
@@ -50,26 +68,19 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   .faq summary:before{content:"+ ";color:#FF6600;}
   .faq p{margin:10px 0 0;font-size:12px;color:#666;line-height:1.6;}
   .showreel{margin:8px 0 4px;}
-  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;}
+  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;border-radius:2px;}
   .showreel button:hover{background:#FF6600;}
-  /* Zurueckhaltend: Haarlinie statt schwarzem Balken — auf einer Fotoseite sollen die
-     Bilder tragen, der orange Button ist der einzige Akzent. a.book bleibt unveraendert,
-     die Klasse nutzen auch ueber-dirk (auf dunklem Grund) und info.html. */
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
-  .cta p{margin:0;font-size:12.5px;color:#666;}
-  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
-  a.book:hover{background:#e25c00;}
   form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
-  form.dm input,form.dm textarea{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;}
-  form.dm input:focus,form.dm textarea:focus{border-color:#FF6600;}
+  form.dm input,form.dm textarea,form.dm select{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;color:inherit;}
+  form.dm input:focus,form.dm textarea:focus,form.dm select:focus{border-color:#FF6600;}
   form.dm .hp{position:absolute;left:-9999px;}
-  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;}
   form.dm button:hover{background:#e25c00;}
   #dm-status{font-size:12px;color:#555;}
   .legal{font-size:10px;color:#aaa;margin-top:8px;}
-  footer{border-top:1px solid #eee;margin-top:34px;padding:18px 0 44px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
+  html.dark .clients{color:#9a938b;}
+  html.dark .showreel button{background:#2a2724;}
+  html.dark form.dm select{color:#e8e4df;border-color:#3a3632;}
 
   .themebtn{position:absolute;top:18px;right:16px;width:32px;height:32px;border-radius:50%;
             border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;
@@ -120,11 +131,29 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   .events .promise{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.06em;
                     color:#a5600a;background:#fff4e8;border:1px solid #ffd9ad;border-radius:3px;padding:8px 14px;margin:0 0 28px;}
   .events .promise svg{flex:none;}
+  /* Hero-Band: bewusst abstrakt (Verlauf + Marken-Kreuz), KEIN echtes Foto —
+     ein Bestandskunden-Portrait aus einem anderen Kontext (WELLA/audible/Red Bull)
+     als "Hochzeitsbeispiel" umzudeuten waere fuer echte Besucher irrefuehrend.
+     Sobald Dirk eigene Beispielfotos je Anlass hat: hier + in .thumb ersetzen. */
+  .events .hero{position:relative;height:150px;border-radius:4px;overflow:hidden;margin:0 0 32px;
+                 background:linear-gradient(115deg,#ffb066 0%,#FF6600 38%,#c23f0a 100%);}
+  .events .hero .x{position:absolute;top:50%;right:-30px;width:230px;height:230px;transform:translateY(-50%) rotate(-12deg);opacity:.16;}
+  .events .hero .x b{position:absolute;top:50%;left:50%;width:230px;height:34px;background:#fff;border-radius:2px;}
+  .events .hero .x b:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .events .hero .x b:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+  .events .hero .cap{position:absolute;left:22px;bottom:18px;color:#fff;font-style:italic;font-size:clamp(14px,2.2vw,18px);
+                      text-shadow:0 1px 10px rgba(0,0,0,.25);max-width:20em;}
   .events h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
   .events .niche-list{display:flex;flex-direction:column;gap:1px;background:#ececec;border:1px solid #ececec;margin:0 0 4px;}
-  .events .niche-list a{display:flex;align-items:center;justify-content:space-between;gap:14px;
-                         background:#fff;padding:16px 18px;text-decoration:none;color:inherit;transition:background .15s;}
+  .events .niche-list a{display:flex;align-items:center;gap:14px;
+                         background:#fff;padding:14px 18px;text-decoration:none;color:inherit;transition:background .15s;}
   .events .niche-list a:hover{background:#fafafa;}
+  .events .niche-list .thumb{flex:none;width:52px;height:52px;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+  .events .niche-list .thumb svg{width:22px;height:22px;color:#fff;opacity:.92;}
+  .events .niche-list .thumb.g1{background:linear-gradient(135deg,#f0a05c,#c9531a);}
+  .events .niche-list .thumb.g2{background:linear-gradient(135deg,#6b7684,#333d47);}
+  .events .niche-list .thumb.g3{background:linear-gradient(135deg,#e8b23d,#a8681c);}
+  .events .niche-list .txt{flex:1;min-width:0;}
   .events .niche-list .txt h3{margin:0 0 4px;font-size:14px;font-weight:600;color:#111;letter-spacing:0;}
   .events .niche-list .txt p{margin:0;font-size:12.5px;line-height:1.55;color:#666;max-width:36em;}
   .events .niche-list .arrow{flex:none;color:#FF6600;font-size:15px;}
@@ -192,25 +221,48 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
       Individuelles Angebot meist innerhalb von 24 Stunden
     </p>
 
+    <!-- PLATZHALTER: abstrakter Verlauf + Marken-Kreuz statt echtem Foto — sobald
+         Dirk eigene Beispielfotos zu diesen Anlässen hat, hier ein Bild einsetzen
+         (z. B. <img class="hero" src="..."> statt des <div class="hero">). -->
+    <div class="hero">
+      <span class="x"><b></b><b></b></span>
+      <span class="cap">„Echte Momente, kein gestelltes Studio.“</span>
+    </div>
+
     <h2>Private Anl&#xe4;sse</h2>
     <div class="niche-list">
       <a href="#angebot" data-anlass="Hochzeit">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Hochzeit" ersetzen, sobald verfügbar. -->
+        <span class="thumb g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <span class="txt"><h3>Hochzeit</h3><p>Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Verlobung &amp; Paarshooting">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Verlobung & Paarshooting" ersetzen, sobald verfügbar. -->
+        <span class="thumb g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <span class="txt"><h3>Verlobung &amp; Paarshooting</h3><p>Ein ruhiges Shooting zu zweit, bevor der große Tag kommt.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Geburtstag &amp; Jubil&#xe4;um">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Geburtstag & Jubiläum" ersetzen, sobald verfügbar. -->
+        <span class="thumb g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <span class="txt"><h3>Geburtstag &amp; Jubiläum</h3><p>Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, nicht inszeniert.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Private Feier">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Private Feier" ersetzen, sobald verfügbar. -->
+        <span class="thumb g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <span class="txt"><h3>Private Feiern &amp; Empfänge</h3><p>Gartenfeste, private Empfänge, besondere Anlässe im kleinen Kreis.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Familie &amp; Neugeborene">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Familie & Neugeborene" ersetzen, sobald verfügbar. -->
+        <span class="thumb g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
         <span class="txt"><h3>Familie &amp; Neugeborene</h3><p>Die ersten gemeinsamen Fotos, Familienshootings zuhause oder draußen — echt statt gestellt.</p></span>
         <span class="arrow">→</span>
       </a>
@@ -219,10 +271,16 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
     <h2>Business &amp; Bewerbung</h2>
     <div class="niche-list">
       <a href="#angebot" data-anlass="Business-Portrait">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Business-Portrait" ersetzen, sobald verfügbar. -->
+        <span class="thumb g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <span class="txt"><h3>Business-Portrait</h3><p>Aussagekräftige Portraits für LinkedIn, Website und Pressemappe.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Bewerbungsfoto">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Bewerbungsfoto" ersetzen, sobald verfügbar. -->
+        <span class="thumb g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <span class="txt"><h3>Bewerbungsfoto</h3><p>Professionelles Bewerbungsfoto — meist kurzfristig möglich.</p></span>
         <span class="arrow">→</span>
       </a>
@@ -231,14 +289,23 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
     <h2>Fashion &amp; Kreativ</h2>
     <div class="niche-list">
       <a href="#angebot" data-anlass="Sport-Portrait privat">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Sport-Portrait privat" ersetzen, sobald verfügbar. -->
+        <span class="thumb g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
         <span class="txt"><h3>Sport-Portrait</h3><p>Läufer, Kampfsport, Fitness — dein Sport im stärksten Moment festgehalten.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Fashion-Editorial">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Fashion-Editorial" ersetzen, sobald verfügbar. -->
+        <span class="thumb g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
         <span class="txt"><h3>Fashion-Editorial</h3><p>Editorial-Shooting für Portfolio, Modelbook oder eine eigene Bildstrecke.</p></span>
         <span class="arrow">→</span>
       </a>
       <a href="#angebot" data-anlass="Creative Content">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "Creative Content" ersetzen, sobald verfügbar. -->
+        <span class="thumb g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
         <span class="txt"><h3>Creative Content</h3><p>Content-Shooting für Social Media, Portfolio oder ein eigenes kreatives Projekt.</p></span>
         <span class="arrow">→</span>
       </a>

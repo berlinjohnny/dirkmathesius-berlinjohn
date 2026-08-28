@@ -19,36 +19,45 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
 <meta property="og:url" content="https://www.dirkmathesius.de/kollaborationen.html" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
+
+  body{background:#fff;margin:0;color:#181818;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
+  .brand{text-align:center;padding:28px 0 8px;}
   .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
+  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;color:#181818;}
   .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
-  nav.cat a:hover{color:#FF6600;}
+  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
+  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
+  h1{font-size:clamp(23px,4vw,32px);font-weight:600;letter-spacing:-.01em;line-height:1.18;margin:30px 0 10px;color:#181818;}
+  h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
+  .intro{font-size:14px;color:#555;max-width:760px;line-height:1.7;margin:0 0 20px;}
   /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
-     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
+     Bilder tragen — der orange Button bleibt der einzige Akzent. */
   .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
        border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
   .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
-  .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
-              letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
-  .cta a.book:hover{background:#e25c00;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
-  h2{font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#333;margin:34px 0 4px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 8px;}
+  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+         letter-spacing:.18em;text-transform:uppercase;padding:12px 22px;white-space:nowrap;
+         display:inline-block;border-radius:2px;transition:background .15s;}
+  a.book:hover{background:#e25c00;}
+  footer{border-top:1px solid #eee;margin-top:34px;padding:20px 0 44px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+
   blockquote{font-size:15px;font-style:italic;color:#444;max-width:680px;margin:22px auto;line-height:1.6;text-align:center;}
   blockquote .who{display:block;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-top:10px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:10px 0 26px;}
   figure{margin:0;}
-  figure img{width:100%;height:auto;display:block;background:#f3f3f3;}
+  figure img{width:100%;height:auto;display:block;background:#f3f3f3;border-radius:2px;}
   figcaption{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
-  footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
+  html.dark blockquote{color:#c2bbb3;}
+  html.dark blockquote .who{color:#8d867f;}
 
   .themebtn{position:absolute;top:18px;right:16px;width:32px;height:32px;border-radius:50%;
             border:1px solid rgba(0,0,0,.15);background:transparent;color:#666;font-size:14px;

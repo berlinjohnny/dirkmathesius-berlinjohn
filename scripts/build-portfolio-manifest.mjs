@@ -190,6 +190,42 @@ const DARK_CSS = `
   html.dark .ueber .more{color:#a9a29a;}
 `;
 
+// Design-Vereinheitlichung (2026-08-28, Johns Auftrag): categoryPage(), SUB_CSS
+// (info/ueber-dirk/hochzeitsfotograf-berlin) und kollaborationen.html hatten je
+// eine EIGENE Kopie dieser Regeln — leicht auseinandergedriftet (Arial vs. Inter,
+// Nav mit Hintergrundbild vs. Haarlinie, undefinierte vs. definierte h1-Groesse).
+// BASE_PAGE_CSS ist jetzt die EINE Quelle fuer Brand-Kopf, Navigation, Ueberschriften,
+// CTA-Button und Footer — alle drei Stellen binden sie ein und ergaenzen nur noch
+// ihre seiteneigenen Regeln (Grid, Karten, Formular …). DARK_CSS bleibt unveraendert
+// und greift wie gehabt.
+const BASE_PAGE_CSS = `
+  body{background:#fff;margin:0;color:#181818;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
+  .brand{text-align:center;padding:28px 0 8px;}
+  .brand img{width:50px;height:50px;border:0;}
+  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;color:#181818;}
+  .brand .hl .c{color:#ccc;}
+  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
+  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
+  h1{font-size:clamp(23px,4vw,32px);font-weight:600;letter-spacing:-.01em;line-height:1.18;margin:30px 0 10px;color:#181818;}
+  h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
+  .intro{font-size:14px;color:#555;max-width:760px;line-height:1.7;margin:0 0 20px;}
+  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
+     Bilder tragen — der orange Button bleibt der einzige Akzent. */
+  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
+       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
+  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
+  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
+         letter-spacing:.18em;text-transform:uppercase;padding:12px 22px;white-space:nowrap;
+         display:inline-block;border-radius:2px;transition:background .15s;}
+  a.book:hover{background:#e25c00;}
+  footer{border-top:1px solid #eee;margin-top:34px;padding:20px 0 44px;text-align:center;font-size:11px;color:#888;}
+  footer a{color:#888;text-decoration:none;margin:0 8px;}
+  footer a:hover{color:#FF6600;}
+`;
+
 // Nav order matches the original dirkmathesius.de layout (info.html). folks → "people".
 const navOrder = ["folks", "sport", "music", "publication", "landscape", "reportage", "stills"];
 const navLabel = (id) => (id === "folks" ? "people" : id);
@@ -724,38 +760,16 @@ ${THEME_BOOT}
 <link href="style.css" rel="stylesheet" type="text/css" />
 ${GOOGLE_FONT}
 <style>
-  body{background:#fff;margin:0;color:#000;font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:28px 0 8px;}
-  .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:13px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin-top:14px;}
-  .brand .hl .c{color:#ccc;}
-  nav.cat{text-align:center;margin:20px 0 0;padding:14px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
-  nav.cat a{display:inline-block;line-height:1.8;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-            color:#000;opacity:.6;text-decoration:none;padding:0 14px;border-bottom:1px solid transparent;transition:color .15s,opacity .15s;}
-  nav.cat a:hover{color:#FF6600;opacity:1;border-color:#FF6600;}
-  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
-     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
-       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
-  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
-  .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
-              letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
-  .cta a.book:hover{background:#e25c00;}
+${BASE_PAGE_CSS}
   /* Dezenter Nebenlink People → private Nische — bewusst leiser als der Haupt-CTA. */
   .events-link{text-align:center;margin:10px 0 0;}
   .events-link a{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.08em;
                  color:#999;text-decoration:none;}
   .events-link a:hover{color:#FF6600;}
-  h1{font-size:22px;font-weight:500;letter-spacing:.02em;margin:26px 0 6px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 22px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:28px;}
   figure{margin:0;}
-  figure img{width:100%;height:auto;display:block;background:#f3f3f3;}
+  figure img{width:100%;height:auto;display:block;background:#f3f3f3;border-radius:2px;}
   figcaption{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
-  footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
 ${DARK_CSS}
   /* Seiteneigene Dark-Werte NACH DARK_CSS: exakt die neutralgrauen Tokens der SPA
      (--background/--foreground in src/index.css), statt DARK_CSS' warmem Braunton —
@@ -960,36 +974,17 @@ ${THEME_BOOT}
 <meta property="og:url" content="${kollabCanonical}" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+${GOOGLE_FONT}
 <style>
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
-  .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
-  .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 16px;}
-  nav.cat a:hover{color:#FF6600;}
-  /* Zurueckhaltend: Haarlinie statt schwarzem Balken. Auf einer Fotoseite sollen die
-     Bilder tragen — der orange Button darunter bleibt der einzige Akzent. */
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;
-       border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
-  .cta p{margin:0;font-size:12.5px;line-height:1.5;color:#666;}
-  .cta a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;
-              letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;}
-  .cta a.book:hover{background:#e25c00;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
-  h2{font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#333;margin:34px 0 4px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.6;margin:0 0 8px;}
+${BASE_PAGE_CSS}
   blockquote{font-size:15px;font-style:italic;color:#444;max-width:680px;margin:22px auto;line-height:1.6;text-align:center;}
   blockquote .who{display:block;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-top:10px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:10px 0 26px;}
   figure{margin:0;}
-  figure img{width:100%;height:auto;display:block;background:#f3f3f3;}
+  figure img{width:100%;height:auto;display:block;background:#f3f3f3;border-radius:2px;}
   figcaption{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
-  footer{border-top:1px solid #eee;margin-top:24px;padding:18px 0 40px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
+  html.dark blockquote{color:#c2bbb3;}
+  html.dark blockquote .who{color:#8d867f;}
 ${DARK_CSS}
 </style>
 <script type="application/ld+json">${jsonLd(kollabLd)}</script>
@@ -1074,21 +1069,10 @@ const subNav = siteNavOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))
   + `\n        <a href="/ueber-dirk.html">über dirk</a>\n        <a href="/info.html">info</a>`;
 
 const SUB_CSS = `
-  body{background:#fff;margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 16px;}
-  .brand{text-align:center;padding:24px 0 6px;}
-  .brand img{width:50px;height:50px;border:0;}
-  .brand .hl{font-size:14px;letter-spacing:.05em;margin-top:6px;}
-  .brand .hl .c{color:#ccc;}
-  nav.cat{background:url(images/navbg.jpg);text-align:center;margin:14px 0 0;}
-  nav.cat a{display:inline-block;line-height:33px;font-size:11px;color:#000;text-decoration:none;padding:0 14px;}
-  nav.cat a:hover{color:#FF6600;}
-  h1{font-size:22px;font-weight:400;letter-spacing:.04em;margin:22px 0 6px;}
-  h2{font-size:14px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#333;margin:34px 0 10px;border-top:1px solid #eee;padding-top:22px;}
-  .intro{font-size:13px;color:#555;max-width:760px;line-height:1.7;margin:0 0 12px;}
+${BASE_PAGE_CSS}
   .clients{font-size:12px;color:#777;line-height:1.9;max-width:820px;}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-  .card{border:1px solid #eee;padding:18px;}
+  .card{border:1px solid #eee;padding:18px;border-radius:2px;}
   .card h3{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#222;}
   .card p{margin:0;font-size:12px;color:#666;line-height:1.6;}
   .card .price{margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#999;}
@@ -1098,26 +1082,19 @@ const SUB_CSS = `
   .faq summary:before{content:"+ ";color:#FF6600;}
   .faq p{margin:10px 0 0;font-size:12px;color:#666;line-height:1.6;}
   .showreel{margin:8px 0 4px;}
-  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;}
+  .showreel button{background:#111;color:#fff;border:0;padding:14px 22px;font-size:12px;letter-spacing:.1em;cursor:pointer;border-radius:2px;}
   .showreel button:hover{background:#FF6600;}
-  /* Zurueckhaltend: Haarlinie statt schwarzem Balken — auf einer Fotoseite sollen die
-     Bilder tragen, der orange Button ist der einzige Akzent. a.book bleibt unveraendert,
-     die Klasse nutzen auch ueber-dirk (auf dunklem Grund) und info.html. */
-  .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;border-top:1px solid #ececec;padding:26px 0 6px;margin:36px 0 0;text-align:center;}
-  .cta p{margin:0;font-size:12.5px;color:#666;}
-  a.book{background:#FF6600;color:#fff;text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;white-space:nowrap;display:inline-block;}
-  a.book:hover{background:#e25c00;}
   form.dm{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:16px 0;}
-  form.dm input,form.dm textarea{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;}
-  form.dm input:focus,form.dm textarea:focus{border-color:#FF6600;}
+  form.dm input,form.dm textarea,form.dm select{border:0;border-bottom:1px solid #ccc;padding:10px 2px;font-size:13px;font-family:inherit;outline:none;background:transparent;color:inherit;}
+  form.dm input:focus,form.dm textarea:focus,form.dm select:focus{border-color:#FF6600;}
   form.dm .hp{position:absolute;left:-9999px;}
-  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
+  form.dm button{align-self:flex-start;background:#FF6600;color:#fff;border:0;padding:11px 24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;}
   form.dm button:hover{background:#e25c00;}
   #dm-status{font-size:12px;color:#555;}
   .legal{font-size:10px;color:#aaa;margin-top:8px;}
-  footer{border-top:1px solid #eee;margin-top:34px;padding:18px 0 44px;text-align:center;font-size:11px;color:#888;}
-  footer a{color:#888;text-decoration:none;margin:0 8px;}
-  footer a:hover{color:#FF6600;}
+  html.dark .clients{color:#9a938b;}
+  html.dark .showreel button{background:#2a2724;}
+  html.dark form.dm select{color:#e8e4df;border-color:#3a3632;}
 ${DARK_CSS}`;
 
 // `css` = seiten-eigene Regeln, die NUR diese eine Seite bekommt. SUB_CSS teilen
@@ -1147,6 +1124,7 @@ ${THEME_BOOT}
 <meta property="og:image" content="${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+${GOOGLE_FONT}
 <style>${SUB_CSS}${css}</style>
 ${headLd.map((o) => `<script type="application/ld+json">${jsonLd(o)}</script>`).join("\n")}
 </head>
@@ -1494,9 +1472,15 @@ if (!IS_FANPAGE) {
   // Drei Gruppen statt einer flachen Liste — sowohl fuer die Lesbarkeit bei zehn
   // Anlaessen als auch als SEO-Signal: jede Gruppe ist ein eigenes Themen-Cluster
   // (eigene <h2>, eigene <optgroup>), statt zehn beliebig sortierte Karten.
+  const NICHE_ICONS = {
+    g1: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/>',
+    g2: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    g3: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  };
   const NICHE_GROUPS = [
     {
       label: "Private Anlässe",
+      cls: "g1",
       items: [
         { id: "Hochzeit", t: "Hochzeit", d: "Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie." },
         { id: "Verlobung & Paarshooting", t: "Verlobung &amp; Paarshooting", d: "Ein ruhiges Shooting zu zweit, bevor der große Tag kommt." },
@@ -1507,6 +1491,7 @@ if (!IS_FANPAGE) {
     },
     {
       label: "Business & Bewerbung",
+      cls: "g2",
       items: [
         { id: "Business-Portrait", t: "Business-Portrait", d: "Aussagekräftige Portraits für LinkedIn, Website und Pressemappe." },
         { id: "Bewerbungsfoto", t: "Bewerbungsfoto", d: "Professionelles Bewerbungsfoto — meist kurzfristig möglich." },
@@ -1514,6 +1499,7 @@ if (!IS_FANPAGE) {
     },
     {
       label: "Fashion & Kreativ",
+      cls: "g3",
       items: [
         { id: "Sport-Portrait privat", t: "Sport-Portrait", d: "Läufer, Kampfsport, Fitness — dein Sport im stärksten Moment festgehalten." },
         { id: "Fashion-Editorial", t: "Fashion-Editorial", d: "Editorial-Shooting für Portfolio, Modelbook oder eine eigene Bildstrecke." },
@@ -1541,11 +1527,29 @@ if (!IS_FANPAGE) {
   .events .promise{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.06em;
                     color:#a5600a;background:#fff4e8;border:1px solid #ffd9ad;border-radius:3px;padding:8px 14px;margin:0 0 28px;}
   .events .promise svg{flex:none;}
+  /* Hero-Band: bewusst abstrakt (Verlauf + Marken-Kreuz), KEIN echtes Foto —
+     ein Bestandskunden-Portrait aus einem anderen Kontext (WELLA/audible/Red Bull)
+     als "Hochzeitsbeispiel" umzudeuten waere fuer echte Besucher irrefuehrend.
+     Sobald Dirk eigene Beispielfotos je Anlass hat: hier + in .thumb ersetzen. */
+  .events .hero{position:relative;height:150px;border-radius:4px;overflow:hidden;margin:0 0 32px;
+                 background:linear-gradient(115deg,#ffb066 0%,#FF6600 38%,#c23f0a 100%);}
+  .events .hero .x{position:absolute;top:50%;right:-30px;width:230px;height:230px;transform:translateY(-50%) rotate(-12deg);opacity:.16;}
+  .events .hero .x b{position:absolute;top:50%;left:50%;width:230px;height:34px;background:#fff;border-radius:2px;}
+  .events .hero .x b:first-child{transform:translate(-50%,-50%) rotate(45deg);}
+  .events .hero .x b:last-child{transform:translate(-50%,-50%) rotate(-45deg);}
+  .events .hero .cap{position:absolute;left:22px;bottom:18px;color:#fff;font-style:italic;font-size:clamp(14px,2.2vw,18px);
+                      text-shadow:0 1px 10px rgba(0,0,0,.25);max-width:20em;}
   .events h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#999;border-top:1px solid #ececec;padding-top:24px;margin:46px 0 18px;font-weight:600;}
   .events .niche-list{display:flex;flex-direction:column;gap:1px;background:#ececec;border:1px solid #ececec;margin:0 0 4px;}
-  .events .niche-list a{display:flex;align-items:center;justify-content:space-between;gap:14px;
-                         background:#fff;padding:16px 18px;text-decoration:none;color:inherit;transition:background .15s;}
+  .events .niche-list a{display:flex;align-items:center;gap:14px;
+                         background:#fff;padding:14px 18px;text-decoration:none;color:inherit;transition:background .15s;}
   .events .niche-list a:hover{background:#fafafa;}
+  .events .niche-list .thumb{flex:none;width:52px;height:52px;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+  .events .niche-list .thumb svg{width:22px;height:22px;color:#fff;opacity:.92;}
+  .events .niche-list .thumb.g1{background:linear-gradient(135deg,#f0a05c,#c9531a);}
+  .events .niche-list .thumb.g2{background:linear-gradient(135deg,#6b7684,#333d47);}
+  .events .niche-list .thumb.g3{background:linear-gradient(135deg,#e8b23d,#a8681c);}
+  .events .niche-list .txt{flex:1;min-width:0;}
   .events .niche-list .txt h3{margin:0 0 4px;font-size:14px;font-weight:600;color:#111;letter-spacing:0;}
   .events .niche-list .txt p{margin:0;font-size:12.5px;line-height:1.55;color:#666;max-width:36em;}
   .events .niche-list .arrow{flex:none;color:#FF6600;font-size:15px;}
@@ -1669,9 +1673,20 @@ ${g.items.map((n) => `          <option value="${E(n.id)}">${n.t}</option>`).joi
       Individuelles Angebot meist innerhalb von 24 Stunden
     </p>
 
+    <!-- PLATZHALTER: abstrakter Verlauf + Marken-Kreuz statt echtem Foto — sobald
+         Dirk eigene Beispielfotos zu diesen Anlässen hat, hier ein Bild einsetzen
+         (z. B. <img class="hero" src="..."> statt des <div class="hero">). -->
+    <div class="hero">
+      <span class="x"><b></b><b></b></span>
+      <span class="cap">„Echte Momente, kein gestelltes Studio.“</span>
+    </div>
+
 ${NICHE_GROUPS.map((g) => `    <h2>${E(g.label)}</h2>
     <div class="niche-list">
 ${g.items.map((n) => `      <a href="#angebot" data-anlass="${E(n.id)}">
+        <!-- PLATZHALTER-Thumbnail (Icon auf Verlauf) — durch echtes Beispielfoto
+             zu "${n.id}" ersetzen, sobald verfügbar. -->
+        <span class="thumb ${g.cls}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${NICHE_ICONS[g.cls]}</svg></span>
         <span class="txt"><h3>${n.t}</h3><p>${n.d}</p></span>
         <span class="arrow">→</span>
       </a>`).join("\n")}
