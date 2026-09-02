@@ -126,6 +126,19 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://dirkmathesius.berlinjohn.de/info.html#business","name":"Dirk Mathesius Photography","description":"Professionelle Fotografie in Berlin: Sport, People, Music, Reportage & Editorial. Buchung & Anfrage.","url":"https://dirkmathesius.berlinjohn.de/info.html","email":"mail@dirkmathesius.de","image":"https://dirkmathesius.berlinjohn.de/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp","priceRange":"€€€","address":{"@type":"PostalAddress","streetAddress":"Bahrendorfer Straße 22","addressLocality":"Berlin","postalCode":"12555","addressCountry":"DE"},"geo":{"@type":"GeoCoordinates","latitude":52.4547,"longitude":13.5667},"areaServed":["Berlin","Brandenburg","Deutschland"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Wie läuft ein Shooting mit Dirk Mathesius ab?","acceptedAnswer":{"@type":"Answer","text":"Kurzes Briefing & Konzept, Terminabstimmung (mobil bei dir vor Ort oder im Studio), Shooting mit komplettem Profi-Equipment, kuratierte Bildauswahl und Lieferung der finalen Bilder."}},{"@type":"Question","name":"In welcher Region arbeitest du?","acceptedAnswer":{"@type":"Answer","text":"Basis ist Berlin & Umland; deutschlandweit und international auf Anfrage."}},{"@type":"Question","name":"Wem gehören die Nutzungsrechte an den Bildern?","acceptedAnswer":{"@type":"Answer","text":"Die Nutzungsrechte werden projektbezogen passend zum Einsatz vereinbart. Urheber bleibt © Dirk Mathesius."}},{"@type":"Question","name":"Wie schnell bekomme ich die Bilder?","acceptedAnswer":{"@type":"Answer","text":"Eine erste Auswahl zeitnah nach dem Shooting; die finale Bearbeitung richtet sich nach Umfang und Absprache."}},{"@type":"Question","name":"Was kostet ein Shooting?","acceptedAnswer":{"@type":"Answer","text":"Individuell nach Aufwand, Umfang und Nutzungsrechten — du bekommst ein transparentes Angebot auf Anfrage."}},{"@type":"Question","name":"Bietet ihr auch Action-/Sportshootings mit Modellen an?","acceptedAnswer":{"@type":"Answer","text":"Ja — dynamische Action- und Sportshootings mit professionellen Sportmodels: echte Action, 100 % real, ohne Bildbearbeitung."}}]}</script>
+<script>
+(function(){try{
+window.dataLayer=window.dataLayer||[];
+function gtag(){window.dataLayer.push(arguments);}
+window.gtag=gtag;
+gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",wait_for_update:500});
+var raw=null;try{raw=localStorage.getItem("dm_cookie_consent");}catch(e){}
+if(raw){var c=JSON.parse(raw);gtag("consent","update",{analytics_storage:c.analytics?"granted":"denied",ad_storage:c.marketing?"granted":"denied",ad_user_data:c.marketing?"granted":"denied",ad_personalization:c.marketing?"granted":"denied"});}
+var s=document.createElement("script");s.async=true;s.setAttribute("data-analytics","ga4");
+s.src="https://www.googletagmanager.com/gtag/js?id=G-NHPNTGY90D";document.head.appendChild(s);
+gtag("js",new Date());gtag("config","G-NHPNTGY90D");
+}catch(e){}})();
+</script>
 </head>
 <body>
   <div class="wrap">
@@ -218,7 +231,8 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
             body: JSON.stringify(data)
           }).then(function (r) { return r.json(); }).then(function (d) {
             if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
-              s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.'; }
+              s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.';
+              if (window.gtag) gtag('event', 'anfrage_abgeschickt', { variante: 'info' }); }
             else { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; }
           }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; });
         });

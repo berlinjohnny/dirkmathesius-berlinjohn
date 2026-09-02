@@ -90,8 +90,19 @@ export function trackEvent(name: string, props?: Record<string, string | number 
 }
 
 // Benannte Conversion-Events (eine Wahrheit für alle CTAs).
-export const trackAnfrageSubmit = (variante: string) =>
-  trackEvent("anfrage_abgeschickt", { variante });
+//
+// `anfrage_abgeschickt` stand hier bis 02.09.2026 als Export — ohne einen
+// einzigen Aufrufer, im gebauten Bundle vom Tree-Shaking entfernt. Der Grund:
+// die Anfrage-Formulare liegen gar nicht in React, sondern in den generierten
+// statischen Seiten (public/info.html, public/hochzeitsfotograf-berlin.html).
+// Ein Aufruf VON HIER hätte nie feuern können. Das Event wird jetzt dort
+// ausgelöst, im Erfolgszweig beider Formulare:
+//   scripts/build-portfolio-manifest.mjs — Suchbegriff "anfrage_abgeschickt"
+// Wer den Namen ändert, ändert ihn dort.
+//
+// ⚠️ `trackWhatsappClick` unten hat ebenfalls keinen Aufrufer — es gibt auf
+// dieser Fläche gar keinen WhatsApp-Link. Bewusst stehen gelassen, das ist
+// eine eigene Entscheidung (Kanal anbieten oder Event streichen).
 export const trackWhatsappClick = (ort: string) =>
   trackEvent("whatsapp_klick", { ort });
 export const trackAnrufClick = (ort: string) =>

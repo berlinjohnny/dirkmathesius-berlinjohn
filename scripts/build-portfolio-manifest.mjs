@@ -125,6 +125,47 @@ if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){
 document.documentElement.classList.add("dark");}}catch(e){}})();
 </script>`;
 
+/**
+ * Mess-Tag fuer die generierten Seiten.
+ *
+ * Warum es das braucht (02.09.2026): die 16 Seiten in `public/` sind
+ * handgebautes HTML. Sie erben WEDER aus `index.html` NOCH aus dem
+ * Vite-Bundle — also lief auf keiner von ihnen jemals Analytics. Die
+ * React-Startseite misst dagegen sehr wohl: sie feuert `cta_klick` fuer
+ * Klicks Richtung /info.html (Index.tsx:273,504). Wer GA4 las, sah also
+ * Klicks auf "Shooting anfragen" und danach NULL Anfragen — und schloss
+ * auf Abbruch im Formular. Das war keine fehlende Nachfrage, das war
+ * eine fehlende Messung.
+ *
+ * Bewusst identisch zu src/lib/analytics.ts: derselbe Consent-Mode-v2-
+ * Default (alles denied), derselbe localStorage-Schluessel
+ * `dm_cookie_consent`, dieselbe Reihenfolge. Wer eines von beiden
+ * aendert, muss das andere mitaendern.
+ *
+ * ⚠️ Diese Seiten haben KEIN Cookie-Banner. Wer ueber die Startseite
+ * kommt (der CTA-Weg), bringt seine Wahl im localStorage mit. Wer direkt
+ * aus der Suche auf /info.html landet, kann hier nicht zustimmen und
+ * bleibt auf `denied` — messtechnisch also weiterhin unsichtbar. Das ist
+ * die sichere Seite, aber es ist eine offene Luecke, kein fertiger
+ * Zustand.
+ */
+const GA4_ID = readEnv("VITE_GA4_ID") || "";
+const MESS_TAG = GA4_ID
+  ? `<script>
+(function(){try{
+window.dataLayer=window.dataLayer||[];
+function gtag(){window.dataLayer.push(arguments);}
+window.gtag=gtag;
+gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",wait_for_update:500});
+var raw=null;try{raw=localStorage.getItem("dm_cookie_consent");}catch(e){}
+if(raw){var c=JSON.parse(raw);gtag("consent","update",{analytics_storage:c.analytics?"granted":"denied",ad_storage:c.marketing?"granted":"denied",ad_user_data:c.marketing?"granted":"denied",ad_personalization:c.marketing?"granted":"denied"});}
+var s=document.createElement("script");s.async=true;s.setAttribute("data-analytics","ga4");
+s.src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}";document.head.appendChild(s);
+gtag("js",new Date());gtag("config","${GA4_ID}");
+}catch(e){}})();
+</script>`
+  : "";
+
 /** Dieselbe Google-Fonts-Quelle wie index.html (nur der dort ebenfalls genutzte
  *  Inter-Schnitt) — damit die Kategorie-Seiten dieselbe Schrift wie die SPA zeigen,
  *  statt auf Arial zurueckzufallen. */
@@ -790,6 +831,7 @@ ${DARK_CSS}
 </style>
 <script type="application/ld+json">${jsonLd(galleryLd)}</script>
 <script type="application/ld+json">${jsonLd(breadcrumbLd)}</script>
+${MESS_TAG}
 </head>
 <body>
   <div class="wrap">
@@ -988,6 +1030,7 @@ ${BASE_PAGE_CSS}
 ${DARK_CSS}
 </style>
 <script type="application/ld+json">${jsonLd(kollabLd)}</script>
+${MESS_TAG}
 </head>
 <body>
   <div class="wrap">
@@ -1127,6 +1170,7 @@ ${THEME_BOOT}
 ${GOOGLE_FONT}
 <style>${SUB_CSS}${css}</style>
 ${headLd.map((o) => `<script type="application/ld+json">${jsonLd(o)}</script>`).join("\n")}
+${MESS_TAG}
 </head>
 <body>
   <div class="wrap">
@@ -1396,7 +1440,8 @@ const formHtml = WEB3FORMS_KEY ? `
             body: JSON.stringify(data)
           }).then(function (r) { return r.json(); }).then(function (d) {
             if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
-              s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.'; }
+              s.innerHTML = 'Danke für deine Anfrage! Dirk meldet sich zeitnah bei dir.';
+              if (window.gtag) gtag('event', 'anfrage_abgeschickt', { variante: 'info' }); }
             else { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; }
           }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; });
         });
@@ -1626,7 +1671,8 @@ ${g.items.map((n) => `          <option value="${E(n.id)}">${n.t}</option>`).joi
             body: JSON.stringify(data)
           }).then(function (r) { return r.json(); }).then(function (d) {
             if (d.success) { f.reset(); f.querySelector('button').style.display = 'none';
-              s.innerHTML = 'Danke für deine Anfrage! Meist meldet sich Dirk innerhalb von 24 Stunden.'; }
+              s.innerHTML = 'Danke für deine Anfrage! Meist meldet sich Dirk innerhalb von 24 Stunden.';
+              if (window.gtag) gtag('event', 'anfrage_abgeschickt', { variante: 'hochzeit' }); }
             else { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; }
           }).catch(function () { s.textContent = 'Senden fehlgeschlagen – bitte per Telefon oder E-Mail.'; });
         });
