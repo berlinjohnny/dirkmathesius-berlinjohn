@@ -1104,3 +1104,66 @@ Beispielfotos für die zehn Anlässe da sind, ersetzen sie die Platzhalter
 Session-Ende (Johns Wunsch: gesichert + bereit für `/clear`).
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-08-28
+
+### 2026-09-02 17:45 · iMac
+↩ **Antwort an:** `john`
+
+### 2026-09-02 — Befund M: die Anfrage-Formulare lagen auf Seiten ganz ohne Analytics
+
+Commit `13d0642`. ⛔ **Gebaut und geprüft, aber NICHT live** — diese Fläche hat
+keinen CI-Deploy und kein Deploy-Skript. Das Hochladen ist Johns Zug.
+
+**Der Sweep war zu klein.** Er las „analytics.ts:93 — Conversion-Event nie
+gefeuert" als vergessenen Aufruf in React. Nachgemessen ist es größer: die
+Anfrage-Formulare liegen gar nicht in React. Sie stehen in generierten
+statischen Seiten (`public/info.html`, `public/hochzeitsfotograf-berlin.html`),
+und die erben WEDER aus `index.html` NOCH aus dem Vite-Bundle. Auf **keiner der
+16 Seiten in public/** lief jemals Analytics — gezählt, nicht vermutet.
+
+**Das ist die teure Sorte Lücke.** Die React-Startseite MISST und feuert
+`cta_klick` für jeden Klick Richtung /info.html (`Index.tsx:273,504`). Danach kam
+nichts mehr. Wer GA4 las, sah Klicks auf „Shooting anfragen" und **null**
+Anfragen — und schloss auf Abbruch im Formular. Das war keine fehlende
+Nachfrage, das war eine fehlende Messung.
+
+Gebaut und am `dist/` gemessen, nicht am Repo:
+
+    Seiten mit Mess-Tag   4   info, kollaborationen, photography, ueber-dirk
+    Seiten mit dem Event  1   info.html
+    Consent-Default       analytics_storage:"denied"
+    GA4-ID im HTML        G-NHPNTGY90D
+
+Die 7 übrigen public/-Seiten sind 0-Sekunden-Weiterleitungen (meta refresh,
+noindex) — dort wäre ein Tag Rauschen, sie bleiben absichtlich ohne. 404,
+Impressum und Datenschutz sind handgebaut und haben kein Formular.
+
+Der Mess-Tag ist bewusst identisch zu `src/lib/analytics.ts`: Consent Mode v2
+default-DENIED, derselbe localStorage-Schlüssel `dm_cookie_consent`, dieselbe
+Reihenfolge. Wer eines ändert, muss das andere mitändern — steht als Kommentar
+an beiden Stellen. Der tote Export `trackAnfrageSubmit` ist raus; an seiner
+Stelle steht, WO das Event wirklich feuert, sonst findet ihn der nächste Sweep
+wieder.
+
+**⚠️ ZWEI LÜCKEN, die offen bleiben und nicht von diesem Commit kommen:**
+
+1. **`hochzeitsfotograf-berlin.html` bekommt das Event NICHT.** Diese Seite wird
+   nur erzeugt, wenn `VITE_SITE_URL` auf die offizielle Domain zeigt; in `.env`
+   steht die Staging-Domain, die Datei stammt aus einem früheren Lauf. Sie hat
+   ein Formular und ist eine Geldseite. Ein Lauf mit der offiziellen Domain
+   würde ALLE Seiten auf die neue Domain umschreiben — das ist ein
+   Domain-Cutover, keine Nebenwirkung eines Mess-Fixes. Gehört John.
+2. **Diese Seiten haben KEIN Cookie-Banner.** Wer über die Startseite kommt,
+   bringt seine Wahl im localStorage mit. Wer direkt aus der Suche auf
+   /info.html landet, kann hier nicht zustimmen und bleibt auf `denied` —
+   messtechnisch weiter unsichtbar. Sichere Seite, aber kein fertiger Zustand.
+
+Nebenbefund ohne Aktion: `trackWhatsappClick` hat ebenfalls keinen Aufrufer, und
+es gibt auf dieser Fläche gar keinen WhatsApp-Link. Entweder Kanal anbieten oder
+Event streichen — eigene Entscheidung, stehen gelassen.
+
+**Abnahme nach dem Upload:** auf der Live-/info.html nach Cookie-Opt-in das
+Formular abschicken → Netzwerk-Tab muss einen Request an
+`google-analytics.com/g/collect` mit `en=anfrage_abgeschickt` und
+`ep.variante=info` zeigen. Ohne Opt-in darf er nur cookielos gehen (`gcs=G100`).
+
+— 1:Kybí
