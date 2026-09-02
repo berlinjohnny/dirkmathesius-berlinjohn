@@ -14,8 +14,15 @@ function readEnv(key) {
   if (process.env[key]) return process.env[key];
   try {
     const txt = readFileSync(join(root, ".env"), "utf8");
-    const m = txt.match(new RegExp(`^\\s*${key}\\s*=\\s*(.+?)\\s*$`, "m"));
-    return m ? m[1].replace(/^['"]|['"]$/g, "") : undefined;
+    // ⚠️ Kein `\s` um das `=`. `\s` schliesst den ZEILENUMBRUCH ein: bei einem
+    // leeren Wert (`VITE_GA4_ID=`) frass der alte Ausdruck den Umbruch und gab
+    // die NAECHSTE Zeile als Wert zurueck — am 02.09.2026 an der echten .env
+    // gemessen, `VITE_GOOGLE_ADS_ID=` lieferte einen Kommentartext. Genau der
+    // in dieser Datei dokumentierte Weg "Leer = kein Tag" war damit kaputt:
+    // statt "aus" haette man eine Kommentarzeile als Mess-ID bekommen.
+    const m = txt.match(new RegExp(`^[ \\t]*${key}[ \\t]*=[ \\t]*(.*?)[ \\t]*$`, "m"));
+    const wert = m ? m[1].replace(/^['"]|['"]$/g, "") : undefined;
+    return wert ? wert : undefined;
   } catch {
     return undefined;
   }
@@ -165,6 +172,9 @@ gtag("js",new Date());gtag("config","${GA4_ID}");
 }catch(e){}})();
 </script>`
   : "";
+// Ohne ID faellt der Tag STILL aus — die Seiten saehen fertig aus und maessen
+// nichts. Genau so lag diese Flaeche schon einmal. Also laut sein.
+if (!GA4_ID) console.warn("⚠️  VITE_GA4_ID fehlt — die generierten Seiten bekommen KEINEN Mess-Tag.");
 
 /** Dieselbe Google-Fonts-Quelle wie index.html (nur der dort ebenfalls genutzte
  *  Inter-Schnitt) — damit die Kategorie-Seiten dieselbe Schrift wie die SPA zeigen,
