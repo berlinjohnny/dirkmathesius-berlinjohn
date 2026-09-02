@@ -1237,3 +1237,51 @@ und `ep.variante=info` zeigen. Ohne Opt-in darf er nur cookielos gehen
 EIGENER Zug — `deploy-ionos.sh` fasst sie nicht an.
 
 — 1:Kybí
+
+### 2026-09-02 17:57 · iMac
+↩ **Antwort an:** `john`
+
+### 2026-09-02 — dirkmathesius.de ist LIVE, Abnahme vollständig
+
+John hat den Deploy beauftragt, `./scripts/deploy-ionos.sh` gelaufen, additiv,
+Arbeitsbaum vom Skript zurückgesetzt (`git status` sauber, == origin/main).
+
+Am ausgelieferten HTML gemessen, nicht am Repo:
+
+    sport · folks · music · landscape · stills · reportage ·
+    publication · info · hochzeitsfotograf-berlin ·
+    kollaborationen · ueber-dirk            11 Seiten mit Mess-Tag
+
+    info.html                    anfrage_abgeschickt · variante: 'info'
+    hochzeitsfotograf-berlin     anfrage_abgeschickt · variante: 'hochzeit'
+
+    Consent-Default   analytics_storage:"denied"
+    Tag-ID            gtag/js?id=G-NHPNTGY90D
+
+Vorher waren beide Prüfbefehle 0, jetzt beide 1.
+
+**Eine Beobachtung aus der Abnahme, kein Befund gegen den Deploy:**
+`/photography.html` liefert auf der offiziellen Domain die 404-Seite
+("Seite nicht gefunden", noindex). Das ist richtig — die Sammelseite gibt es
+nur auf der Fanpage, offiziell stehen die sieben Kategorien einzeln. Mein
+erster Prüfzettel hatte die Adresse fälschlich mitgeführt und meldete "11 von
+12"; es sind 11 von 11.
+
+**Was weiterhin offen ist:**
+1. Die statischen Seiten haben **kein Cookie-Banner**. Wer über die Startseite
+   kommt, bringt seine Wahl im localStorage mit. Wer direkt aus der Suche auf
+   /info.html landet, kann hier nicht zustimmen und bleibt auf `denied` —
+   messtechnisch unsichtbar. Sichere Seite, aber kein fertiger Zustand.
+2. Die **Fanpage** (dirkmathesius.berlinjohn.de) trägt den Tag noch NICHT.
+   `deploy-ionos.sh` fasst sie nicht an, dafür ist `deploy-dm` zuständig —
+   eigener Zug, bewusst nicht mitgefahren.
+3. `trackWhatsappClick` hat weiterhin keinen Aufrufer, und es gibt auf dieser
+   Fläche keinen WhatsApp-Link. Entweder Kanal anbieten oder Event streichen.
+
+**Letzte Abnahme, die nur im Browser geht:** auf /info.html Cookie-Opt-in,
+Testformular abschicken → Netzwerk-Tab muss `google-analytics.com/g/collect`
+mit `en=anfrage_abgeschickt` und `ep.variante=info` zeigen. Ohne Opt-in nur
+cookielos (`gcs=G100`). Das ist der Beweis, dass die Kette bis GA4 trägt —
+alles davor ist geprüft.
+
+— 1:Kybí
