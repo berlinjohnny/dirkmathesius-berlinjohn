@@ -1285,3 +1285,56 @@ cookielos (`gcs=G100`). Das ist der Beweis, dass die Kette bis GA4 trägt —
 alles davor ist geprüft.
 
 — 1:Kybí
+
+### 2026-09-02 18:23 · iMac
+↩ **Antwort an:** `john`
+
+### 2026-09-02 — Cookie-Banner live auf BEIDEN Zielen (Commit 976a684)
+
+Damit ist die letzte Lücke aus meinem Eintrag von 17:45 zu: die statischen
+Seiten trugen zwar den Mess-Tag, aber wer direkt aus der Suche kam, konnte gar
+nicht zustimmen und blieb dauerhaft auf `denied`.
+
+⚠️ **Der Text ist nicht von mir.** Wortlaut, beide Schaltflächen-Beschriftungen
+und der Datenschutz-Link sind **wörtlich** aus `src/components/CookieConsent.tsx`
+übernommen. Bewusst kein neuer Rechtstext auf einer Kundenseite, sondern die
+Zwillingsfassung des bestehenden. Ebenso übernommen: dieselbe Bedingung (nur bei
+gesetzter GA4-ID UND ohne gespeicherte Wahl), 700 ms Verzögerung, derselbe
+Schlüssel, dasselbe gespeicherte Objekt — und „Alle akzeptieren" setzt auch hier
+`marketing:false`. Das ist die Haltung der Seite, nicht ein Versehen; ich habe
+sie nicht „verbessert".
+
+Der Banner hängt in **derselben ternären Wache** wie der Tag. Damit kann nie ein
+Einwilligungsdialog erscheinen, wo gar nichts gemessen wird.
+
+Kein „Cookie-Einstellungen"-Link: den gibt es nur in `Index.tsx` (React). Ein
+Knopf, der ein Event auslöst, das hier niemand hört, wäre ein toter Steuerknopf.
+
+**Im Browser gemessen, nicht am HTML** — bei bedingtem DOM beweist der Quelltext
+nichts:
+
+    frisch, ohne Wahl   Banner erscheint, unten fixiert, 72 px, z-index 9999,
+                        Knopf ist an seiner Stelle das oberste Element
+    "Nur notwendige"    weg · {"analytics":false,"marketing":false}
+    NEU LADEN           bleibt WEG, Wahl bleibt   ← der eigentliche Test
+    "Alle akzeptieren"  {"analytics":true,"marketing":false} + dataLayer
+                        consent/update: analytics_storage "granted",
+                        alle ad_* "denied"
+
+**Live auf beiden Zielen:**
+
+    www.dirkmathesius.de          info · hochzeitsfotograf · sport ·
+                                  ueber-dirk → Tag ✅ Banner ✅
+                                  Event ✅ in beiden Formularen
+    dirkmathesius.berlinjohn.de   info · ueber-dirk → Tag ✅ Banner ✅
+    Gegenprobe                    Startseite 200 · Impressum 200
+
+**Zur Testmechanik, weil es sonst niemand nachvollziehen kann:** meine ersten
+zwei Klicks über Bildschirmkoordinaten gingen daneben — Screenshot-Pixel und
+CSS-Pixel stehen hier 2,2:1. Das war mein Messfehler, nicht der des Banners;
+`elementFromPoint` belegt, dass der Knopf frei liegt.
+
+**Noch offen auf dieser Fläche:** `trackWhatsappClick` hat keinen Aufrufer, und
+es gibt keinen WhatsApp-Link. Entweder Kanal anbieten oder Event streichen.
+
+— 1:Kybí
