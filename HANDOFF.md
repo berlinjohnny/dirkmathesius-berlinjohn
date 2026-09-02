@@ -1167,3 +1167,73 @@ Formular abschicken → Netzwerk-Tab muss einen Request an
 `ep.variante=info` zeigen. Ohne Opt-in darf er nur cookielos gehen (`gcs=G100`).
 
 — 1:Kybí
+
+### 2026-09-02 17:52 · iMac
+↩ **Antwort an:** `john`
+
+### 2026-09-02 — KORREKTUR zum Eintrag von 17:45 + der fertige Deploy-Befehl
+
+**Ich habe im Eintrag oben etwas Falsches behauptet.** Dort steht,
+`hochzeitsfotograf-berlin.html` bekomme das Event nicht, und ein Lauf mit der
+offiziellen Domain sei ein „Domain-Cutover, gehört John". Das stimmt nicht — ich
+hatte den Deploy-Weg nicht gelesen, bevor ich ihn so genannt habe.
+
+`scripts/deploy-ionos.sh:36` ruft den Generator **selbst** mit
+`SITE_URL=https://www.dirkmathesius.de SITE_VARIANT=official` auf und setzt den
+Arbeitsbaum danach per `git checkout` zurück. Nachgestellt und gemessen:
+
+    Fanpage-Lauf     4 Seiten mit Tag · Event nur in info.html
+    official-Lauf   11 Seiten mit Tag · Event in info.html UND
+                    hochzeitsfotograf-berlin.html (variante: 'hochzeit')
+
+Die Lücke gab es also nie. Es bleibt genau EINE offene aus dem Eintrag oben:
+die statischen Seiten haben kein Cookie-Banner, Direkteinstiege aus der Suche
+bleiben auf `denied`.
+
+### 🐛 Dabei ein Fehler gefunden, den kein Sweep hatte (Commit 9170530)
+
+`readEnv` band beide Seiten des `=` mit `\s*`. **`\s` schließt den
+Zeilenumbruch ein.** Bei einem LEEREN Wert fraß der Ausdruck den Umbruch, und
+`(.+?)` nahm die **nächste Zeile** als Wert. An der echten `.env` gemessen:
+
+    vorher   VITE_GOOGLE_ADS_ID -> "# Web3Forms Access-Key (kostenlos ..."
+    nachher  VITE_GOOGLE_ADS_ID -> undefined
+
+Diese `.env` dokumentiert an drei Stellen „Leer = kein Tag" als den
+vorgesehenen Weg. Genau der war kaputt: wer `VITE_GA4_ID` leert, um das Testbed
+sauber zu halten, hätte statt „aus" eine **Kommentarzeile als Mess-ID** bekommen
+— und sie in vier ausgelieferte Seiten geschrieben. Deshalb schlug auch meine
+eigene Warnung nie an: die ID war nie leer, es stand nur Müll drin.
+
+    ID gesetzt   4 Seiten mit Tag, keine Warnung
+    ID leer      0 Seiten mit Tag, "⚠️ VITE_GA4_ID fehlt"
+
+### ⛔ Am Zug: John — ein Befehl
+
+Der SFTP-Upload wurde mir vom Auto-Mode-Klassifizierer verweigert (nicht von
+John). Der Arbeitsbaum ist sauber, alles ist committet und gepusht:
+
+```
+cd "$HOME/Jobs&Projekte/COWORK/dirkmathesius"
+git pull --ff-only
+./scripts/deploy-ionos.sh
+```
+
+**Abnahme danach**, ohne Browser:
+
+```
+curl -s https://www.dirkmathesius.de/info.html | grep -c googletagmanager
+curl -s https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html | grep -c anfrage_abgeschickt
+```
+
+Beide müssen **1** sagen. Heute sagen sie 0.
+
+Mit Browser, danach: auf /info.html Cookie-Opt-in, Testformular abschicken →
+Netzwerk-Tab muss `google-analytics.com/g/collect` mit `en=anfrage_abgeschickt`
+und `ep.variante=info` zeigen. Ohne Opt-in darf er nur cookielos gehen
+(`gcs=G100`).
+
+⚠️ Die Fanpage (dirkmathesius.berlinjohn.de) läuft über `deploy-dm` und ist ein
+EIGENER Zug — `deploy-ionos.sh` fasst sie nicht an.
+
+— 1:Kybí
