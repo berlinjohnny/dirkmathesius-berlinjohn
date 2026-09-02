@@ -149,12 +149,20 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
  * `dm_cookie_consent`, dieselbe Reihenfolge. Wer eines von beiden
  * aendert, muss das andere mitaendern.
  *
- * ⚠️ Diese Seiten haben KEIN Cookie-Banner. Wer ueber die Startseite
- * kommt (der CTA-Weg), bringt seine Wahl im localStorage mit. Wer direkt
- * aus der Suche auf /info.html landet, kann hier nicht zustimmen und
- * bleibt auf `denied` — messtechnisch also weiterhin unsichtbar. Das ist
- * die sichere Seite, aber es ist eine offene Luecke, kein fertiger
- * Zustand.
+ * Der Banner darunter schliesst die Luecke, die hier bis 02.09.2026 stand:
+ * ohne ihn konnte, wer direkt aus der Suche auf /info.html landete, gar
+ * nicht zustimmen und blieb auf `denied` — sicher, aber dauerhaft
+ * unsichtbar. Er ist bewusst die Zwillingsfassung von
+ * src/components/CookieConsent.tsx: gleiche Bedingungen (nur wenn eine
+ * GA4-ID gesetzt ist UND noch keine Wahl gespeichert ist), gleiche
+ * 700 ms Verzoegerung, gleicher Wortlaut, gleiche zwei Schaltflaechen,
+ * gleiches gespeichertes Objekt. „Alle akzeptieren" setzt auch dort
+ * `marketing:false` — das ist die Haltung dieser Seite, nicht ein
+ * Versehen, und wird hier NICHT „verbessert".
+ *
+ * Kein „Cookie-Einstellungen"-Link: den gibt es nur in Index.tsx (React).
+ * Ein Knopf, der ein Event ausloest, das hier niemand hoert, waere ein
+ * toter Steuerknopf.
  */
 const GA4_ID = readEnv("VITE_GA4_ID") || "";
 const MESS_TAG = GA4_ID
@@ -169,6 +177,58 @@ if(raw){var c=JSON.parse(raw);gtag("consent","update",{analytics_storage:c.analy
 var s=document.createElement("script");s.async=true;s.setAttribute("data-analytics","ga4");
 s.src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}";document.head.appendChild(s);
 gtag("js",new Date());gtag("config","${GA4_ID}");
+}catch(e){}})();
+</script>
+<style>
+#dmcc{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
+ border-top:1px solid rgba(0,0,0,.10);background:rgba(255,255,255,.98);
+ -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+ padding:16px 20px calc(env(safe-area-inset-bottom) + 16px);
+ box-shadow:0 -8px 30px rgba(0,0,0,.08);font-size:12px;line-height:1.6;}
+#dmcc .in{max-width:768px;margin:0 auto;display:flex;flex-wrap:wrap;
+ align-items:center;gap:14px;}
+#dmcc p{flex:1 1 260px;margin:0;color:rgba(0,0,0,.6);}
+#dmcc a{color:#FF6600;}
+#dmcc .btns{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;}
+#dmcc button{font:inherit;font-size:11px;letter-spacing:.14em;
+ text-transform:uppercase;padding:10px 18px;cursor:pointer;border:0;}
+#dmcc .no{background:transparent;color:rgba(0,0,0,.6);
+ border:1px solid rgba(0,0,0,.15);}
+#dmcc .no:hover{border-color:rgba(0,0,0,.4);}
+#dmcc .yes{background:#FF6600;color:#fff;}
+#dmcc .yes:hover{background:#e25c00;}
+html.dark #dmcc{background:rgba(19,17,16,.98);border-top-color:rgba(255,255,255,.12);}
+html.dark #dmcc p{color:rgba(232,228,223,.65);}
+html.dark #dmcc .no{color:rgba(232,228,223,.65);border-color:rgba(255,255,255,.22);}
+html.dark #dmcc .no:hover{border-color:rgba(255,255,255,.5);}
+</style>
+<script>
+(function(){try{
+var KEY="dm_cookie_consent";
+var da=null;try{da=localStorage.getItem(KEY);}catch(e){}
+if(da)return;                       // Wahl steht schon — nicht erneut fragen
+function waehle(analytics){
+  try{localStorage.setItem(KEY,JSON.stringify({analytics:analytics,marketing:false}));}catch(e){}
+  if(window.gtag)window.gtag("consent","update",{
+    analytics_storage:analytics?"granted":"denied",
+    ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});
+  var b=document.getElementById("dmcc");if(b)b.parentNode.removeChild(b);
+}
+function bauen(){
+  var d=document.createElement("div");
+  d.id="dmcc";d.setAttribute("role","dialog");d.setAttribute("aria-label","Cookie-Hinweis");
+  d.innerHTML='<div class="in"><p>Diese Seite nutzt Cookies f\u00fcr anonyme Statistik '
+   +'(Google Analytics), um das Angebot zu verbessern. Nur mit deiner Zustimmung. '
+   +'<a href="/datenschutzerklaerung.html">Datenschutz</a></p>'
+   +'<div class="btns"><button type="button" class="no">Nur notwendige</button>'
+   +'<button type="button" class="yes">Alle akzeptieren</button></div></div>';
+  document.body.appendChild(d);
+  d.querySelector(".no").addEventListener("click",function(){waehle(false);});
+  d.querySelector(".yes").addEventListener("click",function(){waehle(true);});
+  setTimeout(function(){d.style.display="block";},700);
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bauen);
+else bauen();
 }catch(e){}})();
 </script>`
   : "";
