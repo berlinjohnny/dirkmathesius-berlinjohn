@@ -3,7 +3,7 @@
 // schema.org ImageGallery built from the embedded XMP/IPTC metadata of each photo.
 // Render via react-helmet-async:
 //   <Helmet><script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script></Helmet>
-// Updated: 2026-09-02
+// Updated: 2026-09-05
 
 export const imageGalleryJsonLd = {
   "@context": "https://schema.org",
@@ -18,66 +18,6 @@ export const imageGalleryJsonLd = {
     "url": "https://www.dirkmathesius.de"
   },
   "associatedMedia": [
-    {
-      "@type": "ImageObject",
-      "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
-      "name": "John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße",
-      "description": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-      "creator": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "copyrightHolder": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "creditText": "Dirk Mathesius",
-      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
-      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
-      "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
-    },
-    {
-      "@type": "ImageObject",
-      "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg",
-      "name": "John Förster – Sprung über das Stelenfeld, Berliner Mauer Bernauer Straße",
-      "description": "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin, gestreckt im Flug – dynamische Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-      "creator": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "copyrightHolder": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "creditText": "Dirk Mathesius",
-      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
-      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
-      "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
-    },
-    {
-      "@type": "ImageObject",
-      "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg",
-      "name": "John Förster – Stele an der Berliner Mauer, Bernauer Straße",
-      "description": "John Förster akrobatisch an einer einzelnen Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-      "creator": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "copyrightHolder": {
-        "@type": "Person",
-        "name": "Dirk Mathesius",
-        "url": "https://www.dirkmathesius.de"
-      },
-      "creditText": "Dirk Mathesius",
-      "license": "https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte",
-      "acquireLicensePage": "https://www.dirkmathesius.de/info.html#kontakt",
-      "copyrightNotice": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
-    },
     {
       "@type": "ImageObject",
       "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp",

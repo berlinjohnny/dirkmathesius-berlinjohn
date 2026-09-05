@@ -50,6 +50,39 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
 
+  /* Grossansicht. Die Flaeche bleibt in BEIDEN Modi dunkel: ein Foto beurteilt man
+     nicht vor Weiss, und so braucht der Overlay keinen Eintrag in DARK_CSS und in
+     den seiteneigenen Dark-Bloecken. z-index 9998 laesst den Cookie-Banner (9999)
+     bewusst oben — die Einwilligung darf nie hinter einem Bild verschwinden. */
+  [data-lightbox] figure img{cursor:zoom-in;}
+  body.lb-on{overflow:hidden;}
+  .lb{position:fixed;inset:0;z-index:9998;display:flex;align-items:center;justify-content:center;
+      box-sizing:border-box;padding:64px 12px 14px;
+      background:#0c0b0b;-webkit-tap-highlight-color:transparent;}
+  .lb[hidden]{display:none;}
+  /* Das Bild bekommt den Platz, der nach Knopfreihe, Bildunterschrift und (falls er
+     steht) dem Cookie-Banner uebrig ist — an feste vh gekoppelt lief es sonst unter
+     der Leiste durch oder klebte am oberen Rand. */
+  .lb figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+             gap:12px;max-width:100%;max-height:100%;min-height:0;}
+  .lb figure img{display:block;max-width:100%;max-height:100%;min-height:0;width:auto;height:auto;
+                 object-fit:contain;background:none;}
+  .lb figcaption{font-size:11.5px;line-height:1.5;text-align:center;color:rgba(255,255,255,.72);
+                 max-width:680px;padding:0 14px;}
+  .lb figcaption .num{display:block;margin-top:5px;color:rgba(255,255,255,.4);font-variant-numeric:tabular-nums;}
+  .lb button{position:absolute;border:0;background:rgba(0,0,0,.4);color:rgba(255,255,255,.8);
+             cursor:pointer;padding:0;line-height:1;font-family:inherit;border-radius:50%;}
+  .lb button:hover{color:#FF6600;}
+  .lb .x{top:12px;right:12px;width:46px;height:46px;font-size:27px;}
+  .lb .p,.lb .n{top:50%;transform:translateY(-50%);width:46px;height:46px;font-size:30px;}
+  .lb .p{left:10px;}
+  .lb .n{right:10px;}
+  @media (max-width:560px){
+    .lb{padding:58px 6px 12px;}
+    .lb .p{left:6px;}
+    .lb .n{right:6px;}
+  }
+
   blockquote{font-size:15px;font-style:italic;color:#444;max-width:680px;margin:22px auto;line-height:1.6;text-align:center;}
   blockquote .who{display:block;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-top:10px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:10px 0 26px;}
@@ -194,7 +227,7 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
     <p class="intro">Freie Fotokunst-Serie mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern: echte Bewegung, 100&nbsp;% real, ohne Bildbearbeitung. Eine langjährige Zusammenarbeit in Sport-, Action- und Konzeptfotografie.</p>
 
     <h2>Sportmodel-Serie · 2008–2016</h2>
-    <section class="grid">
+    <section class="grid" data-lightbox>
       <figure>
         <img src="/portfolio/publication/John-Foerster-freerunner-Sprung-adidas.webp" alt="Der Akrobat und freerunner John F&#xf6;rtsre springt einen coolen stunt in einerm weissen Betongang am Velodrom Berlin in sportlichem Adidas outfit. Prodziert f&#xfc;r das adidas global lookbook/ Men&#39;s Training Spring Summer." loading="lazy" decoding="async" />
         <figcaption>2008 &#xb7; John F&#xf6;rster, Athlet, adidas global lookbook/ Men&#39;s Training Spring Summer</figcaption>
@@ -234,7 +267,7 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
     </section>
 
     <h2>Behind the Scenes</h2>
-    <section class="grid">
+    <section class="grid" data-lightbox>
       <figure>
         <img src="/images/bts/bts-foerster-human-flag-behala-hafen-berlin.jpg" alt="Freie Fotokunst, 100% real ohne Bildbearbeitung: Dirk Mathesius in schwebender Hocke und John F&#xf6;rster als Human-Flag am BEHALA-Schild, Berliner Westhafen" loading="lazy" decoding="async" />
         <figcaption>Human-Flag am BEHALA-Hafen &#xb7; Freie Arbeit</figcaption>
@@ -269,6 +302,123 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
       <a href="/datenschutzerklaerung.html">Datenschutz</a> ·
       <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener">dirkmathesius.de</a>
     </footer>
+    <div class="lb" id="dm-lb" role="dialog" aria-modal="true" aria-label="Bild in Grossansicht" hidden>
+      <button class="x" type="button" aria-label="Schließen">&times;</button>
+      <button class="p" type="button" aria-label="Vorheriges Bild">&lsaquo;</button>
+      <button class="n" type="button" aria-label="Nächstes Bild">&rsaquo;</button>
+      <figure>
+        <img alt="" />
+        <figcaption><span class="cap"></span><span class="num"></span></figcaption>
+      </figure>
+    </div>
+<script>
+(function(){
+  var items = [];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-lightbox] figure"), function(fig){
+    var img = fig.querySelector("img");
+    if (!img) return;
+    var cap = fig.querySelector("figcaption");
+    var i = items.length;
+    items.push({ img: img, cap: cap ? cap.textContent : "" });
+    img.setAttribute("role", "button");
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("aria-label", "Groß ansehen" + (cap ? ": " + cap.textContent : ""));
+    img.addEventListener("click", function(){ open(i); });
+    img.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); }
+    });
+  });
+  if (!items.length) return;
+
+  var ov = document.getElementById("dm-lb");
+  var big = ov.querySelector("figure img");
+  var capEl = ov.querySelector(".cap");
+  var numEl = ov.querySelector(".num");
+  var btnX = ov.querySelector(".x");
+  var btnP = ov.querySelector(".p");
+  var btnN = ov.querySelector(".n");
+  var idx = 0, from = null, pushed = false;
+
+  if (items.length < 2) { btnP.hidden = true; btnN.hidden = true; }
+
+  function preload(i){
+    var it = items[(i + items.length) % items.length];
+    var im = new Image();
+    im.src = it.img.currentSrc || it.img.src;
+  }
+
+  // Der Cookie-Banner (#dmcc, z-index 9999) liegt bewusst UEBER dem Bild — eine
+  // Einwilligung darf nie verdeckt sein. Damit er nicht die Bildunterschrift
+  // verschluckt, raeumt der Overlay ihm den Platz unten frei, solange er steht.
+  function fitConsent(){
+    var b = document.getElementById("dmcc");
+    var h = b && b.offsetHeight && getComputedStyle(b).display !== "none" ? b.offsetHeight : 0;
+    ov.style.paddingBottom = h ? (h + 12) + "px" : "";
+  }
+
+  function show(i){
+    fitConsent();
+    idx = (i + items.length) % items.length;
+    var it = items[idx];
+    big.src = it.img.currentSrc || it.img.src;
+    big.alt = it.img.alt || "";
+    capEl.textContent = it.cap;
+    numEl.textContent = (idx + 1) + " / " + items.length;
+    if (items.length > 1) { preload(idx + 1); preload(idx - 1); }
+  }
+
+  function open(i){
+    from = items[i].img;
+    show(i);
+    ov.hidden = false;
+    document.body.classList.add("lb-on");
+    btnX.focus();
+    // Zurueck-Geste/Taste schliesst das Bild, statt die Seite zu verlassen.
+    if (!pushed) { try { history.pushState({ dmLb: 1 }, ""); pushed = true; } catch (e) {} }
+  }
+
+  function hide(){
+    ov.hidden = true;
+    big.removeAttribute("src");
+    document.body.classList.remove("lb-on");
+    if (from) { from.focus(); from = null; }
+  }
+
+  function close(){
+    if (pushed) { pushed = false; history.back(); }
+    else hide();
+  }
+
+  btnX.addEventListener("click", close);
+  btnP.addEventListener("click", function(e){ e.stopPropagation(); show(idx - 1); });
+  btnN.addEventListener("click", function(e){ e.stopPropagation(); show(idx + 1); });
+  ov.querySelector("figure").addEventListener("click", function(e){ e.stopPropagation(); });
+  ov.addEventListener("click", close);
+
+  document.addEventListener("keydown", function(e){
+    if (ov.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") show(idx - 1);
+    else if (e.key === "ArrowRight") show(idx + 1);
+  });
+
+  window.addEventListener("popstate", function(){
+    if (ov.hidden) return;
+    pushed = false;
+    hide();
+  });
+
+  var sx = 0, sy = 0;
+  ov.addEventListener("touchstart", function(e){
+    sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
+  }, { passive: true });
+  ov.addEventListener("touchend", function(e){
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
+    else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close();
+  }, { passive: true });
+})();
+</script>
   </div>
 </body>
 </html>

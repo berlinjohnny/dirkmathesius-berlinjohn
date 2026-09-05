@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { X, Play, Phone } from "lucide-react";
 import { portfolio, type PortfolioCategory, type PortfolioImage } from "@/lib/portfolio";
 import { Helmet } from "react-helmet-async";
@@ -197,19 +197,36 @@ function HeroTimeline() {
 function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioImage[]; index: number; onClose: () => void }) {
   const [idx, setIdx] = useState(startIndex);
   const current = images[idx];
+  // Umlaufend statt an den Enden klemmend — dieselbe Bedienung wie in der
+  // Grossansicht der statischen Seiten (scripts/build-portfolio-manifest.mjs).
+  const step = useCallback((d: number) => setIdx((i) => (i + d + images.length) % images.length), [images.length]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") setIdx((i) => Math.max(0, i - 1));
-      if (e.key === "ArrowRight") setIdx((i) => Math.min(images.length - 1, i + 1));
+      if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "ArrowRight") step(1);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [images.length, onClose]);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [images.length, onClose, step]);
+
+  const touch = useRef({ x: 0, y: 0 });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden lb-fade" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden lb-fade" onClick={onClose}
+      onTouchStart={(e) => { touch.current = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY }; }}
+      onTouchEnd={(e) => {
+        const dx = e.changedTouches[0].clientX - touch.current.x;
+        const dy = e.changedTouches[0].clientY - touch.current.y;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+        else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) onClose();
+      }}>
       {/* Hintergrund: dasselbe Bild, stark verschwommen */}
       <img src={current.src} alt="" aria-hidden
         className="absolute inset-0 w-full h-full object-cover scale-125 blur-2xl" />
@@ -219,7 +236,7 @@ function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioIma
       <button className="absolute top-5 right-5 z-20 text-white/70 hover:text-[#FF6600] p-2" aria-label="Schließen" onClick={onClose}><X size={24} /></button>
       <button className="absolute left-2 md:left-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Vorheriges Bild"
-        onClick={(e) => { e.stopPropagation(); setIdx(Math.max(0, idx - 1)); }}>‹</button>
+        onClick={(e) => { e.stopPropagation(); step(-1); }}>‹</button>
       <figure className="relative z-10 flex flex-col items-center gap-4 max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
         <img src={current.src} alt={current.alt} className="max-h-[84vh] max-w-[92vw] object-contain shadow-2xl shadow-black/60"
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
@@ -231,7 +248,7 @@ function Lightbox({ images, index: startIndex, onClose }: { images: PortfolioIma
       </figure>
       <button className="absolute right-2 md:right-8 z-20 text-white/50 hover:text-[#FF6600] text-5xl px-4 py-8 font-light"
         aria-label="Nächstes Bild"
-        onClick={(e) => { e.stopPropagation(); setIdx(Math.min(images.length - 1, idx + 1)); }}>›</button>
+        onClick={(e) => { e.stopPropagation(); step(1); }}>›</button>
     </div>
   );
 }

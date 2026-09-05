@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via `node scripts/build-portfolio-manifest.mjs`)
 // Alt-texts & captions are read from the embedded XMP/IPTC metadata of each .webp.
-// Updated: 2026-09-02
+// Updated: 2026-09-05
 
 export type PortfolioImage = {
   src: string;
@@ -27,36 +27,9 @@ export const portfolio: PortfolioCategory[] = [
     "id": "sport",
     "label": "Sport",
     "altBase": "Sportfotografie Berlin – Dirk Mathesius",
-    "cover": "/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
-    "coverAlt": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
+    "cover": "/portfolio/sport/Franziska-Koch-Schiedsrichterin-Runners-World-Magazin.webp",
+    "coverAlt": "in einem Umkleideraum für Sportler sitzt die Fussball- Schiedsrichterin Franziska Koch auf einer Bank in Sport outfit und Schiedsrichterpfeife. Sie schaut sicher in die Kamera. Produziert für Runners World Magazin mit Hasselblad 501c CFV 16.",
     "images": [
-      {
-        "src": "/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg",
-        "alt": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-        "title": "John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße",
-        "caption": "John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
-        "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
-        "collab": true
-      },
-      {
-        "src": "/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg",
-        "alt": "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin, gestreckt im Flug – dynamische Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-        "title": "John Förster – Sprung über das Stelenfeld, Berliner Mauer Bernauer Straße",
-        "caption": "John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
-        "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
-        "collab": true
-      },
-      {
-        "src": "/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg",
-        "alt": "John Förster akrobatisch an einer einzelnen Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.",
-        "title": "John Förster – Stele an der Berliner Mauer, Bernauer Straße",
-        "caption": "John Förster akrobatisch an einer Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – freie Fotokunst, 100% real ohne Bildbearbeitung.",
-        "creator": "Dirk Mathesius",
-        "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
-        "collab": true
-      },
       {
         "src": "/portfolio/sport/Franziska-Koch-Schiedsrichterin-Runners-World-Magazin.webp",
         "alt": "in einem Umkleideraum für Sportler sitzt die Fussball- Schiedsrichterin Franziska Koch auf einer Bank in Sport outfit und Schiedsrichterpfeife. Sie schaut sicher in die Kamera. Produziert für Runners World Magazin mit Hasselblad 501c CFV 16.",

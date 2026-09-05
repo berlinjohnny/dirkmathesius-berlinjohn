@@ -17,7 +17,7 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
 <meta property="og:title" content="Photography &#x2013; Dirk Mathesius &#xd7; John F&#xf6;rster" />
 <meta property="og:description" content="Fotografien von Dirk Mathesius aus der Zusammenarbeit mit Sportmodel John F&#xf6;rster: Human Flag, Freerunning und Akrobatik in Berlin &#x2013; echte Action, ohne Bildbearbeitung." />
 <meta property="og:url" content="https://dirkmathesius.berlinjohn.de/photography.html" />
-<meta property="og:image" content="https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg" />
+<meta property="og:image" content="https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp" />
 <meta property="og:site_name" content="Dirk Mathesius" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
@@ -51,6 +51,39 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   footer{border-top:1px solid #eee;margin-top:34px;padding:20px 0 44px;text-align:center;font-size:11px;color:#888;}
   footer a{color:#888;text-decoration:none;margin:0 8px;}
   footer a:hover{color:#FF6600;}
+
+  /* Grossansicht. Die Flaeche bleibt in BEIDEN Modi dunkel: ein Foto beurteilt man
+     nicht vor Weiss, und so braucht der Overlay keinen Eintrag in DARK_CSS und in
+     den seiteneigenen Dark-Bloecken. z-index 9998 laesst den Cookie-Banner (9999)
+     bewusst oben — die Einwilligung darf nie hinter einem Bild verschwinden. */
+  [data-lightbox] figure img{cursor:zoom-in;}
+  body.lb-on{overflow:hidden;}
+  .lb{position:fixed;inset:0;z-index:9998;display:flex;align-items:center;justify-content:center;
+      box-sizing:border-box;padding:64px 12px 14px;
+      background:#0c0b0b;-webkit-tap-highlight-color:transparent;}
+  .lb[hidden]{display:none;}
+  /* Das Bild bekommt den Platz, der nach Knopfreihe, Bildunterschrift und (falls er
+     steht) dem Cookie-Banner uebrig ist — an feste vh gekoppelt lief es sonst unter
+     der Leiste durch oder klebte am oberen Rand. */
+  .lb figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+             gap:12px;max-width:100%;max-height:100%;min-height:0;}
+  .lb figure img{display:block;max-width:100%;max-height:100%;min-height:0;width:auto;height:auto;
+                 object-fit:contain;background:none;}
+  .lb figcaption{font-size:11.5px;line-height:1.5;text-align:center;color:rgba(255,255,255,.72);
+                 max-width:680px;padding:0 14px;}
+  .lb figcaption .num{display:block;margin-top:5px;color:rgba(255,255,255,.4);font-variant-numeric:tabular-nums;}
+  .lb button{position:absolute;border:0;background:rgba(0,0,0,.4);color:rgba(255,255,255,.8);
+             cursor:pointer;padding:0;line-height:1;font-family:inherit;border-radius:50%;}
+  .lb button:hover{color:#FF6600;}
+  .lb .x{top:12px;right:12px;width:46px;height:46px;font-size:27px;}
+  .lb .p,.lb .n{top:50%;transform:translateY(-50%);width:46px;height:46px;font-size:30px;}
+  .lb .p{left:10px;}
+  .lb .n{right:10px;}
+  @media (max-width:560px){
+    .lb{padding:58px 6px 12px;}
+    .lb .p{left:6px;}
+    .lb .n{right:6px;}
+  }
 
   /* Dezenter Nebenlink People → private Nische — bewusst leiser als der Haupt-CTA. */
   .events-link{text-align:center;margin:10px 0 0;}
@@ -121,7 +154,7 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   html.dark footer{border-color:#424242;color:#9e9e9e;}
   html.dark footer a{color:#9e9e9e;}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","@id":"https://dirkmathesius.berlinjohn.de/photography.html#gallery","name":"Dirk Mathesius – Photography","url":"https://dirkmathesius.berlinjohn.de/photography.html","description":"Fotografien von Dirk Mathesius aus der Zusammenarbeit mit Sportmodel John Förster: Human Flag, Freerunning und Akrobatik in Berlin – echte Action, ohne Bildbearbeitung.","author":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"associatedMedia":[{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg","name":"John Förster – Human-Flag an der Berliner Mauer, Bernauer Straße","description":"John Förster hält eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg","name":"John Förster – Sprung über das Stelenfeld, Berliner Mauer Bernauer Straße","description":"John Förster springt dynamisch über das Stelenfeld der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin, gestreckt im Flug – dynamische Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg","name":"John Förster – Stele an der Berliner Mauer, Bernauer Straße","description":"John Förster akrobatisch an einer einzelnen Stahlstele der Gedenkstätte Berliner Mauer, Bernauer Straße in Berlin – Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf den sehr hohen Eisen- Stelen der Gedenkstätte Berliner Mauer in der Bernauer Strasse. In aller frühe fotografiert, noch nebelig und menschenleer. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Handstand-schwangere-Auster.webp","name":"John Förster, Akrobat, Schwangere Auster, Berlin, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit freiem Oberkörper einen freestyle- Handstand am Geländer vor der schwangeren Auster in Berlin bei bedecktem Himmel. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster springt an eine Steinmauer in eine Pfütze. Dabei handelt es sich um einen analogen Trick. Im Hintergrund die Spree und der Reichstag im Gegenlicht mit freiem Himmel. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Zaun-Supermann.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf einem hohen und massiven Stahlzaun mit Spitzen. Freier Oberkörper. Im Hintergrund ein modernes Gebäude mit Steinfassade. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Fuss-high-five-Phaeno.webp","name":"John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit","description":"Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Kreuz-Sprung.webp","name":"John & Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16","description":"Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-holy-Salto-Phaeno.webp","name":"John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit","description":"Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/folks/Tina-Foerster-Portrait-kopfueber.webp","name":"Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius","description":"Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/publication/John-Foerster-freerunner-Salto-Treppe-adidas.webp","name":"John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer","description":"Der Akrobat und freerunner John Förtsre springt vor einer formatfüllenden Beton-Treppe einen Salto in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/publication/John-Foerster-freerunner-Sprung-adidas.webp","name":"John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer","description":"Der Akrobat und freerunner John Förtsre springt einen coolen stunt in einerm weissen Betongang am Velodrom Berlin in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ImageGallery","@id":"https://dirkmathesius.berlinjohn.de/photography.html#gallery","name":"Dirk Mathesius – Photography","url":"https://dirkmathesius.berlinjohn.de/photography.html","description":"Fotografien von Dirk Mathesius aus der Zusammenarbeit mit Sportmodel John Förster: Human Flag, Freerunning und Akrobatik in Berlin – echte Action, ohne Bildbearbeitung.","author":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"associatedMedia":[{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf den sehr hohen Eisen- Stelen der Gedenkstätte Berliner Mauer in der Bernauer Strasse. In aller frühe fotografiert, noch nebelig und menschenleer. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Handstand-schwangere-Auster.webp","name":"John Förster, Akrobat, Schwangere Auster, Berlin, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit freiem Oberkörper einen freestyle- Handstand am Geländer vor der schwangeren Auster in Berlin bei bedecktem Himmel. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster springt an eine Steinmauer in eine Pfütze. Dabei handelt es sich um einen analogen Trick. Im Hintergrund die Spree und der Reichstag im Gegenlicht mit freiem Himmel. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-Foerster-Akrobat-Zaun-Supermann.webp","name":"John Förster, Akrobat, Freie Arbeit","description":"Der Akrobat und Freerunner John Förster posiert mit einer Hand in einer Art Superman- Pose auf einem hohen und massiven Stahlzaun mit Spitzen. Freier Oberkörper. Im Hintergrund ein modernes Gebäude mit Steinfassade. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Fuss-high-five-Phaeno.webp","name":"John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit","description":"Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Kreuz-Sprung.webp","name":"John & Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16","description":"Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-holy-Salto-Phaeno.webp","name":"John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit","description":"Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/folks/Tina-Foerster-Portrait-kopfueber.webp","name":"Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius","description":"Tina Foerster Portrait kopfueber – Portraitfotografie Berlin – Dirk Mathesius","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/publication/John-Foerster-freerunner-Salto-Treppe-adidas.webp","name":"John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer","description":"Der Akrobat und freerunner John Förtsre springt vor einer formatfüllenden Beton-Treppe einen Salto in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"},{"@type":"ImageObject","contentUrl":"https://dirkmathesius.berlinjohn.de/portfolio/publication/John-Foerster-freerunner-Sprung-adidas.webp","name":"John Förster, Athlet, adidas global lookbook/ Men's Training Spring Summer","description":"Der Akrobat und freerunner John Förtsre springt einen coolen stunt in einerm weissen Betongang am Velodrom Berlin in sportlichem Adidas outfit. Prodziert für das adidas global lookbook/ Men's Training Spring Summer.","creator":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"copyrightHolder":{"@type":"Person","name":"Dirk Mathesius","url":"https://www.dirkmathesius.de"},"creditText":"Dirk Mathesius","license":"https://www.dirkmathesius.de/ueber-dirk.html#nutzungsrechte","acquireLicensePage":"https://www.dirkmathesius.de/info.html#kontakt","copyrightNotice":"Nutzung nur mit ausdrücklicher Genehmigung möglich"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://dirkmathesius.berlinjohn.de/"},{"@type":"ListItem","position":2,"name":"Photography","item":"https://dirkmathesius.berlinjohn.de/photography.html"}]}</script>
 <script>
 (function(){try{
@@ -217,19 +250,7 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
     <h1>Photography — Photography &#x2013; Dirk Mathesius &#xd7; John F&#xf6;rster</h1>
     <p class="intro">Die gemeinsamen Arbeiten mit Dirk Mathesius &#x2013; Akrobatik, Human Flag und Freerunning, alles real vor der Kamera entstanden. Buchungen laufen direkt &#xfc;ber Dirk.</p>
 
-    <section class="grid">
-      <figure>
-        <img src="/portfolio/sport/John-Foerster-Human-Flag-Berliner-Mauer-Bernauer-Strasse.jpg" alt="John F&#xf6;rster h&#xe4;lt eine perfekte Human-Flag horizontal an den rostigen Stahlstelen der Gedenkst&#xe4;tte Berliner Mauer, Bernauer Stra&#xdf;e in Berlin &#x2013; Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung." loading="lazy" decoding="async" />
-        <figcaption>John F&#xf6;rster &#x2013; Human-Flag an der Berliner Mauer, Bernauer Stra&#xdf;e</figcaption>
-      </figure>
-      <figure>
-        <img src="/portfolio/sport/John-Foerster-Sprung-Stelenfeld-Berliner-Mauer-Bernauer-Strasse.jpg" alt="John F&#xf6;rster springt dynamisch &#xfc;ber das Stelenfeld der Gedenkst&#xe4;tte Berliner Mauer, Bernauer Stra&#xdf;e in Berlin, gestreckt im Flug &#x2013; dynamische Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung." loading="lazy" decoding="async" />
-        <figcaption>John F&#xf6;rster &#x2013; Sprung &#xfc;ber das Stelenfeld, Berliner Mauer Bernauer Stra&#xdf;e</figcaption>
-      </figure>
-      <figure>
-        <img src="/portfolio/sport/John-Foerster-Akrobat-Stele-Berliner-Mauer-Bernauer-Strasse.jpg" alt="John F&#xf6;rster akrobatisch an einer einzelnen Stahlstele der Gedenkst&#xe4;tte Berliner Mauer, Bernauer Stra&#xdf;e in Berlin &#x2013; Sport- und Konzeptfotografie, 100% real ohne Bildbearbeitung." loading="lazy" decoding="async" />
-        <figcaption>John F&#xf6;rster &#x2013; Stele an der Berliner Mauer, Bernauer Stra&#xdf;e</figcaption>
-      </figure>
+    <section class="grid" data-lightbox>
       <figure>
         <img src="/portfolio/sport/John-Foerster-Akrobat-Berliner-Mauer-Stelen.webp" alt="Der Akrobat und Freerunner John F&#xf6;rster posiert mit einer Hand in einer Art Superman- Pose auf den sehr hohen Eisen- Stelen der Gedenkst&#xe4;tte Berliner Mauer in der Bernauer Strasse. In aller fr&#xfc;he fotografiert, noch nebelig und menschenleer. Eine Freie Arbeit." loading="lazy" decoding="async" />
         <figcaption>John F&#xf6;rster, Akrobat, Freie Arbeit</figcaption>
@@ -287,6 +308,123 @@ try{localStorage.setItem("dm-theme",n?"dark":"light");}catch(e){}sync();});})();
       <a href="/datenschutzerklaerung.html">Datenschutz</a> ·
       <a href="https://www.dirkmathesius.de" target="_blank" rel="noopener">dirkmathesius.de</a>
     </footer>
+    <div class="lb" id="dm-lb" role="dialog" aria-modal="true" aria-label="Bild in Grossansicht" hidden>
+      <button class="x" type="button" aria-label="Schließen">&times;</button>
+      <button class="p" type="button" aria-label="Vorheriges Bild">&lsaquo;</button>
+      <button class="n" type="button" aria-label="Nächstes Bild">&rsaquo;</button>
+      <figure>
+        <img alt="" />
+        <figcaption><span class="cap"></span><span class="num"></span></figcaption>
+      </figure>
+    </div>
+<script>
+(function(){
+  var items = [];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-lightbox] figure"), function(fig){
+    var img = fig.querySelector("img");
+    if (!img) return;
+    var cap = fig.querySelector("figcaption");
+    var i = items.length;
+    items.push({ img: img, cap: cap ? cap.textContent : "" });
+    img.setAttribute("role", "button");
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("aria-label", "Groß ansehen" + (cap ? ": " + cap.textContent : ""));
+    img.addEventListener("click", function(){ open(i); });
+    img.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); }
+    });
+  });
+  if (!items.length) return;
+
+  var ov = document.getElementById("dm-lb");
+  var big = ov.querySelector("figure img");
+  var capEl = ov.querySelector(".cap");
+  var numEl = ov.querySelector(".num");
+  var btnX = ov.querySelector(".x");
+  var btnP = ov.querySelector(".p");
+  var btnN = ov.querySelector(".n");
+  var idx = 0, from = null, pushed = false;
+
+  if (items.length < 2) { btnP.hidden = true; btnN.hidden = true; }
+
+  function preload(i){
+    var it = items[(i + items.length) % items.length];
+    var im = new Image();
+    im.src = it.img.currentSrc || it.img.src;
+  }
+
+  // Der Cookie-Banner (#dmcc, z-index 9999) liegt bewusst UEBER dem Bild — eine
+  // Einwilligung darf nie verdeckt sein. Damit er nicht die Bildunterschrift
+  // verschluckt, raeumt der Overlay ihm den Platz unten frei, solange er steht.
+  function fitConsent(){
+    var b = document.getElementById("dmcc");
+    var h = b && b.offsetHeight && getComputedStyle(b).display !== "none" ? b.offsetHeight : 0;
+    ov.style.paddingBottom = h ? (h + 12) + "px" : "";
+  }
+
+  function show(i){
+    fitConsent();
+    idx = (i + items.length) % items.length;
+    var it = items[idx];
+    big.src = it.img.currentSrc || it.img.src;
+    big.alt = it.img.alt || "";
+    capEl.textContent = it.cap;
+    numEl.textContent = (idx + 1) + " / " + items.length;
+    if (items.length > 1) { preload(idx + 1); preload(idx - 1); }
+  }
+
+  function open(i){
+    from = items[i].img;
+    show(i);
+    ov.hidden = false;
+    document.body.classList.add("lb-on");
+    btnX.focus();
+    // Zurueck-Geste/Taste schliesst das Bild, statt die Seite zu verlassen.
+    if (!pushed) { try { history.pushState({ dmLb: 1 }, ""); pushed = true; } catch (e) {} }
+  }
+
+  function hide(){
+    ov.hidden = true;
+    big.removeAttribute("src");
+    document.body.classList.remove("lb-on");
+    if (from) { from.focus(); from = null; }
+  }
+
+  function close(){
+    if (pushed) { pushed = false; history.back(); }
+    else hide();
+  }
+
+  btnX.addEventListener("click", close);
+  btnP.addEventListener("click", function(e){ e.stopPropagation(); show(idx - 1); });
+  btnN.addEventListener("click", function(e){ e.stopPropagation(); show(idx + 1); });
+  ov.querySelector("figure").addEventListener("click", function(e){ e.stopPropagation(); });
+  ov.addEventListener("click", close);
+
+  document.addEventListener("keydown", function(e){
+    if (ov.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") show(idx - 1);
+    else if (e.key === "ArrowRight") show(idx + 1);
+  });
+
+  window.addEventListener("popstate", function(){
+    if (ov.hidden) return;
+    pushed = false;
+    hide();
+  });
+
+  var sx = 0, sy = 0;
+  ov.addEventListener("touchstart", function(e){
+    sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
+  }, { passive: true });
+  ov.addEventListener("touchend", function(e){
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
+    else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) close();
+  }, { passive: true });
+})();
+</script>
   </div>
 </body>
 </html>

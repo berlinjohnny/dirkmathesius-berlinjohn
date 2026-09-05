@@ -1338,3 +1338,93 @@ CSS-Pixel stehen hier 2,2:1. Das war mein Messfehler, nicht der des Banners;
 es gibt keinen WhatsApp-Link. Entweder Kanal anbieten oder Event streichen.
 
 — 1:Kybí
+
+### 2026-09-05 16:40 · iMac
+↩ **Antwort an:** `john`
+
+### 2026-09-05 — Großansicht gebaut (sie fehlte, sie war nicht kaputt) + drei Motive raus
+
+**Johns Befund:** „die großansicht lässt sich nicht öffnen, auf Handy als auch
+Desktop". **Die Ursache ist eine andere als die Formulierung nahelegt:** auf den
+Kategorie-Seiten gab es **nie** eine. Die Bilder standen dort als nacktes `<img>`
+in einem `<figure>` — kein Link, kein Handler, kein Overlay. Nichts war defekt;
+es war schlicht nie gebaut. Wer klickte, klickte ins Leere.
+
+**Gebaut wurde an der Quelle** — `scripts/build-portfolio-manifest.mjs`. Die
+Dateien in `public/*.html` sind Artefakte dieses Generators; von Hand editiert
+wären sie beim nächsten Lauf weg.
+
+    Vorher gemessen: ein Leerlauf des Generators aenderte nur `lastmod`-Daten.
+    Der Baum war also sauber — der Diff unten ist ausschliesslich meiner.
+
+**Eine Konstante `LIGHTBOX`, drei Einbauorte**, markiert per `data-lightbox`:
+`categoryPage()` (alle 7 Kategorien der offiziellen Domain), beide Raster auf
+`kollaborationen.html`, der Behind-the-Scenes-Block auf `ueber-dirk.html`.
+
+⚠️ **Kein generiertes Bild-Array.** Quelle und Bildunterschrift liest das Skript
+zur Laufzeit aus dem DOM (`img.currentSrc`, `figcaption.textContent`). Der Grund
+ist konkret: die `src` sind bereits durch `enc()` gelaufen
+(`John-und-Jim-F%C3%B6rster-…`) und die Bildunterschriften durch `E()`
+(`&#xf6;`). Ein zweites Mal durch beide gejagt stuende `%C3%B6` doppelt kodiert
+in der URL und `&#xf6;` als sichtbarer Text unter dem Bild. So gibt es gar keine
+Kodierungs-Angriffsfläche. Gemessen: „John Förster – Human-Flag an der Berliner
+Mauer, Bernauer Straße" — korrekt.
+
+⚠️ **Bewusst kein Zoom.** Die Rasterbilder **sind** die Originale, nur in einer
+260px-Spalte. Bildschirmfüllend ist hier bereits die Großansicht, und sie ist
+sofort da, weil die Datei schon dekodiert ist. Pinch/Pan/Doppeltipp wären genau
+die Stelle, an der die Fehler wohnen.
+
+**Der Cookie-Banner bleibt oben** (z-index 9999 gegen 9998). Eine Einwilligung
+darf nie hinter einem Bild verschwinden. Damit er die Bildunterschrift nicht
+verschluckt, räumt der Overlay ihm beim Öffnen den Platz unten frei
+(`fitConsent()`, gemessen: Padding 73–125 px je nach Breite, Zähler steht frei).
+
+**Im Browser gemessen, nicht am HTML** — bei aufgebautem DOM beweist Quelltext
+nichts. Klicks per `javascript_tool`, Trefferlage per `elementFromPoint`:
+
+    oeffnen (Klick + Enter/Space)   ✅   Schliessen-Knopf ist oberstes Element
+    Pfeile · ←/→ · Umlauf           ✅   1 → zurueck → 31 → vor → 1
+    Escape · Hintergrundklick       ✅   body-Scroll wird gesperrt + freigegeben
+    Browser-ZURUECK schliesst Bild  ✅   Seite wird NICHT verlassen (pushState)
+    Zaehler + Bildunterschrift      ✅   „1 / 28", Umlaute korrekt
+    Desktop 1440 · schmal ~500      ✅   Bild an freien Platz gekoppelt, nicht an vh
+    Konsole                         ✅   keine Fehler
+
+**Die React-Startseite hat schon eine** (`Index.tsx:197`), aber nur an
+`CollabBTS` verdrahtet — sie öffnet, das habe ich nachgemessen. Statt sie
+neuzubauen habe ich die Bedienung **angeglichen**: Wischen, Umlauf statt
+Anschlag, Scroll-Sperre. Bewusst **ohne** `pushState`: die Startseite ist eine
+SPA mit Router, dort ist ein History-Eingriff ein anderes Risiko als auf einer
+statischen Seite.
+
+**Drei Motive entfernt** (Johns Entscheidung im selben Durchgang): die
+Bernauer-Straße-Bilder Human-Flag, Stelenfeld-Sprung, Stele. Sie kamen
+ausschließlich aus dem handgepflegten `manualExtras`-Block — der Datei-Scan
+liest nur `.webp`, diese drei sind `.jpg`. Der Block ist jetzt leer, damit sind
+sie in **einem** Schritt aus `portfolio.ts`, `imageJsonLd.ts`, `sitemap.xml` und
+allen statischen Seiten verschwunden: sport **31 → 28**, Gesamt **184 → 181**.
+Gegenprobe: kein Treffer auf `Bernauer-Strasse.jpg` mehr in HTML, Sitemap oder
+JSON-LD. Die verbleibenden „Bernauer"-Treffer sind **andere** Motive.
+
+🟡 **Die drei Bilddateien liegen weiter in `public/portfolio/sport/`** — nicht
+mehr verlinkt, in keiner Sitemap, aber per direkter URL erreichbar. Löschen
+wäre Johns Entscheidung, nicht meine.
+
+✅ **Nebenbefund, still geschlossen:** `hochzeitsfotograf-berlin.html` wird nur
+im *official*-Lauf geschrieben und hatte deshalb **weder Mess-Tag noch
+Cookie-Banner** — die Arbeit vom 02.09. hat sie nie erwischt. Mit diesem Lauf
+bekommt sie beides, inklusive `consent default: denied`.
+
+🔴 **Noch nicht deployt — das ist Johns Rubikon.** Priorität laut John:
+**www.dirkmathesius.de zuerst** (`scripts/deploy-ionos.sh`, regeneriert selbst
+mit official-Env und stellt danach wieder her), danach
+`dirkmathesius.berlinjohn.de` (`deploy-dm`). ⚠️ Nie überlappend: `deploy-dm`
+macht `pkill -f lftp.*dirkmathesius`.
+
+**Ungemessen, ehrlich benannt:** ein **echter Finger** auf einem echten Handy.
+Die Wischgesten sind synthetische Touch-Events — sie beweisen die Logik, nicht
+das Gefühl. Ebenso ungemessen: das Verhalten der drei entfernten Bilder in der
+Google Search Console (sie waren indexiert, sie fallen jetzt heraus).
+
+— 1:Kybí
