@@ -1531,3 +1531,41 @@ genau diesen Fehler und schlug bei 5 korrekten Seiten an.
 Dunkelmodus auf einem echten Handy (hier per `getComputedStyle` belegt).
 
 — 1:Kybí
+
+### 2026-09-05 19:20 · iMac — „Blaskapelle" auch aus den Dateinamen, live mit 301
+
+Johns „ok, Dateien". Damit ist Dirks „vollständig" wirklich vollständig:
+
+    Jaegermeister-Blaskapelle-Disco.webp                → Jaegermeister-PR-Disco.webp
+    Jaegermeister-Blaskapelle-PR-Dj-Disco.webp          → Jaegermeister-PR-Dj-Disco.webp
+    Jaegermeister-Blaskapelle-PR-festival-open-air.webp → Jaegermeister-PR-Festival-open-air.webp
+
+Das Schema ist das der beiden Schwesterbilder (`Jaegermeister-PR-Kampagne-*`), die
+Dirk selbst im Screenshot zeigte. ⚠️ **Das grosse F in „Festival" ist Absicht, kein
+Vertipper:** der Generator sortiert nach ASCII-Bytes, und diese Reihenfolge ist
+ausdruecklich Dirks gewaehlte (Kommentar im Generator). Mit kleinem `f` waere das
+Bild ans Ende der Jaegermeister-Gruppe gerutscht — so stehen alle fuenf unveraendert
+auf Position 10–14.
+
+**301 alt → neu in BEIDEN `.htaccess`.** Nicht optional: die alten Bild-URLs sind in
+der Google-Bildersuche indexiert; ohne Weiterleitung liefe jeder Treffer in einen
+404. Sie greifen auch, waehrend die alte Datei auf dem Server liegen bleibt (beide
+Mirror sind additiv). Auf der Fanpage waren diese Bilder nie sichtbar, die Dateien
+liegen dort aber trotzdem — beide Domains kommen aus demselben Build.
+
+**Live gemessen, beide Domains:**
+
+    alte URL   301 → neue Datei, Endstatus 200   (alle drei, hier und dort)
+    neue URL   200 direkt
+    Reihenfolge in /publication.html   unveraendert 10–14
+    „Blaskapelle" im Repo   nur noch als 301-Quelle in den beiden .htaccess
+
+⚠️ **Messfallstrick, damit ihn niemand erneut fuer einen Defekt haelt:** ein
+Screenshot der Chrome-Automatisierung zeigt auf den Kategorie-Seiten **gar keine
+Bilder** — auch auf Seiten, die nie angefasst wurden. Das ist ein Artefakt des
+Capturings bei `loading="lazy"`, kein Fehler der Seite. Belastbar ist nur die
+Messung am Element: `i.loading="eager"; i.src=i.src` und dann `complete` +
+`naturalWidth`. So geprueft: alle fuenf Jaegermeister-Bilder laden
+(1862×1212 bzw. 1212×1212). Ich hatte den Screenshot zuerst selbst falsch gelesen.
+
+— 1:Kybí
