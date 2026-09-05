@@ -37,6 +37,15 @@ RewriteRule ^hochzeitsfotograf-berlin\.html$ https://www.dirkmathesius.de/hochze
 RewriteCond %{HTTP_HOST} berlinjohn\.de$ [NC]
 RewriteRule ^(sport|folks|publication)\.html$ /photography.html [R=301,L]
 
+# ─── Umbenannte Bilddateien (2026-09-05, Dirks Auftrag „Blaskapelle" raus) ────
+# Spiegel der Regeln in deploy/htaccess.ionos. Auf der Fanpage waren diese drei
+# Bilder nie sichtbar (sie sind keine Kollaborationen) — die DATEIEN liegen hier
+# aber trotzdem, weil beide Domains aus demselben Build gespiegelt werden. Ohne
+# 301 bliebe eine tote Adresse zurueck, auf die frueher verlinkt worden sein kann.
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-Disco.webp /portfolio/publication/Jaegermeister-PR-Disco.webp
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-PR-Dj-Disco.webp /portfolio/publication/Jaegermeister-PR-Dj-Disco.webp
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-PR-festival-open-air.webp /portfolio/publication/Jaegermeister-PR-Festival-open-air.webp
+
 ErrorDocument 404 /404.html
 
 # >>> SOFT-404-RIEGEL: nur echte Client-Routen fallen auf die SPA, alles andere

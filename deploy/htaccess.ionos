@@ -34,6 +34,16 @@ RewriteRule ^ https://www.dirkmathesius.de%{REQUEST_URI} [L,R=301]
 #   Redirect 301 /old-portfolio.html /sport.html
 #   Redirect 301 /kontakt.html /#info
 
+# 2026-09-05, Dirks Auftrag: „Blaskapelle" sollte vollständig verschwinden — auch
+# aus den Dateinamen. Diese drei Bild-URLs waren in der Google-Bildersuche indexiert
+# und sind es teils noch; ohne 301 liefe jeder Treffer und jede geteilte Adresse in
+# einen 404. Die Weiterleitung steht VOR dem Datei-Handling, greift also auch dann,
+# wenn die alte Datei auf dem Server liegen bleibt (der Mirror ist additiv und
+# löscht nichts).
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-Disco.webp /portfolio/publication/Jaegermeister-PR-Disco.webp
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-PR-Dj-Disco.webp /portfolio/publication/Jaegermeister-PR-Dj-Disco.webp
+Redirect 301 /portfolio/publication/Jaegermeister-Blaskapelle-PR-festival-open-air.webp /portfolio/publication/Jaegermeister-PR-Festival-open-air.webp
+
 ErrorDocument 404 /404.html
 
 # ── 4) SOFT-404-RIEGEL: nur echte Client-Routen fallen auf die SPA ────────────

@@ -1385,7 +1385,7 @@ export const portfolio: PortfolioCategory[] = [
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
-        "src": "/portfolio/publication/Jaegermeister-Blaskapelle-Disco.webp",
+        "src": "/portfolio/publication/Jaegermeister-PR-Disco.webp",
         "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco von feiernden Gästen umzingelt. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "title": "Jägermeister PR, White Rabbit PR",
         "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco von feiernden Gästen umzingelt. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
@@ -1393,7 +1393,7 @@ export const portfolio: PortfolioCategory[] = [
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
-        "src": "/portfolio/publication/Jaegermeister-Blaskapelle-PR-Dj-Disco.webp",
+        "src": "/portfolio/publication/Jaegermeister-PR-Dj-Disco.webp",
         "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco. Im Vordergrund eine Djane mit Jägermeisterflasche an den turntables. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "title": "Jägermeister PR, White Rabbit PR",
         "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco. Im Vordergrund eine Djane mit Jägermeisterflasche an den turntables. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
@@ -1401,7 +1401,7 @@ export const portfolio: PortfolioCategory[] = [
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
-        "src": "/portfolio/publication/Jaegermeister-Blaskapelle-PR-festival-open-air.webp",
+        "src": "/portfolio/publication/Jaegermeister-PR-Festival-open-air.webp",
         "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden, fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "title": "Jägermeister PR, White Rabbit PR",
         "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden, fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
