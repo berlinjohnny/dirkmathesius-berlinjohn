@@ -1480,3 +1480,54 @@ Search Console auf die drei herausgefallenen Bilder reagiert.
 `public/portfolio/sport/` und auf beiden Servern. Löschen ist seine Entscheidung.
 
 — 1:Kybí
+
+### 2026-09-05 18:50 · iMac — Dirks 4 Punkte live auf beiden Domains
+
+Dirk hat über John vier Änderungen bestellt. **Punkt 1 war schon erledigt**, bevor
+die Nachricht ankam: es sind exakt die drei Bernauer-Straße-Motive, die um 17:05
+deployt worden waren — sein Screenshot entstand um 16:13, also davor. Nachgemessen
+statt behauptet: `Bernauer-Strasse.jpg` → 0 Treffer live.
+
+**2 · „Blaskapelle"** — die Titel stammen aus dem **XMP der WebP-Dateien**,
+`portfolio.ts` ist nur deren generiertes Abbild. Eine Korrektur dort wäre beim
+nächsten Generatorlauf wieder da gewesen; die Tilgung sitzt deshalb in `clean()`
+(`TEXT_TILGUNGEN`) und zusätzlich im Dateinamen-Fallback `fileToAlt()` — sonst
+brächte ein Bild ohne XMP das Wort über die Hintertür zurück.
+
+⚠️ **Dirk zeigte zwei Bilder, das Wort stand in FÜNF Titeln.** Alle bereinigt —
+„vollständig" heißt vollständig. Live: `Jägermeister PR, Schröder & Schömbs PR`
+bzw. `…, White Rabbit PR`. 🟡 **In drei DATEINAMEN bleibt es**
+(`Jaegermeister-Blaskapelle-*.webp`): das sind Live-URLs, in der Bildersuche
+indexiert. Umbenennen ist eine eigene Entscheidung mit Redirect-Folgen — Dirks,
+nicht meine.
+
+**3 · Dunkelmodus /ueber-dirk.html** — `UEBER_CSS` setzt `color:#111` mit zwei
+Klassen Spezifität; dagegen kamen die allgemeinen `html.dark`-Regeln nicht an.
+#111 stand auf #131110. **Gemessen betraf das DREI Stellen, nicht nur die
+gemeldete:** Dirks fetter Lead **und** die Überschriften in „Wie eine Produktion
+abläuft" + „Technik & Arbeitsweise" — dort sogar auf dem noch dunkleren #171513
+der Kacheln. Live nachgemessen: `rgb(245,245,245)` bzw. `rgb(239,234,228)`.
+
+**4 · Theme-Knopf /datenschutzerklaerung.html** — zwei Ursachen übereinander:
+die Datei deklarierte `charset=ISO-8859-1`, war aber UTF-8 gespeichert; und ihr
+Inline-Skript war mit ☀/☾ der **einzige** Nicht-ASCII-Inhalt, alles andere sind
+HTML-Entities. Genau deshalb blieb der Rest der Seite heil und der Fehler blieb
+monatelang auf diesen einen Knopf beschränkt — unsichtbar für jeden Test.
+`impressum.html` hatte denselben Bug, dort war er **schon** per `\u`-Escape
+gefixt; die Zwillingsdatei wurde vergessen. Beide Ebenen behoben. Live per
+echtem Klick: ☾ → ☀ (U+263E / U+2600), kein Mojibake.
+
+✅ **Neuer Guard `src/test/charset-utf8.test.ts`:** keine `public/**/*.html` darf
+einen Nicht-UTF-8-Zeichensatz deklarieren. Bewusst **kein** zweiter Riegel gegen
+rohe Sonderzeichen im Skript — bei korrektem charset sind die einwandfrei (die
+generierten Seiten machen es seit Monaten so), und ein Guard, der sauberen Code
+rot färbt, wird abgeschaltet und schützt dann gar nichts. Erster Entwurf hatte
+genau diesen Fehler und schlug bei 5 korrekten Seiten an.
+
+**Deployt in Johns Reihenfolge** (`./scripts/deploy-ionos.sh` → `deploy-dm`, nie
+überlappend, vorher je auf laufendes `lftp` geprüft). Lint 0 Fehler, 55 Tests grün.
+
+**Ungemessen:** ob Dirk die drei Dateinamen ebenfalls geändert haben will · der
+Dunkelmodus auf einem echten Handy (hier per `getComputedStyle` belegt).
+
+— 1:Kybí
