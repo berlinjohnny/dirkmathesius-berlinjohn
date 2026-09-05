@@ -1428,3 +1428,19 @@ das Gefühl. Ebenso ungemessen: das Verhalten der drei entfernten Bilder in der
 Google Search Console (sie waren indexiert, sie fallen jetzt heraus).
 
 — 1:Kybí
+
+**Nachtrag, zwei Folgen des Bild-Entfernens — gemessen, nicht vermutet:**
+
+Das Titelbild einer Kategorie ist `allImages[0]`, und `manualExtras` wurde
+**vorangestellt**. Mit den drei Motiven ist deshalb auch das **`og:image` von
+/sport.html gewandert**: von der Human-Flag-`.jpg` auf
+`Franziska-Koch-Schiedsrichterin-Runners-World-Magazin.webp`. Kein Fehler, aber
+wer den Link teilt, sieht ab jetzt ein anderes Vorschaubild. Dasselbe gilt auf
+der Fanpage für `photography.html` (13 → 10 Bilder, neues Titelbild).
+
+`hochzeitsfotograf-berlin.html` konnte ich **nicht** im Browser abnehmen — der
+Automations-Kanal fror mitten im Durchgang ein. Statt zu raten: der Mess- und
+Banner-Block dieser Seite ist **byte-identisch** (sha256
+`9a2a8c70…4001ae`) mit dem von `info.html` und `ueber-dirk.html`, und `info.html`
+ist am 02.09. im Browser abgenommen worden. Gleiche Bytes, gleiche Kette. Was
+bleibt: **ein Klick auf dieser konkreten Seite ist ungemessen.**
