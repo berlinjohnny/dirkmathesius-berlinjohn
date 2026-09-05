@@ -1444,3 +1444,39 @@ Banner-Block dieser Seite ist **byte-identisch** (sha256
 `9a2a8c70…4001ae`) mit dem von `info.html` und `ueber-dirk.html`, und `info.html`
 ist am 02.09. im Browser abgenommen worden. Gleiche Bytes, gleiche Kette. Was
 bleibt: **ein Klick auf dieser konkreten Seite ist ungemessen.**
+
+### 2026-09-05 17:05 · iMac — DEPLOYT auf beiden Domains, live abgenommen
+
+Johns Freigabe: „beide, A" → **erst dirkmathesius.de, dann die Fanpage**, nie
+überlappend (`deploy-dm` macht `pkill -f lftp.*dirkmathesius`). Vor dem zweiten
+Lauf geprüft: kein `lftp` mehr aktiv.
+
+    1. ./scripts/deploy-ionos.sh   224 Files, additiver SFTP-Mirror, ✓
+    2. deploy-dm                   FTPS-Mirror additiv, ✓
+
+**www.dirkmathesius.de — live gemessen, nicht vermutet:**
+
+    14 Seiten                       alle 200
+    7 Kategorien + kollab + ueber   Großansicht + Overlay auf jeder
+    echter Klick auf /sport.html    öffnet · „1 / 28" · Unterschrift korrekt
+    Schliessen-Knopf                oberstes Element (elementFromPoint)
+    weiter · Umlauf · Pfeiltaste    2/28 → 28/28 → 1/28
+    Escape                          schliesst, Seite wird NICHT verlassen
+    body-Scrollsperre               greift und gibt wieder frei
+    drei entfernte Motive           0 Treffer in Seite UND sitemap.xml
+
+**dirkmathesius.berlinjohn.de:** 7 Seiten 200, `/sport.html` weiter 301 (wie
+gebaut), Großansicht auf photography/kollaborationen/ueber-dirk, echter Klick
+öffnet („1 / 10"). Die Fanpage-Übersicht steht jetzt bei **10 statt 13** Bildern
+— die drei entfernten waren Kollaborationsbilder.
+
+**Weiterhin ungemessen:** ein echter Finger auf einem echten Handy (die
+Wischgesten sind synthetisch belegt) · ein Klick auf
+`hochzeitsfotograf-berlin.html` selbst (ihr Mess-/Banner-Block ist byte-identisch
+mit dem der abgenommenen `info.html`, mehr ging ohne Browser nicht) · wie die
+Search Console auf die drei herausgefallenen Bilder reagiert.
+
+**Am Zug:** John — die drei Bilddateien liegen unverlinkt weiter in
+`public/portfolio/sport/` und auf beiden Servern. Löschen ist seine Entscheidung.
+
+— 1:Kybí
