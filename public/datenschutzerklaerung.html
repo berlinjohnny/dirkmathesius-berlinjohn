@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Dirk Mathesius</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
@@ -41,7 +41,7 @@ html.dark .Stil13{color:#9a938b;}
 <script>
 (function(){var b=document.getElementById("dm-theme-btn");if(!b)return;
 var d=function(){return document.documentElement.classList.contains("dark");};
-var sync=function(){b.innerHTML=d()?"☀":"☾";
+var sync=function(){b.innerHTML=d()?"\u2600":"\u263E";
 b.setAttribute("aria-label",d()?"Zu hellem Modus wechseln":"Zu dunklem Modus wechseln");};
 sync();b.addEventListener("click",function(){var n=!d();
 document.documentElement.classList.toggle("dark",n);

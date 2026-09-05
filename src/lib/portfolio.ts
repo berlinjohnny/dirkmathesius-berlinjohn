@@ -231,17 +231,17 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/sport/breakdancer-flying-bach-Hafen-Hamburg.webp",
-        "alt": "In einer Hamburger Hafen-Kulisse mit historischen Kränen und blauem Himmel posieren die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Hand steht und auch ins Buch schaut . Produziert für Red Bull.",
+        "alt": "In einer Hamburger Hafen-Kulisse mit historischen Kränen und blauem Himmel posieren die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Hand steht und auch ins Buch schaut. Produziert für Red Bull.",
         "title": "Benny Kimoto & Gengis Ademoski, Flying Steps, Flying Bach Crew, Hamburg, Red Bull",
-        "caption": "In einer Hamburger Hafen-Kulisse mit historischen Kränen und blauem Himmel posieren die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Hand steht und auch ins Buch schaut . Produziert für Red Bull.",
+        "caption": "In einer Hamburger Hafen-Kulisse mit historischen Kränen und blauem Himmel posieren die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Hand steht und auch ins Buch schaut. Produziert für Red Bull.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/sport/breakdancer-flying-bach-crew-Hafen-Hamburg.webp",
-        "alt": "In einer Hamburger Hafen-Kulisse mit Kran und Frachtschiff posieren an der Hafenkante die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Kopf steht und auch ins Buch schaut . Produziert für Red Bull.",
+        "alt": "In einer Hamburger Hafen-Kulisse mit Kran und Frachtschiff posieren an der Hafenkante die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Kopf steht und auch ins Buch schaut. Produziert für Red Bull.",
         "title": "Benny Kimoto & Gengis Ademoski, Flying Steps, Flying Bach Crew, Hamburg, Red Bull",
-        "caption": "In einer Hamburger Hafen-Kulisse mit Kran und Frachtschiff posieren an der Hafenkante die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Kopf steht und auch ins Buch schaut . Produziert für Red Bull.",
+        "caption": "In einer Hamburger Hafen-Kulisse mit Kran und Frachtschiff posieren an der Hafenkante die breakdancer Benny Kymoto und Gengis Ademoski von den berühmten Flying Steps für die Ankündigung ihrer Tour Flying Bach. Benny Kymoto sitzt auf dem Boden und liest in einem Bach Notenbuch, während Gengis Ademoski kopfüber mit seiner Hand auf Bennys Kopf steht und auch ins Buch schaut. Produziert für Red Bull.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -576,7 +576,7 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/music/KIZ-Konzert-Floss-Spree-Berlin.webp",
         "alt": "Die deutesche Band K.I.Z singt und spielt auf einem Guerilla-ähnlichem Floss aus Brettern. Das Floss schwimmt auf der Spree am Treptower Park am Abend. Auf der gegenüberliegenden Seite feiern und jubeln die Fans dazu und werden mit inszeniertem Gegenlicht beleuchtet. Die Veranstaltung wurde von Red Bull durchgeführt.",
-        "title": "K.I.Z. , Berlin, Red Bul",
+        "title": "K.I.Z., Berlin, Red Bul",
         "caption": "Die deutesche Band K.I.Z singt und spielt auf einem Guerilla-ähnlichem Floss aus Brettern. Das Floss schwimmt auf der Spree am Treptower Park am Abend. Auf der gegenüberliegenden Seite feiern und jubeln die Fans dazu und werden mit inszeniertem Gegenlicht beleuchtet. Die Veranstaltung wurde von Red Bull durchgeführt.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
@@ -647,9 +647,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/music/Samy-Deluxe-und-Afrob-Red-Bull-sound-clash-Hamburg.webp",
-        "alt": "Die Künstler Sammy Deluxe und Afrob singen während des Red Bull sound clash in Hamburg vor Publikum. . Es spielen und singen bei diesem sound clash CRACK IGNAZ, LGOONY, SOUFIAN vom Team New Level gegen SAMY DELUXE, EKO FRESH, AFROB vom Team Reality Check. Die Beiden tragen amerikanische Polzeiuniformen und auf der Bühne spuckt die Pyrotechnik Feuerstösse.",
+        "alt": "Die Künstler Sammy Deluxe und Afrob singen während des Red Bull sound clash in Hamburg vor Publikum.. Es spielen und singen bei diesem sound clash CRACK IGNAZ, LGOONY, SOUFIAN vom Team New Level gegen SAMY DELUXE, EKO FRESH, AFROB vom Team Reality Check. Die Beiden tragen amerikanische Polzeiuniformen und auf der Bühne spuckt die Pyrotechnik Feuerstösse.",
         "title": "Sammy Deluxe und Afrob, Red Bull sound clash, Hamburg",
-        "caption": "Die Künstler Sammy Deluxe und Afrob singen während des Red Bull sound clash in Hamburg vor Publikum. . Es spielen und singen bei diesem sound clash CRACK IGNAZ, LGOONY, SOUFIAN vom Team New Level gegen SAMY DELUXE, EKO FRESH, AFROB vom Team Reality Check. Die Beiden tragen amerikanische Polzeiuniformen und auf der Bühne spuckt die Pyrotechnik Feuerstösse.",
+        "caption": "Die Künstler Sammy Deluxe und Afrob singen während des Red Bull sound clash in Hamburg vor Publikum.. Es spielen und singen bei diesem sound clash CRACK IGNAZ, LGOONY, SOUFIAN vom Team New Level gegen SAMY DELUXE, EKO FRESH, AFROB vom Team Reality Check. Die Beiden tragen amerikanische Polzeiuniformen und auf der Bühne spuckt die Pyrotechnik Feuerstösse.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1145,17 +1145,17 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/stills/Gerlosteiner-sprudel-Gemüse-Stern-flat-lay.webp",
-        "alt": "Eine Gerolsteiner Sprudel PET-Flasche liegt zusammen mit zu einem Gerolsteiner ähnlich gelegtem Stern auf Holzlatten Untergrund und das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Eine Gerolsteiner Sprudel PET-Flasche liegt zusammen mit zu einem Gerolsteiner ähnlich gelegtem Stern auf Holzlatten Untergrund und das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Eine Gerolsteiner Sprudel PET-Flasche liegt zusammen mit zu einem Gerolsteiner ähnlich gelegtem Stern auf Holzlatten Untergrund und das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Eine Gerolsteiner Sprudel PET-Flasche liegt zusammen mit zu einem Gerolsteiner ähnlich gelegtem Stern auf Holzlatten Untergrund und das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-Flaschenkreis-Fussball-Rasen-flat-lay.webp",
-        "alt": "Gerolsteiner PET-Flaschen liegen zu einem Kreis gelegt auf einem Kunstrasen, im flat lay Stil von oben fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Gerolsteiner PET-Flaschen liegen zu einem Kreis gelegt auf einem Kunstrasen, im flat lay Stil von oben fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Gerolsteiner PET-Flaschen liegen zu einem Kreis gelegt auf einem Kunstrasen, im flat lay Stil von oben fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Gerolsteiner PET-Flaschen liegen zu einem Kreis gelegt auf einem Kunstrasen, im flat lay Stil von oben fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1177,9 +1177,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-Glasflasche-Backen-Tisch.webp",
-        "alt": "Zwei Mehl staubende Hände vor einigen Backzutatetn, im Hintergrund steht unscharf eine Gerolsteiner Glasflasche . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Zwei Mehl staubende Hände vor einigen Backzutatetn, im Hintergrund steht unscharf eine Gerolsteiner Glasflasche. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner PR, Schröder & Schömbs PR",
-        "caption": "Zwei Mehl staubende Hände vor einigen Backzutatetn, im Hintergrund steht unscharf eine Gerolsteiner Glasflasche . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Zwei Mehl staubende Hände vor einigen Backzutatetn, im Hintergrund steht unscharf eine Gerolsteiner Glasflasche. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1217,41 +1217,41 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-medium-Müsli-Stern-flat-lay.webp",
-        "alt": "Auf einem natürlichen Holzuntergrund liegt eine Gerolsteiner PET Flasche mit gefüllter Müsli Schale und goldenen Löffel. Das topping in der Müslischale ist aufwendig zu ene Stern gelegt, der den Gerolsteiner Stern nachahmen soll. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Auf einem natürlichen Holzuntergrund liegt eine Gerolsteiner PET Flasche mit gefüllter Müsli Schale und goldenen Löffel. Das topping in der Müslischale ist aufwendig zu ene Stern gelegt, der den Gerolsteiner Stern nachahmen soll. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Auf einem natürlichen Holzuntergrund liegt eine Gerolsteiner PET Flasche mit gefüllter Müsli Schale und goldenen Löffel. Das topping in der Müslischale ist aufwendig zu ene Stern gelegt, der den Gerolsteiner Stern nachahmen soll. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Auf einem natürlichen Holzuntergrund liegt eine Gerolsteiner PET Flasche mit gefüllter Müsli Schale und goldenen Löffel. Das topping in der Müslischale ist aufwendig zu ene Stern gelegt, der den Gerolsteiner Stern nachahmen soll. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-medium-Sonnenaufgang-Obst-flat-lay.webp",
-        "alt": "Auf einem hellen Holzuntergund liegt rechts eine Gerolsteiner PET Flasche zusammen mit gewürfeltem Gemüse in einer ovalen Picknickdose mit Löffel. Links daneben zu einem Sonnenaufgang geschnittetenes und gelegtes Gemüse. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Auf einem hellen Holzuntergund liegt rechts eine Gerolsteiner PET Flasche zusammen mit gewürfeltem Gemüse in einer ovalen Picknickdose mit Löffel. Links daneben zu einem Sonnenaufgang geschnittetenes und gelegtes Gemüse. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Auf einem hellen Holzuntergund liegt rechts eine Gerolsteiner PET Flasche zusammen mit gewürfeltem Gemüse in einer ovalen Picknickdose mit Löffel. Links daneben zu einem Sonnenaufgang geschnittetenes und gelegtes Gemüse. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Auf einem hellen Holzuntergund liegt rechts eine Gerolsteiner PET Flasche zusammen mit gewürfeltem Gemüse in einer ovalen Picknickdose mit Löffel. Links daneben zu einem Sonnenaufgang geschnittetenes und gelegtes Gemüse. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-naturell-Obst-Joghurt-flat-lay.webp",
-        "alt": "Auf einem natürlichen Holzuntergrund liegt links eine Gerolsteiner PET Flasche aus der Blaubeeren sprudeln. Die Blaubeeren sind dabei jedoch nur so hingelegt, dass es nach Sprudeln ausieht. Rechts daneben steht eine Joghut Schale aus Glas mit Löffel und darüber etwas Obbst, welches Sternförmig gelegt wurde. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Auf einem natürlichen Holzuntergrund liegt links eine Gerolsteiner PET Flasche aus der Blaubeeren sprudeln. Die Blaubeeren sind dabei jedoch nur so hingelegt, dass es nach Sprudeln ausieht. Rechts daneben steht eine Joghut Schale aus Glas mit Löffel und darüber etwas Obbst, welches Sternförmig gelegt wurde. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Auf einem natürlichen Holzuntergrund liegt links eine Gerolsteiner PET Flasche aus der Blaubeeren sprudeln. Die Blaubeeren sind dabei jedoch nur so hingelegt, dass es nach Sprudeln ausieht. Rechts daneben steht eine Joghut Schale aus Glas mit Löffel und darüber etwas Obbst, welches Sternförmig gelegt wurde. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Auf einem natürlichen Holzuntergrund liegt links eine Gerolsteiner PET Flasche aus der Blaubeeren sprudeln. Die Blaubeeren sind dabei jedoch nur so hingelegt, dass es nach Sprudeln ausieht. Rechts daneben steht eine Joghut Schale aus Glas mit Löffel und darüber etwas Obbst, welches Sternförmig gelegt wurde. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-naturell-Tee-flat-lay.webp",
-        "alt": "Auf einem weissen Holztisch liegt lose und ungeordnet eine Gerolsteiner PET Flasche, Obst und Tee mit gefüllten Tee Gläsren. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Auf einem weissen Holztisch liegt lose und ungeordnet eine Gerolsteiner PET Flasche, Obst und Tee mit gefüllten Tee Gläsren. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Auf einem weissen Holztisch liegt lose und ungeordnet eine Gerolsteiner PET Flasche, Obst und Tee mit gefüllten Tee Gläsren. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Auf einem weissen Holztisch liegt lose und ungeordnet eine Gerolsteiner PET Flasche, Obst und Tee mit gefüllten Tee Gläsren. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/stills/Gerolsteiner-sprudel-Mörser-flat-lay.webp",
-        "alt": "Auf einem grau lasierten Holztisch liegt eine Gerolsteiner PET Flasche, aus der Basilikum Blätte wachsen. Links davon liegt ein ölgefüllter Mörser und rundherum davon zu einem Stern gelegte Lebensmittel, wie Kerne und Knoblauch. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "alt": "Auf einem grau lasierten Holztisch liegt eine Gerolsteiner PET Flasche, aus der Basilikum Blätte wachsen. Links davon liegt ein ölgefüllter Mörser und rundherum davon zu einem Stern gelegte Lebensmittel, wie Kerne und Knoblauch. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "title": "Gerolsteiner Wasserwoche PR, Schröder & Schömbs PR",
-        "caption": "Auf einem grau lasierten Holztisch liegt eine Gerolsteiner PET Flasche, aus der Basilikum Blätte wachsen. Links davon liegt ein ölgefüllter Mörser und rundherum davon zu einem Stern gelegte Lebensmittel, wie Kerne und Knoblauch. Das ganze ist von oben im flat lay Stil fotografiert . Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
+        "caption": "Auf einem grau lasierten Holztisch liegt eine Gerolsteiner PET Flasche, aus der Basilikum Blätte wachsen. Links davon liegt ein ölgefüllter Mörser und rundherum davon zu einem Stern gelegte Lebensmittel, wie Kerne und Knoblauch. Das ganze ist von oben im flat lay Stil fotografiert. Produziert für die PR-Agentur Schröder und Schömbs PR aus Berlin.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1387,7 +1387,7 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/publication/Jaegermeister-Blaskapelle-Disco.webp",
         "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco von feiernden Gästen umzingelt. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
-        "title": "Jägermeister Blaskapelle PR, White Rabbit PR",
+        "title": "Jägermeister PR, White Rabbit PR",
         "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco von feiernden Gästen umzingelt. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
@@ -1395,23 +1395,23 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/publication/Jaegermeister-Blaskapelle-PR-Dj-Disco.webp",
         "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco. Im Vordergrund eine Djane mit Jägermeisterflasche an den turntables. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
-        "title": "Jägermeister Blaskapelle PR, White Rabbit PR",
+        "title": "Jägermeister PR, White Rabbit PR",
         "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch in einer Disco. Im Vordergrund eine Djane mit Jägermeisterflasche an den turntables. Bunte Disco-Beleuchtung. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/publication/Jaegermeister-Blaskapelle-PR-festival-open-air.webp",
-        "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden , fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
-        "title": "Jägermeister Blaskapelle PR, White Rabbit PR",
-        "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden , fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
+        "alt": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden, fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
+        "title": "Jägermeister PR, White Rabbit PR",
+        "caption": "Die kunterbunt gekleideten Mitglieder der Jägermeister Blasskapelle spielen euphorisch auf der Balkon Terasse einer Holzhütte auf einem Musik-Festival. Im Vordergrund feiernde Gäste. Ganz vorn im Fokus ein Holztisch mit Jägermeister anstossenden, fröhlichen Gästen. Produziert für eine Jägermeister PR- Kampagne von White Rabbit PR.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/publication/Jaegermeister-PR-Kampagne-CO2-Loescher.webp",
         "alt": "Drei junge Männer in einer altmodischen holzigen Bar versuchen eine Jägermeister Flasche auf dem Tresen mit einem CO2 Löscher zu kühlen und staunen mit aufgerissenen Augen. Produziert anlässlich einer Jägermeister PR Kampagne für Schröder & Schömbs PR.",
-        "title": "Jägermeister Blaskapelle PR, Schröder & Schömbs PR",
+        "title": "Jägermeister PR, Schröder & Schömbs PR",
         "caption": "Drei junge Männer in einer altmodischen holzigen Bar versuchen eine Jägermeister Flasche auf dem Tresen mit einem CO2 Löscher zu kühlen und staunen mit aufgerissenen Augen. Produziert anlässlich einer Jägermeister PR Kampagne für Schröder & Schömbs PR.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
@@ -1419,7 +1419,7 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/publication/Jaegermeister-PR-Kampagne-Eisblock.webp",
         "alt": "Zwei junge Männer und eine junge Frau versuchen eine Jägermeister Flasche aus einem grossen Eisblock mit einem Pickel zu befreien und halten auch schon Gläser bereit. Hintergrund graue Betonwand. Produziert anlässlich einer Jägermeister PR Kampagne für Schröder & Schömbs PR.",
-        "title": "Jägermeister Blaskapelle PR, Schröder & Schömbs PR",
+        "title": "Jägermeister PR, Schröder & Schömbs PR",
         "caption": "Zwei junge Männer und eine junge Frau versuchen eine Jägermeister Flasche aus einem grossen Eisblock mit einem Pickel zu befreien und halten auch schon Gläser bereit. Hintergrund graue Betonwand. Produziert anlässlich einer Jägermeister PR Kampagne für Schröder & Schömbs PR.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"

@@ -299,6 +299,14 @@ const DARK_CSS = `
   html.dark .ueber .bts figure{background:#1c1917;}
   html.dark .ueber .rights p{color:#b3aca4;}
   html.dark .ueber .more{color:#a9a29a;}
+  /* 2026-09-05, Dirks Fund: „Sport, People, Industrie, Reportage und Editorial" war im
+     Dunkelmodus unlesbar. UEBER_CSS setzt diesen Stellen ein hartes color:#111 mit zwei
+     Klassen Spezifitaet — die allgemeinen html.dark-Regeln kamen dagegen nicht an, also
+     stand #111 auf #131110. Gemessen galt das fuer DREI Stellen, nicht nur die gemeldete:
+     der fette Lead UND die Ueberschriften in „Wie eine Produktion ablaeuft" + „Technik &
+     Arbeitsweise" (dort sogar auf dem noch dunkleren #171513 der Kacheln). */
+  html.dark .ueber .lead b{color:#f5f5f5;}
+  html.dark .ueber .steps h3,html.dark .ueber .tech h3{color:#efeae4;}
 `;
 
 // Design-Vereinheitlichung (2026-08-28, Johns Auftrag): categoryPage(), SUB_CSS
@@ -538,11 +546,13 @@ const IS_FANPAGE = VARIANT === "fanpage";
 const manualExtras = {};
 
 // Fallback alt-text derived from the filename (legacy behaviour).
+// Auch der Dateiname-Fallback laeuft durch `tilge` — sonst brächte ein Bild ohne XMP
+// ein getilgtes Wort ueber die Hintertuer zurueck (`Jaegermeister-Blaskapelle-*.webp`).
 const fileToAlt = (file) =>
-  file.replace(/\.webp$/i, "")
-      .replace(/[-_]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+  tilge(file.replace(/\.webp$/i, "")
+            .replace(/[-_]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim());
 
 // --- Embedded metadata extraction (XMP from the WebP RIFF container) -----------
 // exifr does not support WebP, so we read the "XMP " chunk directly. Zero deps.
@@ -573,9 +583,34 @@ function decodeEntities(s) {
     .replace(/&amp;/g, "&");
 }
 
+/**
+ * Woerter, die aus JEDEM aus den Bild-Metadaten gelesenen Text verschwinden.
+ *
+ * Warum hier und nicht in `src/lib/portfolio.ts`: die Texte stammen aus dem XMP der
+ * WebP-Dateien, `portfolio.ts` ist nur deren generiertes Abbild. Eine Korrektur dort
+ * waere beim naechsten Generatorlauf wieder weg — es sei denn, jemand schreibt die
+ * Metadaten in den Bilddateien selbst um. Diese Liste ist der belastbare Ort.
+ *
+ * 2026-09-05, Dirks Auftrag: „Blaskapelle" vollstaendig raus. Er zeigte zwei Bilder,
+ * das Wort stand in fuenf Bildtiteln — alle bereinigt, denn „vollstaendig" heisst
+ * vollstaendig. ⚠️ In drei DATEINAMEN steckt es weiter
+ * (`Jaegermeister-Blaskapelle-*.webp`); die sind Live-URLs und in der Bildersuche
+ * indexiert, ein Umbenennen ist eine eigene Entscheidung mit Redirect-Folgen.
+ */
+const TEXT_TILGUNGEN = ["Blaskapelle"];
+
+function tilge(s) {
+  let out = s;
+  for (const wort of TEXT_TILGUNGEN) {
+    out = out.replace(new RegExp(`\\s*\\b${wort}\\b`, "gi"), "");
+  }
+  // Tilgen hinterlaesst sonst doppelte Leerzeichen oder ein Leerzeichen vor dem Komma.
+  return out.replace(/\s+/g, " ").replace(/\s+([,.;:])/g, "$1").trim();
+}
+
 function clean(v) {
   if (!v) return undefined;
-  const out = decodeEntities(v).replace(/\s+/g, " ").trim();
+  const out = tilge(decodeEntities(v).replace(/\s+/g, " ").trim());
   return out || undefined;
 }
 

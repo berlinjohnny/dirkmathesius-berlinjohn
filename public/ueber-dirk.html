@@ -156,6 +156,14 @@ document.documentElement.classList.add("dark");}}catch(e){}})();
   html.dark .ueber .bts figure{background:#1c1917;}
   html.dark .ueber .rights p{color:#b3aca4;}
   html.dark .ueber .more{color:#a9a29a;}
+  /* 2026-09-05, Dirks Fund: „Sport, People, Industrie, Reportage und Editorial" war im
+     Dunkelmodus unlesbar. UEBER_CSS setzt diesen Stellen ein hartes color:#111 mit zwei
+     Klassen Spezifitaet — die allgemeinen html.dark-Regeln kamen dagegen nicht an, also
+     stand #111 auf #131110. Gemessen galt das fuer DREI Stellen, nicht nur die gemeldete:
+     der fette Lead UND die Ueberschriften in „Wie eine Produktion ablaeuft" + „Technik &
+     Arbeitsweise" (dort sogar auf dem noch dunkleren #171513 der Kacheln). */
+  html.dark .ueber .lead b{color:#f5f5f5;}
+  html.dark .ueber .steps h3,html.dark .ueber .tech h3{color:#efeae4;}
 
   .ueber{max-width:1000px;}
   .ueber .lead{font-size:clamp(15px,2.4vw,19px);line-height:1.65;color:#333;max-width:44em;margin:0 0 26px;}
