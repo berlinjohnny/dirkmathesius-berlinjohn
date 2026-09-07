@@ -1569,3 +1569,78 @@ Messung am Element: `i.loading="eager"; i.src=i.src` und dann `complete` +
 (1862×1212 bzw. 1212×1212). Ich hatte den Screenshot zuerst selbst falsch gelesen.
 
 — 1:Kybí
+
+### 2026-09-08 00:45 · iMac — positiv formuliert, BEIDE Domains, Fix in der Quelle
+
+Johns Auftrag: „Vom NihilismVirus befreien! positive NLP für alles!" —
+für diese Fläche ausdrücklich freigegeben.
+
+## ✅ Live auf beiden Domains
+
+    ALT (live 0×)                    NEU (live ≥1×)
+    ──────────────────────────────────────────────────────────
+    Seite nicht gefunden             Hier geht es weiter
+    festgehalten, nicht inszeniert   festgehalten, wie sie geschehen (2×)
+    Echte Momente, kein gestelltes   Echte Momente, mitten im Geschehen
+      Studio
+    keine Überraschung danach        verlässlich bis zur Übergabe
+    nicht nachträglich am Rechner    im Moment der Aufnahme
+    nicht Tage später                noch am selben Tag
+    Ohne Bildbearbeitung (H3)        Echt aus der Kamera
+    kein Composing, keine            was Sie sehen, ist der Moment selbst
+      nachträgliche Erfindung
+    nicht als Überraschung danach    verlässlich bis zur Rechnung
+
+## 🧨 Der Fehler, den ich dabei selbst gemacht habe — und wie er auffiel
+
+Erster Anlauf (`ac4ff43`): `public/*.html` geändert. **Auf KAS wirkte
+das sofort, auf IONOS gar nicht.** `deploy-ionos.sh` lässt vorher den
+Generator laufen (`scripts/build-portfolio-manifest.mjs`), und der
+schreibt genau diese Seiten neu — meine Zeilen waren überschrieben,
+bevor gebaut wurde.
+
+    nach Deploy 1: www.dirkmathesius.de/ueber-dirk.html  34.343 B
+                   „nicht nachträglich am Rechner"       weiterhin 1×
+                   „im Moment der Aufnahme"              0×
+                   404.html                              korrekt ✅
+
+**Der Deploy lief durch und lieferte die alte Fassung aus.** Nur
+`404.html` stimmte — als einzige Seite geht sie nicht durch den
+Generator. Genau diese eine richtige Datei hätte eine Stichprobe grün
+gemeldet.
+
+⇒ `2cf0fbc` setzt alle sieben Formulierungen in den **Generator**. Zwei
+davon erzeugen je zwei Ausgaben (sichtbarer Text **und**
+FAQPage-JSON-LD) — eine Quelle, zwei Ausgaben, garantiert wortgleich.
+
+## ⛔ Bewusst stehengeblieben
+
+„Lädt erst nach Klick — vorher werden **keine** Daten an YouTube
+gesendet." Eine datenschutzrechtliche **Zusage**, mitten im Fließtext
+von `ueber-dirk.html`. Positiv gewendet („Daten fließen erst nach
+Klick") sagt sie weniger und ist angreifbar. `impressum.html` und
+`datenschutzerklaerung.html` unangetastet.
+
+🔑 **Deshalb trägt eine Ausnahme über DATEINAMEN hier nicht** — der
+Schutzsatz steht in einer Inhaltsseite. Die Prüfung ist satzweise.
+
+## Abnahme
+
+    www.dirkmathesius.de/hochzeitsfotograf-berlin.html  200 · 44.455 B
+    www.dirkmathesius.de/ueber-dirk.html                200 · 34.318 B
+    sieben alte Formulierungen                          je 0 Treffer
+    acht neue Formulierungen                            je ≥1 Treffer
+    FAQ-JSON-LD == sichtbarer Text                      0 Abweichungen
+    dirkmathesius.berlinjohn.de                         ebenfalls neu
+
+⚠️ Zwei Domains, zwei Deploys: `deploy-dm` (KAS) **und**
+`scripts/deploy-ionos.sh`. Die Hochzeitsseite leitet von KAS per 301 auf
+`www.dirkmathesius.de` — wer nur KAS misst, misst die falsche Seite.
+
+⚠️ **Offen, von 4:sicherheitsraum gemeldet und hier nur weitergereicht:**
+`info.html` und `hochzeitsfotograf-berlin.html` senden über
+`api.web3forms.com`. Der `access_key` ist gesetzt, aber **ob je eine
+Anfrage ankommt, ist unbelegt** — auf seiner Fläche war genau das
+monatelang tot, bei sauberem `200`. Ein Testversand gehört John.
+
+— 1:Kybí
