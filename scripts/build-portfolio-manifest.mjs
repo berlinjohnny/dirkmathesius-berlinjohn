@@ -1477,9 +1477,9 @@ const ABOUT_STEPS = [
 /** Technik-Belege, die im B2B-Vergleich tatsächlich zählen. */
 const ABOUT_TECH = [
   { t: "Mittelformat", d: "Hasselblad 501c mit CFV-Digitalrückteil — Auflösung und Tonwerte für Print, Großformat und Kampagnen." },
-  { t: "Tethered on location", d: "Aufnahme direkt auf den Monitor. Bildauswahl und Freigabe passieren am Set, nicht Tage später." },
+  { t: "Tethered on location", d: "Aufnahme direkt auf den Monitor. Bildauswahl und Freigabe passieren am Set, noch am selben Tag." },
   { t: "Mobil & Studio", d: "Komplettes Licht- und Kamera-Setup reist mit. Industrie, Sport und People auch unter rauen Bedingungen." },
-  { t: "Ohne Bildbearbeitung", d: "Action und Sport entstehen real vor der Kamera — kein Composing, keine nachträgliche Erfindung." },
+  { t: "Echt aus der Kamera", d: "Action und Sport entstehen real vor der Kamera — was Sie sehen, ist der Moment selbst." },
 ];
 
 /* Seiten-eigenes CSS — alles unter .ueber, damit die Geschwister-Seiten
@@ -1537,7 +1537,7 @@ const ueberBody = `
     <p class="lead">Dirk Mathesius fotografiert <b>Sport, People, Industrie, Reportage und Editorial</b> —
       für Marken, Magazine und Unternehmen. Seine Bilder erscheinen in führenden Titeln und Kampagnen,
       von BMW Motorrad und Red Bull über adidas und audible bis Stern und Men&#39;s Health.
-      Action entsteht dabei real vor der Linse, nicht nachträglich am Rechner.</p>
+      Action entsteht dabei real vor der Linse, im Moment der Aufnahme.</p>
 
     <ul class="facts">
       <li>seit <b>1997</b></li>
@@ -1576,7 +1576,7 @@ const ueberBody = `
     <div class="rights">
       <p>Die Nutzungsrechte werden <b>projektbezogen und passend zum tatsächlichen Einsatz</b> vereinbart —
         von der einmaligen Magazinstrecke bis zur zeitlich und räumlich weiten Kampagnennutzung.
-        Was Sie brauchen, steht vor dem Shooting im Angebot, nicht als Überraschung danach.</p>
+        Was Sie brauchen, steht vor dem Shooting im Angebot — verlässlich bis zur Rechnung.</p>
       <p>Urheber bleibt in jedem Fall © Dirk Mathesius. Umfang, Dauer und Gebiet halten wir schriftlich fest,
         damit Ihre Marketing- und Rechtsabteilung eine belastbare Grundlage hat.</p>
     </div>
@@ -1773,7 +1773,7 @@ if (!IS_FANPAGE) {
       items: [
         { id: "Hochzeit", t: "Hochzeit", d: "Trauung, Feier und die Momente dazwischen — dokumentarisch begleitet, ohne gestellte Regie." },
         { id: "Verlobung & Paarshooting", t: "Verlobung &amp; Paarshooting", d: "Ein ruhiges Shooting zu zweit, bevor der große Tag kommt." },
-        { id: "Geburtstag & Jubiläum", t: "Geburtstag &amp; Jubiläum", d: "Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, nicht inszeniert." },
+        { id: "Geburtstag & Jubiläum", t: "Geburtstag &amp; Jubiläum", d: "Runde Geburtstage, goldene Hochzeit, Familienfeste — festgehalten, wie sie geschehen." },
         { id: "Private Feier", t: "Private Feiern &amp; Empfänge", d: "Gartenfeste, private Empfänge, besondere Anlässe im kleinen Kreis." },
         { id: "Familie & Neugeborene", t: "Familie &amp; Neugeborene", d: "Die ersten gemeinsamen Fotos, Familienshootings zuhause oder draußen — echt statt gestellt." },
       ],
@@ -1800,7 +1800,7 @@ if (!IS_FANPAGE) {
 
   const EVENT_FAQS = [
     { q: "Wie weit im Voraus sollten wir buchen?", a: "Für Hochzeiten am besten 6–12 Monate im Voraus, besonders in der Saison von Mai bis September. Für kleinere Anlässe reichen oft wenige Wochen." },
-    { q: "Wie viele Bilder bekommen wir?", a: "Eine kuratierte Auswahl der stärksten Momente, passend zu Dauer und Anlass — der Umfang steht vor dem Termin fest, keine Überraschung danach." },
+    { q: "Wie viele Bilder bekommen wir?", a: "Eine kuratierte Auswahl der stärksten Momente, passend zu Dauer und Anlass — der Umfang steht vor dem Termin fest, verlässlich bis zur Übergabe." },
     { q: "Bearbeitet ihr die Bilder nachträglich?", a: "Farbe und Licht werden fein abgestimmt, das Motiv selbst bleibt echt — wie im gesamten Portfolio von Dirk Mathesius." },
     { q: "Kommt ihr auch außerhalb Berlins?", a: "Ja, deutschlandweit auf Anfrage." },
     { q: "Wie schnell bekommen wir ein Angebot?", a: "Meist innerhalb von 24 Stunden — bei sehr vielen Anfragen kann es vereinzelt etwas länger dauern." },
@@ -1968,7 +1968,7 @@ ${g.items.map((n) => `          <option value="${E(n.id)}">${n.t}</option>`).joi
          (z. B. <img class="hero" src="..."> statt des <div class="hero">). -->
     <div class="hero">
       <span class="x"><b></b><b></b></span>
-      <span class="cap">„Echte Momente, kein gestelltes Studio.“</span>
+      <span class="cap">„Echte Momente, mitten im Geschehen.“</span>
     </div>
 
 ${NICHE_GROUPS.map((g) => `    <h2>${E(g.label)}</h2>
