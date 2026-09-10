@@ -865,7 +865,13 @@ ${siteCategories.map(categoryUrl).join("\n")}
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-${IS_FANPAGE ? "" : `  <url>
+${IS_FANPAGE ? `  <url>
+    <loc>${SITE}/vernissage.html</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+` : ""}${IS_FANPAGE ? "" : `  <url>
     <loc>${SITE}/hochzeitsfotograf-berlin.html</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
@@ -927,6 +933,8 @@ const llms = IS_FANPAGE
 - [Photography](${SITE}/photography.html): Kollaborationen John Förster × Dirk Mathesius
   (Sport-, Konzept- und Porträtfotografie in Berlin, u. a. Berliner Mauer / Bernauer Straße).
 - [Über Dirk Mathesius](${SITE}/ueber-dirk.html): Kurzprofil, Showreel.
+- [Vernissage](${SITE}/vernissage.html): Ausstellungsanfrage für die Kollaborationsserie —
+  offen für Galerien & Partnerunternehmen, noch ohne festen Termin/Ort.
 - [Kontakt](${SITE}/info.html): Buchungsanfragen.
 - Buchungen für Dirk Mathesius laufen über die offizielle Seite: ${OFFICIAL}/
 `
@@ -1110,6 +1118,16 @@ ${c.id === "folks" && !IS_FANPAGE ? `
       <a href="/hochzeitsfotograf-berlin.html">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
         Auch für Hochzeiten &amp; private Feiern
+      </a>
+    </p>` : ""}
+${c.id === PHOTO_ID && IS_FANPAGE ? `
+    <!-- Dezenter Nebenlink zur Vernissage-Idee (DM-4) — bewusst NICHT in der
+         Hauptnavigation, nur hier auf der Kollaborations-Seite, wo genau das
+         richtige Publikum ist. Nur Fanpage: Johns Auftrag, 2026-09-11. -->
+    <p class="events-link">
+      <a href="/vernissage.html">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        Diese Serie sucht eine Ausstellungsfläche
       </a>
     </p>` : ""}
     <footer>
@@ -2008,4 +2026,95 @@ ${eventsFormHtml}
     body: eventsBody,
   }));
   console.log("✅ hochzeitsfotograf-berlin.html — private B2C-Nebenpositionierung (nur offizielle Domain)");
+}
+
+// --- vernissage.html (Ausstellungsanfrage für die Kollaborationsserie, NUR FANPAGE) ---
+// Johns Auftrag 2026-09-11. DM-4 ist Idee-Stufe (MASTERPLAN.md) — kein Termin, keine
+// Galerie zugesagt. Bewusst nur auf der Fanpage: dirkmathesius.de ist ein bezahlter
+// Kundenauftrag (DM-1 "was ist beauftragt, was ist geliefert?" laeuft noch), diese
+// Seite aber ein Gesprächsangebot, keine abgeschlossene Buchungsleistung. Kontakt/
+// Kollaborationen-Links zeigen deshalb absichtlich auf die offizielle Domain.
+if (IS_FANPAGE) {
+  const VERN_CSS = `
+  .vern{max-width:900px;}
+  .vern h1{font-size:clamp(24px,5vw,38px);line-height:1.18;letter-spacing:-.01em;font-weight:600;color:#111;margin:30px 0 16px;max-width:20em;}
+  .vern .lead{font-size:clamp(15px,2.2vw,18px);line-height:1.65;color:#333;max-width:42em;margin:0 0 26px;}
+  .vern .lead b{font-weight:600;color:#111;}
+  .vern .facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding:0;list-style:none;}
+  .vern .facts li{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#555;border:1px solid #e4e4e4;border-radius:2px;padding:7px 12px;}
+  .vern .facts li b{color:#FF6600;font-weight:600;}
+  .vern .stand{border-left:2px solid #FF6600;padding:2px 0 2px 18px;max-width:42em;}
+  .vern .stand p{margin:0 0 10px;font-size:13px;line-height:1.7;color:#555;}
+  .vern .stand p:last-child{margin-bottom:0;}
+  .vern .close{margin:52px 0 8px;padding:34px 24px;background:#111;text-align:center;}
+  .vern .close p{margin:0 auto 20px;font-size:clamp(15px,2.2vw,18px);line-height:1.5;color:#fff;max-width:26em;}
+  .vern .more{font-size:12.5px;color:#666;line-height:1.8;}
+  .vern .more a{color:#FF6600;text-decoration:none;}
+  .vern .more a:hover{text-decoration:underline;}
+  html.dark .vern h1{color:#f2eee9;}
+  html.dark .vern .lead{color:#c2bbb3;}
+  html.dark .vern .lead b{color:#f5f5f5;}
+  html.dark .vern .facts li{border-color:#2f2b28;color:#b3aca4;}
+  html.dark .vern .stand p{color:#b3aca4;}
+  html.dark .vern .more{color:#a9a29a;}
+  `;
+
+  const vernBody = `
+  <div class="vern">
+    <h1>Eine Serie, die bereit ist für eine erste Wand</h1>
+
+    <p class="lead"><b>Berlin, 2008–2016:</b> Dirk Mathesius fotografiert John &amp; Jim Förster
+      (AcroBerlin) an Berliner Wahrzeichen — Reichstag, Berliner Mauer, BEHALA-Hafen.
+      Echt aus der Kamera, im Moment der Aufnahme: was Sie sehen, ist der Moment selbst.</p>
+
+    <ul class="facts">
+      <li>Fotograf seit <b>1997</b></li>
+      <li><b>30+</b> Jahre Erfahrung</li>
+      <li>Hasselblad <b>Mittelformat</b></li>
+      <li>Serie <b>2008–2016</b>, vollständig</li>
+      <li>Kunden: BMW Motorrad, Red Bull, adidas, Stern, Men&#39;s Health</li>
+    </ul>
+
+    <h2>Für wen das passt</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Galerien &amp; Ausstellungsräume</h3>
+        <p>Fotografie-affin, Berlin-Bezug oder Sport-/Actionthema — Raum für eine
+          dokumentarische Serie ohne digitale Bearbeitung.</p>
+      </div>
+      <div class="card">
+        <h3>Partnerunternehmen</h3>
+        <p>Sport- und bewegungsnahe Marken mit physischer Fläche — Wandflächen,
+          Empfangsbereich, ein Anlass für die eigene Community.</p>
+      </div>
+    </div>
+
+    <h2>Stand heute</h2>
+    <div class="stand">
+      <p>Die Serie liegt vollständig vor, kuratiert und einsatzbereit
+        (Auszug: <a href="${OFFICIAL}/kollaborationen.html">dirkmathesius.de/kollaborationen.html</a>).</p>
+      <p>Diese Seite ist ein Gesprächsangebot — noch ohne festen Termin und ohne
+        festgelegten Ort. Wer Interesse hat, meldet sich, und gemeinsam findet sich
+        ein passender Rahmen.</p>
+    </div>
+
+    <div class="close">
+      <p>Interesse an einer Ausstellung dieser Serie bei Ihnen?</p>
+      <a class="book" href="${OFFICIAL}/info.html#kontakt">Kontakt aufnehmen →</a>
+    </div>
+
+    <p class="more">
+      Vollständige Serie: <a href="${OFFICIAL}/kollaborationen.html">Kollaborationen →</a><br />
+      Über Dirk Mathesius: <a href="${OFFICIAL}/ueber-dirk.html">Profil &amp; Referenzen →</a>
+    </p>
+  </div>`;
+
+  writeFileSync(join(root, "public", "vernissage.html"), subPage({
+    canonical: `${SITE}/vernissage.html`,
+    title: "Vernissage-Idee — Kollaborationsserie sucht eine Wand | Dirk Mathesius × John Förster",
+    desc: "Die Kollaborationsserie von Dirk Mathesius und John & Jim Förster (2008–2016, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
+    css: VERN_CSS,
+    body: vernBody,
+  }));
+  console.log("✅ vernissage.html — Ausstellungsanfrage Kollaborationsserie (nur Fanpage, DM-4 Idee-Stufe)");
 }

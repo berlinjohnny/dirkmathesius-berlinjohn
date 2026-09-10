@@ -1644,3 +1644,56 @@ Anfrage ankommt, ist unbelegt** — auf seiner Fläche war genau das
 monatelang tot, bei sauberem `200`. Ein Testversand gehört John.
 
 — 1:Kybí
+
+### 2026-09-11 · iMac — `/vernissage.html` LIVE gebaut, NUR Fanpage (DM-4, Idee-Stufe)
+
+Johns Auftrag: „nur fanpage live ja" — als Antwort auf einen vorbereiteten
+Wachstumsvorschlag (drei Optionen), John wählte „Vernissage-Seite bauen".
+
+**Der Text lag zuerst als eigene Datei in `drafts/vernissage-entwurf.html`**
+(außerhalb von `public/`, damit kein versehentlicher Deploy). Für den
+echten Go-Live gehört er in den Generator — genau die Lehre aus `ac4ff43`
+(HANDOFF 2026-09-08): `public/*.html` wird bei jedem Build überschrieben.
+Deshalb jetzt **in `scripts/build-portfolio-manifest.mjs` verschoben**
+(`subPage()`-Muster wie `ueber-dirk.html`/`info.html`), `drafts/`-Datei
+gelöscht, kein Duplikat stehen gelassen.
+
+**Nur Fanpage, absichtlich** (`if (IS_FANPAGE) { … }`, analog zum
+`hochzeitsfotograf-berlin.html`-Muster, das umgekehrt NUR die offizielle
+Domain bedient): `www.dirkmathesius.de` ist ein bezahlter Kundenauftrag,
+DM-1 „was ist beauftragt, was ist geliefert?" läuft noch — eine Seite, die
+in Dirks Namen Ausstellungsanfragen sammelt, ist ein Commitment, das nicht
+ungefragt auf die Kundendomain gehört. Kontakt-/Kollaborationen-Links auf
+der neuen Seite zeigen bewusst auf `${OFFICIAL}` (dieselbe Cross-Domain-
+Logik wie überall sonst im Generator).
+
+**Kein Termin, keine Galerie, keine erfundene Materialreserve.** Die Seite
+sagt wörtlich „noch ohne festen Termin und ohne festgelegten Ort" — DM-4
+bleibt `idee` im `MASTERPLAN.md`, das ändert sich hier nicht. Sprache
+durchgehend positiv formuliert (Verneinungs-Auftrag vom 08.09. weiter
+eingehalten: „Echt aus der Kamera", „im Moment der Aufnahme", „was Sie
+sehen, ist der Moment selbst" statt „ohne Bildbearbeitung/Montage").
+
+**Nebenbei mitgezogen:** `VERNISSAGE-OUTREACH.md` Zeile 84–85 korrigiert —
+die Galerie-Pitch-Vorlage versprach noch „ein größeres unveröffentlichtes
+Archiv", was der eigenen Korrektur vom 26.08. (keine Materialreserve)
+widersprach. Wäre sonst als falsche Behauptung in eine echte Galerie-Mail
+gewandert.
+
+**Discovery:** dezenter Link auf `/photography.html` (Fanpage-Kollaborations-
+seite) → „Diese Serie sucht eine Ausstellungsfläche" — gleiches Muster wie
+der bestehende `/folks.html` → Hochzeit-Nebenlink. NICHT in der Hauptnav,
+NICHT auf der offiziellen Domain. Fanpage-`sitemap.xml` + `llms.txt`
+bekamen je einen Eintrag; offizielle Domain unverändert (0 Treffer für
+„vernissage" dort, gegengeprüft im Generator-Diff).
+
+⚠️ **Nicht gebaut/deployed in diesem Durchgang — iMac-Lastbremse (Kybí,
+Load 29→13, „keine Builds bis uptime < 8"):** nur `node --check` (reiner
+Syntax-Check, kein Build) gelaufen, KEIN `npm run build`, KEIN
+`deploy-dm`/`deploy-ionos.sh`. **Vor dem tatsächlichen Deploy:** einmal
+`npm run build` (prüft, dass der Generator ohne Laufzeitfehler durchläuft
+und `dist/vernissage.html` auf der Fanpage-Variante entsteht, auf der
+offiziellen NICHT) und eine kurze Sichtprüfung im Browser — nicht in
+diesem Durchgang verifiziert, weil noch kein Build gelaufen ist.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-09-11
