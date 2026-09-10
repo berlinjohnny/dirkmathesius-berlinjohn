@@ -81,8 +81,7 @@ Ausstellungsflächen in öffentlichen Gebäuden (oft kostenfrei zu bespielen).
 > Reichstag, Berliner Mauer, Westhafen. **Jedes Bild ist echt, ohne Montage oder
 > Bildbearbeitung.**
 >
-> Die Serie liegt vollständig vor (Auszug: [dirkmathesius.de/kollaborationen.html]),
-> dazu ein größeres unveröffentlichtes Archiv, falls mehr Material gebraucht wird.
+> Die Serie liegt vollständig vor (Auszug: [dirkmathesius.de/kollaborationen.html]).
 >
 > Wäre eine Ausstellung dieser Serie bei Ihnen grundsätzlich denkbar — oder bin
 > ich damit bei Ihnen an der falschen Adresse?
