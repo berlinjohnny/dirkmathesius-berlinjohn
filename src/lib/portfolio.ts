@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via `node scripts/build-portfolio-manifest.mjs`)
 // Alt-texts & captions are read from the embedded XMP/IPTC metadata of each .webp.
-// Updated: 2026-09-11
+// Updated: 2026-09-23
 
 export type PortfolioImage = {
   src: string;
@@ -119,9 +119,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/sport/Joyce-Huebner-Runners-World-Magazin.webp",
-        "alt": "Die Sportlerin und Läuferin Joyce Hübner joggt fröhlich lachend auf dem Drachenberg in Berlin bei herlichem Sonnenschein. Alles ist grün und im Hintergrund ist der Teufelsberg mit der bekannten Radaranlage zu sehen. Produziert für Runners World Magazin mit Hasselbald 501c CFVii50v.",
-        "title": "Joyce Hübner, Teufelsberg, Berlin, Runners World Magazin, Hasselbald 501c CFVii50v",
-        "caption": "Die Sportlerin und Läuferin Joyce Hübner joggt fröhlich lachend auf dem Drachenberg in Berlin bei herlichem Sonnenschein. Alles ist grün und im Hintergrund ist der Teufelsberg mit der bekannten Radaranlage zu sehen. Produziert für Runners World Magazin mit Hasselbald 501c CFVii50v.",
+        "alt": "Die Sportlerin und Läuferin Joyce Hübner joggt fröhlich lachend auf dem Drachenberg in Berlin bei herlichem Sonnenschein. Alles ist grün und im Hintergrund ist der Teufelsberg mit der bekannten Radaranlage zu sehen. Produziert für Runners World Magazin mit Hasselblad 501c CFVii50v.",
+        "title": "Joyce Hübner, Teufelsberg, Berlin, Runners World Magazin, Hasselblad 501c CFVii50v",
+        "caption": "Die Sportlerin und Läuferin Joyce Hübner joggt fröhlich lachend auf dem Drachenberg in Berlin bei herlichem Sonnenschein. Alles ist grün und im Hintergrund ist der Teufelsberg mit der bekannten Radaranlage zu sehen. Produziert für Runners World Magazin mit Hasselblad 501c CFVii50v.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -143,9 +143,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/sport/Michael-Ebel-Men's-Health-Magazin.webp",
-        "alt": "Michael Ebel posiert mit freiem Oberkörper auf sonniger Dachterasse eines historischen Gebäudes des Olympischen Dorfes Berlin. Produziert für Runners World Magazin mit Hasselbald 501c CFVii50v.",
-        "title": "Michael Ebel, Olympisches Dorf, Berlin, Runners World Magazin, Hasselbald 501c CFVii50v",
-        "caption": "Michael Ebel posiert mit freiem Oberkörper auf sonniger Dachterasse eines historischen Gebäudes des Olympischen Dorfes Berlin. Produziert für Runners World Magazin mit Hasselbald 501c CFVii50v.",
+        "alt": "Michael Ebel posiert mit freiem Oberkörper auf sonniger Dachterasse eines historischen Gebäudes des Olympischen Dorfes Berlin. Produziert für Runners World Magazin mit Hasselblad 501c CFVii50v.",
+        "title": "Michael Ebel, Olympisches Dorf, Berlin, Runners World Magazin, Hasselblad 501c CFVii50v",
+        "caption": "Michael Ebel posiert mit freiem Oberkörper auf sonniger Dachterasse eines historischen Gebäudes des Olympischen Dorfes Berlin. Produziert für Runners World Magazin mit Hasselblad 501c CFVii50v.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -268,13 +268,13 @@ export const portfolio: PortfolioCategory[] = [
     "label": "People",
     "altBase": "Portraitfotografie Berlin – Dirk Mathesius",
     "cover": "/portfolio/folks/ Jannik-Schuemann_audible.webp",
-    "coverAlt": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselbald 501c CFV16",
+    "coverAlt": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselblad 501c CFV16",
     "images": [
       {
         "src": "/portfolio/folks/ Jannik-Schuemann_audible.webp",
-        "alt": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselbald 501c CFV16",
-        "title": "Schauspieler Jannik Schuemann, Berlin, Kunde audible, Hasselbald 501c CFV16",
-        "caption": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselbald 501c CFV16",
+        "alt": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselblad 501c CFV16",
+        "title": "Schauspieler Jannik Schuemann, Berlin, Kunde audible, Hasselblad 501c CFV16",
+        "caption": "Schauspieler Jannik Schuemann posiert vor einem farbigen Hintergrund während einer audible PR-Kampagne in den audible Studios Berlin, aufgenommen mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -304,9 +304,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/folks/Benno-Fuermann_audible_als-das-Böse-kam.webp",
-        "alt": "Schauspieler Benno Fuermann posiert für die audible PR-Kampagne Als das Böse kam in Berliner Tonstudio, aufgenommen mit Hasselbald 501c CFV16",
-        "title": "Schauspieler Benno Fuermann, Berlin, Kunde audible, Hasselbald 501c CFV16",
-        "caption": "Schauspieler Benno Fuermann posiert für die audible PR-Kampagne Als das Böse kam in Berliner Tonstudio, aufgenommen mit Hasselbald 501c CFV16",
+        "alt": "Schauspieler Benno Fuermann posiert für die audible PR-Kampagne Als das Böse kam in Berliner Tonstudio, aufgenommen mit Hasselblad 501c CFV16",
+        "title": "Schauspieler Benno Fuermann, Berlin, Kunde audible, Hasselblad 501c CFV16",
+        "caption": "Schauspieler Benno Fuermann posiert für die audible PR-Kampagne Als das Böse kam in Berliner Tonstudio, aufgenommen mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -344,9 +344,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/folks/Friedrich-Muecke_audible.webp",
-        "alt": "Schauspieler Friedrich Muecke posiert vor einer Stoffwand während eines audible PR-shootings in einem Tonstudio in Berlin, aufgenommen mit Hasselbald 501c CFV16",
-        "title": "Schauspieler Friedrich Muecke, Kunde audible, Hasselbald 501c CFV16",
-        "caption": "Schauspieler Friedrich Muecke posiert vor einer Stoffwand während eines audible PR-shootings in einem Tonstudio in Berlin, aufgenommen mit Hasselbald 501c CFV16",
+        "alt": "Schauspieler Friedrich Muecke posiert vor einer Stoffwand während eines audible PR-shootings in einem Tonstudio in Berlin, aufgenommen mit Hasselblad 501c CFV16",
+        "title": "Schauspieler Friedrich Muecke, Kunde audible, Hasselblad 501c CFV16",
+        "caption": "Schauspieler Friedrich Muecke posiert vor einer Stoffwand während eines audible PR-shootings in einem Tonstudio in Berlin, aufgenommen mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -368,17 +368,17 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/folks/Joyce-Huebner_runners-world_Drachenberg.webp",
-        "alt": "Joyce Huebner läuft für das Magazin Runners World auf dem Drachenberg in Berlin, aufgenommen Hasselbald 501c CFVii50v",
-        "title": "Joyce Huebner, Berlin, Kunde Runners World, Hasselbald 501c CFVii50v",
-        "caption": "Joyce Huebner läuft für das Magazin Runners World auf dem Drachenberg in Berlin, aufgenommen Hasselbald 501c CFVii50v",
+        "alt": "Joyce Huebner läuft für das Magazin Runners World auf dem Drachenberg in Berlin, aufgenommen Hasselblad 501c CFVii50v",
+        "title": "Joyce Huebner, Berlin, Kunde Runners World, Hasselblad 501c CFVii50v",
+        "caption": "Joyce Huebner läuft für das Magazin Runners World auf dem Drachenberg in Berlin, aufgenommen Hasselblad 501c CFVii50v",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/folks/Juliane-Leupold:_Tinder-Managerin.webp",
-        "alt": "Tinder Managerin Juliane Leupold posiert in Berliner Bürogebäude für Kunde Schroeder und Schoembs PR, aufgenommen mit Hasselbald 501c CFV16",
-        "title": "Juliane Leupold/ Tinder Managerin, Berlin, Kunde Schroeder und Schoembs PR, Hasselbald 501c CFV16",
-        "caption": "Tinder Managerin Juliane Leupold posiert in Berliner Bürogebäude für Kunde Schroeder und Schoembs PR, aufgenommen mit Hasselbald 501c CFV16",
+        "alt": "Tinder Managerin Juliane Leupold posiert in Berliner Bürogebäude für Kunde Schroeder und Schoembs PR, aufgenommen mit Hasselblad 501c CFV16",
+        "title": "Juliane Leupold/ Tinder Managerin, Berlin, Kunde Schroeder und Schoembs PR, Hasselblad 501c CFV16",
+        "caption": "Tinder Managerin Juliane Leupold posiert in Berliner Bürogebäude für Kunde Schroeder und Schoembs PR, aufgenommen mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -536,7 +536,7 @@ export const portfolio: PortfolioCategory[] = [
       {
         "src": "/portfolio/music/DJ-housemeister-portrait-inszeniert.webp",
         "alt": "Der DJ Housemeister posiert vor einer farbigen Glasziegelwand in der damaligen Techno-location bittersweet in der Papierfabrik in Burg Stargard, aufgenommen mit Hasselblad 501c FarbNegativ-Film",
-        "title": "DJ Housemeister, Freie Arbeit, Hasselbald 501c FarbNegativ-Film",
+        "title": "DJ Housemeister, Freie Arbeit, Hasselblad 501c FarbNegativ-Film",
         "caption": "Der DJ Housemeister posiert vor einer farbigen Glasziegelwand in der damaligen Techno-location bittersweet in der Papierfabrik in Burg Stargard, aufgenommen mit Hasselblad 501c FarbNegativ-Film",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
@@ -1322,25 +1322,25 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/publication/Ahmed-und-Hussen-Chaer-wrestling-cover-audible.webp",
-        "alt": "Die beiden wrestling- Brüder und Sportler posieren in einem Boxring in Hemd und Jacket für eine Anzeige eines Hörspiels von audible, welches von Eko Fresh gesprochen wir und Hochgekämpft heisst. Aufgenommen mit Hasselbald 501c CFVii50v.",
+        "alt": "Die beiden wrestling- Brüder und Sportler posieren in einem Boxring in Hemd und Jacket für eine Anzeige eines Hörspiels von audible, welches von Eko Fresh gesprochen wir und Hochgekämpft heisst. Aufgenommen mit Hasselblad 501c CFVii50v.",
         "title": "Ahmed und Hussen Chaer, audible",
-        "caption": "Die beiden wrestling- Brüder und Sportler posieren in einem Boxring in Hemd und Jacket für eine Anzeige eines Hörspiels von audible, welches von Eko Fresh gesprochen wir und Hochgekämpft heisst. Aufgenommen mit Hasselbald 501c CFVii50v.",
+        "caption": "Die beiden wrestling- Brüder und Sportler posieren in einem Boxring in Hemd und Jacket für eine Anzeige eines Hörspiels von audible, welches von Eko Fresh gesprochen wir und Hochgekämpft heisst. Aufgenommen mit Hasselblad 501c CFVii50v.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/publication/Asphalt-Baustelle-Werbung-Hauptverband-deutsche-Bauindustrie.webp",
-        "alt": "Ein Bauerbeiter mit pneumatischem Hammer bricht alte Strasse auf. Im Hintergrund arbeitet bereits ein Asphalt Anfertiger an der neuen Fahrbahn. Ländlcihe Natur im Hintergrund. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselbald 501c CFVii50v.",
-        "title": "Kampagne des Hauptverband d. dt. Bauindustrie e.V., Hasselbald 501c CFVii50v",
-        "caption": "Ein Bauerbeiter mit pneumatischem Hammer bricht alte Strasse auf. Im Hintergrund arbeitet bereits ein Asphalt Anfertiger an der neuen Fahrbahn. Ländlcihe Natur im Hintergrund. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselbald 501c CFVii50v.",
+        "alt": "Ein Bauerbeiter mit pneumatischem Hammer bricht alte Strasse auf. Im Hintergrund arbeitet bereits ein Asphalt Anfertiger an der neuen Fahrbahn. Ländlcihe Natur im Hintergrund. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselblad 501c CFVii50v.",
+        "title": "Kampagne des Hauptverband d. dt. Bauindustrie e.V., Hasselblad 501c CFVii50v",
+        "caption": "Ein Bauerbeiter mit pneumatischem Hammer bricht alte Strasse auf. Im Hintergrund arbeitet bereits ein Asphalt Anfertiger an der neuen Fahrbahn. Ländlcihe Natur im Hintergrund. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselblad 501c CFVii50v.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
       {
         "src": "/portfolio/publication/Baustelle-Werbung-Hauptverband-deutsche-Bauindustrie.webp",
-        "alt": "Ein Arbeiter kontrolliert und unterstützt die an einem Kran hängende Holtzbalken- Last während der Beförderung auf der oberen Etage eines nachhaltigen Neubaus. Im Hintergrund ein verglastes Geschäftsgebäude und blauer Himmel. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselbald 501c CFVii50v.",
-        "title": "Kampagne des Hauptverband d. dt. Bauindustrie e.V., Hasselbald 501c CFVii50v",
-        "caption": "Ein Arbeiter kontrolliert und unterstützt die an einem Kran hängende Holtzbalken- Last während der Beförderung auf der oberen Etage eines nachhaltigen Neubaus. Im Hintergrund ein verglastes Geschäftsgebäude und blauer Himmel. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselbald 501c CFVii50v.",
+        "alt": "Ein Arbeiter kontrolliert und unterstützt die an einem Kran hängende Holtzbalken- Last während der Beförderung auf der oberen Etage eines nachhaltigen Neubaus. Im Hintergrund ein verglastes Geschäftsgebäude und blauer Himmel. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselblad 501c CFVii50v.",
+        "title": "Kampagne des Hauptverband d. dt. Bauindustrie e.V., Hasselblad 501c CFVii50v",
+        "caption": "Ein Arbeiter kontrolliert und unterstützt die an einem Kran hängende Holtzbalken- Last während der Beförderung auf der oberen Etage eines nachhaltigen Neubaus. Im Hintergrund ein verglastes Geschäftsgebäude und blauer Himmel. Produziert für eine Werbekampagne des Hauptverbands der dteutschen Bauindustrie e.V. mit Hasselblad 501c CFVii50v.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1484,9 +1484,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/publication/Mark-Waschke-und-Shari-Asha-Crosson-audible-PR.webp",
-        "alt": "Die Schauspieler Mark Waschke und Shari Asha Crosson posieren vor einer weissen Wand mit etwas Lochmuster und schauen ernst in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselbald 501c CFV16",
-        "title": "Mark Waschke und Shari Asha Crosson, audible, Hasselbald 501c CFV16",
-        "caption": "Die Schauspieler Mark Waschke und Shari Asha Crosson posieren vor einer weissen Wand mit etwas Lochmuster und schauen ernst in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselbald 501c CFV16",
+        "alt": "Die Schauspieler Mark Waschke und Shari Asha Crosson posieren vor einer weissen Wand mit etwas Lochmuster und schauen ernst in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselblad 501c CFV16",
+        "title": "Mark Waschke und Shari Asha Crosson, audible, Hasselblad 501c CFV16",
+        "caption": "Die Schauspieler Mark Waschke und Shari Asha Crosson posieren vor einer weissen Wand mit etwas Lochmuster und schauen ernst in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
@@ -1508,9 +1508,9 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/publication/Pegah-Ferydoni-Portrait-audible.webp",
-        "alt": "Die Schauspielerin Pegah Ferydoni posiert vor einer lila türkis verlaufenden Leinwand und schaut freundlich in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselbald 501c CFV16",
-        "title": "Pegah Ferydoni, audible, Hasselbald 501c CFV16",
-        "caption": "Die Schauspielerin Pegah Ferydoni posiert vor einer lila türkis verlaufenden Leinwand und schaut freundlich in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselbald 501c CFV16",
+        "alt": "Die Schauspielerin Pegah Ferydoni posiert vor einer lila türkis verlaufenden Leinwand und schaut freundlich in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselblad 501c CFV16",
+        "title": "Pegah Ferydoni, audible, Hasselblad 501c CFV16",
+        "caption": "Die Schauspielerin Pegah Ferydoni posiert vor einer lila türkis verlaufenden Leinwand und schaut freundlich in die Kamera. Produziert für die PR Kampagne eines Hörspiels von audible mit Hasselblad 501c CFV16",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich"
       },
