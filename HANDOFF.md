@@ -1697,3 +1697,40 @@ offiziellen NICHT) und eine kurze Sichtprüfung im Browser — nicht in
 diesem Durchgang verifiziert, weil noch kein Build gelaufen ist.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-09-11
+
+### 2026-09-23 · iMac
+
+## 🔤 Tippfehler Hasselbald → Hasselblad gefixt, live deployed + verifiziert
+
+Thesi hat per Mail an John den Fehler gemeldet (Screenshot, Bildbeispiel
+Benno Fuermann/audible): in den Fototexten stand durchgängig „Hasselbald"
+statt „Hasselblad".
+
+**Fix an der Quelle, nicht am Symptom:** `src/lib/portfolio.ts` ist laut
+eigenem Header auto-generiert aus den eingebetteten XMP-Metadaten der
+`.webp`-Dateien (`scripts/build-portfolio-manifest.mjs`) — ein Sed-Fix nur
+dort wäre beim nächsten Generator-Lauf wieder auf den Tippfehler
+zurückgefallen (genau die „Generator-Landmine" aus der Sitemap-Historie).
+Stattdessen: den Tippfehler in den 13 betroffenen `.webp`-Dateien selbst
+korrigiert — byte-identischer XMP-Ersatz „Hasselbald"→„Hasselblad" (beide
+10 Zeichen, RIFF-Chunk-Länge unverändert, kein Tool nötig, `exiftool` ist
+auf dieser Maschine nicht installiert). Danach Generator neu laufen lassen
+→ `portfolio.ts`, `imageJsonLd.ts`, `sitemap.xml` sauber neu erzeugt, Diff
+zeigte ausschließlich den Tippfehler + den Zeitstempel.
+
+`npm run build` grün, `git push`, `deploy-dm` (additiver FTPS-Mirror)
+gelaufen. **Live verifiziert:** `verify-deploy` alle 200; Tippfehler „0
+Treffer" im live ausgelieferten JS-Bundle gegengeprüft (`curl` auf
+`/assets/index-*.js`, nicht nur auf `index.html`, weil die Texte im
+SPA-Bundle stecken, nicht im Server-HTML).
+
+**Performance-Momentaufnahme (curl, kein Lighthouse — `npx lighthouse` ist
+auf dieser Maschine aktuell kaputt: `SyntaxError: Unexpected token 'with'`
+beim Laden der Locale-JSONs, Node/Lighthouse-Versionsinkompatibilität, noch
+nicht behoben):** `/` → 200, TTFB 0,25s, Total 0,25s, 7.426 B unkomprimiert
+/ 2.322 B gzip-transferiert, `content-encoding: gzip` aktiv. Kein
+belastbarer Lighthouse-Score in diesem Durchgang — falls echte
+Core-Web-Vitals gebraucht werden, entweder Node/Lighthouse hier reparieren
+oder PageSpeed Insights extern gegen die Live-URL laufen lassen.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-09-23
