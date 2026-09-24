@@ -1769,4 +1769,42 @@ Layout-Shift durch nachladende Bilder ohne reservierte Höhe?) — das ist
 ein eigener Durchgang, kein Nebenbei-Fund. **Am Zug:** John entscheidet,
 ob/wann das als eigene Aufgabe angegangen wird.
 
+## 🔍 Root Cause gefunden (noch NICHT gefixt) — zwei konkrete Hebel für LCP+CLS
+
+**1) LCP-Bild ist lazy-loaded** (`src/pages/Index.tsx:163`, `HeroTimeline`):
+```
+<img key={s.src} src={s.src} ... loading="lazy" decoding="async" className="w-full block hero-fade" />
+```
+Genau dieses `<img>` ist laut Lighthouse `largest-contentful-paint-element`
+— das oberste, auto-rotierende Hero-Bild, above-the-fold. `loading="lazy"`
+lässt den Browser auf den Intersection-Trigger warten, statt sofort zu
+laden: **„Load Delay" = 43% der 7,5s LCP** (Lighthouse-Phasenaufschlüsselung,
+Rest TTFB 14%/Load 21%/Render 21%). Fix: `loading="eager"` +
+`fetchPriority="high"` auf genau dieses Bild (nicht auf die Galerie-Bilder
+weiter unten — die dürfen lazy bleiben).
+
+**2) Keine Seitenverhältnis-Reservierung → CLS 0,172.** Kein
+`aspect-ratio`/`width`/`height` auf dem Hero-`<img>` oder seinem
+Container — nur `w-full block`. Die neun Timeline-Bilder haben
+unterschiedliche Formate (stichprobenartig mit `sips` gemessen:
+`…Reichstag.webp` 1212×1212 quadratisch vs. `…Berliner-Mauer-Stelen.webp`
+1862×1212 querformatig) → Box-Höhe springt beim Laden und bei jedem
+5-Sekunden-Wechsel (`key={s.src}` remounted das `<img>` komplett). Fix:
+festes `aspect-ratio` auf dem `<a className="img-hover">`-Wrapper (Zeile
+160) statt auf dem Bild selbst, damit die Box unabhängig vom jeweiligen
+Bildformat stabil bleibt — objectFit: cover würde dann zuschneiden statt
+verzerren.
+
+**Nicht mehr angefasst in diesem Durchgang** (Investigation gestoppt auf
+Johns „alles sichern"): kein Code geändert, kein Build, kein Deploy.
+Zusätzlich von Lighthouse genannt, noch nicht untersucht: 1.953 KiB
+Einsparpotential „responsive images", 852 KiB „modern image formats",
+1.420 ms „render-blocking resources", 70 KiB „unused javascript" —
+vermutlich kleinere Hebel als die zwei LCP/CLS-Fixe oben, aber ungeprüft.
+
+**Am Zug:** nächster Durchgang, klein und scharf: die zwei Fixe oben
+umsetzen, `npm run build`, lokal mit `lighthouse` (Wrapper, siehe oben)
+gegenmessen, erst dann `deploy-dm` — Deploy ist Johns Freigabe, nicht
+automatisch mitgebündelt.
+
 — dirkmathesius (Claude, im Auftrag von John), 2026-09-24
