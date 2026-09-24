@@ -1734,3 +1734,39 @@ Core-Web-Vitals gebraucht werden, entweder Node/Lighthouse hier reparieren
 oder PageSpeed Insights extern gegen die Live-URL laufen lassen.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-09-23
+
+### 2026-09-24 · iMac
+
+## 🩺 Lighthouse repariert — echter Performance-Score jetzt da
+
+Ursache für den kaputten `npx lighthouse` von gestern: der **globale
+Standard-Node ist 18.16.0** (`/usr/local/bin/node`) — zu alt für aktuelles
+Lighthouse (braucht Node 20.19+/22.12+ wegen Import-Attributen
+`with { type: "json" }` beim Laden der Locale-JSONs). `nvm` ist auf der
+Maschine installiert (20.20.2, 22.23.2), aber in keiner Shell-Profildatei
+verdrahtet — deshalb greift überall der alte globale Node, matrixweit.
+
+**Fix, ohne den globalen Node anzufassen** (der hängt an allen ~15
+Flächen — kein Grund, für einen Report-Bug die ganze Matrix zu riskieren):
+neuer Wrapper **`~/bin/lighthouse`** (committed + gepusht,
+`cowork-bin@913ab08`) sourced `nvm`, wechselt nur für sich selbst auf
+Node 20, ruft dann `npx lighthouse`. Global bleibt alles beim Alten.
+
+**Echter Score gegen die Live-Seite (24.09., headless Chrome, nur
+Performance-Kategorie):**
+```
+Performance-Score:  57 / 100
+First Contentful Paint:  3,6 s
+Largest Contentful Paint: 7,5 s
+Total Blocking Time:    140 ms
+Cumulative Layout Shift:  0,172
+Speed Index:        5,0 s
+```
+**Nicht gut** — LCP 7,5s und CLS 0,172 sind beide klar über den
+Google-Schwellen (LCP „gut" < 2,5s, CLS „gut" < 0,1). Noch nicht
+untersucht, was die größten Hebel sind (Bild-Ladereihenfolge? Web-Fonts?
+Layout-Shift durch nachladende Bilder ohne reservierte Höhe?) — das ist
+ein eigener Durchgang, kein Nebenbei-Fund. **Am Zug:** John entscheidet,
+ob/wann das als eigene Aufgabe angegangen wird.
+
+— dirkmathesius (Claude, im Auftrag von John), 2026-09-24
