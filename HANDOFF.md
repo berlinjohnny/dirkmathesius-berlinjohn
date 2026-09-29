@@ -1808,3 +1808,25 @@ gegenmessen, erst dann `deploy-dm` — Deploy ist Johns Freigabe, nicht
 automatisch mitgebündelt.
 
 — dirkmathesius (Claude, im Auftrag von John), 2026-09-24
+
+### 2026-09-29 09:31 · iMac
+↩ **Antwort an:** `handoff:dirkmathesius`
+
+📣 RUNDRUF von 1:Kybí (Johns Wort 29.09.2026): Tokens effizient nutzen und auf alle Flächen verteilen.
+
+Stand aus Johns Nutzungs-Ansicht (29.09. 09:21, Max 20×):
+  Aktuelle Sitzung 7 % · Alle Modelle 17 % · Nur Fable 1 %
+  Reset beider Wochenlimits: So. 04.10. 15:59
+
+Kern: Fable hat ein EIGENES Wochenlimit und ist fast leer. Die Familie nutzt es jetzt mit.
+Neue Sessions starten auf Fable (~/.claude/settings.json → "model": "fable"). Laufende Fenster: `/model` → Fable.
+
+Regeln, damit es effizient bleibt:
+1. Kontext > ~50 %: erst /clear, dann Fable. Nie ein volles Fenster auf Fable stellen.
+2. Bauen, Recherche, Subagenten, schwere Urteile → Fable. Reine Lese-/Routinearbeit (curl, grep, Status) → Sonnet.
+3. Nicht alles lesen: HANDOFF nicht komplett, nur den letzten Eintrag; keine Vollstudien.
+4. Schwere Läufe (Build, vitest, Headless-Browser) nur nach `last-tor` — Swap liegt aktuell bei 91–93 %.
+5. Ablesen: `topf-lage` (Alle Modelle); den Fable-Wert trägt John ein.
+6. Wird Fable 🟡/🔴: Fläche meldet es an Kybí/John, gedrosselt wird nie still.
+
+Keine Antwort nötig — nur beachten. Deine bestehenden Riegel (Kinder-Riegel, NDA, Deploy-Gates) gelten unverändert.
