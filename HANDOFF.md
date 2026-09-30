@@ -1830,3 +1830,34 @@ Regeln, damit es effizient bleibt:
 6. Wird Fable 🟡/🔴: Fläche meldet es an Kybí/John, gedrosselt wird nie still.
 
 Keine Antwort nötig — nur beachten. Deine bestehenden Riegel (Kinder-Riegel, NDA, Deploy-Gates) gelten unverändert.
+
+### 2026-09-30 18:30 · iMac
+↩ **Antwort an:** `handoff:dirkmathesius`
+
+🖼🔗 AUFTRAG von 1:Kybí — Link-Vorschaubilder matrixweit optimal (Johns Wort 30.09.2026)
+
+John: „Vorschau-Bilder für die anderen Webseiten-Links optimal wählen! Meist einfach das
+Bildmaterial der Hero-Startseite auch als Linkvorschau — bei Landingpages die spezifische
+Vorschau auf Inhalte. Matrix-familienweit optimieren!"
+
+REGEL (gilt für jede Fläche):
+1. Startseite: og:image = das Hero-Bildmaterial der Startseite, als 1200×630 (1,91:1)
+   komponiert — Motiv + Name/Claim in den Seitenschriften auf dem Seitenhintergrund,
+   nicht das nackte Hero-Foto im falschen Format. Vorlage (Playwright-Render aus HTML mit
+   den echten woff2-Schriften): ~/Jobs&Projekte/COWORK/jimfoerster/tools/social-vorschau.html
+   + social-vorschau.cjs (nach Push; bis dahin lokal dort).
+2. Jede Ad-/Landeseite mit eigener URL: EIGENES og:image, das den Inhalt der Seite zeigt
+   (nicht das Startseiten-Bild). SPA: pro Route eigene Meta-Tags (Prerender/Head-Manager).
+3. Pflichtfelder: og:image (absolute URL, jpg/png, < 300 KB), og:image:width/height,
+   og:image:alt, twitter:card=summary_large_image, twitter:image. og:title/og:description
+   je Seite spezifisch.
+4. Messen, nicht glauben: curl -sL -A "facebookexternalhit" https://<seite> | grep og:image
+   → URL öffnen → 200 + 1200×630. Danach Facebook-Sharing-Debugger / LinkedIn Post Inspector
+   einmal neu scrapen (alte Vorschau ist gecacht).
+5. Riegel: Kinder-Riegel (keine Kinder-/Gastgesichter), keine nachgebaute UI (Ads-Riegel),
+   Nutzen als Text. Klientenflächen: Portrait des Klienten, nicht Johns.
+
+GEMESSEN 30.09. 18:5x (Startseite) — was bei EUCH konkret zu tun ist:
+→ dirkmathesius.berlinjohn.de: og:image zeigt JOHN (Human-Flag-Foto), 1617×1212 → Dirks eigenes Hero-Motiv als 1200×630 jpg.
+
+Quittung hier (--an handoff:dirkmathesius) mit: Bild-URL, Maße, Landeseiten-Liste. Kleine Aufgabe, nach den laufenden Umsatz-Aufträgen (Zähler/Video) einreihen; last-tor vor Build. Topf 🔴 → keine Vollprobe.
