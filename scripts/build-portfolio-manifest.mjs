@@ -600,7 +600,11 @@ function decodeEntities(s) {
 const TEXT_TILGUNGEN = ["Blaskapelle"];
 
 function tilge(s) {
-  let out = s;
+  // Markenname: „Jim&John Förster" — die Reihenfolge IST die Marke (Johns Ansage 2026-10-06).
+  // Die Bild-Metadaten (XMP) tragen noch „John & Jim" / „John und Jim"; hier zentral korrigiert,
+  // weil portfolio.ts, imageJsonLd.ts, sitemap.xml und alle Seiten daraus entstehen.
+  // Dateinamen (`John-und-Jim-…webp`) sind Live-URLs und bleiben — Umbenennen braucht Redirects.
+  let out = s.replace(/\bJohn\s*(?:&amp;|&|und|\+)\s*Jim\b/gi, "Jim&John");
   for (const wort of TEXT_TILGUNGEN) {
     out = out.replace(new RegExp(`\\s*\\b${wort}\\b`, "gi"), "");
   }
@@ -2076,7 +2080,7 @@ if (IS_FANPAGE) {
   <div class="vern">
     <h1>Eine Serie, die bereit ist für eine erste Wand</h1>
 
-    <p class="lead"><b>Berlin, 2008–2026:</b> Dirk Mathesius fotografiert John &amp; Jim Förster
+    <p class="lead"><b>Berlin, 2008–2026:</b> Dirk Mathesius fotografiert Jim&amp;John Förster
       (AcroBerlin) an Berliner Wahrzeichen — Reichstag, Berliner Mauer, BEHALA-Hafen.
       Echt aus der Kamera, im Moment der Aufnahme: was Sie sehen, ist der Moment selbst.</p>
 
@@ -2125,9 +2129,9 @@ if (IS_FANPAGE) {
   writeFileSync(join(root, "public", "vernissage.html"), subPage({
     canonical: `${SITE}/vernissage.html`,
     title: "Vernissage-Idee — Kollaborationsserie sucht eine Wand | Dirk Mathesius × John Förster",
-    desc: "Die Kollaborationsserie von Dirk Mathesius und John & Jim Förster (2008–2026, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
+    desc: "Die Kollaborationsserie von Dirk Mathesius und Jim&John Förster (2008–2026, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
     css: VERN_CSS,
-    og: { file: "og-vernissage-kollaborationsserie.jpg", alt: "Vernissage-Idee: Kollaborationsserie von Dirk Mathesius und John & Jim Förster, Berlin 2008–2026, sucht eine erste Wand" },
+    og: { file: "og-vernissage-kollaborationsserie.jpg", alt: "Vernissage-Idee: Kollaborationsserie von Dirk Mathesius und Jim&John Förster, Berlin 2008–2026, sucht eine erste Wand" },
     body: vernBody,
   }));
   console.log("✅ vernissage.html — Ausstellungsanfrage Kollaborationsserie (nur Fanpage, DM-4 Idee-Stufe)");

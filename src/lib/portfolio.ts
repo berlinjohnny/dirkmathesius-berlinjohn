@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit by hand.
 // Source: scripts/build-portfolio-manifest.mjs (run via `node scripts/build-portfolio-manifest.mjs`)
 // Alt-texts & captions are read from the embedded XMP/IPTC metadata of each .webp.
-// Updated: 2026-09-23
+// Updated: 2026-10-05
 
 export type PortfolioImage = {
   src: string;
@@ -92,27 +92,27 @@ export const portfolio: PortfolioCategory[] = [
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-Fuss-high-five-Phaeno.webp",
-        "alt": "Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
-        "title": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
-        "caption": "Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
+        "alt": "Die Akrobaten und Freerunner Jim&John Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
+        "title": "Jim&John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
+        "caption": "Die Akrobaten und Freerunner Jim&John Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
         "collab": true
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-Kreuz-Sprung.webp",
-        "alt": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
-        "title": "John & Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16",
-        "caption": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
+        "alt": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
+        "title": "Jim&John Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16",
+        "caption": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
         "collab": true
       },
       {
         "src": "/portfolio/sport/John-und-Jim-Förster-holy-Salto-Phaeno.webp",
-        "alt": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
-        "title": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
-        "caption": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
+        "alt": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
+        "title": "Jim&John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
+        "caption": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
         "creator": "Dirk Mathesius",
         "rights": "Nutzung nur mit ausdrücklicher Genehmigung möglich",
         "collab": true

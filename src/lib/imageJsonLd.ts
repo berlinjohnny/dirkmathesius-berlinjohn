@@ -3,7 +3,7 @@
 // schema.org ImageGallery built from the embedded XMP/IPTC metadata of each photo.
 // Render via react-helmet-async:
 //   <Helmet><script type="application/ld+json">{JSON.stringify(imageGalleryJsonLd)}</script></Helmet>
-// Updated: 2026-09-23
+// Updated: 2026-10-05
 
 export const imageGalleryJsonLd = {
   "@context": "https://schema.org",
@@ -101,8 +101,8 @@ export const imageGalleryJsonLd = {
     {
       "@type": "ImageObject",
       "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Fuss-high-five-Phaeno.webp",
-      "name": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
-      "description": "Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
+      "name": "Jim&John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
+      "description": "Die Akrobaten und Freerunner Jim&John Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.",
       "creator": {
         "@type": "Person",
         "name": "Dirk Mathesius",
@@ -121,8 +121,8 @@ export const imageGalleryJsonLd = {
     {
       "@type": "ImageObject",
       "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-Kreuz-Sprung.webp",
-      "name": "John & Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16",
-      "description": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
+      "name": "Jim&John Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16",
+      "description": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.",
       "creator": {
         "@type": "Person",
         "name": "Dirk Mathesius",
@@ -141,8 +141,8 @@ export const imageGalleryJsonLd = {
     {
       "@type": "ImageObject",
       "contentUrl": "https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-Förster-holy-Salto-Phaeno.webp",
-      "name": "John & Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
-      "description": "Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
+      "name": "Jim&John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit",
+      "description": "Die Akrobaten und Freerunner Jim&John Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.",
       "creator": {
         "@type": "Person",
         "name": "Dirk Mathesius",

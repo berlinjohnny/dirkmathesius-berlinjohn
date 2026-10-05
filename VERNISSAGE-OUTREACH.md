@@ -9,7 +9,7 @@ liefert nur die Bausteine.*
 
 Sportfotografie **ohne Montage, ohne Bildbearbeitung** — echte Bewegung, echte
 Berliner Originale. Eine fast zwei Jahrzehnte lange Zusammenarbeit zwischen einem
-Fotografen und zwei Sportmodels (John & Jim Förster, AcroBerlin): Freerunning,
+Fotografen und zwei Sportmodels (Jim&John Förster, AcroBerlin): Freerunning,
 Akrobatik, Human-Flags an Berliner Wahrzeichen (Reichstag, Berliner Mauer, BEHALA-
 Hafen). Die publizierbare Kernserie zeigt **2008–2016** (`kollaborationen.html`).
 

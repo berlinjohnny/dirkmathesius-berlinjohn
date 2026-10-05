@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/photography.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -39,18 +39,18 @@
     </image:image>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-F%C3%B6rster-Fuss-high-five-Phaeno.webp</image:loc>
-      <image:title>John &amp; Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit</image:title>
-      <image:caption>Die Akrobaten und Freerunner John und Jim Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.</image:caption>
+      <image:title>Jim&amp;John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit</image:title>
+      <image:caption>Die Akrobaten und Freerunner Jim&amp;John Förster springen einen high five mit den Füssen. Dabei explodiert farbige Staubwolke zwischen ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg im Hintergrund. Eine Freie Arbeit.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-F%C3%B6rster-Kreuz-Sprung.webp</image:loc>
-      <image:title>John &amp; Jim Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16</image:title>
-      <image:caption>Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.</image:caption>
+      <image:title>Jim&amp;John Förster, Akrobat, Potsdamer Platz Berlin, Freie Arbeit, Hasselblad 501c CFV 16</image:title>
+      <image:caption>Die Akrobaten und Freerunner Jim&amp;John Förster springen gleichzeitig eine Kreuz- Formation und blicken in die Kamera. Links und rechts werden sie von Granitmauern eingerahmt und hinter ihnen schwebt oranger Nebel, ein analoger Trick. Im Hintergrund moderne Gebäude mit Steinfassade, Potsdamer Platz Berlin. Eine Freie Arbeit.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/sport/John-und-Jim-F%C3%B6rster-holy-Salto-Phaeno.webp</image:loc>
-      <image:title>John &amp; Jim Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit</image:title>
-      <image:caption>Die Akrobaten und Freerunner John und Jim Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.</image:caption>
+      <image:title>Jim&amp;John Förster, Akrobat, Phaeno, Wolfsburg, Freie Arbeit</image:title>
+      <image:caption>Die Akrobaten und Freerunner Jim&amp;John Förster springen gleichzeitig einen Salto. Dabei explodiert farbige Staubwolke an ihren Füssen. Dies ist ein analoger Trick. Viel künstlicher Nebel am Boden und das Phaeno Wolfsburg farbig angetrahlt im Hintergrund bei Nacht. Eine Freie Arbeit.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://dirkmathesius.berlinjohn.de/portfolio/folks/Tina-Foerster-Portrait-kopfueber.webp</image:loc>
@@ -70,31 +70,31 @@
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/ueber-dirk.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/info.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/vernissage.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/impressum.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://dirkmathesius.berlinjohn.de/datenschutzerklaerung.html</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

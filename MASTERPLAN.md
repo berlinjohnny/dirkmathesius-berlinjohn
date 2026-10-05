@@ -73,7 +73,7 @@ Assistenz-/Stunt-Session.
 ## Vision: Vernissage/Ausstellung der Kollaborations-Serie (DM-4, neu 2026-08-26)
 
 John: Die Fanpage trägt die Chronik von Jahrzehnten Fotokunst — die
-Kollaborations-Serie (2008–2016, John & Jim Förster mit Dirk Mathesius,
+Kollaborations-Serie (2008–2016, Jim&John Förster mit Dirk Mathesius,
 `kollaborationen.html` + `photography.html`) ist echte Sportfotografie
 **ohne Montage/Bildbearbeitung**, "100 % real, echte Berliner Originale".
 Das trägt eine physische Vernissage/Ausstellung — bei interessierten
