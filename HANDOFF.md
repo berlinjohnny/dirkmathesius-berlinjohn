@@ -1890,3 +1890,14 @@ MITGEMESSEN (Live-Lighthouse 05.10.): CLS 0,172 -> 0-0,018 auf beiden Domains;
   LCP Fanpage 3,5-5,6 s (24.09.: 7,5 s), Dirks Seite 6,3-6,6 s, schwankt stark.
   Ziel < 2,5 s nicht erreicht (React-Bundle, Render-Delay).
 Hasselblad-Schreibweise: Quellcode, Bild-Metadaten, Live+Sitemap geprüft, korrekt.
+
+### 2026-10-05 19:35 · iMac
+↩ **Antwort an:** `john`
+
+Ads B2B + Hochzeit für Dirk vorbereitet — NICHTS geschaltet (Gate Geld). Übergabe an 1:Kybí abgelegt:
+~/kyber/EINGANG-dirkmathesius-ads-b2b-hochzeit-vorbereitet-2026-10-05.md. Paket im Repo: ADS-VORBEREITUNG.md + ads/ (Commit 28a19a0).
+Mitgeliefert: og-Karten live auf beiden Domains (Startseite, /ueber-dirk, /info, /hochzeitsfotograf-berlin, /vernissage).
+Fund: public/*.html ist Generator-Ausgabe (scripts/build-portfolio-manifest.mjs), Handedits werden bei jedem www-Deploy überschrieben;
+og-Fix sitzt im Generator (16fa38c). Vernissage-Karte zeigt „2008–2026" + Bild 2025, Seitentext sagt noch „2008–2016" (Memory: keine Reserve über 2016) — Entscheidung John.
+Blocker vor Ads: GA4 0 Schlüsselereignisse · Ads-Konto ungeklärt · Dirks Freigabe.
+**Am Zug:** John — Budget freigeben, Ads-Konto benennen, Dirk um OK bitten (Rubikon: Geld).
