@@ -29,9 +29,11 @@ Stand 05.10.2026 · vorbereitet von der Fläche dirkmathesius · Übergabe an 1:
   (Consent Mode v2 liefert modellierte Conversions erst ab genug Volumen).
 - ⚠️ Search Console ↔ GA4 nicht verknüpft (GA4 empfiehlt es selbst) — beim Verknüpfen gleich mit erledigen.
 - ❌ `ads-absprung` (KAS-Logs) hilft hier **nicht**: Dirks Seite liegt auf IONOS, nicht KAS.
-- Auto-Tagging (gclid) an. Final-URLs mit festem Muster:
-  - A: `https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html?utm_source=google&utm_medium=cpc&utm_campaign=dm-hochzeit-berlin&utm_content={adgroupid}`
-  - B: `https://www.dirkmathesius.de/ueber-dirk.html?utm_source=google&utm_medium=cpc&utm_campaign=dm-b2b-berlin&utm_content={adgroupid}`
+- Auto-Tagging (gclid) an. **Feste Kennungen, keine ValueTrack-Platzhalter** wie `{adgroupid}` (löst einer nicht auf,
+  entsteht eine Phantom-Kampagne). `utm_content` je Anzeigengruppe fest setzen: a1-hochzeit · a2-verlobung · a3-portrait ·
+  b1-industrie · b2-unternehmen · b3-werbung. Final-URLs (Beispiel Gruppe 1):
+  - A: `https://www.dirkmathesius.de/hochzeitsfotograf-berlin.html?utm_source=google&utm_medium=cpc&utm_campaign=dm-hochzeit-berlin&utm_content=a1-hochzeit`
+  - B: `https://www.dirkmathesius.de/ueber-dirk.html?utm_source=google&utm_medium=cpc&utm_campaign=dm-b2b-berlin&utm_content=b1-industrie`
 - ⚠️ Nicht gemessen: Handy-Darstellung der Formulare nach Klick aus Anzeige (vor Start einmal live testen).
 
 ## 3. Kampagne A — „Hochzeit & privat" (Google Suche)
