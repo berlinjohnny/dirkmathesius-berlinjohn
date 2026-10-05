@@ -1226,6 +1226,13 @@ const _collabAll = categories.flatMap((c) => c.images);
 const collabTimeline = COLLAB_TIMELINE
   .map((t) => { const img = _collabAll.find((i) => i.src.endsWith(t.file)); return img ? { ...img, year: t.year } : null; })
   .filter(Boolean);
+// Das Human-Flag-Foto (2025) liegt in public/images/, nicht im Portfolio-Manifest — wie in Index.tsx (TIMELINE_EXTRA).
+collabTimeline.push({
+  src: "/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp",
+  alt: "John Förster in perfekter Human-Flag zwischen mächtigen Pappeln, weiße Friedenstaube auf blauem Shirt – freie Fotokunst, 100 % real, ohne Bildbearbeitung",
+  title: "Human-Flag & Friedenstaube",
+  year: 2025,
+});
 
 const kollabNav = siteNavOrder.map((id) => `<a href="/${id}.html">${E(navLabel(id))}</a>`).join("\n        ") + `\n        <a href="/info.html">info</a>`;
 // Das Canonical zeigt auf BEIDEN Domains zu Dirk — die Kollaborationen sollen seiner
@@ -1255,7 +1262,7 @@ const kollabLd = {
   "@id": `${kollabCanonical}#gallery`,
   name: "Kollaborationen – Dirk Mathesius × John Förster",
   url: kollabCanonical,
-  description: "Sport- & Action-Fotografie: Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – Serie 2008–2016 und Behind the Scenes.",
+  description: "Sport- & Action-Fotografie: Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – Serie 2008–2026 und Behind the Scenes.",
   author: CREATOR,
 };
 
@@ -1265,14 +1272,14 @@ const kollabPage = `<!DOCTYPE html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kollaborationen – Dirk Mathesius × John Förster | Sport & Action Berlin</title>
-<meta name="description" content="Sport- und Action-Fotografie von Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – freie Fotokunst-Serie 2008–2016 und Behind the Scenes. 100 % real, ohne Bildbearbeitung." />
+<meta name="description" content="Sport- und Action-Fotografie von Dirk Mathesius mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern – freie Fotokunst-Serie 2008–2026 und Behind the Scenes. 100 % real, ohne Bildbearbeitung." />
 <link rel="canonical" href="${kollabCanonical}" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 ${THEME_BOOT}
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Kollaborationen – Dirk Mathesius × John Förster" />
-<meta property="og:description" content="Sport- & Action-Fotografie mit Sportmodel John Förster – freie Serie 2008–2016 & Behind the Scenes." />
+<meta property="og:description" content="Sport- & Action-Fotografie mit Sportmodel John Förster – freie Serie 2008–2026 & Behind the Scenes." />
 <meta property="og:url" content="${kollabCanonical}" />
 <meta name="twitter:card" content="summary_large_image" />
 <link href="style.css" rel="stylesheet" type="text/css" />
@@ -1306,7 +1313,7 @@ ${MESS_TAG}
     <h1>Kollaborationen — Dirk Mathesius &amp; John Förster</h1>
     <p class="intro">Freie Fotokunst-Serie mit Sportmodel John Förster (AcroBerlin) und den Förster-Brüdern: echte Bewegung, 100&nbsp;% real, ohne Bildbearbeitung. Eine langjährige Zusammenarbeit in Sport-, Action- und Konzeptfotografie.</p>
 
-    <h2>Sportmodel-Serie · 2008–2016</h2>
+    <h2>Sportmodel-Serie · 2008–2026</h2>
     <section class="grid" data-lightbox>
 ${timelineFigs}
     </section>
