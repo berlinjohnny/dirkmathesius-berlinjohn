@@ -157,11 +157,11 @@ function HeroTimeline() {
 
   return (
     <section className="mt-10 md:mt-12" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <a href={`/${s.cat.id}.html`} className="relative img-hover block overflow-hidden">
+      <a href={`/${s.cat.id}.html`} className="relative img-hover block overflow-hidden aspect-[4/3]">
         <img key={s.src} src={s.src}
           alt={`${s.alt} – John Förster, Sportmodel, Sportfotografie Berlin`}
-          loading="lazy" decoding="async"
-          className="w-full block hero-fade" />
+          loading="eager" fetchPriority="high" decoding="async"
+          className="w-full h-full block object-cover hero-fade" />
         {/* edle Jahresangabe */}
         <div className="absolute left-4 bottom-4 md:left-7 md:bottom-7 text-white pointer-events-none"
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}>

@@ -33,7 +33,12 @@ const canonicalPlugin = (mode: string): Plugin => ({
   enforce: "pre",
   transformIndexHtml(html) {
     const { isOfficial, siteUrl } = resolveIsOfficial(mode);
-    return html.replaceAll("__DM_CANONICAL_URL__", isOfficial ? siteUrl : OFFICIAL_URL);
+    const hero = isOfficial
+      ? "/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp"
+      : "/portfolio/sport/John-Foerster-Akrobat-Sprung-Pfuetze-Wand-Reichstag.webp";
+    return html
+      .replaceAll("__DM_CANONICAL_URL__", isOfficial ? siteUrl : OFFICIAL_URL)
+      .replaceAll("__DM_HERO_PRELOAD__", hero);
   },
 });
 
