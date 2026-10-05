@@ -2069,7 +2069,7 @@ if (IS_FANPAGE) {
   <div class="vern">
     <h1>Eine Serie, die bereit ist für eine erste Wand</h1>
 
-    <p class="lead"><b>Berlin, 2008–2016:</b> Dirk Mathesius fotografiert John &amp; Jim Förster
+    <p class="lead"><b>Berlin, 2008–2026:</b> Dirk Mathesius fotografiert John &amp; Jim Förster
       (AcroBerlin) an Berliner Wahrzeichen — Reichstag, Berliner Mauer, BEHALA-Hafen.
       Echt aus der Kamera, im Moment der Aufnahme: was Sie sehen, ist der Moment selbst.</p>
 
@@ -2077,7 +2077,7 @@ if (IS_FANPAGE) {
       <li>Fotograf seit <b>1997</b></li>
       <li><b>30+</b> Jahre Erfahrung</li>
       <li>Hasselblad <b>Mittelformat</b></li>
-      <li>Serie <b>2008–2016</b>, vollständig</li>
+      <li>Serie <b>2008–2026</b>, vollständig</li>
       <li>Kunden: BMW Motorrad, Red Bull, adidas, Stern, Men&#39;s Health</li>
     </ul>
 
@@ -2118,7 +2118,7 @@ if (IS_FANPAGE) {
   writeFileSync(join(root, "public", "vernissage.html"), subPage({
     canonical: `${SITE}/vernissage.html`,
     title: "Vernissage-Idee — Kollaborationsserie sucht eine Wand | Dirk Mathesius × John Förster",
-    desc: "Die Kollaborationsserie von Dirk Mathesius und John & Jim Förster (2008–2016, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
+    desc: "Die Kollaborationsserie von Dirk Mathesius und John & Jim Förster (2008–2026, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
     css: VERN_CSS,
     og: { file: "og-vernissage-kollaborationsserie.jpg", alt: "Vernissage-Idee: Kollaborationsserie von Dirk Mathesius und John & Jim Förster, Berlin 2008–2026, sucht eine erste Wand" },
     body: vernBody,
