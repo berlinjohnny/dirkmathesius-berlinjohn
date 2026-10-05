@@ -1404,7 +1404,8 @@ ${DARK_CSS}`;
 // `css` = seiten-eigene Regeln, die NUR diese eine Seite bekommt. SUB_CSS teilen
 // sich alle Unterseiten (7 Kategorien + kollaborationen + info) auf zwei Domains —
 // wer dort etwas aendert, gestaltet unbemerkt alle mit um.
-function subPage({ canonical, title, desc, headLd = [], body, css = "" }) {
+const OG_DEFAULT = { file: "og-dirk-mathesius-fotograf-berlin.jpg", alt: "Dirk Mathesius – Fotograf Berlin, Porträt vor weißem Hintergrund" };
+function subPage({ canonical, title, desc, headLd = [], body, css = "", og = OG_DEFAULT }) {
   return `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -1425,8 +1426,12 @@ ${THEME_BOOT}
 <meta property="og:title" content="${E(title)}" />
 <meta property="og:description" content="${E(desc)}" />
 <meta property="og:url" content="${canonical}" />
-<meta property="og:image" content="${SITE}/images/John-Foerster-Human-Flag-Friedenstaube-Pappeln-Berlin.webp" />
+<meta property="og:image" content="${SITE}/images/${og.file}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="${E(og.alt)}" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="${SITE}/images/${og.file}" />
 <link href="style.css" rel="stylesheet" type="text/css" />
 ${GOOGLE_FONT}
 <style>${SUB_CSS}${css}</style>
@@ -2023,6 +2028,7 @@ ${eventsFormHtml}
     desc: "Fotograf in Berlin für Hochzeit, Familie & private Feiern, Business-Portraits, Bewerbungsfotos sowie Fashion- & Content-Shootings. Individuelles Angebot meist innerhalb von 24 Stunden.",
     headLd: [eventsServiceLd, eventsFaqLd, eventsBreadcrumbLd],
     css: EVENTS_CSS,
+    og: { file: "og-hochzeitsfotograf-berlin.jpg", alt: "Hochzeit, Business & Fashion Fotograf Berlin – Dirk Mathesius, Angebot meist in 24 Stunden" },
     body: eventsBody,
   }));
   console.log("✅ hochzeitsfotograf-berlin.html — private B2C-Nebenpositionierung (nur offizielle Domain)");
@@ -2114,6 +2120,7 @@ if (IS_FANPAGE) {
     title: "Vernissage-Idee — Kollaborationsserie sucht eine Wand | Dirk Mathesius × John Förster",
     desc: "Die Kollaborationsserie von Dirk Mathesius und John & Jim Förster (2008–2016, Berlin) sucht eine erste Ausstellungsfläche — offen für Galerien und Partnerunternehmen, noch ohne festen Termin.",
     css: VERN_CSS,
+    og: { file: "og-vernissage-kollaborationsserie.jpg", alt: "Vernissage-Idee: Kollaborationsserie von Dirk Mathesius und John & Jim Förster, Berlin 2008–2026, sucht eine erste Wand" },
     body: vernBody,
   }));
   console.log("✅ vernissage.html — Ausstellungsanfrage Kollaborationsserie (nur Fanpage, DM-4 Idee-Stufe)");
