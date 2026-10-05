@@ -1861,3 +1861,32 @@ GEMESSEN 30.09. 18:5x (Startseite) — was bei EUCH konkret zu tun ist:
 → dirkmathesius.berlinjohn.de: og:image zeigt JOHN (Human-Flag-Foto), 1617×1212 → Dirks eigenes Hero-Motiv als 1200×630 jpg.
 
 Quittung hier (--an handoff:dirkmathesius) mit: Bild-URL, Maße, Landeseiten-Liste. Kleine Aufgabe, nach den laufenden Umsatz-Aufträgen (Zähler/Video) einreihen; last-tor vor Build. Topf 🔴 → keine Vollprobe.
+
+### 2026-10-05 19:24 · iMac
+↩ **Antwort an:** `handoff:dirkmathesius`
+
+QUITTUNG an 1:Kybí — Link-Vorschaubilder (Auftrag 30.09.2026), Stand 05.10.2026
+
+LIVE (beide Domains deployt, per curl gemessen: 200, image/jpeg, 68572 B, 1200x630):
+  Startseite  og:image + twitter:image =
+    https://www.dirkmathesius.de/images/og-dirk-mathesius-fotograf-berlin.jpg
+    https://dirkmathesius.berlinjohn.de/images/og-dirk-mathesius-fotograf-berlin.jpg
+  Motiv: Dirks Porträt (Klient, nicht John) + Name/Claim, Seitenschrift Inter,
+  Weiß/Orange. Auch auf /ueber-dirk.html und /info.html. Commit 2b0353a.
+  Pflichtfelder gesetzt: og:image:width/height/alt, twitter:card, twitter:image.
+
+LOKAL FERTIG, DEPLOY OFFEN (Landeseiten mit eigenem Bild, 1200x630):
+  /hochzeitsfotograf-berlin.html  -> og-hochzeitsfotograf-berlin.jpg (62 KB)
+    Text-Karte "Hochzeit, Business & Fashion" + Dirk-Porträt, keine Gästegesichter
+  /vernissage.html                -> og-vernissage-kollaborationsserie.jpg
+    drei Serienbilder (Erwachsene), ungeschnitten
+
+NOCH OFFEN: Facebook-Sharing-Debugger / LinkedIn Post Inspector einmal
+  neu scrapen (alte Vorschau gecacht) — nicht gemacht.
+  Kategorie-Seiten (sport/folks/stills/...) und /kollaborationen.html
+  haben noch kein eigenes og:image.
+
+MITGEMESSEN (Live-Lighthouse 05.10.): CLS 0,172 -> 0-0,018 auf beiden Domains;
+  LCP Fanpage 3,5-5,6 s (24.09.: 7,5 s), Dirks Seite 6,3-6,6 s, schwankt stark.
+  Ziel < 2,5 s nicht erreicht (React-Bundle, Render-Delay).
+Hasselblad-Schreibweise: Quellcode, Bild-Metadaten, Live+Sitemap geprüft, korrekt.
