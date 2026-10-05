@@ -103,15 +103,33 @@ Anzeigenbilder: ads/dm-ad-b2b-land.jpg (1200×630) · ads/dm-ad-b2b-square.jpg (
 Alle Aussagen stehen so auf /ueber-dirk.html (Tethered/Freigabe am Set, mobil + Studio, Konzept statt Preisliste,
 Nutzungsrechte projektbezogen, Hasselblad-Mittelformat, seit 1997).
 
-## 5. Budget — Vorschlag (Entscheidung: John/Dirk)
-Kleiner Test statt großer Wette, 21 Tage:
-- A Hochzeit 10 €/Tag + B B2B 10 €/Tag = 20 €/Tag → **ca. 420 €** gesamt.
-- Alternative „mutig": je 15 €/Tag über 30 Tage → ca. 900 €.
-Abbruch-/Weiterregel (Dirk soll sie vorab festlegen): Was ist ihm **eine Hochzeitsanfrage** und **eine
-B2B-Anfrage** wert? Daraus ergibt sich das Ziel-CPA. Nach 14 Tagen: Suchbegriffe-Bericht prüfen, Negative
-nachziehen. **Ohne gemessene Conversions (Abschnitt 2) nicht über 14 Tage laufen lassen.**
-Realistische Erwartung: bei Tagesbudget 10 € sind wenige Klicks/Tag zu erwarten — Aussagekraft nach 21 Tagen
-begrenzt. Zahlen dazu sind Schätzung, nicht gemessen.
+## 5. Budget — Empfehlung auf Messbasis (Stand 06.10.2026)
+**Gemessen** (Keyword Planner, Konto „Jim&John<-BerlinJohn", Standort Berlin, Sept 2025–Aug 2026, Sprache NICHT auf
+Deutsch gefiltert; Detail: scratchpad/kwp-cpc-2026-10-06.md). „Gebot oben" = Planner-Schätzung, nicht der echte CPC.
+- Hochzeit: hochzeitsfotograf berlin 1.000 Suchen/Mon, 2,42–4,00 € · hochzeitsfotografie 90 (2,37–3,77 €) ·
+  fotograf hochzeit 50 (2,78–4,24 €) · bewerbungsfoto berlin 720 (0,81–2,02 €) · businessportrait 90 (2,63–7,72 €) ·
+  hochzeitsreportage berlin 1.900 (0,53–1,75 €, Intent unklar — vermutlich auch TV-/Reportage-Suchen).
+- B2B: sportfotograf 90 (0,51–1,32 €) · produktfotograf 70 (3,29–8,56 €) · corporate fotograf 20 (4,84–7,80 €) ·
+  werbefotograf 20 · unternehmensfotografie 10 (5,65–34,58 €) · Rest ≤10 oder keine Daten.
+**Folgerung:** Das Volumen deckelt das Budget. Hochzeit-Kern ≈ 1.200 Suchen/Mon, B2B insgesamt nur ≈ 230.
+Mehr als ca. 7 €/Tag Hochzeit und 3 €/Tag B2B ist vermutlich Geld ohne Gegenwert (Annahme, nicht gemessen).
+
+**Empfehlung (30 Tage, Obergrenze 300 €):**
+- Hochzeit 7 €/Tag ≈ 210 € · B2B 3 €/Tag ≈ 90 € (nur 4 Keywords: sportfotograf, produktfotograf, corporate fotograf,
+  werbefotograf; als „exakt"/„Phrase").
+- **Zwischenentscheidung Tag 14** (bis dahin max. 140 €): Suchbegriffe-Bericht lesen, Negative nachziehen.
+- Abbruchregel VORAB: 30 Klicks je Kampagne ohne eine Anfrage → Stopp, Seite/Anzeige ändern, NICHT Budget erhöhen.
+- Start erst nach Abschnitt 0+2 (Konto, Schlüsselereignis, Freigabe). Keine Messung = kein Start.
+- „hochzeitsreportage berlin" erst nach dem Suchbegriffe-Bericht zuschalten (Intent unklar).
+- Wenn positiv: Verlängerung bis Februar (Anfragen für die Saison 2027), ca. 300 €/Monat, Entscheidung nach 30 Tagen.
+**Erwartung (ANNAHME, nicht gemessen):** CPC real ca. 2–3 € bei Hochzeit → ~70 Klicks/Monat; bei 3–6 % Anfragequote
+→ 2–4 Anfragen, ca. 50–105 € je Anfrage. B2B: ~20 Klicks/Monat → ca. 1 Anfrage in 30 Tagen. Dünne Datenbasis.
+**Break-even-Frage an Dirk:** Was ist ihm eine gebuchte Hochzeit / ein B2B-Auftrag wert, und wie viele Anfragen werden
+Buchungen? Kosten je Buchung = Kosten je Anfrage ÷ Buchungsquote.
+**Rahmen:** 1:Kybí führt ein Ads-Mandat mit Deckel 400 €/Monat (Matrix). Passen 300 € für Dirk da hinein, oder zahlt Dirk
+selbst? (Entscheidung John/1:Kybí.)
+B2B-Hinweis: Das Suchvolumen ist für Google Ads dünn. Der stärkere B2B-Weg ist vermutlich Direktansprache (E-Mail/LinkedIn
+an Marketing-/Agenturkontakte, Dirks Referenzen) — kostet kein Mediabudget.
 
 ## 6. Optional, zweiter Schritt: Instagram/Facebook (Meta)
 Nur Hochzeit/Portrait (visuell stärker), erst nach Abschnitt 2 und Dirks Freigabe.
