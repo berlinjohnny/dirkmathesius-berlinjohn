@@ -1901,3 +1901,36 @@ Fund: public/*.html ist Generator-Ausgabe (scripts/build-portfolio-manifest.mjs)
 og-Fix sitzt im Generator (16fa38c). Vernissage-Karte zeigt „2008–2026" + Bild 2025, Seitentext sagt noch „2008–2016" (Memory: keine Reserve über 2016) — Entscheidung John.
 Blocker vor Ads: GA4 0 Schlüsselereignisse · Ads-Konto ungeklärt · Dirks Freigabe.
 **Am Zug:** John — Budget freigeben, Ads-Konto benennen, Dirk um OK bitten (Rubikon: Geld).
+
+### 2026-10-06 02:22 · iMac
+↩ **Antwort an:** `john`
+
+QUITTUNG Stand 06.10.2026 — alles unten ist live auf www.dirkmathesius.de UND dirkmathesius.berlinjohn.de (gemessen per curl).
+
+LIVE
+• Link-Vorschaukarten 1200×630: Startseite, /ueber-dirk, /info, /hochzeitsfotograf-berlin, /vernissage (Dirks Porträt statt Fremdfoto).
+• Texte „2008–2026" auf /vernissage und /kollaborationen (inkl. Foto 2025 im Raster). /photography brauchte nichts.
+• Marke „Jim&John Förster" (Reihenfolge ist Marke, Johns Ansage): Seiten, Sitemap, Schema-Daten, Bildtitel, Vorschaukarte UND
+  EXIF/XMP von 3 Bilddateien (nur Metadaten-Chunks, Pixel per Hash identisch). Zentral in tilge() des Generators. Dateinamen
+  `John-und-Jim-…webp` bleiben (Live-URLs).
+• Performance: CLS 0,172 → 0–0,018. LCP Fanpage 3,5–5,6 s, Dirks Seite 6,3–6,6 s (Lighthouse live 05.10., schwankt) — Ziel < 2,5 s offen.
+• Hasselblad-Schreibweise: Quellcode, Bild-Metadaten, Live + Sitemap geprüft, korrekt.
+
+FUND: public/*.html (ueber-dirk, info, hochzeit, vernissage, kollaborationen, Kategorien) ist Generator-Ausgabe
+(scripts/build-portfolio-manifest.mjs). Handedits dort werden bei jedem www-Deploy überschrieben — Änderungen immer im Generator.
+
+ADS (nichts geschaltet, Gate Geld)
+• Paket: ADS-VORBEREITUNG.md + ads/ (4 Anzeigenbilder). Keyword-Planner gemessen 06.10.: Hochzeit-Kern ≈ 1.200 Suchen/Mon,
+  B2B nur ≈ 230.
+• AKTUELLE Variante („kleiner", Johns Wahl): nur Hochzeit, 7 €/Tag, 30 Tage, höchstens 210 €, Check Tag 14, Stopp bei 30 Klicks
+  ohne Anfrage. PDF an Dirk (Entwurf): ads/Vorschlag-Dirk-Hochzeit-Ads-2026-10-06.pdf. Übergabe an 1:Kybí liegt in ~/kyber
+  (die 300-€-Variante dort ist überholt, Nachtrag ergänzt).
+
+OFFEN
+• GA4: 0 Schlüsselereignisse — `anfrage_abgeschickt` markieren + mit Ads verknüpfen (Pflicht vor Start).
+• Ads-Konto/Zahler ungeklärt · Dirks Freigabe · Wert einer Hochzeit (Frage an Dirk) · 3–5 echte Hochzeitsfotos von Dirk.
+• Facebook-Sharing-Debugger / LinkedIn Post Inspector einmal neu scrapen (alte Vorschau gecacht) — nicht gemacht.
+• Keyword Planner hat in Johns Ads-Konto 2 Pläne „Plan vom Okt. 6, 2026" gespeichert (keine Kampagne, keine Kosten) — nicht gelöscht.
+• tsc meldet 2 Fehler in src/lib/gtag.ts (Datei nicht angefasst; nicht auf Vorbestand geprüft).
+
+**Am Zug:** John — PDF + Begleittext an Dirk senden; Budget/Ads-Konto/Freigabe klären (Rubikon: Geld). Danach dirkmathesius: Schlüsselereignis in GA4 markieren (braucht GA4-Zugriff) und Handy-Test der Landeseite vor Start.
