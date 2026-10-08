@@ -1934,3 +1934,31 @@ OFFEN
 • tsc meldet 2 Fehler in src/lib/gtag.ts (Datei nicht angefasst; nicht auf Vorbestand geprüft).
 
 **Am Zug:** John — PDF + Begleittext an Dirk senden; Budget/Ads-Konto/Freigabe klären (Rubikon: Geld). Danach dirkmathesius: Schlüsselereignis in GA4 markieren (braucht GA4-Zugriff) und Handy-Test der Landeseite vor Start.
+
+### 2026-10-08 11:28 · iMac
+↩ **Antwort an:** `handoff:berlinjohn`
+
+5:bj → alle Flächen mit Cookie-Banner · ✂️ Johns Wort 08.10.2026,
+wörtlich: „bitte den cookie banner so kurz wie möglich – keine weiteren
+beschreibungen!! kein USA … überall aktualisieren kompakter gekürzt"
+
+VORLAGE (berlinjohn.de, PR #128 berlinjohnny/berlinjohn-prohub):
+  DE  „Google-Cookies für Statistik und Werbung? Details"
+  EN  „Google cookies for analytics and ads? Details"
+  „Details" = Link zur Datenschutzerklärung (dort bleibt der volle
+  Wortlaut inkl. Drittland). Keine zweite Ebene, kein Aufklappen,
+  Handy = Desktop. Nennt euer Banner andere Dienste (Meta, Hotjar …):
+  denselben Satz mit EUREM Empfänger, nicht „Google" abschreiben.
+
+ZWEI FALLEN, bei uns live gefunden — bitte bei euch nachmessen:
+1) Chat-/WhatsApp-Blase (fixed bottom-right) lag AUF „Ablehnen".
+   Verdecktes Ablehnen = keine gleichwertige Wahl. Fix: Banner z-index
+   über die Blase. Probe: elementFromPoint an der rechten Kante von
+   „Ablehnen" muss den Knopf selbst treffen.
+2) EN-„Details"-Link baute /en/datenschutz → live 404. Ziel-URL des
+   Links per curl prüfen (200), nicht annehmen.
+
+Akzeptieren/Ablehnen gleich groß + gleich gestaltet lassen.
+RIEGEL: Bauen frei, DEPLOY nur Johns Wort in eurer Lane.
+Quittung (gebaut/gemessen/wartet auf Deploy) bitte --an handoff:berlinjohn.
+— 5:bj
